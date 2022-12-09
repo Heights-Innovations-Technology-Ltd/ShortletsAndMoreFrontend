@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4b6973d4.css",
+    "main.js": "/static/js/main.4031eaac.js",
+    "static/js/787.dd0789b2.chunk.js": "/static/js/787.dd0789b2.chunk.js",
+    "static/media/whychooseus_img.png": "/static/media/whychooseus_img.7eea6e608b4b6da56d4e.png",
+    "static/media/hero_bg.png": "/static/media/hero_bg.4e52b9b3837775769614.png",
+    "static/media/listing_img_four.png": "/static/media/listing_img_four.d0eb275b00dbc4d099da.png",
+    "static/media/listing_img_two.png": "/static/media/listing_img_two.20f2a803ea50beecab2b.png",
+    "static/media/explore_office.png": "/static/media/explore_office.cfcbaa648deeade0991d.png",
+    "static/media/recent_listing.png": "/static/media/recent_listing.ae577aea3a6028d9e20c.png",
+    "static/media/listing_img_one.png": "/static/media/listing_img_one.e01b39dbd72254f93e0d.png",
+    "static/media/signupnewsletter.png": "/static/media/signupnewsletter.eafd61834f451cbc547b.png",
+    "static/media/explore_home.png": "/static/media/explore_home.75aeda620183e89af5af.png",
+    "static/media/listing_img_three.png": "/static/media/listing_img_three.20b7357a435bae37f444.png",
+    "static/media/explore_room.png": "/static/media/explore_room.053dbfbff3e0e94f06ae.png",
+    "static/media/explore_villa.png": "/static/media/explore_villa.0355074dfac6965d5870.png",
+    "static/media/explore_apartment.png": "/static/media/explore_apartment.e2649f726b689ad7f186.png",
+    "static/media/footer_logo.png": "/static/media/footer_logo.08033157c96ee39131b4.png",
+    "static/media/logo_transparent_background 3.png": "/static/media/logo_transparent_background 3.288a8244703ed70a5b71.png",
+    "index.html": "/index.html",
+    "main.4b6973d4.css.map": "/static/css/main.4b6973d4.css.map",
+    "main.4031eaac.js.map": "/static/js/main.4031eaac.js.map",
+    "787.dd0789b2.chunk.js.map": "/static/js/787.dd0789b2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b6973d4.css",
+    "static/js/main.4031eaac.js"
+  ]
+}
