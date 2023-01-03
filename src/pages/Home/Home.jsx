@@ -1,4 +1,5 @@
 import React from "react";
+import HeroImage from "../../assets/heroimage_bg_home.png";
 import ExplorePropertiesSection from "../../layout/ExplorePropertiesSection/ExplorePropertiesSection";
 import FeaturedSection from "../../layout/FeaturedSection/FeaturedSection";
 import FooterSection from "../../layout/FooterSection/FooterSection";
@@ -15,7 +16,13 @@ const Home = () => {
     <>
       <TopBar />
       <NavBar />
-      <Hero />
+      <Hero
+        HeroImage={HeroImage}
+        heroMainText="Let's Find an apartment that's perfect for you"
+        heroSubText="search confidently with your trusted source of apartment"
+        objectCover="object-cover"
+        opacity60="opacity-60"
+      />
       <RecentListingSection />
       <FeaturedSection />
       <ExplorePropertiesSection />
