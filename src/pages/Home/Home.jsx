@@ -8,13 +8,11 @@ import NavBar from "../../layout/Navbar/Navbar";
 import OurTestimonialSection from "../../layout/OurTestimonialSection/OurTestimonialSection";
 import RecentListingSection from "../../layout/RecentListingSection/RecentListingSection";
 import SignUpNewsLetterSection from "../../layout/SignUpNewsLetterSection/SignUpNewsLetterSection";
-import TopBar from "../../layout/TopBar/TopBar";
 import WhyChooseUsSection from "../../layout/WhyChooseUsSection/WhyChooseUsSection";
 
 const Home = () => {
   return (
     <>
-      <TopBar />
       <NavBar />
       <Hero
         HeroImage={HeroImage}

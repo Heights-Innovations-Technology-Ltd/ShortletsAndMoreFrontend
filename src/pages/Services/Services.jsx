@@ -15,7 +15,7 @@ const Services = () => {
   return (
     <div>
       {/* <TopBar /> */}
-      <NavBar marginTop="2rem" absolute="absolute" />
+      <NavBar />
       <Hero
         HeroImage={HeroImage}
         // heroMainText="Let's Find an apartment that's perfect for you"

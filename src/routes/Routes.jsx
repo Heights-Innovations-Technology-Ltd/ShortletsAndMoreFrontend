@@ -31,6 +31,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import Property from "../pages/Property/Property";
 import Register from "../pages/Register/Register";
 import Services from "../pages/Services/Services";
+import Testing from "../pages/Testing";
 
 const Routes = [
   {
@@ -87,6 +88,11 @@ const Routes = [
     path: "*",
     key: "NOTFOUND",
     element: <NotFound />,
+  },
+  {
+    path: "/test",
+    key: "TEST",
+    element: <Testing />,
   },
 ];
 
