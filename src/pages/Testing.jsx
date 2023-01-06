@@ -4,6 +4,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import image from "../assets/listing_img_one.png";
 import imageFive from "../assets/recent_listing.png";
 import AddToCartCard from "../components/Cards/AddToCartCard";
+import HeroSearch from "../components/HeroSearch";
 
 const Testing = () => {
   return (
@@ -22,6 +23,7 @@ const Testing = () => {
         apartmentName="Luxury duplex With Terrace"
         apartmentPrice="34,900"
       />
+      <HeroSearch />
     </div>
   );
 };
