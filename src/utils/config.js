@@ -1,8 +1,15 @@
+import galleryMainImage from "../assets/gallery_main.png";
+import galleryMainFive from "../assets/gallery_main_five.png";
+import galleryMainFour from "../assets/gallery_main_four.png";
+import galleryMainOne from "../assets/gallery_main_one.png";
+import galleryMainThree from "../assets/gallery_main_three.png";
+import galleryMainTwo from "../assets/gallery_main_two.png";
 import imageFour from "../assets/listing_img_four.png";
 import imageOne from "../assets/listing_img_one.png";
 import imageTwo from "../assets/listing_img_three.png";
 import imageThree from "../assets/listing_img_two.png";
 import imageFive from "../assets/recent_listing.png";
+
 export const apartmentData = [
   {
     id: 1,
@@ -52,6 +59,41 @@ export const apartmentData = [
     apartmentDetails:
       "Our fully furnished and equipped apartments are perfect for business or pleasure.",
   },
+];
+
+export const similarListingData = [
+  {
+    id: 1,
+    apartmentImage: imageOne,
+    apartmentName: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    apartmentDetails:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 2,
+    apartmentImage: imageTwo,
+    apartmentName: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    apartmentDetails:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 3,
+    apartmentImage: imageThree,
+    apartmentName: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    apartmentDetails:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  // {
+  //   id: 4,
+  //   apartmentImage: imageFour,
+  //   apartmentName: "Apartment in ajah, Abraham",
+  //   apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+  //   apartmentDetails:
+  //     "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  // },
 ];
 
 export const cartData = [
@@ -273,5 +315,32 @@ export const budgetData = [
     id: 3,
     name: "High Budget",
     price1: "30,000 Up",
+  },
+];
+
+export const roomDetailsGalleryData = [
+  {
+    id: 1,
+    galleryMainImage: galleryMainImage,
+  },
+  {
+    id: 2,
+    gallerySubImage: galleryMainOne,
+  },
+  {
+    id: 3,
+    gallerySubImage: galleryMainTwo,
+  },
+  {
+    id: 4,
+    gallerySubImage: galleryMainThree,
+  },
+  {
+    id: 5,
+    gallerySubImage: galleryMainFour,
+  },
+  {
+    id: 6,
+    gallerySubImage: galleryMainFive,
   },
 ];

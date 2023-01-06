@@ -30,6 +30,7 @@ import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import Property from "../pages/Property/Property";
 import Register from "../pages/Register/Register";
+import RoomDetails from "../pages/RoomDetails/RoomDetails";
 import Services from "../pages/Services/Services";
 import Testing from "../pages/Testing";
 
@@ -73,6 +74,11 @@ const Routes = [
     path: "/bookingconfirmation",
     key: "BOOKINGCONFIRMATION",
     element: <BookingConfirmation />,
+  },
+  {
+    path: "/roomdetails",
+    key: "ROOMDETAILS",
+    element: <RoomDetails />,
   },
   {
     path: "/login",
