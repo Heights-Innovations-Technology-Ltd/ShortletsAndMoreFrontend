@@ -5,7 +5,8 @@ import { FaBars } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/logo_transparent_background 3.png";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  // const { marginTop, absolute } = props;
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
@@ -14,7 +15,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full min-h-[50px] flex justify-around items-center absolute z-10 bg-white shadow p-4">
+      <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow p-4">
         <ul className="hidden sm:flex uppercase cursor-pointer text-xs">
           <li className="border-b-2 border-transparent hover:text-gray-800  hover:border-yellow-600 mx-1.5 sm:mx-6">
             <NavLink to="/">Home</NavLink>
