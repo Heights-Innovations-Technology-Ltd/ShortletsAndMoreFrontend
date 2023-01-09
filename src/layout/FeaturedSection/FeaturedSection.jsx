@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import { BsShieldShaded } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import recent_listing from "../../assets/recent_listing.png";
 import AddToCartCard from "../../components/Cards/AddToCartCard";
-import { getFeaturedRoomsAsync } from "../../store/slice";
+import { getFeaturedRoomsAsync } from "../../store/roomSlice/roomSlice";
 import imageFive from "../../assets/recent_listing.png";
-import { cartData } from "../../utils/config";
 
 const FeaturedSection = () => {
   const rooms = useSelector(

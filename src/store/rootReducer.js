@@ -1,8 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { ApartmentDataReducer } from "./slice";
+import { authDataReducer } from "./authSlice/authSlice";
+import { apartmentDataReducer } from "./roomSlice/roomSlice";
 
 const rootReducer = combineReducers({
-  ApartmentDataReducer: ApartmentDataReducer,
+  apartmentDataReducer: apartmentDataReducer,
+  authDataReducer: authDataReducer,
 });
 
 export default rootReducer;

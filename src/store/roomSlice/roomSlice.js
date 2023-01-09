@@ -26,5 +26,5 @@ export const getFeaturedRoomsAsync = () => async (dispatch) => {
   }
 };
 
-export const ApartmentDataReducer = apartmentData.reducer;
+export const apartmentDataReducer = apartmentData.reducer;
 export const { getRooms } = apartmentData.actions;
