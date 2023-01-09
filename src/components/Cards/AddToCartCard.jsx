@@ -9,7 +9,7 @@ import { ReactComponent as AirIcon } from "../../assets/svg/air-conditioner.svg"
 const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
   return (
     <div>
-      <div className="bg-white w-80 shadow-md m-3">
+      <div className="bg-white w-full shadow-md max-w-xs">
         <div className="h-2/3 w-full">
           <img
             className="w-full h-full object-cover"
@@ -18,7 +18,17 @@ const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
           />
         </div>
         <div className="px-4 flex flex-col mt-4 mb-4">
-          <p className="text-xl font-medium capitalize">{apartmentName}</p>
+          <p
+            className="text-xl font-medium capitalize"
+            style={{
+              fontSize: "20px",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
+          >
+            {apartmentName}
+          </p>
         </div>
 
         <div className="flex justify-between items-center mb-4 px-6">
@@ -69,3 +79,10 @@ const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
 };
 
 export default AddToCartCard;
+
+// min-width: clamp(181px, 18vw, 263px);
+// width: 100%;
+// /* max-width: 263px; */
+// max-width: 300px;
+// min-height: 120px;
+// max-height: 238px;

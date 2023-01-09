@@ -10,6 +10,8 @@ import imageTwo from "../assets/listing_img_three.png";
 import imageThree from "../assets/listing_img_two.png";
 import imageFive from "../assets/recent_listing.png";
 
+import * as yup from "yup";
+
 export const apartmentData = [
   {
     id: 1,
@@ -121,18 +123,18 @@ export const cartData = [
     apartmentName: "Luxury duplex With Terrace",
     apartmentPrice: "34,900",
   },
-  {
-    id: 5,
-    apartmentImage: imageFive,
-    apartmentName: "Luxury duplex With Terrace",
-    apartmentPrice: "34,900",
-  },
-  {
-    id: 6,
-    apartmentImage: imageFive,
-    apartmentName: "Luxury duplex With Terrace",
-    apartmentPrice: "34,900",
-  },
+  // {
+  //   id: 5,
+  //   apartmentImage: imageFive,
+  //   apartmentName: "Luxury duplex With Terrace",
+  //   apartmentPrice: "34,900",
+  // },
+  // {
+  //   id: 6,
+  //   apartmentImage: imageFive,
+  //   apartmentName: "Luxury duplex With Terrace",
+  //   apartmentPrice: "34,900",
+  // },
 ];
 
 export const apartmentHomeData = [
@@ -344,3 +346,19 @@ export const roomDetailsGalleryData = [
     gallerySubImage: galleryMainFive,
   },
 ];
+
+export const loginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Enter a valid email address")
+    .required("Email is a required field"),
+  password: yup.string().required("Password is a required field"),
+});
+
+export const userRegistrationSchema = yup.object().shape({
+  firstName: yup.string().required("First name is a required field"),
+  lastName: yup.string().required("Last name is a required field"),
+  email: yup.string().email("Enter a valid email address").required(),
+  username: yup.string().required("User name is a required field"),
+  password: yup.string().min(8).max(15).required(),
+});

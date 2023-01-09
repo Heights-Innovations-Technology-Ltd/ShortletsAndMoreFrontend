@@ -15,7 +15,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow p-4">
+      <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow sticky  inset-x-0 top-0 p-4">
         <ul className="hidden sm:flex uppercase cursor-pointer text-xs">
           <li className="border-b-2 border-transparent hover:text-gray-800  hover:border-yellow-600 mx-1.5 sm:mx-6">
             <NavLink to="/">Home</NavLink>
