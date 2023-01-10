@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LoginContainer = styled.form`
+export const LoginContainer = styled.div`
   display: flex;
   width: 100%;
   padding: 0 200px;

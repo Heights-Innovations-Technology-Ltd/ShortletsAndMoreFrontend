@@ -1,48 +1,59 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { registerUser, userLogin } from "./authActions";
+
 const BASE_URL = "http://adminhitl-001-site1.ctempurl.com/";
 
-export const authData = createSlice({
-  name: "apartment",
+export const authDataSlice = createSlice({
+  name: "auth",
   initialState: {
-    userRegister: [],
-    userLogin: [],
+    loading: false,
+    success: false,
+    error: null,
+    userRegister: {},
+    userInfo: null,
   },
   reducers: {
-    registerUser: (state, action) => {
-      state.userRegister = [action.payload];
+    // registerUser: (state, action) => {
+    //   state.userRegister = [action.payload];
+    // },
+    // loginUser: (state, action) => {
+    //   state.userLogin = [action.payload];
+    // },
+  },
+  extraReducers: {
+    [registerUser.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
     },
-    loginUser: (state, action) => {
-      state.userLogin = [action.payload];
+    [registerUser.fulfilled]: (state) => {
+      state.loading = false;
+      state.success = true;
+    },
+    [registerUser.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+
+    // login user
+    [userLogin.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    [userLogin.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.userInfo = payload;
+      // state.userToken = payload.userToken
+    },
+    [userLogin.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
     },
   },
 });
 
-export const registerUserAsync = (data) => async (dispatch) => {
-  try {
-    const response = await axios.post(
-      "http://adminhitl-001-site1.ctempurl.com/api/Room",
-      data
-    );
+//   "http://adminhitl-001-site1.ctempurl.com/api/Guest/Login",
 
-    dispatch(registerUser(response));
-  } catch (err) {
-    throw new Error(err);
-  }
-};
-
-export const loginUserAsync = (data) => async (dispatch) => {
-  try {
-    const response = await axios.post(
-      "http://adminhitl-001-site1.ctempurl.com/api/Room",
-      data
-    );
-
-    dispatch(loginUser(response));
-  } catch (err) {
-    throw new Error(err);
-  }
-};
-
-export const authDataReducer = authData.reducer;
-export const { registerUser, loginUser } = authData.actions;
+export const authDataReducer = authDataSlice.reducer;
+// export const { registerUser, loginUser } = authData.actions;
+// export default authDataSlice.reducer;

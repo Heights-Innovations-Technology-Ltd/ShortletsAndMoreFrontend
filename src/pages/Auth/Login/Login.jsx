@@ -14,8 +14,14 @@ import {
   LoginContainer,
 } from "./style";
 import { loginSchema } from "../../../utils/config";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, userLogin } from "../../../store/authSlice/authActions";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const { loading, userDetails, error, success } = useSelector(
+    (state) => state.authDataReducer
+  );
   const {
     handleSubmit,
     register,
@@ -24,8 +30,15 @@ const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
+  const dispatch = useDispatch();
+
   const submitForm = async (data) => {
-    console.log("form data", data);
+    console.log(data);
+    const result = await dispatch(userLogin(data));
+    console.log("form data", result.payload);
+    if (result?.payload?.status === 200) {
+      toast.success("Login Successfully");
+    }
   };
   return (
     <>
@@ -40,10 +53,10 @@ const Login = () => {
             <Body>
               <PrimaryInput
                 placeholder="Email"
-                type="email"
+                type="text"
                 register={register}
-                name="email"
-                error={errors.email?.message}
+                name="username"
+                error={errors.username?.message}
               />
               <PrimaryInput
                 placeholder="Password"
@@ -71,6 +84,7 @@ const Login = () => {
               buttonTitle={"Sign In"}
               text="Don't have an account ?"
               directionText="Sign Up"
+              link="/register"
             />
           </FormContainer>
         </AuthLayout>

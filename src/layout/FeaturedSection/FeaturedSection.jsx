@@ -6,7 +6,7 @@ import imageFive from "../../assets/recent_listing.png";
 
 const FeaturedSection = () => {
   const rooms = useSelector(
-    (state) => state.ApartmentDataReducer.featuredRooms
+    (state) => state.apartmentDataReducer.featuredRooms
   );
 
   const availableRooms = rooms[0]?.data;

@@ -6,8 +6,17 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Body, FormContainer, RegisterContainer, HeaderText } from "./style";
 import { userRegistrationSchema } from "../../../utils/config";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUserAsync } from "../../../store/authSlice/authSlice";
+import { registerUser } from "../../../store/authSlice/authActions";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const { loading, userDetails, error, success } = useSelector(
+    (state) => state.authDataReducer
+  );
+
   const {
     handleSubmit,
     register,
@@ -16,10 +25,23 @@ const Register = () => {
     resolver: yupResolver(userRegistrationSchema),
   });
 
+  const dispatch = useDispatch();
+
   const submitForm = async (data) => {
-    console.log("form data", data);
+    console.log(data);
+    let response = await dispatch(registerUser(data));
+    console.log("form data", response);
+
+    if (response.payload.status === 201) {
+      toast.success(response?.payload?.data?.message);
+    }
   };
 
+  useEffect(() => {
+    if (success) {
+      console.log("success");
+    }
+  }, [success]);
   return (
     <>
       <Navbar />
@@ -53,11 +75,18 @@ const Register = () => {
                 name="email"
               />
               <PrimaryInput
-                placeholder="Username"
+                placeholder="Phone Number"
                 type="text"
                 register={register}
-                error={errors.username?.message}
-                name="username"
+                error={errors.username?.phone}
+                name="phone"
+              />
+              <PrimaryInput
+                placeholder="Address"
+                type="text"
+                register={register}
+                error={errors.username?.address}
+                name="address"
               />
               <PrimaryInput
                 placeholder="Password"
@@ -67,11 +96,20 @@ const Register = () => {
                 error={errors.password?.message}
                 name="password"
               />
+              <PrimaryInput
+                placeholder="Confirm Password"
+                rightText
+                type="password"
+                register={register}
+                error={errors.confirmPassword?.message}
+                name="confirmPassword"
+              />
             </Body>
             <AuthBottom
               buttonTitle={"Sign Up"}
               text="Already have an account ?"
               directionText="Sign In"
+              link="/login"
             />
           </FormContainer>
         </AuthLayout>

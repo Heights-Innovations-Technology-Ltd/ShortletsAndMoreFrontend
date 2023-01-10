@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const RegisterContainer = styled.form`
+export const RegisterContainer = styled.div`
   display: flex;
   width: 100%;
   padding: 0 200px;
