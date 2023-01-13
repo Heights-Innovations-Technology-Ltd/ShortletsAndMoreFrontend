@@ -42,7 +42,7 @@ const LisitingSection = () => {
         <div>
           <ListingSidebar />
         </div>
-        <div className="flex items-center flex-wrap w-4/5">
+        <div className="flex flex-wrap w-4/5">
           {cartData.map((apartment) => (
             <>
               <AddToCartCard

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddToCartCard from "../../components/Cards/AddToCartCard";
-import { getFeaturedRoomsAsync } from "../../store/roomSlice/roomSlice";
+import { getFeaturedRooms } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
 
 const FeaturedSection = () => {
@@ -9,12 +9,12 @@ const FeaturedSection = () => {
     (state) => state.apartmentDataReducer.featuredRooms
   );
 
-  const availableRooms = rooms[0]?.data;
+  const availableRooms = rooms;
   const dispatch = useDispatch();
   console.log("Testing", availableRooms);
 
   useEffect(() => {
-    dispatch(getFeaturedRoomsAsync());
+    dispatch(getFeaturedRooms());
   }, [dispatch]);
 
   return (

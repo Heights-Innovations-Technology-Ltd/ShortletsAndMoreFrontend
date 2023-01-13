@@ -15,7 +15,7 @@ import {
 } from "./style";
 import { loginSchema } from "../../../utils/config";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, userLogin } from "../../../store/authSlice/authActions";
+import { userLogin } from "../../../store/Action/actions";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -36,8 +36,16 @@ const Login = () => {
     console.log(data);
     const result = await dispatch(userLogin(data));
     console.log("form data", result.payload);
+    console.log("headers", result.headers);
     if (result?.payload?.status === 200) {
       toast.success("Login Successfully");
+      localStorage.setItem(
+        "userToken",
+        JSON.stringify(result.payload.accessToken)
+      );
+    }
+    if (result?.payload?.status === 400) {
+      toast.error("Invalid Credentials");
     }
   };
   return (

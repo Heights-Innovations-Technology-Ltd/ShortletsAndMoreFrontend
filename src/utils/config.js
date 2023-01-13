@@ -45,22 +45,22 @@ export const apartmentData = [
     apartmentDetails:
       "Our fully furnished and equipped apartments are perfect for business or pleasure.",
   },
-  {
-    id: 5,
-    apartmentImage: imageOne,
-    apartmentName: "Apartment in ajah, Abraham",
-    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
-      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
-  },
-  {
-    id: 6,
-    apartmentImage: imageFour,
-    apartmentName: "Apartment in ajah, Abraham",
-    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
-      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
-  },
+  // {
+  //   id: 5,
+  //   apartmentImage: imageOne,
+  //   apartmentName: "Apartment in ajah, Abraham",
+  //   apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+  //   apartmentDetails:
+  //     "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  // },
+  // {
+  //   id: 6,
+  //   apartmentImage: imageFour,
+  //   apartmentName: "Apartment in ajah, Abraham",
+  //   apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+  //   apartmentDetails:
+  //     "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  // },
 ];
 
 export const similarListingData = [
@@ -123,18 +123,18 @@ export const cartData = [
     apartmentName: "Luxury duplex With Terrace",
     apartmentPrice: "34,900",
   },
-  // {
-  //   id: 5,
-  //   apartmentImage: imageFive,
-  //   apartmentName: "Luxury duplex With Terrace",
-  //   apartmentPrice: "34,900",
-  // },
-  // {
-  //   id: 6,
-  //   apartmentImage: imageFive,
-  //   apartmentName: "Luxury duplex With Terrace",
-  //   apartmentPrice: "34,900",
-  // },
+  {
+    id: 5,
+    apartmentImage: imageFive,
+    apartmentName: "Luxury duplex With Terrace",
+    apartmentPrice: "34,900",
+  },
+  {
+    id: 6,
+    apartmentImage: imageFive,
+    apartmentName: "Luxury duplex With Terrace",
+    apartmentPrice: "34,900",
+  },
 ];
 
 export const apartmentHomeData = [

@@ -9,12 +9,17 @@ const PrimaryButton = ({
   iconName,
   size,
   type,
+  height,
+  width,
 }) => {
   const lightStyle = {
     border: "1px solid #8BA00D",
     color: "#8BA00D",
     display: "flex",
     fontSize: size,
+    alignItems: "center",
+    height: height,
+    width: width,
   };
   const darkStyle = {
     border: "1px solid #8BA00D",
@@ -22,6 +27,9 @@ const PrimaryButton = ({
     backgroundColor: "#8BA00D",
     display: "flex",
     fontSize: size,
+    height: height,
+    alignItems: "center",
+    width: width,
   };
 
   return (

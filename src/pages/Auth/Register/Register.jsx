@@ -7,8 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Body, FormContainer, RegisterContainer, HeaderText } from "./style";
 import { userRegistrationSchema } from "../../../utils/config";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUserAsync } from "../../../store/authSlice/authSlice";
-import { registerUser } from "../../../store/authSlice/authActions";
+import { registerUser } from "../../../store/Action/actions";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 

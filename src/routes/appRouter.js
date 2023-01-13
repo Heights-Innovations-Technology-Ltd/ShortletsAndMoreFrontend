@@ -6,19 +6,36 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import AddToCart from "../pages/AddToCart/AddToCart";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
+import BillingDetail from "../pages/BillingDetail/BillingDetail";
+import Home from "../pages/Home/Home";
+import Property from "../pages/Property/Property";
+import Services from "../pages/Services/Services";
 
 const AppRouter = () => {
   return (
     <Suspense>
       <Router>
         <Routes>
+          <Route path="home" element={<Outlet />}>
+            <Route index element={<Home />} />
+            <Route path="property" element={<Outlet />}>
+              <Route index element={<Services />} />
+              <Route path="rooms" element={<Property />} />
+            </Route>
+          </Route>
+
           <Route path="register" element={<Outlet />}>
             <Route index element={<Register />} />
           </Route>
           <Route path="login" element={<Outlet />}>
             <Route index element={<Login />} />
+          </Route>
+          <Route path="cart" element={<Outlet />}>
+            <Route index element={<AddToCart />} />
+            <Route path="checkout" element={<BillingDetail />} />
           </Route>
         </Routes>
         <Toaster

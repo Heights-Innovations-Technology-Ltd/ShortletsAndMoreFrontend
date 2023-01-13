@@ -7,12 +7,18 @@ import whychooseus_img from "../../assets/whychooseus_img.png";
 
 const WhyChooseUsSection = () => {
   return (
-    <div className="w-full mb-10 mt-10" style={{ backgroundColor: "#102442" }}>
+    <div
+      className="w-full mb-10 mt-10"
+      style={{
+        backgroundColor: "#102442",
+        height: "500px",
+      }}
+    >
       <div style={{ position: "relative" }}>
         <img
           src={whychooseus_img}
           alt="/"
-          className="w-full  object-cover opacity-50"
+          className="w-full h-full object-cover opacity-50"
         />
 
         <div
@@ -28,11 +34,18 @@ const WhyChooseUsSection = () => {
             Why Choose Us
           </h1>
           <p className="flex justify-center text-xs text-center  text-white">
-            We provide full service at every step
+            We provide full service at every stepbro
           </p>
         </div>
 
-        <div className="flex items-center justify-between flex-wrap">
+        <div
+          className="flex items-center justify-between flex-wrap"
+          // style={{
+          //   border: "solid red",
+          //   display: "flex",
+          //   flexFlow: "row wrap"
+          // }}
+        >
           <div
             className="flex flex-col justify-between items-center"
             style={{

@@ -2,26 +2,26 @@ import React, { useState } from "react";
 // import { BsChatSquareDots } from 'react-icons/bs';
 import { BsCart3, BsPerson, BsTelephone } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo_transparent_background 3.png";
 
 const Navbar = (props) => {
   // const { marginTop, absolute } = props;
   const [nav, setNav] = useState(false);
-
   const handleNav = () => {
     setNav(!nav);
   };
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow sticky  inset-x-0 top-0 p-4">
         <ul className="hidden sm:flex uppercase cursor-pointer text-xs">
           <li className="border-b-2 border-transparent hover:text-gray-800  hover:border-yellow-600 mx-1.5 sm:mx-6">
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/home">Home</NavLink>
           </li>
           <li className="border-b-2 border-transparent hover:text-gray-800  hover:border-yellow-600 mx-1.5 sm:mx-6">
-            <NavLink to="/property">Property</NavLink>
+            <NavLink to="/home/property">Property</NavLink>
           </li>
           <li className="border-b-2 border-transparent hover:text-gray-800  hover:border-yellow-600 mx-1.5 sm:mx-6">
             <NavLink to="/services">Services</NavLink>
@@ -42,8 +42,16 @@ const Navbar = (props) => {
           <div className="hidden md:flex items-center px-6">
             <BsTelephone size={18} className="mr-2" />
             <h6 className="text-sm">(+234) 5678 4895</h6>
-            <BsPerson size={18} className="ml-4" />
-            <BsCart3 size={18} className="ml-4" />
+            <BsPerson
+              size={18}
+              className="ml-4"
+              onClick={() => navigate("/login")}
+            />
+            <BsCart3
+              size={18}
+              className="ml-4"
+              onClick={() => navigate("/cart")}
+            />
           </div>
         </div>
         {/* Hamburger Icon */}

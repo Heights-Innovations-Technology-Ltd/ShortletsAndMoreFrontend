@@ -1,6 +1,24 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const CartTotals = () => {
+  const navigate = useNavigate();
+
+  // const localToken = localStorage.getItem("userToken");
+  // useEffect(() => {
+  //   handleCheck();
+  // }, [localToken]);
+
+  // const handleCheck = () => {
+  //   navigate("/cart/checkout");
+  //   // if (localToken == undefined) {
+  //   //   // toast.error("Kindly Sign In");
+  //   //   // navigate("/login");
+  //   // }
+  //   // if (localToken == null) {
+  //   //   toast.error("Kindly Sign In");
+  //   //   // navigate("/login");
+  //   // }
+  // };
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="bg-white shadow-md m-3 p-4" style={{ width: "250px" }}>
@@ -20,6 +38,7 @@ const CartTotals = () => {
 
       <button
         type="button"
+        onClick={() => navigate("/cart/checkout")}
         className="inline-block px-2 py-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight capitalize hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
         style={{
           border: "1px solid #8BA00D",

@@ -1,4 +1,25 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 const BillingDetails = () => {
+  const navigate = useNavigate();
+  const localToken = localStorage.getItem("userToken");
+  useEffect(() => {
+    handleCheck();
+  }, [localToken]);
+
+  const handleCheck = () => {
+    navigate("/cart/checkout");
+    if (localToken == undefined) {
+      toast.error("Kindly Sign In");
+      navigate("/login");
+    }
+    if (localToken == null) {
+      toast.error("Kindly Sign In");
+      // navigate("/login");
+    }
+  };
   return (
     <div className="flex justify-center items-start p-20 bg-gray-100">
       <div className="bg-white shadow-md m-3 p-4" style={{ width: "900px" }}>

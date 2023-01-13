@@ -6,7 +6,7 @@ import TheresaWebb from "../../assets/TheresaWebb.png";
 
 const OurTestimonialSection = () => {
   return (
-    <>
+    <div>
       <h1 className="text-center mt-8 mb-2 lg:text-2xl font-semibold">
         Our Testimonials
       </h1>
@@ -127,7 +127,7 @@ const OurTestimonialSection = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

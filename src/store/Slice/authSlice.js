@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { registerUser, userLogin } from "./authActions";
-
-const BASE_URL = "http://adminhitl-001-site1.ctempurl.com/";
+import { registerUser, userLogin } from "../Action/actions";
 
 export const authDataSlice = createSlice({
   name: "auth",
@@ -13,14 +10,7 @@ export const authDataSlice = createSlice({
     userRegister: {},
     userInfo: null,
   },
-  reducers: {
-    // registerUser: (state, action) => {
-    //   state.userRegister = [action.payload];
-    // },
-    // loginUser: (state, action) => {
-    //   state.userLogin = [action.payload];
-    // },
-  },
+  reducers: {},
   extraReducers: {
     [registerUser.pending]: (state) => {
       state.loading = true;
@@ -52,8 +42,4 @@ export const authDataSlice = createSlice({
   },
 });
 
-//   "http://adminhitl-001-site1.ctempurl.com/api/Guest/Login",
-
 export const authDataReducer = authDataSlice.reducer;
-// export const { registerUser, loginUser } = authData.actions;
-// export default authDataSlice.reducer;

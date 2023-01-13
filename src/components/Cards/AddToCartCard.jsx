@@ -9,7 +9,12 @@ import { ReactComponent as AirIcon } from "../../assets/svg/air-conditioner.svg"
 const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
   return (
     <div>
-      <div className="bg-white w-full shadow-md max-w-xs">
+      <div
+        className="bg-white w-full shadow-md m-2"
+        style={{
+          maxWidth: "300px",
+        }}
+      >
         <div className="h-2/3 w-full">
           <img
             className="w-full h-full object-cover"

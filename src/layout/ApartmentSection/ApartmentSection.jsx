@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { PaginationNav1Presentation } from "../../components/Pagination/Pagination";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-
+import { useDispatch, useSelector } from "react-redux";
+import image from "../../assets/listing_img_four.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
+import { getApartment } from "../../store/Action/actions";
 import { apartmentData } from "../../utils/config";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
 
 const ApartmentSection = () => {
-  console.log(apartmentData);
+  const dispatch = useDispatch();
+  const [apartmentData, setApartmentData] = useState([]);
+  // const { apartmentData, loading, success, error } = useSelector(
+  //   (state) => state.apartmentDataReducer
+  // );
+  // console.log("fetch", apartmentData);
+
+  const getApart = async () => {
+    const res = await dispatch(getApartment());
+    console.log("fetch", res?.payload?.data);
+    setApartmentData(res?.payload?.data);
+  };
+
+  useEffect(() => {
+    getApart();
+  }, []);
+
   return (
     <>
       <div
@@ -42,14 +60,14 @@ const ApartmentSection = () => {
           <ListingSidebar />
         </div>
 
-        <div className="flex items-center flex-wrap w-4/5">
+        <div className="flex flex-wrap w-4/5">
           {apartmentData.map((apartment) => (
             <div>
               <ApartmentCard
-                apartmentImage={apartment.apartmentImage}
-                apartmentName={apartment.apartmentName}
-                apartmentLocation={apartment.apartmentLocation}
-                apartmentDetails={apartment.apartmentDetails}
+                apartmentImage={image}
+                apartmentName={apartment.name}
+                apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
+                apartmentDetails={apartment.description}
               />
             </div>
           ))}
@@ -58,42 +76,42 @@ const ApartmentSection = () => {
         </div>
       </div>
 
-      <div class="flex flex-col lg:flex-row justify-center items-center mb-28 mt-20 ml-0 md:ml-80">
+      <div className="flex flex-col lg:flex-row justify-center items-center mb-28 mt-20 ml-0 md:ml-80">
         <nav
           aria-label="Pagination"
-          class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0"
+          className="flex justify-center items-center text-gray-600 mt-8 lg:mt-0"
         >
-          <a href="#" class="p-2 mr-4 rounded-2xl hover:bg-gray-100">
+          <a href="#" className="p-2 mr-4 rounded-2xl hover:bg-gray-100">
             <BsArrowLeft size="1rem" />
           </a>
-          <a href="#" class="px-4 py-2 rounded-2xl hover:bg-gray-100">
+          <a href="#" className="px-4 py-2 rounded-2xl hover:bg-gray-100">
             1{" "}
           </a>
           <a
             href="#"
-            class="px-4 py-2 rounded-3xl  text-gray-900 font-medium hover:bg-gray-100"
+            className="px-4 py-2 rounded-3xl  text-gray-900 font-medium hover:bg-gray-100"
             style={{ backgroundColor: "#8BA00D" }}
           >
             {" "}
             2{" "}
           </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
+          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
             {" "}
             3{" "}
           </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
+          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
             {" "}
             4{" "}
           </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
+          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
             {" "}
             ...{" "}
           </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
+          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
             {" "}
             25{" "}
           </a>
-          <a href="#" class="p-2 ml-4 rounded-3xl hover:bg-gray-100">
+          <a href="#" className="p-2 ml-4 rounded-3xl hover:bg-gray-100">
             <BsArrowRight size="1rem" style={{ fontWeight: "bold" }} />
           </a>
         </nav>
