@@ -4,10 +4,17 @@ import { BsCart3, BsPerson, BsTelephone } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo_transparent_background 3.png";
+import Profile from "../../components/Profile";
 
 const Navbar = (props) => {
   // const { marginTop, absolute } = props;
   const [nav, setNav] = useState(false);
+
+  const [showProfile, setShowProfile] = useState(false);
+  const handleProfile = () => {
+    setShowProfile(!showProfile);
+  };
+
   const handleNav = () => {
     setNav(!nav);
   };
@@ -45,7 +52,8 @@ const Navbar = (props) => {
             <BsPerson
               size={18}
               className="ml-4"
-              onClick={() => navigate("/login")}
+              // onClick={() => navigate("/login")}
+              onClick={handleProfile}
             />
             <BsCart3
               size={18}
@@ -87,6 +95,8 @@ const Navbar = (props) => {
           </ul>
         </div>
       </div>
+
+      {showProfile && <Profile />}
     </>
   );
 };

@@ -11,6 +11,7 @@ const PrimaryButton = ({
   type,
   height,
   width,
+  btnWidth,
 }) => {
   const lightStyle = {
     border: "1px solid #8BA00D",
@@ -33,7 +34,7 @@ const PrimaryButton = ({
   };
 
   return (
-    <ButtonContainer>
+    <ButtonContainer width={btnWidth}>
       <button
         type={type}
         className="inline-block px-5 py-3 border-gray-800 text-gray-800 font-medium text-xs leading-tight rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"

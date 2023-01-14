@@ -11,17 +11,12 @@ import ListingSidebar from "../ListingSidebar/ListingSidebar";
 const ApartmentSection = () => {
   const dispatch = useDispatch();
   const [apartmentData, setApartmentData] = useState([]);
-  // const { apartmentData, loading, success, error } = useSelector(
-  //   (state) => state.apartmentDataReducer
-  // );
-  // console.log("fetch", apartmentData);
-
   const getApart = async () => {
     const res = await dispatch(getApartment());
-    console.log("fetch", res?.payload?.data);
     setApartmentData(res?.payload?.data);
   };
 
+  console.log("teeeee", apartmentData);
   useEffect(() => {
     getApart();
   }, []);
@@ -62,7 +57,7 @@ const ApartmentSection = () => {
 
         <div className="flex flex-wrap w-4/5">
           {apartmentData.map((apartment) => (
-            <div>
+            <div key={apartment.id}>
               <ApartmentCard
                 apartmentImage={image}
                 apartmentName={apartment.name}

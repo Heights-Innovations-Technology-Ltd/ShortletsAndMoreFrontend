@@ -16,12 +16,12 @@ import { ReactComponent as InstagramIcon } from "../../assets/svg/instgram.svg";
 import { ReactComponent as GoogleIcon } from "../../assets/svg/google.svg";
 import { ReactComponent as FacebookIcon } from "../../assets/svg/facebook.svg";
 
-const AuthLayout = ({ headerText, subText, children }) => {
+const AuthLayout = ({ headerText, hideLeftAt, subText, children }) => {
   return (
     <Container>
       <Image src={image} alt="left-image" />
       <Layout>
-        <LayoutLeft>
+        <LayoutLeft hideLeftAt={hideLeftAt}>
           <LogoIcon />
           <TextContainer>
             <HeaderText>{headerText}</HeaderText>
@@ -33,7 +33,7 @@ const AuthLayout = ({ headerText, subText, children }) => {
             </IconContainer>
           </TextContainer>
         </LayoutLeft>
-        <LayoutRight>{children}</LayoutRight>
+        <LayoutRight hideLeftAt={hideLeftAt}>{children}</LayoutRight>
       </Layout>
     </Container>
   );

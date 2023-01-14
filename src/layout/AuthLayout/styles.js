@@ -16,6 +16,7 @@ export const Layout = styled.div`
   left: 0;
   right: 0;
   width: 100%;
+  height: 100%;
   z-index: 2;
 `;
 
@@ -26,10 +27,9 @@ export const LayoutLeft = styled.div`
   flex-direction: column;
   gap: 350px;
   padding: 85px 50px;
-  background-color: var(--SecondaryBlue);
   width: 50%;
   height: 100vh;
-  @media screen and (max-width: ${(props) => "1000px" || props.hideLeftAt}) {
+  @media screen and (max-width: 1000px) {
     display: none;
   }
 `;
@@ -38,13 +38,13 @@ export const LayoutRight = styled.div`
   display: flex;
   width: 50%;
   background: rgba(0, 0, 0, 0.58);
-  /* > div {
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
+  > div {
     width: clamp(400px, 52%, 100%);
-    margin: 2rem auto 63px;
-    @media screen and (max-width: ${(props) => "1000px" || props.hideLeftAt}) {
-      width: 90%;
-    }
-  } */
+    margin: 1rem auto 63px;
+  }
 `;
 export const DetailLayout = styled.div`
   height: 100%;
@@ -58,12 +58,12 @@ export const Image = styled.img`
 `;
 export const HeaderText = styled.p`
   font-weight: 600;
-  font-size: 40px;
+  font-size: clamp(24px, 2vw, 40px);
   color: #ffffff;
 `;
 export const SubText = styled.p`
   font-weight: 400;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   color: #ffffff;
   margin-top: 36px;
   margin-bottom: 25px;

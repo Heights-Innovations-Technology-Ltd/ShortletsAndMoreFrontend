@@ -364,3 +364,13 @@ export const userRegistrationSchema = yup.object().shape({
   password: yup.string().min(8).max(15).required(),
   confirmPassword: yup.string().min(8).max(15).required(),
 });
+
+export const userBillingSchema = yup.object().shape({
+  firstName: yup.string().required("First name is a required field"),
+  lastName: yup.string().required("Last name is a required field"),
+  email: yup.string().email("Enter a valid email address").required(),
+  // phone: yup.string().required("Phone number is a required field"),
+  // address: yup.string().required("User name is a required field"),
+  // password: yup.string().min(8).max(15).required(),
+  // confirmPassword: yup.string().min(8).max(15).required(),
+});

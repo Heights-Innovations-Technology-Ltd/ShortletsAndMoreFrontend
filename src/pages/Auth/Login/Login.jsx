@@ -39,10 +39,7 @@ const Login = () => {
     console.log("headers", result.headers);
     if (result?.payload?.status === 200) {
       toast.success("Login Successfully");
-      localStorage.setItem(
-        "userToken",
-        JSON.stringify(result.payload.accessToken)
-      );
+      localStorage.setItem("userProfile", JSON.stringify(result.payload));
     }
     if (result?.payload?.status === 400) {
       toast.error("Invalid Credentials");

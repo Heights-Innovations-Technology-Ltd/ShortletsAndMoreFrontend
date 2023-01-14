@@ -6,6 +6,14 @@ export const LoginContainer = styled.div`
   padding: 0 200px;
   height: 100vh;
   background: #f5f5f5;
+
+  @media screen and (max-width: 768px) {
+    padding: 0px 50px;
+  }
+
+  @media (min-width: 769px) and (max-width: 1300px) {
+    padding: 0px 100px;
+  }
 `;
 
 export const FormContainer = styled.form`

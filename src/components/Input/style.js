@@ -15,6 +15,16 @@ export const Input = styled.input`
   padding: 18px 24px;
   background: none;
   color: white;
+  outline: none;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  &::placeholder {
+    font-size: 14px;
+  }
 `;
 export const Show = styled.p`
   cursor: pointer;

@@ -1,23 +1,47 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { userBillingSchema } from "../../utils/config";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const BillingDetails = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    resolver: yupResolver(userBillingSchema),
+  });
+
   const navigate = useNavigate();
-  const localToken = localStorage.getItem("userToken");
+
+  const localProfile = localStorage.getItem("userProfile");
+  const parseData = JSON.parse(localProfile);
   useEffect(() => {
     handleCheck();
-  }, [localToken]);
+  }, []);
 
   const handleCheck = () => {
     navigate("/cart/checkout");
-    if (localToken == undefined) {
+
+    if (!localProfile) {
       toast.error("Kindly Sign In");
       navigate("/login");
     }
-    if (localToken == null) {
-      toast.error("Kindly Sign In");
-      // navigate("/login");
+
+    if (localProfile) {
+      setValue("firstName", parseData?.data.firstName, {
+        shouldValidate: true,
+      });
+
+      setValue("lastName", parseData?.data.lastName, {
+        shouldValidate: true,
+      });
+      setValue("email", parseData?.data.email, {
+        shouldValidate: true,
+      });
     }
   };
   return (
@@ -29,11 +53,15 @@ const BillingDetails = () => {
           <div className="p-4 flex flex-row justify-between items-center">
             <input
               type="text"
+              name="firstName"
+              {...register("firstName")}
               placeholder="First name "
               className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
             />
             <input
               type="text"
+              name="lastName"
+              {...register("lastName")}
               placeholder="First name "
               className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
             />
@@ -103,6 +131,8 @@ const BillingDetails = () => {
             <input
               type="text"
               placeholder="Your Email"
+              name="email"
+              {...register("email")}
               className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
             />
           </div>
