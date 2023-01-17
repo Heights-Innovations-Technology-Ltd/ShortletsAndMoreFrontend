@@ -17,20 +17,20 @@ const OurTestimonialSection = () => {
         Thank you for considering our shortlet services
       </p>
 
-      <div class="w-full max-w-6xl mx-auto mb-10">
-        <div class="mx-3 md:flex items-start">
-          <div class="px-3 md:w-1/3">
+      <div className="w-full max-w-6xl mx-auto mb-10">
+        <div className="mx-3 md:flex items-start">
+          <div className="px-3 md:w-1/3">
             <div
-              class="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
+              className="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
               style={{ position: "relative" }}
             >
-              <p class="text-sm leading-tight text-center mb-6 mt-4">
+              <p className="text-sm leading-tight text-center mb-6 mt-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
                 sunt ratione dolor exercitationem
               </p>
 
               <div
-                class="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
+                className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
                 style={{ position: "absolute", left: "40%" }}
               >
                 <img src={MarvinMcKinney} alt="MarvinMcKinney" />
@@ -46,18 +46,18 @@ const OurTestimonialSection = () => {
             </div>
           </div>
 
-          <div class="px-3 md:w-1/3">
+          <div className="px-3 md:w-1/3">
             <div
-              class="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
+              className="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
               style={{ position: "relative" }}
             >
-              <p class="text-sm leading-tight text-center mb-6 mt-4">
+              <p className="text-sm leading-tight text-center mb-6 mt-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
                 sunt ratione dolor exercitationem
               </p>
 
               <div
-                class="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
+                className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
                 style={{ position: "absolute", left: "40%" }}
               >
                 <img src={TheresaWebb} alt="" />
@@ -73,18 +73,18 @@ const OurTestimonialSection = () => {
             </div>
           </div>
 
-          <div class="px-3 md:w-1/3">
+          <div className="px-3 md:w-1/3">
             <div
-              class="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
+              className="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
               style={{ position: "relative" }}
             >
-              <p class="text-sm leading-tight text-center mb-6 mt-4">
+              <p className="text-sm leading-tight text-center mb-6 mt-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
                 sunt ratione dolor exercitationem
               </p>
 
               <div
-                class="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
+                className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
                 style={{ position: "absolute", left: "40%" }}
               >
                 <img src={RobertFox} alt="" />
@@ -99,18 +99,18 @@ const OurTestimonialSection = () => {
             </div>
           </div>
 
-          <div class="px-3 md:w-1/3">
+          <div className="px-3 md:w-1/3">
             <div
-              class="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
+              className="w-11/12 mx-auto rounded-sm bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6"
               style={{ position: "relative" }}
             >
-              <p class="text-sm leading-tight text-center mb-6 mt-4">
+              <p className="text-sm leading-tight text-center mb-6 mt-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
                 sunt ratione dolor exercitationem
               </p>
 
               <div
-                class="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
+                className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200"
                 style={{ position: "absolute", left: "40%" }}
               >
                 <img src={GuyHawkins} alt="" />

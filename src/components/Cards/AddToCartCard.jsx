@@ -12,12 +12,14 @@ const AddToCartCard = ({
   apartmentName,
   apartmentDescription,
   apartmentPrice,
+  landing,
+  handleNavigateToDetails,
 }) => {
   const navigate = useNavigate();
   return (
     <div>
       <div
-        className="bg-white w-full shadow-md m-2"
+        className="bg-white w-full shadow-md m-2 pb-2"
         style={{
           maxWidth: "300px",
         }}
@@ -83,23 +85,24 @@ const AddToCartCard = ({
           </div>
         </div>
 
-        <hr />
+        {!landing && (
+          <>
+            <hr />
 
-        <div className="flex justify-between items-center p-4">
-          <div className="" style={{ color: "#8BA00D" }}>
-            <span className="font-semibold lg:text-sm">
-              NGN{apartmentPrice}
-            </span>
-            <span className="" style={{ fontSize: "0.75rem" }}>
-              /Night
-            </span>
-          </div>
+            <div className="flex justify-between items-center p-4">
+              <div className="" style={{ color: "#8BA00D" }}>
+                <span className="font-semibold lg:text-sm">
+                  NGN{apartmentPrice}
+                </span>
+                <span className="" style={{ fontSize: "0.75rem" }}>
+                  /Night
+                </span>
+              </div>
 
-          <PrimaryButton
-            title="View"
-            onClick={() => navigate("/home/property/rooms/roomdetails")}
-          />
-        </div>
+              <PrimaryButton title="View" onClick={handleNavigateToDetails} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

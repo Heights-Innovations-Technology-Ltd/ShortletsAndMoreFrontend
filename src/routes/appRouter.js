@@ -29,7 +29,7 @@ const AppRouter = () => {
               <Route path="rooms" element={<Outlet />}>
                 <Route index element={<Property />} />
 
-                <Route path="roomdetails" element={<RoomDetails />} />
+                <Route path=":roomID" element={<RoomDetails />} />
               </Route>
             </Route>
           </Route>

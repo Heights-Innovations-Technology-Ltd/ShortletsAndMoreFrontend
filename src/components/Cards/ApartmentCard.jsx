@@ -5,7 +5,7 @@ import { ReactComponent as PoolIcon } from "../../assets/svg/pool.svg";
 import { ReactComponent as SecurityIcon } from "../../assets/svg/security.svg";
 import { ReactComponent as GarageIcon } from "../../assets/svg/car.svg";
 import { ReactComponent as RulerIcon } from "../../assets/svg/ruler.svg";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ApartmentCard = ({
   apartmentImage,
@@ -28,7 +28,7 @@ const ApartmentCard = ({
           <img
             className="w-full h-full object-cover"
             src={apartmentImage}
-            alt="apartment image"
+            alt="apartment"
           />
           <div
             className="absolute bg-[#0D263B] px-3 py-1.5 rounded top-5 right-4"

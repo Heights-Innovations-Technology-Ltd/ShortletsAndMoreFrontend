@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddToCartCard from "../../components/Cards/AddToCartCard";
 import { getRoomType } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
@@ -7,7 +7,6 @@ import imageFive from "../../assets/recent_listing.png";
 const FeaturedSection = () => {
   const [availableRooms, setAvailableRooms] = useState([]);
   const dispatch = useDispatch();
-
   useEffect(() => {
     const getRooms = async () => {
       const res = await dispatch(getRoomType(14));
@@ -15,7 +14,7 @@ const FeaturedSection = () => {
     };
 
     getRooms();
-  }, []);
+  }, [dispatch]);
 
   console.log("availableRooms", availableRooms);
   return (
@@ -33,12 +32,13 @@ const FeaturedSection = () => {
 
       <div className="flex items-center justify-center flex-wrap">
         {availableRooms?.map((apartment) => (
-          <div key={apartment.hotelId}>
+          <div key={apartment.id}>
             <AddToCartCard
               apartmentImage={imageFive}
               apartmentName={apartment.name}
               apartmentPrice={apartment.price}
               apartmentDescription={apartment.description}
+              landing
             />
           </div>
         ))}

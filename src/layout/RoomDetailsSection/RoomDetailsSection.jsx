@@ -1,10 +1,30 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 // import { PaginationNav1Presentation } from "../../components/Pagination/Pagination";
 import galleryMainImage from "../../assets/gallery_main.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
 import { roomDetailsGalleryData, similarListingData } from "../../utils/config";
 
 const RoomDetailsSection = () => {
+  const { featuredRooms, loading, success, errorr } = useSelector(
+    (store) => store.apartmentDataReducer
+  );
+  console.log("fetch", featuredRooms);
+
+  const { id } = useParams();
+  console.log("fetch", id);
+
+  // useEffect(() => {
+  //   const responseData = data === undefined ? [] : [...data];
+
+  //   const rewardDetails = responseData.find(
+  //     (reward) => reward.rewardID === rewardID
+  //   );
+  //   setSelectedReward(rewardDetails);
+  //   // console.log(rewardDetails);
+  // }, [data]);
+
   return (
     <>
       {/* <h1 className="ml-4 font-semibold mb-2">Luxuxry Duplex With Terrace</h1>

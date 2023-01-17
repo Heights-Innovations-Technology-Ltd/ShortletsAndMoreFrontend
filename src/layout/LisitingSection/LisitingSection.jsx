@@ -5,15 +5,16 @@ import Paginator from "../../components/Paginator";
 import { useDispatch } from "react-redux";
 import { getRoomType } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
+import { useNavigate } from "react-router-dom";
 
 const LisitingSection = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [getRoomTypeContainer, setGetRoomTypeContainer] = useState([]);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 1;
-
   useEffect(() => {
     let localApartmentID = localStorage.getItem("apartmentID");
     let ApartmentId = JSON.parse(localApartmentID);
@@ -37,6 +38,11 @@ const LisitingSection = () => {
   const handlePageClick = (e) => {
     const newOffset = (e.selected * itemsPerPage) % getRoomTypeContainer.length;
     setItemOffset(newOffset);
+  };
+
+  const handleNavigateToDetails = (id) => {
+    console.log("id", id);
+    navigate(`/home/property/rooms/${id}`);
   };
 
   return (
@@ -80,6 +86,9 @@ const LisitingSection = () => {
                 apartmentName={apartment.name}
                 apartmentPrice={apartment.price}
                 apartmentDescription={apartment.description}
+                handleNavigateToDetails={() =>
+                  handleNavigateToDetails(apartment.id)
+                }
               />
             </>
           ))}
