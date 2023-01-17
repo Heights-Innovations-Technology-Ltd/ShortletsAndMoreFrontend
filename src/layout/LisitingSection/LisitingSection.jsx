@@ -1,14 +1,44 @@
-import React from "react";
-import bed from "../../assets/bed.png";
-import recent_listing from "../../assets/recent_listing.png";
-import wifi from "../../assets/wifi.png";
-// import { PaginationNav1Presentation } from "../../components/Pagination/Pagination";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
-import { cartData } from "../../utils/config";
 import AddToCartCard from "../../components/Cards/AddToCartCard";
+import Paginator from "../../components/Paginator";
+import { useDispatch } from "react-redux";
+import { getRoomType } from "../../store/Action/actions";
+import imageFive from "../../assets/recent_listing.png";
 
 const LisitingSection = () => {
+  const dispatch = useDispatch();
+  const [getRoomTypeContainer, setGetRoomTypeContainer] = useState([]);
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 1;
+
+  useEffect(() => {
+    let localApartmentID = localStorage.getItem("apartmentID");
+    let ApartmentId = JSON.parse(localApartmentID);
+    console.log("ApartmentId: ", ApartmentId);
+
+    const getApart = async () => {
+      const res = await dispatch(getRoomType(ApartmentId));
+      setGetRoomTypeContainer(res?.payload?.data);
+      console.log(res?.payload?.data);
+    };
+
+    getApart();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(getRoomTypeContainer.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(getRoomTypeContainer.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, getRoomTypeContainer]);
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * itemsPerPage) % getRoomTypeContainer.length;
+    setItemOffset(newOffset);
+  };
+
   return (
     <>
       <div
@@ -43,12 +73,13 @@ const LisitingSection = () => {
           <ListingSidebar />
         </div>
         <div className="flex flex-wrap w-4/5">
-          {cartData.map((apartment) => (
+          {currentItems.map((apartment) => (
             <>
               <AddToCartCard
-                apartmentImage={apartment.apartmentImage}
-                apartmentName={apartment.apartmentName}
-                apartmentPrice={apartment.apartmentPrice}
+                apartmentImage={imageFive}
+                apartmentName={apartment.name}
+                apartmentPrice={apartment.price}
+                apartmentDescription={apartment.description}
               />
             </>
           ))}
@@ -57,46 +88,7 @@ const LisitingSection = () => {
         </div>
       </div>
 
-      <div class="flex flex-col lg:flex-row justify-center items-center mb-28 mt-20 ml-0 md:ml-80">
-        <nav
-          aria-label="Pagination"
-          class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0"
-        >
-          <a href="#" class="p-2 mr-4 rounded-2xl hover:bg-gray-100">
-            <BsArrowLeft size="1rem" />
-          </a>
-          <a href="#" class="px-4 py-2 rounded-2xl hover:bg-gray-100">
-            1{" "}
-          </a>
-          <a
-            href="#"
-            class="px-4 py-2 rounded-3xl  text-gray-900 font-medium hover:bg-gray-100"
-            style={{ backgroundColor: "#8BA00D" }}
-          >
-            {" "}
-            2{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            3{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            4{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            ...{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            25{" "}
-          </a>
-          <a href="#" class="p-2 ml-4 rounded-3xl hover:bg-gray-100">
-            <BsArrowRight size="1rem" style={{ fontWeight: "bold" }} />
-          </a>
-        </nav>
-      </div>
+      <Paginator handlePageClick={handlePageClick} pageCount={pageCount} />
     </>
   );
 };

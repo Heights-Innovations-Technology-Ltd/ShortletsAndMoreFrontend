@@ -5,8 +5,15 @@ import { ReactComponent as BedIcon } from "../../assets/svg/bed.svg";
 import { ReactComponent as CoaxialIcon } from "../../assets/svg/coaxial.svg";
 import { ReactComponent as WifiIcon } from "../../assets/svg/wifi.svg";
 import { ReactComponent as AirIcon } from "../../assets/svg/air-conditioner.svg";
+import { useNavigate } from "react-router-dom";
 
-const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
+const AddToCartCard = ({
+  apartmentImage,
+  apartmentName,
+  apartmentDescription,
+  apartmentPrice,
+}) => {
+  const navigate = useNavigate();
   return (
     <div>
       <div
@@ -33,6 +40,18 @@ const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
             }}
           >
             {apartmentName}
+          </p>
+
+          <p
+            className=""
+            style={{
+              fontSize: "14px",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
+          >
+            {apartmentDescription}
           </p>
         </div>
 
@@ -76,7 +95,10 @@ const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
             </span>
           </div>
 
-          <PrimaryButton title="ADD TO CART" />
+          <PrimaryButton
+            title="View"
+            onClick={() => navigate("/home/property/rooms/roomdetails")}
+          />
         </div>
       </div>
     </div>

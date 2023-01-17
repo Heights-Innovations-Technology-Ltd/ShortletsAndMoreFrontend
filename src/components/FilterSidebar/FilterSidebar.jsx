@@ -311,7 +311,10 @@ const FilterSidebar = () => {
         {budgetData.map((budget) => {
           return (
             <>
-              <div className="flex items-center justify-between mt-4">
+              <div
+                className="flex items-center justify-between mt-4"
+                key={budget.id}
+              >
                 <div className="flex justify-between ">
                   <input
                     id="checked-checkbox"

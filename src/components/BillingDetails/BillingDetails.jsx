@@ -28,7 +28,7 @@ const BillingDetails = () => {
 
     if (!localProfile) {
       toast.error("Kindly Sign In");
-      navigate("/login");
+      // navigate("/login");
     }
 
     if (localProfile) {
@@ -40,6 +40,9 @@ const BillingDetails = () => {
         shouldValidate: true,
       });
       setValue("email", parseData?.data.email, {
+        shouldValidate: true,
+      });
+      setValue("address", parseData?.data.address, {
         shouldValidate: true,
       });
     }
@@ -91,6 +94,8 @@ const BillingDetails = () => {
             <input
               type="text"
               placeholder="Street address"
+              name="address"
+              {...register("address")}
               className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
             />
 

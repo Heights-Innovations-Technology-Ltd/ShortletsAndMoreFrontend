@@ -45,13 +45,13 @@ export const FooterItem = styled.div`
 
 export const FooterItemLink = styled.p`
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
   color: white;
 `;
 
 export const FooterText = styled.p`
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
   color: white;
 `;
 

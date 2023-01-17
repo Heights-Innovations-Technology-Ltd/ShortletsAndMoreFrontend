@@ -12,6 +12,7 @@ import Register from "../pages/Auth/Register/Register";
 import BillingDetail from "../pages/BillingDetail/BillingDetail";
 import Home from "../pages/Home/Home";
 import Property from "../pages/Property/Property";
+import RoomDetails from "../pages/RoomDetails/RoomDetails";
 import Services from "../pages/Services/Services";
 
 const AppRouter = () => {
@@ -21,9 +22,15 @@ const AppRouter = () => {
         <Routes>
           <Route path="home" element={<Outlet />}>
             <Route index element={<Home />} />
+
             <Route path="property" element={<Outlet />}>
               <Route index element={<Services />} />
-              <Route path="rooms" element={<Property />} />
+
+              <Route path="rooms" element={<Outlet />}>
+                <Route index element={<Property />} />
+
+                <Route path="roomdetails" element={<RoomDetails />} />
+              </Route>
             </Route>
           </Route>
 

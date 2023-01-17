@@ -12,6 +12,8 @@ const ApartmentCard = ({
   apartmentName,
   apartmentLocation,
   apartmentDetails,
+  landing,
+  onApartmentClick,
 }) => {
   const navigate = useNavigate();
   return (
@@ -30,7 +32,7 @@ const ApartmentCard = ({
           />
           <div
             className="absolute bg-[#0D263B] px-3 py-1.5 rounded top-5 right-4"
-            onClick={() => navigate("/home/property/rooms")}
+            onClick={onApartmentClick}
             style={{ cursor: "pointer" }}
           >
             <p className="text-white font-bold" style={{ fontSize: "10px" }}>
@@ -90,14 +92,18 @@ const ApartmentCard = ({
             </p>
           </div>
         </div>
-        <hr />
-        <div className="flex justify-end p-4">
-          <PrimaryButton
-            lightBtn
-            title="View more"
-            onClick={() => navigate("/home/property")}
-          />
-        </div>
+        {landing && (
+          <>
+            <hr />
+            <div className="flex justify-end p-4">
+              <PrimaryButton
+                lightBtn
+                title="View more"
+                onClick={() => navigate("/home/property")}
+              />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

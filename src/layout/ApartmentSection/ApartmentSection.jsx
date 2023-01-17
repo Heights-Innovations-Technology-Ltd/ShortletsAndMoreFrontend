@@ -1,26 +1,58 @@
 import React, { useEffect, useState } from "react";
 // import { PaginationNav1Presentation } from "../../components/Pagination/Pagination";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import image from "../../assets/listing_img_four.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
+import Paginator from "../../components/Paginator";
 import { getApartment } from "../../store/Action/actions";
-import { apartmentData } from "../../utils/config";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
+import "./style.css";
+// let pageSize = 1;
 
 const ApartmentSection = () => {
+  // const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [apartmentData, setApartmentData] = useState([]);
-  const getApart = async () => {
-    const res = await dispatch(getApartment());
-    setApartmentData(res?.payload?.data);
+
+  // const currentViewData = useMemo(() => {
+  //   const firstPageIndex = (currentPage - 1) * pageSize;
+  //   const lastPageIndex = currentPage + pageSize;
+  //   return testingD.slice(firstPageIndex, lastPageIndex);
+  // }, [currentPage]);
+
+  useEffect(() => {
+    const getApart = async () => {
+      const res = await dispatch(getApartment());
+      setApartmentData(res?.payload?.data);
+      console.log(res?.payload?.data);
+    };
+
+    getApart();
+  }, [dispatch]);
+
+  const [currentItems, setCurrentItems] = useState([]);
+  // const [data, setData] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 1;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(apartmentData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(apartmentData.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, apartmentData]);
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * itemsPerPage) % apartmentData.length;
+    setItemOffset(newOffset);
   };
 
-  console.log("teeeee", apartmentData);
-  useEffect(() => {
-    getApart();
-  }, []);
-
+  const handleApartmentClick = (apartmentId) => {
+    navigate("/home/property/rooms");
+    localStorage.setItem("apartmentID", JSON.stringify(apartmentId));
+  };
   return (
     <>
       <div
@@ -40,7 +72,7 @@ const ApartmentSection = () => {
             style={{ fontSize: "0.5rem" }}
           >
             <option selected disabled>
-              <span>Sort by:</span> Newest Listings
+              {/* <span>Sort by:</span> Newest Listings */}
             </option>
             <option value="US">United States</option>
             <option value="CA">Canada</option>
@@ -55,14 +87,15 @@ const ApartmentSection = () => {
           <ListingSidebar />
         </div>
 
-        <div className="flex flex-wrap w-4/5">
-          {apartmentData.map((apartment) => (
+        <div className="flex flex-wrap w-4/5 border">
+          {currentItems.map((apartment) => (
             <div key={apartment.id}>
               <ApartmentCard
                 apartmentImage={image}
                 apartmentName={apartment.name}
                 apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
                 apartmentDetails={apartment.description}
+                onApartmentClick={() => handleApartmentClick(apartment.id)}
               />
             </div>
           ))}
@@ -71,46 +104,7 @@ const ApartmentSection = () => {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row justify-center items-center mb-28 mt-20 ml-0 md:ml-80">
-        <nav
-          aria-label="Pagination"
-          className="flex justify-center items-center text-gray-600 mt-8 lg:mt-0"
-        >
-          <a href="#" className="p-2 mr-4 rounded-2xl hover:bg-gray-100">
-            <BsArrowLeft size="1rem" />
-          </a>
-          <a href="#" className="px-4 py-2 rounded-2xl hover:bg-gray-100">
-            1{" "}
-          </a>
-          <a
-            href="#"
-            className="px-4 py-2 rounded-3xl  text-gray-900 font-medium hover:bg-gray-100"
-            style={{ backgroundColor: "#8BA00D" }}
-          >
-            {" "}
-            2{" "}
-          </a>
-          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            3{" "}
-          </a>
-          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            4{" "}
-          </a>
-          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            ...{" "}
-          </a>
-          <a href="#" className="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            25{" "}
-          </a>
-          <a href="#" className="p-2 ml-4 rounded-3xl hover:bg-gray-100">
-            <BsArrowRight size="1rem" style={{ fontWeight: "bold" }} />
-          </a>
-        </nav>
-      </div>
+      <Paginator handlePageClick={handlePageClick} pageCount={pageCount} />
     </>
   );
 };

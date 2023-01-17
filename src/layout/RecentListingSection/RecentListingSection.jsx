@@ -11,6 +11,7 @@ import listing_img_three from "../../assets/listing_img_three.png";
 import listing_img_two from "../../assets/listing_img_two.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
 import { getApartment } from "../../store/Action/actions";
+import { apartmentHomeData } from "../../utils/config";
 
 const RecentListingSection = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,11 @@ const RecentListingSection = () => {
   const getApart = async () => {
     const res = await dispatch(getApartment());
     console.log("fetch", res?.payload?.data);
-    setApartmentData(res?.payload?.data);
+    const result = res?.payload?.data;
+    if (result === "undefined") {
+      setApartmentData(apartmentHomeData);
+    }
+    setApartmentData(result);
   };
 
   useEffect(() => {
@@ -47,6 +52,7 @@ const RecentListingSection = () => {
         {apartmentData?.map((apartment) => (
           <div key={apartment.id}>
             <ApartmentCard
+              landing
               apartmentImage={image}
               apartmentName={apartment.name}
               apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"

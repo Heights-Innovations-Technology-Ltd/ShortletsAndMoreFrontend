@@ -36,3 +36,12 @@ export const getApartment = createAsyncThunk("apartment", async () => {
     return error;
   }
 });
+
+export const getRoomType = createAsyncThunk("roomType", async (id) => {
+  try {
+    const response = await getFetch(`Room/room-types/${id}`);
+    return response;
+  } catch (error) {
+    return error;
+  }
+});

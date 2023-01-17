@@ -141,33 +141,33 @@ export const apartmentHomeData = [
   {
     id: 1,
     apartmentImage: imageOne,
-    apartmentName: "Apartment in ajah, Abraham",
+    name: "Apartment in ajah, Abraham",
     apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
+    description:
       "Our fully furnished and equipped apartments are perfect for business or pleasure.",
   },
   {
     id: 2,
     apartmentImage: imageTwo,
-    apartmentName: "Apartment in ajah, Abraham",
+    name: "Apartment in ajah, Abraham",
     apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
+    description:
       "Our fully furnished and equipped apartments are perfect for business or pleasure.",
   },
   {
     id: 3,
     apartmentImage: imageThree,
-    apartmentName: "Apartment in ajah, Abraham",
+    name: "Apartment in ajah, Abraham",
     apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
+    description:
       "Our fully furnished and equipped apartments are perfect for business or pleasure.",
   },
   {
     id: 4,
     apartmentImage: imageFour,
-    apartmentName: "Apartment in ajah, Abraham",
+    name: "Apartment in ajah, Abraham",
     apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
+    description:
       "Our fully furnished and equipped apartments are perfect for business or pleasure.",
   },
 ];
@@ -196,6 +196,185 @@ export const cartHomeData = [
     apartmentImage: imageFive,
     apartmentName: "Luxury duplex With Terrace",
     apartmentPrice: "34,900",
+  },
+];
+export const testingD = [
+  {
+    id: 1,
+    apartmentImage: imageOne,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 2,
+    apartmentImage: imageTwo,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 3,
+    apartmentImage: imageThree,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 4,
+    apartmentImage: imageFour,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 5,
+    apartmentImage: imageOne,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 6,
+    apartmentImage: imageTwo,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 7,
+    apartmentImage: imageThree,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 8,
+    apartmentImage: imageFour,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 9,
+    apartmentImage: imageOne,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 10,
+    apartmentImage: imageTwo,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 11,
+    apartmentImage: imageTwo,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 12,
+    apartmentImage: imageFour,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+
+  {
+    id: 13,
+    apartmentImage: imageThree,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 14,
+    apartmentImage: imageFour,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 15,
+    apartmentImage: imageOne,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 16,
+    apartmentImage: imageTwo,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 17,
+    apartmentImage: imageThree,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 18,
+    apartmentImage: imageFour,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 19,
+    apartmentImage: imageOne,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 20,
+    apartmentImage: imageTwo,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 21,
+    apartmentImage: imageTwo,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+  },
+  {
+    id: 22,
+    apartmentImage: imageFour,
+    name: "Apartment in ajah, Abraham",
+    apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
+    description:
+      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
   },
 ];
 
@@ -370,7 +549,7 @@ export const userBillingSchema = yup.object().shape({
   lastName: yup.string().required("Last name is a required field"),
   email: yup.string().email("Enter a valid email address").required(),
   // phone: yup.string().required("Phone number is a required field"),
-  // address: yup.string().required("User name is a required field"),
+  address: yup.string().required("User name is a required field"),
   // password: yup.string().min(8).max(15).required(),
   // confirmPassword: yup.string().min(8).max(15).required(),
 });
