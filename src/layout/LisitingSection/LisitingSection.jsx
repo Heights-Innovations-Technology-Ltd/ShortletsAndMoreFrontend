@@ -42,7 +42,7 @@ const LisitingSection = () => {
 
   const handleNavigateToDetails = (roomID) => {
     console.log("id", roomID);
-    navigate(`/home/property/rooms/${roomID}`);
+    navigate(`/property/rooms/${roomID}`);
   };
 
   return (

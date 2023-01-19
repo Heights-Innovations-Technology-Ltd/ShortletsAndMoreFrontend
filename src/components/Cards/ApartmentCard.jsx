@@ -99,7 +99,7 @@ const ApartmentCard = ({
               <PrimaryButton
                 lightBtn
                 title="View more"
-                onClick={() => navigate("/home/property")}
+                onClick={() => navigate("/property")}
               />
             </div>
           </>

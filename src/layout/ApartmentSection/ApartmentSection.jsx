@@ -50,7 +50,7 @@ const ApartmentSection = () => {
   };
 
   const handleApartmentClick = (apartmentId) => {
-    navigate("/home/property/rooms");
+    navigate("/property/rooms");
     localStorage.setItem("apartmentID", JSON.stringify(apartmentId));
   };
   return (

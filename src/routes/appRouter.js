@@ -20,8 +20,9 @@ const AppRouter = () => {
     <Suspense>
       <Router>
         <Routes>
-          <Route path="home" element={<Outlet />}>
+          <Route path="/" element={<Outlet />}>
             <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
 
             <Route path="property" element={<Outlet />}>
               <Route index element={<Services />} />
