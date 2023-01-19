@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  ProfileContainer,
-  ProfileListss,
-  Delete,
-  ProfileLists,
-  ProfileList,
-} from "./style";
+import { ProfileContainer, Delete, ProfileLists, ProfileList } from "./style";
 import { ReactComponent as User } from "../../assets/svg/user.svg";
 import { ReactComponent as DeleteI } from "../../assets/svg/de.svg";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +18,14 @@ const Profile = () => {
       <Link to="/register">
         <ProfileLists>
           <User />
-          <ProfileList>Get Started</ProfileList>
+          <ProfileList>Sign Up</ProfileList>
+        </ProfileLists>
+      </Link>
+
+      <Link to="/login">
+        <ProfileLists>
+          <User />
+          <ProfileList>Sign In</ProfileList>
         </ProfileLists>
       </Link>
 

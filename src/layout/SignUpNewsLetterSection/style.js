@@ -49,6 +49,7 @@ export const Input = styled.input`
   width: 75%;
   border: none;
   outline: none;
+  padding-left: 10px;
 `;
 export const Button = styled.div`
   padding: 15px;

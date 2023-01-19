@@ -3,14 +3,13 @@ import styled from "styled-components";
 export const ProfileContainer = styled.div`
   border: 1px solid #edf1f7;
   width: 216px;
-  border-radius: 16px;
   background-color: white;
   position: fixed;
   display: flex;
   flex-direction: column;
-  right: 24px;
+  right: 80px;
   z-index: 10;
-  top: 55px;
+  top: 84px;
 `;
 export const ProfileLists = styled.div`
   list-style-type: none;

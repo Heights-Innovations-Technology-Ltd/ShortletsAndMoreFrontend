@@ -15,7 +15,7 @@ export const Text = styled.p`
   display: flex;
   gap: 24px;
   align-items: center;
-  color: #ffffff;
+  color: #171b03;
   font-size: clamp(14px, 2vw, 16px);
 `;
 export const Span = styled.span`

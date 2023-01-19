@@ -7,8 +7,8 @@ import NavBar from "../../layout/Navbar/Navbar";
 import RoomDetailsSection from "../../layout/RoomDetailsSection/RoomDetailsSection";
 
 const RoomDetails = () => {
-  const { id } = useParams();
-  console.log("fetch", id);
+  const { roomID } = useParams();
+  console.log("fetch", roomID);
   return (
     <div>
       {/* <TopBar /> */}

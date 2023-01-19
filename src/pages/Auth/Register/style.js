@@ -3,8 +3,6 @@ export const RegisterContainer = styled.div`
   display: flex;
   width: 100%;
   padding: 0 200px;
-  height: 120vh;
-  background: #f5f5f5;
 
   @media screen and (max-width: 768px) {
     padding: 0px 50px;
@@ -19,12 +17,12 @@ export const FormContainer = styled.form`
   display: flex;
   flex-flow: column;
   width: 100%;
-  padding: 70px 70px 100px 70px;
+  padding: 120px 70px 100px 70px;
 `;
 export const HeaderText = styled.p`
   font-weight: 500;
   font-size: 36px;
-  color: #ffffff;
+  color: #171b03;
   margin-bottom: 50px;
 `;
 

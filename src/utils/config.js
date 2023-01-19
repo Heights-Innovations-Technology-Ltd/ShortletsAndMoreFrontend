@@ -10,8 +10,33 @@ import imageTwo from "../assets/listing_img_three.png";
 import imageThree from "../assets/listing_img_two.png";
 import imageFive from "../assets/recent_listing.png";
 
-import * as yup from "yup";
+import { ReactComponent as FirstSvg } from "../assets/svg/shop.svg";
+import { ReactComponent as SecondSvg } from "../assets/svg/map.svg";
+import { ReactComponent as ThirdSvg } from "../assets/svg/note.svg";
 
+import * as yup from "yup";
+export const aboutUsData = [
+  {
+    id: 1,
+    image: FirstSvg,
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Arcu velit nibh suspendisse nulla nulla pellentesque tristique. Placerat lorem tristique leo vitae sollicitudin.",
+  },
+
+  {
+    id: 2,
+    image: SecondSvg,
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Arcu velit nibh suspendisse nulla nulla pellentesque tristique. Placerat lorem tristique leo vitae sollicitudin.",
+  },
+
+  {
+    id: 3,
+    image: ThirdSvg,
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Arcu velit nibh suspendisse nulla nulla pellentesque tristique. Placerat lorem tristique leo vitae sollicitudin.",
+  },
+];
 export const apartmentData = [
   {
     id: 1,

@@ -1,5 +1,6 @@
 import React from "react";
 import HeroImage from "../../assets/heroimage_bg_home.png";
+import AboutUs from "../../layout/AboutUs";
 import ExplorePropertiesSection from "../../layout/ExplorePropertiesSection/ExplorePropertiesSection";
 import FeaturedSection from "../../layout/FeaturedSection/FeaturedSection";
 import FooterSection from "../../layout/FooterSection/FooterSection";
@@ -23,7 +24,8 @@ const Home = () => {
       />
       <RecentListingSection />
       <FeaturedSection />
-      <ExplorePropertiesSection />
+      <AboutUs />
+      {/* <ExplorePropertiesSection /> */}
       <WhyChooseUsSection />
       <OurTestimonialSection />
       <SignUpNewsLetterSection />

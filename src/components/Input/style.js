@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const InputContainer = styled.div`
   width: 100%;
   display: flex;
-  border: solid red;
   background: none;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.48);
+  border: 1px solid #e1e1de;
+  border-radius: 4px;
 `;
 export const Input = styled.input`
   border-radius: 3px;
@@ -14,7 +14,7 @@ export const Input = styled.input`
   border: none;
   padding: 18px 24px;
   background: none;
-  color: white;
+  color: black;
   outline: none;
 
   &::-webkit-outer-spin-button,

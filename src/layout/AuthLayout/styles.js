@@ -3,20 +3,14 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   height: 100%;
-  position: relative;
+  width: 100%;
 `;
 
 export const Layout = styled.div`
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: ${(props) => (props.flexFlow ? props.flexFlow : "row nowrap")};
   height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 100%;
-  height: 100%;
   z-index: 2;
 `;
 
@@ -24,9 +18,16 @@ export const LayoutLeft = styled.div`
   position: sticky;
   top: 0;
   display: flex;
+  background: linear-gradient(
+    143.21deg,
+    #cfd89c -27.64%,
+    rgba(255, 202, 42, 0) 280.51%
+  );
   flex-direction: column;
-  gap: 350px;
-  padding: 85px 50px;
+  gap: 200px;
+  border-bottom-right-radius: ${(props) => props.borderBottomR};
+  border-bottom-left-radius: ${(props) => props.borderBottomL};
+  padding: 85px 50px 20px 50px;
   width: 50%;
   height: 100vh;
   @media screen and (max-width: 1000px) {
@@ -37,7 +38,6 @@ export const LayoutLeft = styled.div`
 export const LayoutRight = styled.div`
   display: flex;
   width: 50%;
-  background: rgba(0, 0, 0, 0.58);
   @media screen and (max-width: 1000px) {
     width: 100%;
   }
@@ -77,4 +77,5 @@ export const IconContainer = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: ${(props) => props.justifyContent};
 `;

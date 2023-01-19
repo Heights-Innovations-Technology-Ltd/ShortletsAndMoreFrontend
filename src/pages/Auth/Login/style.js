@@ -4,8 +4,6 @@ export const LoginContainer = styled.div`
   display: flex;
   width: 100%;
   padding: 0 200px;
-  height: 100vh;
-  background: #f5f5f5;
 
   @media screen and (max-width: 768px) {
     padding: 0px 50px;
@@ -25,7 +23,7 @@ export const FormContainer = styled.form`
 export const HeaderText = styled.p`
   font-weight: 500;
   font-size: 36px;
-  color: #ffffff;
+  color: #171b03;
   margin-bottom: 50px;
 `;
 

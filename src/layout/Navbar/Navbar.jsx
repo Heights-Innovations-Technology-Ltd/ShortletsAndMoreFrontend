@@ -5,6 +5,14 @@ import { FaBars } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo_transparent_background 3.png";
 import Profile from "../../components/Profile";
+import { ReactComponent as LogoIcon } from "../../assets/svg/brandLogo.svg";
+import {
+  NavContainer,
+  NavLinksContainer,
+  NavLinkText,
+  NavLogoContainer,
+  NavRightContainer,
+} from "./styles";
 
 const Navbar = (props) => {
   // const { marginTop, absolute } = props;
@@ -22,7 +30,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow sticky  inset-x-0 top-0 p-4">
+      {/* <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow sticky  inset-x-0 top-0 p-4">
         <ul className="hidden sm:flex uppercase cursor-pointer text-xs">
           <li className="border-b-2 border-transparent hover:text-gray-800  hover:border-yellow-600 mx-1.5 sm:mx-6">
             <NavLink to="/home">Home</NavLink>
@@ -63,11 +71,11 @@ const Navbar = (props) => {
           </div>
         </div>
         {/* Hamburger Icon */}
-        <div onClick={handleNav} className="sm:hidden z-10">
+      {/* <div onClick={handleNav} className="sm:hidden z-10">
           <FaBars size={20} className="ml-28 cursor-pointer" />
         </div>
         {/* Mobile Menu */}
-        <div
+      {/* <div
           onClick={handleNav}
           className={
             nav
@@ -94,8 +102,37 @@ const Navbar = (props) => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
 
+      <NavContainer>
+        <NavLinksContainer>
+          <NavLink to="/home">
+            <NavLinkText>HOME</NavLinkText>
+          </NavLink>
+          <NavLink to="/home/property">
+            <NavLinkText>PROPERTY</NavLinkText>
+          </NavLink>
+          <NavLink>
+            <NavLinkText>ABOUT</NavLinkText>
+          </NavLink>
+          <NavLink>
+            <NavLinkText>CONTACT</NavLinkText>
+          </NavLink>
+        </NavLinksContainer>
+        <NavLogoContainer>
+          <LogoIcon />
+        </NavLogoContainer>
+        <NavRightContainer>
+          <BsTelephone size={18} />
+          <NavLinkText>(+234) 5678 4895</NavLinkText>
+          <BsPerson
+            size={18}
+            // onClick={() => navigate("/login")}
+            onClick={handleProfile}
+          />
+          <BsCart3 size={18} onClick={() => navigate("/cart")} />
+        </NavRightContainer>
+      </NavContainer>
       {showProfile && <Profile />}
     </>
   );

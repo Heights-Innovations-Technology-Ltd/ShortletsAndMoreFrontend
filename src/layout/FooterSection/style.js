@@ -5,9 +5,9 @@ export const FooterWrapper = styled.div`
   flex-flow: row wrap;
   flex: wrap;
   flex-wrap: wrap;
-  padding-top: 65px;
-  padding-bottom: 30px;
-  padding-inline: 150px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  padding-inline: 80px;
   justify-content: space-between;
   width: 100%;
   height: 100%;

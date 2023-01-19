@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 // import { PaginationNav1Presentation } from "../../components/Pagination/Pagination";
@@ -7,23 +7,27 @@ import ApartmentCard from "../../components/Cards/ApartmentCard";
 import { roomDetailsGalleryData, similarListingData } from "../../utils/config";
 
 const RoomDetailsSection = () => {
-  const { featuredRooms, loading, success, errorr } = useSelector(
+  const { roomTypes, loading, success, errorr } = useSelector(
     (store) => store.apartmentDataReducer
   );
-  console.log("fetch", featuredRooms);
+  const [roomContainer, setRoomContainer] = useState({});
 
-  const { id } = useParams();
-  console.log("fetch", id);
+  console.log("fetch", roomTypes.data);
 
-  // useEffect(() => {
-  //   const responseData = data === undefined ? [] : [...data];
+  const { roomID } = useParams();
 
-  //   const rewardDetails = responseData.find(
-  //     (reward) => reward.rewardID === rewardID
-  //   );
-  //   setSelectedReward(rewardDetails);
-  //   // console.log(rewardDetails);
-  // }, [data]);
+  useEffect(() => {
+    const responseData = roomTypes.data;
+    console.log("responseData", responseData);
+    const check = responseData?.find((room) => room?.id === roomID);
+    if (check) {
+      console.log("check", check);
+    }
+    console.log("tatata", check);
+    setRoomContainer(check);
+  }, [roomID, roomTypes]);
+
+  console.log("sweet", roomContainer);
 
   return (
     <>

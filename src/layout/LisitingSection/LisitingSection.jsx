@@ -40,9 +40,9 @@ const LisitingSection = () => {
     setItemOffset(newOffset);
   };
 
-  const handleNavigateToDetails = (id) => {
-    console.log("id", id);
-    navigate(`/home/property/rooms/${id}`);
+  const handleNavigateToDetails = (roomID) => {
+    console.log("id", roomID);
+    navigate(`/home/property/rooms/${roomID}`);
   };
 
   return (

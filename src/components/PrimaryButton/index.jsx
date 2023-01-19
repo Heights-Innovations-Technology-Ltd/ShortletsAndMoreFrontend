@@ -21,6 +21,7 @@ const PrimaryButton = ({
     alignItems: "center",
     height: height,
     width: width,
+    justifyContent: "center",
   };
   const darkStyle = {
     border: "1px solid #8BA00D",
@@ -31,6 +32,7 @@ const PrimaryButton = ({
     height: height,
     alignItems: "center",
     width: width,
+    justifyContent: "center",
   };
 
   return (

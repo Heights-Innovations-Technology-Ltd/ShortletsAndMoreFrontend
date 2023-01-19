@@ -11,14 +11,16 @@ const AuthBottom = ({ buttonTitle, text, link, onClick, directionText }) => {
   };
   return (
     <Container>
-      <PrimaryButton
-        title={buttonTitle}
-        icon
-        type="submit"
-        btnWidth="100%"
-        size="16px"
-        iconName={arrowRight}
-      />
+      <div className="border">
+        <PrimaryButton
+          title={buttonTitle}
+          type="submit"
+          width="100%"
+          height="55px"
+          size="16px"
+        />
+      </div>
+
       <TextContainer>
         <Text>{text}</Text>
         <Link to={link} style={linkStyle} onClick={onClick}>
