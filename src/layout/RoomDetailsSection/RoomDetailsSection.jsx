@@ -58,18 +58,18 @@ const RoomDetailsSection = () => {
     setOpenModal(true);
   };
 
-  // useEffect(() => {
-  //   const responseData = roomTypes.data;
-  //   console.log("responseData", responseData);
-  //   console.log(roomID);
+  useEffect(() => {
+    const responseData = roomTypes.data;
+    console.log("responseData", responseData);
+    console.log(roomID);
 
-  //   let cID = parseInt(roomID);
-  //   const check = responseData.find((room) => room.id === cID);
-  //   // // if (check) {
-  //   // //   console.log("check", check);
-  //   // // }
-  //   setRoomContainer(check);
-  // }, [roomID, roomTypes]);
+    let cID = parseInt(roomID);
+    const check = responseData.find((room) => room.id === cID);
+    // // if (check) {
+    // //   console.log("check", check);
+    // // }
+    setRoomContainer(check);
+  }, [roomID, roomTypes]);
   const addToCart = () => {
     navigate("/cart");
   };
@@ -77,12 +77,12 @@ const RoomDetailsSection = () => {
     <>
       <Container>
         <LeftContainer>
-          {/* <Title>{roomContainer.name}</Title> */}
+          <Title>{roomContainer.name}</Title>
           <TitlePara>234 Ring road, Lekki Phase 1, Lekki, Lagos</TitlePara>
           <DesContainer>
             <FirstDes>
               <Description>Description</Description>
-              {/* <DescriptionText>{roomContainer.description}</DescriptionText> */}
+              <DescriptionText>{roomContainer.description}</DescriptionText>
               <NavLink to="">
                 <SpanText>Show more</SpanText>
               </NavLink>
@@ -112,7 +112,7 @@ const RoomDetailsSection = () => {
         <RightContainer>
           <Wrap>
             <PriceWrapper>
-              <PriceText>NGN3000/Night</PriceText>
+              <PriceText>NGN{roomContainer.price}/Night</PriceText>
             </PriceWrapper>
             <Form>
               <PrimaryInput
