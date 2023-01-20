@@ -31,6 +31,7 @@ const AppRouter = () => {
                 <Route index element={<Property />} />
 
                 <Route path=":roomID" element={<RoomDetails />} />
+                <Route path="details" element={<RoomDetails />} />
               </Route>
             </Route>
           </Route>

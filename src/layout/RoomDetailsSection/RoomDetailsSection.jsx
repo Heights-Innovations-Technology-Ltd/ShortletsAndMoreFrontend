@@ -1,10 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 // import { PaginationNav1Presentation } from "../../components/Pagination/Pagination";
 import galleryMainImage from "../../assets/gallery_main.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
+import PrimaryInput from "../../components/Input";
+import PrimaryButton from "../../components/PrimaryButton";
+import { Dialog } from "@mui/material";
+
+import { ReactComponent as CloseIcon } from "../../assets/svg/close.svg";
+import availableImage from "../../assets/available.png";
+import { HiX } from "react-icons/hi";
 import { roomDetailsGalleryData, similarListingData } from "../../utils/config";
+import {
+  BtnWrap,
+  Container,
+  CountWrap,
+  CountWrapper,
+  Count,
+  DesContainer,
+  Description,
+  DescriptionText,
+  FirstDes,
+  Form,
+  Label,
+  LeftContainer,
+  PriceText,
+  PriceWrapper,
+  RightContainer,
+  SecondDes,
+  SpanText,
+  ThirdDes,
+  Title,
+  TitlePara,
+  Wrap,
+  ModalWrapper,
+  Top,
+  CloseWrapper,
+  Question,
+  ModalButton,
+} from "./style";
 
 const RoomDetailsSection = () => {
   const { roomTypes, loading, success, errorr } = useSelector(
@@ -13,70 +48,113 @@ const RoomDetailsSection = () => {
   const [roomContainer, setRoomContainer] = useState({});
 
   console.log("fetch", roomTypes.data);
-
+  const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
   const { roomID } = useParams();
+  console.log("lkdsjk", useParams());
 
-  useEffect(() => {
-    const responseData = roomTypes.data;
-    console.log("responseData", responseData);
-    const check = responseData?.find((room) => room?.id === roomID);
-    if (check) {
-      console.log("check", check);
-    }
-    console.log("tatata", check);
-    setRoomContainer(check);
-  }, [roomID, roomTypes]);
+  const checkAvailability = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
+  };
 
-  console.log("sweet", roomContainer);
+  // useEffect(() => {
+  //   const responseData = roomTypes.data;
+  //   console.log("responseData", responseData);
+  //   console.log(roomID);
 
+  //   let cID = parseInt(roomID);
+  //   const check = responseData.find((room) => room.id === cID);
+  //   // // if (check) {
+  //   // //   console.log("check", check);
+  //   // // }
+  //   setRoomContainer(check);
+  // }, [roomID, roomTypes]);
+  const addToCart = () => {
+    navigate("/cart");
+  };
   return (
     <>
-      {/* <h1 className="ml-4 font-semibold mb-2">Luxuxry Duplex With Terrace</h1>
-      <p>234 Ring road, Lekki Phase 1, Lekki, Lagos</p> */}
-      <div className="flex justify-center items-start p-20 bg-gray-100">
-        <div className="bg-white shadow-md m-3 p-4" style={{ width: "600px" }}>
-          <h3>Description</h3>
-          <p style={{ fontSize: "0.5rem" }}>
-            Occupying over 8,000 square feet, perched over 1,100 feetin the air
-            with absolutely breathtaking panoramic 360-degree views of all of
-            New York City and the surrounding tri-state area, The 82nd Floor at
-            432 Park Avenue has been completely reimagined by one of the most
-            sought-after design houses in London and represents an utterly
-            unique opportunity to own a globally significant property.
-          </p>
+      <Container>
+        <LeftContainer>
+          {/* <Title>{roomContainer.name}</Title> */}
+          <TitlePara>234 Ring road, Lekki Phase 1, Lekki, Lagos</TitlePara>
+          <DesContainer>
+            <FirstDes>
+              <Description>Description</Description>
+              {/* <DescriptionText>{roomContainer.description}</DescriptionText> */}
+              <NavLink to="">
+                <SpanText>Show more</SpanText>
+              </NavLink>
+            </FirstDes>
+            <SecondDes>
+              <Description>Gallery</Description>
 
-          <p
-            className="underline mt-20 mb-10"
-            style={{ fontSize: "0.5rem", color: "#8BA00D" }}
-          >
-            Show more
-          </p>
+              <div className="flex flex-col justify-center items-center p-1">
+                <img className="" src={galleryMainImage} alt="" />
 
-          <hr />
-
-          <h6 className="mt-4">Gallery</h6>
-          <div>
-            <div className="flex flex-col justify-center items-center p-1">
-              <img className="" src={galleryMainImage} alt="" />
-
-              <div className="flex items-center justify-between mt-4">
-                {roomDetailsGalleryData.map((data) => {
-                  return (
-                    <div className="p-1">
-                      <img className="" src={data.gallerySubImage} alt="" />
-                    </div>
-                  );
-                })}
+                <div className="flex mt-4">
+                  {roomDetailsGalleryData.map((data) => {
+                    return (
+                      <div className="p-3">
+                        <img className="" src={data.gallerySubImage} alt="" />
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </div>
-          <h6 className="mt-4">Features</h6>
-        </div>
-      </div>
+            </SecondDes>
+            <ThirdDes>
+              <Description>Features</Description>
+            </ThirdDes>
+          </DesContainer>
+        </LeftContainer>
+        <RightContainer>
+          <Wrap>
+            <PriceWrapper>
+              <PriceText>NGN3000/Night</PriceText>
+            </PriceWrapper>
+            <Form>
+              <PrimaryInput
+                placeholder="31-03-2022"
+                label="Check In Date"
+                name="check"
+                padding="10px"
+                check
+                type="text"
+              />
 
-      <h2 className="text-center">Similar Listings</h2>
-      <div className="flex flex-wrap md:flex-wrap justify-center">
-        <div className="flex flex-row items-center w-4/5">
+              <PrimaryInput
+                placeholder="31-03-2022"
+                label="Check Out Date"
+                check
+                padding="10px"
+                name="check"
+                type="text"
+              />
+
+              <CountWrap>
+                <Label>No. of Rooms</Label>
+                <CountWrapper>
+                  <Count>-</Count>
+                  <Count padding="0px 40px">1</Count>
+                  <Count>+</Count>
+                </CountWrapper>
+              </CountWrap>
+              <BtnWrap>
+                <PrimaryButton
+                  title="Check Availability"
+                  width="100%"
+                  onClick={checkAvailability}
+                />
+              </BtnWrap>
+            </Form>
+          </Wrap>
+        </RightContainer>
+      </Container>
+      <h2 className="text-center mt-4">Similar Listings</h2>
+      <div className="flex flex-wrap md:flex-wrap justify-center py-3">
+        <div className="flex flex-row items-center w-4/5 justify-center">
           {similarListingData.map((apartment) => (
             <div>
               <ApartmentCard
@@ -91,6 +169,27 @@ const RoomDetailsSection = () => {
           {/* <PaginationNav1Presentation /> */}
         </div>
       </div>
+
+      <Dialog open={openModal} fullWidth maxWidth="sm">
+        <ModalWrapper>
+          <Top>
+            <CloseWrapper onClick={() => setOpenModal(false)}>
+              <CloseIcon />
+            </CloseWrapper>
+          </Top>
+          <img src={availableImage} alt="available" />
+          <Question>
+            Luxury terrance is available. Proceed to add to cart{" "}
+          </Question>
+          <ModalButton>
+            <PrimaryButton
+              title="Add to Cart"
+              width="100%"
+              onClick={addToCart}
+            />
+          </ModalButton>
+        </ModalWrapper>
+      </Dialog>
     </>
   );
 };

@@ -5,7 +5,12 @@ import CartTotals from "../CartTotals/CartTotals";
 
 const Cart = () => {
   return (
-    <div className="flex justify-center items-start p-20 bg-gray-100">
+    <div
+      className="flex justify-center items-start p-20  bg-gray-100"
+      style={{
+        padding: " 150px 80px",
+      }}
+    >
       <div className="bg-white shadow-md m-3 p-4" style={{ width: "700px" }}>
         <h1 className="ml-4 font-semibold mb-2">Cart</h1>
         <div>

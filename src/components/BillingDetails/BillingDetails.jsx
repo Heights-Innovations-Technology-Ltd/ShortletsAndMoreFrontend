@@ -1,9 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { userBillingSchema } from "../../utils/config";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import PrimaryButton from "../PrimaryButton";
+import { Dialog } from "@mui/material";
+import { ReactComponent as CloseIcon } from "../../assets/svg/close.svg";
+import availableImage from "../../assets/available.png";
+import {
+  DoubleGridWrapper,
+  ModalWrapper,
+  Top,
+  CloseWrapper,
+  Question,
+  ModalButton,
+} from "./style";
+import PrimaryInput from "../Input";
+import { CnotinueModalButton } from "../../layout/RoomDetailsSection/style";
 
 const BillingDetails = () => {
   const {
@@ -17,11 +31,23 @@ const BillingDetails = () => {
 
   const navigate = useNavigate();
 
+  const [openModal, setOpenModal] = useState(false);
+  const [openContinueModal, setOpenContinueModal] = useState(false);
   const localProfile = localStorage.getItem("userProfile");
   const parseData = JSON.parse(localProfile);
   useEffect(() => {
     handleCheck();
   }, []);
+
+  const reserveNow = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
+  };
+
+  const handleContinue = (e) => {
+    e.preventDefault();
+    setOpenContinueModal(true);
+  };
 
   const handleCheck = () => {
     navigate("/cart/checkout");
@@ -47,135 +73,147 @@ const BillingDetails = () => {
       });
     }
   };
+
+  const makePayment = () => {};
+  const payNow = () => {};
   return (
-    <div className="flex justify-center items-start p-20 bg-gray-100">
-      <div className="bg-white shadow-md m-3 p-4" style={{ width: "900px" }}>
-        <h1 className="ml-4 font-semibold mb-2">Billing detail</h1>
-        <div>
-          <hr className="ml-4 mr-4" />
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
+    <div
+      className="flex items-start bg-gray-100"
+      style={{ padding: "150px 80px", display: "flex" }}
+    >
+      <div className="bg-white shadow-md m-3 p-6" style={{ width: "60%" }}>
+        <h1 className=" font-semibold my-6 border-b ">Billing detail</h1>
+        <div style={{ display: "flex", gap: "20px", flexFlow: "column" }}>
+          <DoubleGridWrapper>
+            <PrimaryInput
+              placeholder="First Name"
               type="text"
+              label="First Name"
+              register={register}
               name="firstName"
-              {...register("firstName")}
-              placeholder="First name "
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
+              // error={errors.username?.message}
             />
-            <input
+            <PrimaryInput
+              placeholder="Last Name"
               type="text"
+              label="Last Name"
+              register={register}
               name="lastName"
-              {...register("lastName")}
-              placeholder="First name "
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
+              // error={errors.password?.message}
             />
-          </div>
+          </DoubleGridWrapper>
 
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="Company name (optional)"
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
+          <PrimaryInput
+            placeholder="Enter Company Name"
+            type="text"
+            label="Company Name"
+            register={register}
+            name="companyName"
+            // error={errors.password?.message}
+          />
 
-          <div className="p-4 flex flex-row justify-between items-center text-gray-700 ">
-            <select
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-              style={{ color: "gray" }}
-            >
-              <option>Country</option>
-              <option>Key West</option>
-              <option>Maldives</option>
-              <option>Cozumel</option>
-            </select>
-          </div>
+          <PrimaryInput
+            placeholder="Select Country"
+            type="text"
+            label="Country"
+            register={register}
+            name="country"
+            // error={errors.password?.message}
+          />
+          <DoubleGridWrapper>
+            <PrimaryInput
+              placeholder="Select State"
+              type="text"
+              label="State"
+              register={register}
+              name="state"
+              // error={errors.username?.message}
+            />
+            <PrimaryInput
+              placeholder="Last Name"
+              type="text"
+              label="Town/City"
+              register={register}
+              name="town"
+              // error={errors.password?.message}
+            />
+          </DoubleGridWrapper>
 
-          <div className="p-4 flex flex-col justify-between items-center">
-            <input
-              type="text"
-              placeholder="Street address"
-              name="address"
-              {...register("address")}
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
+          <PrimaryInput
+            placeholder="Street Address"
+            type="text"
+            label="Street"
+            register={register}
+            name="street"
+            // error={errors.password?.message}
+          />
 
-            <input
+          <DoubleGridWrapper>
+            <PrimaryInput
+              placeholder="Enter Phone Number"
               type="text"
-              placeholder=""
-              className="block p-2 w-full mt-4 text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
+              label="Phone"
+              register={register}
+              name="phone"
+              // error={errors.username?.message}
             />
-          </div>
-
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="Postal / ZIP"
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-            <input
-              type="text"
-              placeholder="Town / City "
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
-
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="State"
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-            <input
-              type="text"
-              placeholder="Phone"
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
-
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="Your Email"
+            <PrimaryInput
+              placeholder="Enter email address"
+              type="email"
+              label="Email"
+              register={register}
               name="email"
-              {...register("email")}
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
+              // error={errors.password?.message}
             />
-          </div>
+          </DoubleGridWrapper>
 
-          <div className="p-4 flex flex-col justify-between">
-            <label htmlFor="" className="ml-2 mb-20">
-              Additional Information
-            </label>
-            <input
-              type="text"
-              placeholder="Order notes (optional)"
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
+          <PrimaryInput
+            placeholder="Other Notes (optional)"
+            type="text"
+            label="Additional Information"
+            register={register}
+            name="addtional"
+            // error={errors.password?.message}
+          />
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center">
-        <div className="flex flex-col justify-center items-center">
+      <div
+        className=" flex-col justify-center items-center"
+        style={{
+          width: "40%",
+          display: "flex",
+          padding: "0px 80px",
+        }}
+      >
+        <div
+          className="flex flex-col justify-center items-center"
+          style={{ width: "100%" }}
+        >
           <div
-            className="bg-white shadow-md m-3 p-2 w-[250px] rounded-sm"
-            //   style={{ width: "250px" }}
+            className="bg-white shadow-md m-3 p-2  rounded-sm"
+            style={{ width: "100%" }}
           >
-            <h1 className="ml-4 font-semibold text-xs">Cart Totals</h1>
+            <h1
+              className="ml-4 mb-4 font-semibold text-xl pl-2"
+              style={{ borderLeft: "2px solid #8BA00D" }}
+            >
+              Cart Totals
+            </h1>
 
             <div className="p-4 flex flex-row justify-between items-center">
-              <h4 className="text-xs">Product</h4>
-              <h5 className="text-xs">Subtotal</h5>
+              <h4 className="text-xs font-semibold">Product</h4>
+              <h5 className="text-xs font-semibold">Subtotal</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
 
-            <div className="p-4 flex flex-row justify-between items-center">
+            <div className="p-4 flex flex-row justify-between items-center mt-3">
               <h4 className="text-xs">Luxury Duplex</h4>
               <h5 className="text-xs">NGN104,700</h5>
             </div>
 
-            <div className="p-4 flex flex-row justify-between items-center">
+            <div className="p-4 flex flex-row justify-between items-center mb-3">
               <h4 className="text-xs">Luxury Duplex</h4>
               <h5 className="text-xs">NGN104,700</h5>
             </div>
@@ -200,109 +238,95 @@ const BillingDetails = () => {
             </div>
           </div>
         </div>
+        <div className="w-full gap-3 flex flex-col">
+          <PrimaryButton
+            title="Continue"
+            width="100%"
+            onClick={handleContinue}
+          />
+          <PrimaryButton
+            title="Reserve Now"
+            width="100%"
+            lightBtn
+            onClick={reserveNow}
+          />
+        </div>
+      </div>
 
-        <div className="flex flex-col justify-center items-center">
-          <div
-            className="bg-white shadow-md m-3 p-4 w-[250px] rounded-sm"
-            //   style={{ width: "250px" }}
-          >
-            <input
-              checked
-              id="default-radio-2"
-              type="radio"
-              value=""
-              name="default-radio"
-              className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
-            />
-            <label
-              for="default-radio-2"
-              className="ml-2 text-xs font-medium text-gray-900 "
-            >
-              Direct bank transfer
-            </label>
+      <Dialog open={openContinueModal} fullWidth maxWidth="sm">
+        <ModalWrapper>
+          <Top>
+            <CloseWrapper onClick={() => setOpenContinueModal(false)}>
+              <CloseIcon />
+            </CloseWrapper>
+          </Top>
+          <div style={{ width: "100%" }}>
+            <h1 className="ml-4 mb-4 font-semibold text-xl pl-2">
+              Booking Preview
+            </h1>
 
-            <p className="mt-4 ml-1" style={{ fontSize: "0.5rem" }}>
-              Make your payment directly into our <br /> bank account
-            </p>
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Product</h4>
+              <h5 className="text-xs font-semibold">Subtotal</h5>
+            </div>
 
-            <div className="flex flex-col justify-between mt-14">
-              <div className="flex items-center">
-                {/* <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> */}
-                <input
-                  checked
-                  id="default-radio-2"
-                  type="radio"
-                  value=""
-                  name="default-radio"
-                  className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
-                />
-                <label
-                  for="default-radio-2"
-                  className="ml-2 text-xs font-medium text-gray-900 "
-                >
-                  Check paymemts
-                </label>
-              </div>
-              <div className="flex items-center mt-2">
-                <input
-                  id="default-radio-2"
-                  type="radio"
-                  value=""
-                  name="default-radio"
-                  className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
-                />
-                <label
-                  for="default-radio-2"
-                  className="ml-2 text-xs font-medium text-gray-900"
-                >
-                  Cash on delivery
-                </label>
-              </div>
-              <div className="flex items-center mt-2">
-                <input
-                  id="default-radio-2"
-                  type="radio"
-                  value=""
-                  name="default-radio"
-                  className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
-                />
-                <label
-                  for="default-radio-2"
-                  className="ml-2 text-xs font-medium text-gray-900"
-                >
-                  Paypal
-                </label>
-              </div>
+            <hr className="ml-4 mr-4" />
+
+            <div className="p-4 flex flex-row justify-between items-center mt-3">
+              <h4 className="text-xs">Luxury Duplex</h4>
+              <h5 className="text-xs">NGN104,700</h5>
+            </div>
+
+            <div className="p-4 flex flex-row justify-between items-center mb-3">
+              <h4 className="text-xs">Luxury Duplex</h4>
+              <h5 className="text-xs">NGN104,700</h5>
+            </div>
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Subtotal</h4>
+              <h5 className="text-xs">NGN209,700</h5>
+            </div>
+
+            <hr className="ml-4 mr-4" />
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs">Vat</h4>
+              <h5 className="text-xs">NGN4,800</h5>
+            </div>
+
+            <hr className="ml-4 mr-4" />
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Total</h4>
+              <h5 className="text-xs ">NGN220,800</h5>
             </div>
           </div>
-        </div>
+          <CnotinueModalButton>
+            <PrimaryButton title="Pay Now" width="100%" onClick={payNow} />
+          </CnotinueModalButton>
+        </ModalWrapper>
+      </Dialog>
 
-        <button
-          type="button"
-          className="inline-block px-2 py-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight capitalize hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-          style={{
-            border: "1px solid #8BA00D",
-            color: "#ffffff",
-            backgroundColor: "#8BA00D",
-            width: "250px",
-          }}
-        >
-          PLACE ORDER
-        </button>
-
-        <button
-          type="button"
-          className="inline-block mt-2 px-2 py-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight capitalize hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-          style={{
-            border: "1px solid #8BA00D",
-            color: "#ffffff",
-            backgroundColor: "#8BA00D",
-            width: "250px",
-          }}
-        >
-          REVIEW YOUR BOOKING
-        </button>
-      </div>
+      <Dialog open={openModal} fullWidth maxWidth="sm">
+        <ModalWrapper>
+          <Top>
+            <CloseWrapper onClick={() => setOpenModal(false)}>
+              <CloseIcon />
+            </CloseWrapper>
+          </Top>
+          <img src={availableImage} alt="available" />
+          <Question>
+            Luxury terrance is available. Proceed to add to cart{" "}
+          </Question>
+          <ModalButton>
+            <PrimaryButton
+              title="Make Payment"
+              width="100%"
+              onClick={makePayment}
+            />
+          </ModalButton>
+        </ModalWrapper>
+      </Dialog>
     </div>
   );
 };

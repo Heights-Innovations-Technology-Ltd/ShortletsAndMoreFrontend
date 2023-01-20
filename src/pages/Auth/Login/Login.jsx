@@ -60,16 +60,18 @@ const Login = () => {
             <HeaderText>SIGN IN</HeaderText>
             <Body>
               <PrimaryInput
-                placeholder="Email"
+                placeholder="Enter Email"
                 type="text"
+                label="Email Address"
                 register={register}
                 name="username"
                 error={errors.username?.message}
               />
               <PrimaryInput
-                placeholder="Password"
+                placeholder="Min of 8 characters"
                 rightText
                 type="password"
+                label="Password"
                 register={register}
                 name="password"
                 error={errors.password?.message}
