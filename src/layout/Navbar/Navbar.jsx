@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { BsChatSquareDots } from 'react-icons/bs';
 import { BsCart3, BsPerson, BsTelephone } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
@@ -7,26 +7,46 @@ import Logo from "../../assets/logo_transparent_background 3.png";
 import Profile from "../../components/Profile";
 import { ReactComponent as LogoIcon } from "../../assets/svg/brandLogo.svg";
 import {
+  CartIconContainer,
+  Length,
+  LengthContainer,
   NavContainer,
   NavLinksContainer,
   NavLinkText,
   NavLogoContainer,
   NavRightContainer,
 } from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowCart } from "../../store/Slice/roomSlice";
+import CartShow from "../../components/Cart/cartShow";
 
 const Navbar = (props) => {
   // const { marginTop, absolute } = props;
+  const [itemContainer, setItemContainer] = useState(0);
   const [nav, setNav] = useState(false);
-
+  const dispatch = useDispatch();
   const [showProfile, setShowProfile] = useState(false);
   const handleProfile = () => {
     setShowProfile(!showProfile);
   };
 
+  const cartShow = useSelector((store) => store.ApartmentDataReducer.showCart);
+
   const handleNav = () => {
     setNav(!nav);
   };
   const navigate = useNavigate();
+
+  const handleToggle = () => {
+    dispatch(setShowCart());
+  };
+
+  useEffect(() => {
+    const localData = localStorage.getItem("cartItemId");
+    let newItemContainer = JSON.parse(localData);
+
+    setItemContainer(newItemContainer.length);
+  }, []);
 
   return (
     <>
@@ -123,17 +143,27 @@ const Navbar = (props) => {
           <LogoIcon />
         </NavLogoContainer>
         <NavRightContainer>
-          <BsTelephone size={18} />
+          <BsTelephone size={20} />
           <NavLinkText>(+234) 5678 4895</NavLinkText>
           <BsPerson
-            size={18}
+            size={20}
             // onClick={() => navigate("/login")}
             onClick={handleProfile}
           />
-          <BsCart3 size={18} onClick={() => navigate("/cart")} />
+
+          <CartIconContainer onClick={handleToggle}>
+            {/* <CartIcon /> */}
+            <BsCart3 size={20} />
+            {itemContainer > 0 && (
+              <LengthContainer>
+                <Length>{itemContainer}</Length>
+              </LengthContainer>
+            )}
+          </CartIconContainer>
         </NavRightContainer>
       </NavContainer>
       {showProfile && <Profile />}
+      {cartShow && <CartShow />}
     </>
   );
 };

@@ -59,6 +59,7 @@ const RoomDetailsSection = () => {
   let ApartmentId = JSON.parse(localApartmentID);
 
   const { data, loading, success, error } = useGetAllRoomTypeQuery(ApartmentId);
+
   const [checkForAvailability, { isLoading, isSuccess }] =
     useCheckForAvailabilityMutation();
   const [roomContainer, setRoomContainer] = useState({});
@@ -72,7 +73,7 @@ const RoomDetailsSection = () => {
   });
 
   // console.log("fetch", roomTypes.data);
-  const navigate = useNavigate();
+
   const [openModal, setOpenModal] = useState(false);
 
   const [openNotModal, setOpenNotModal] = useState(false);
@@ -86,8 +87,40 @@ const RoomDetailsSection = () => {
     setRoomContainer(check);
   }, [roomID, data]);
 
-  const addToCart = () => {
-    navigate("/cart");
+  const addToCart = async (id) => {
+    // navigate("/cart");
+    let itemArray = await localStorage.getItem("cartItemId");
+    let newItemArray = JSON.parse(itemArray);
+    console.log(newItemArray);
+
+    if (newItemArray) {
+      if (newItemArray.includes(id)) {
+        toast.success("item added already");
+      } else {
+        newItemArray.push(id);
+        try {
+          await localStorage.setItem(
+            "cartItemId",
+            JSON.stringify(newItemArray)
+          );
+          toast.success("item added successfully");
+        } catch (error) {
+          return error;
+        }
+      }
+    } else {
+      //if the array is empty
+      let array = []; //create a new array of items
+      array.push(id); //push the item id to the array
+
+      try {
+        await localStorage.setItem("cartItemId", JSON.stringify(array));
+        toast.success("item added successfully");
+        // navigate("/products");
+      } catch (error) {
+        return error;
+      }
+    }
   };
 
   const handleDateChange = (value) => {
@@ -115,12 +148,15 @@ const RoomDetailsSection = () => {
     const error = result?.error;
     if (error) {
       toast.error(error?.data);
-      setOpenNotModal(true);
-    } else {
+      // setOpenNotModal(true);
       setOpenModal(true);
+    } else {
+      // setOpenModal(true);
+      setOpenNotModal(true);
     }
   };
 
+  console.log("che", roomContainer);
   return (
     <>
       <Container>
@@ -231,7 +267,7 @@ const RoomDetailsSection = () => {
             <PrimaryButton
               title="Add to Cart"
               width="100%"
-              onClick={addToCart}
+              onClick={() => addToCart(roomContainer.id)}
             />
           </ModalButton>
         </ModalWrapper>

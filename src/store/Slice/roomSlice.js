@@ -72,6 +72,8 @@ const ApartmentData = createSlice({
     featuredRooms: [],
     apartmentData: [],
     roomTypes: [],
+    showCart: false,
+    cartItems: [],
   },
   reducers: {
     saveFeaturedRoom: (state, action) => {
@@ -85,9 +87,20 @@ const ApartmentData = createSlice({
     saveRoomTypes: (state, action) => {
       state.roomTypes = action.payload;
     },
+    setShowCart: (state) => {
+      state.showCart = !state.showCart;
+    },
+    setCartItems: (state, action) => {
+      state.cartItems = action.payload;
+    },
   },
 });
 export const ApartmentDataReducer = ApartmentData.reducer;
 
-export const { saveFeaturedRoom, saveApartmentData, saveRoomTypes } =
-  ApartmentData.actions;
+export const {
+  saveFeaturedRoom,
+  saveApartmentData,
+  saveRoomTypes,
+  setCartItems,
+  setShowCart,
+} = ApartmentData.actions;

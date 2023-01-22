@@ -40,7 +40,29 @@ const BillingDetails = () => {
   const [openContinueModal, setOpenContinueModal] = useState(false);
   const localProfile = localStorage.getItem("userProfile");
   const parseData = JSON.parse(localProfile);
+
   useEffect(() => {
+    const handleCheck = () => {
+      if (!localProfile) {
+        toast.error("Kindly Sign In");
+        // navigate("/login");
+      }
+      if (localProfile) {
+        setValue("firstName", parseData?.firstName, {
+          shouldValidate: true,
+        });
+
+        setValue("lastName", parseData?.lastName, {
+          shouldValidate: true,
+        });
+        setValue("email", parseData?.email, {
+          shouldValidate: true,
+        });
+        setValue("address", parseData?.address, {
+          shouldValidate: true,
+        });
+      }
+    };
     handleCheck();
   }, []);
 
@@ -52,31 +74,6 @@ const BillingDetails = () => {
   const handleContinue = (e) => {
     e.preventDefault();
     setOpenContinueModal(true);
-  };
-
-  const handleCheck = () => {
-    navigate("/cart/checkout");
-
-    if (!localProfile) {
-      toast.error("Kindly Sign In");
-      // navigate("/login");
-    }
-
-    if (localProfile) {
-      setValue("firstName", parseData?.data.firstName, {
-        shouldValidate: true,
-      });
-
-      setValue("lastName", parseData?.data.lastName, {
-        shouldValidate: true,
-      });
-      setValue("email", parseData?.data.email, {
-        shouldValidate: true,
-      });
-      setValue("address", parseData?.data.address, {
-        shouldValidate: true,
-      });
-    }
   };
 
   const makePayment = () => {};

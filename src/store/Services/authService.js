@@ -27,7 +27,7 @@ export const authApi = createApi({
     //user login
     loginNewUser: builder.mutation({
       query: (values) => ({
-        url: "/Login",
+        url: "/Guest/login",
         method: "POST",
         body: values,
         headers: {

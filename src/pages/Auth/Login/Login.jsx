@@ -36,8 +36,19 @@ const Login = () => {
 
   const submitForm = async (data) => {
     console.log(data);
-    const result = await loginNewUser(data);
-    console.log("form data", result);
+    const response = await loginNewUser(data);
+    console.log("form data", response);
+
+    const error = response?.error;
+    const responseData = response?.data;
+
+    if (responseData) {
+      toast.success("Login Successfully");
+      localStorage.setItem("userProfile", JSON.stringify(responseData));
+    }
+    if (error) {
+      toast.error(error?.data);
+    }
     // console.log("headers", result.headers);
     // if (result?.payload?.status === 200) {
     //   toast.success("Login Successfully");

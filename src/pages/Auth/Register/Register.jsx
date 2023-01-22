@@ -10,12 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../store/Action/actions";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useRegisterNewUserMutation } from "../../../store/Services/authService";
 
 const Register = () => {
-  const { loading, userDetails, error, success } = useSelector(
-    (state) => state.authDataReducer
-  );
-
   const {
     handleSubmit,
     register,
@@ -24,23 +21,27 @@ const Register = () => {
     resolver: yupResolver(userRegistrationSchema),
   });
 
+  const [registerNewUser, { isLoading, isSuccess }] =
+    useRegisterNewUserMutation();
+
   const dispatch = useDispatch();
 
   const submitForm = async (data) => {
+    const newData = { ...data, accessToken: "1234" };
     console.log(data);
-    let response = await dispatch(registerUser(data));
+    const response = await registerNewUser(newData);
     console.log("form data", response);
+    const error = response?.error;
+    const responseData = response?.data;
 
-    if (response.payload.status === 201) {
-      toast.success(response?.payload?.data?.message);
+    if (responseData) {
+      toast.success(responseData?.message);
+    }
+    if (error) {
+      toast.error(error?.data);
     }
   };
 
-  useEffect(() => {
-    if (success) {
-      console.log("success");
-    }
-  }, [success]);
   return (
     <>
       <Navbar />
