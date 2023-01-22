@@ -10,8 +10,13 @@ import { Dialog } from "@mui/material";
 
 import { ReactComponent as CloseIcon } from "../../assets/svg/close.svg";
 import availableImage from "../../assets/available.png";
+import notAvailableImage from "../../assets/notAvailable.png";
 import { HiX } from "react-icons/hi";
-import { roomDetailsGalleryData, similarListingData } from "../../utils/config";
+import {
+  checkAvailabilitySchema,
+  roomDetailsGalleryData,
+  similarListingData,
+} from "../../utils/config";
 import {
   BtnWrap,
   Container,
@@ -40,49 +45,92 @@ import {
   Question,
   ModalButton,
 } from "./style";
+import toast from "react-hot-toast";
+import {
+  useCheckForAvailabilityMutation,
+  useGetAllRoomTypeQuery,
+} from "../../store/Services/apartmentService";
+import { DateInput } from "../../components/Input/dateInput";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const RoomDetailsSection = () => {
-  const { roomTypes, loading, success, errorr } = useSelector(
-    (store) => store.apartmentDataReducer
-  );
-  const [roomContainer, setRoomContainer] = useState({});
+  let localApartmentID = localStorage.getItem("apartmentID");
+  let ApartmentId = JSON.parse(localApartmentID);
 
-  console.log("fetch", roomTypes.data);
+  const { data, loading, success, error } = useGetAllRoomTypeQuery(ApartmentId);
+  const [checkForAvailability, { isLoading, isSuccess }] =
+    useCheckForAvailabilityMutation();
+  const [roomContainer, setRoomContainer] = useState({});
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(checkAvailabilitySchema),
+  });
+
+  // console.log("fetch", roomTypes.data);
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
-  const { roomID } = useParams();
-  console.log("lkdsjk", useParams());
 
-  const checkAvailability = (e) => {
-    e.preventDefault();
-    setOpenModal(true);
-  };
+  const [openNotModal, setOpenNotModal] = useState(false);
+  const { roomID } = useParams();
 
   useEffect(() => {
-    const responseData = roomTypes.data;
-    console.log("responseData", responseData);
-    console.log(roomID);
-
     let cID = parseInt(roomID);
-    const check = responseData.find((room) => room.id === cID);
+    const check = data?.find((room) => room.id === cID);
     // // if (check) {
-    // //   console.log("check", check);
     // // }
     setRoomContainer(check);
-  }, [roomID, roomTypes]);
+  }, [roomID, data]);
+
   const addToCart = () => {
     navigate("/cart");
   };
+
+  const handleDateChange = (value) => {
+    setValue("startDate", value);
+  };
+
+  const handleEndDateChange = (value) => {
+    setValue("endDate", value);
+  };
+
+  const submitForm = async (formData) => {
+    // const addData ={
+    //   roomTypeId: "",
+    //   hotelId: data?.hotelId
+    // }
+    const newFormData = {
+      ...formData,
+      roomTypeId: 2,
+      hotelId: roomContainer?.hotelId,
+    };
+
+    console.log("submit", newFormData);
+    const result = await checkForAvailability(newFormData);
+    console.log("resut", result);
+    const error = result?.error;
+    if (error) {
+      toast.error(error?.data);
+      setOpenNotModal(true);
+    } else {
+      setOpenModal(true);
+    }
+  };
+
   return (
     <>
       <Container>
         <LeftContainer>
-          <Title>{roomContainer.name}</Title>
+          <Title>{roomContainer?.name}</Title>
           <TitlePara>234 Ring road, Lekki Phase 1, Lekki, Lagos</TitlePara>
           <DesContainer>
             <FirstDes>
               <Description>Description</Description>
-              <DescriptionText>{roomContainer.description}</DescriptionText>
+              <DescriptionText>{roomContainer?.description}</DescriptionText>
               <NavLink to="">
                 <SpanText>Show more</SpanText>
               </NavLink>
@@ -112,25 +160,23 @@ const RoomDetailsSection = () => {
         <RightContainer>
           <Wrap>
             <PriceWrapper>
-              <PriceText>NGN{roomContainer.price}/Night</PriceText>
+              <PriceText>NGN{roomContainer?.price}/Night</PriceText>
             </PriceWrapper>
-            <Form>
-              <PrimaryInput
-                placeholder="31-03-2022"
-                label="Check In Date"
-                name="check"
-                padding="10px"
-                check
-                type="text"
+            <Form onSubmit={handleSubmit(submitForm)}>
+              <DateInput
+                label={"Check In Date"}
+                name="startDate"
+                register={register}
+                selectDate={handleDateChange}
+                errorMessage={errors.startDate?.message}
               />
 
-              <PrimaryInput
-                placeholder="31-03-2022"
-                label="Check Out Date"
-                check
-                padding="10px"
-                name="check"
-                type="text"
+              <DateInput
+                label={"Check Out Date"}
+                name="endDate"
+                register={register}
+                selectDate={handleEndDateChange}
+                errorMessage={errors.endDate?.message}
               />
 
               <CountWrap>
@@ -145,7 +191,7 @@ const RoomDetailsSection = () => {
                 <PrimaryButton
                   title="Check Availability"
                   width="100%"
-                  onClick={checkAvailability}
+                  type="submit"
                 />
               </BtnWrap>
             </Form>
@@ -156,7 +202,7 @@ const RoomDetailsSection = () => {
       <div className="flex flex-wrap md:flex-wrap justify-center py-3">
         <div className="flex flex-row items-center w-4/5 justify-center">
           {similarListingData.map((apartment) => (
-            <div>
+            <div key={apartment.id}>
               <ApartmentCard
                 apartmentImage={apartment.apartmentImage}
                 apartmentName={apartment.apartmentName}
@@ -188,6 +234,20 @@ const RoomDetailsSection = () => {
               onClick={addToCart}
             />
           </ModalButton>
+        </ModalWrapper>
+      </Dialog>
+
+      <Dialog open={openNotModal} fullWidth maxWidth="sm">
+        <ModalWrapper>
+          <Top>
+            <CloseWrapper onClick={() => setOpenNotModal(false)}>
+              <CloseIcon />
+            </CloseWrapper>
+          </Top>
+          <img src={notAvailableImage} alt="available" />
+          <Question>
+            The Luxury isn’t available at the moment. Check back later
+          </Question>
         </ModalWrapper>
       </Dialog>
     </>

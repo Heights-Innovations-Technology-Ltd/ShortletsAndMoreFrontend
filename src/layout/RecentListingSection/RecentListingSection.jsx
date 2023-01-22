@@ -4,36 +4,26 @@ import {
   BsGeoAltFill,
   BsShieldShaded,
 } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import image from "../../assets/listing_img_four.png";
 import listing_img_one from "../../assets/listing_img_one.png";
 import listing_img_three from "../../assets/listing_img_three.png";
 import listing_img_two from "../../assets/listing_img_two.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
 import { getApartment } from "../../store/Action/actions";
+import { useGetAllApartmentQuery } from "../../store/Services/apartmentService";
 import { apartmentHomeData } from "../../utils/config";
-
+// import { Puff } from "react-loading-icons";
 const RecentListingSection = () => {
   const dispatch = useDispatch();
   const [apartmentData, setApartmentData] = useState([]);
-  // const { apartmentData, loading, success, error } = useSelector(
-  //   (state) => state.apartmentDataReducer
-  // );
-  // console.log("fetch", apartmentData);
 
-  const getApart = async () => {
-    const res = await dispatch(getApartment());
-    console.log("fetch", res?.payload?.data);
-    const result = res?.payload?.data;
-    if (result === "undefined") {
-      setApartmentData(apartmentHomeData);
-    }
-    setApartmentData(result);
-  };
+  const { data, loading, success, error } = useGetAllApartmentQuery();
+  console.log("fetch", data);
 
   useEffect(() => {
-    getApart();
-  }, []);
+    setApartmentData(data);
+  }, [data]);
 
   return (
     <>

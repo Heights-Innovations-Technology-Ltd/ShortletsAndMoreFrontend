@@ -6,6 +6,7 @@ import image from "../../assets/listing_img_four.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
 import Paginator from "../../components/Paginator";
 import { getApartment } from "../../store/Action/actions";
+import { useGetAllApartmentQuery } from "../../store/Services/apartmentService";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
 import "./style.css";
 // let pageSize = 1;
@@ -16,21 +17,25 @@ const ApartmentSection = () => {
   const dispatch = useDispatch();
   const [apartmentData, setApartmentData] = useState([]);
 
+  const { data, loading, success, error } = useGetAllApartmentQuery();
+  console.log("fetch", data);
+
   // const currentViewData = useMemo(() => {
   //   const firstPageIndex = (currentPage - 1) * pageSize;
   //   const lastPageIndex = currentPage + pageSize;
   //   return testingD.slice(firstPageIndex, lastPageIndex);
   // }, [currentPage]);
 
-  useEffect(() => {
-    const getApart = async () => {
-      const res = await dispatch(getApartment());
-      setApartmentData(res?.payload?.data);
-      console.log(res?.payload?.data);
-    };
+  // useEffect(() => {
+  //   const getApart = async () => {
+  //     const res = await dispatch(getApartment());
+  //     setApartmentData(res?.payload?.data);
+  //     console.log(res?.payload?.data);
+  //   };
 
-    getApart();
-  }, [dispatch]);
+  //   getApart();
+  //   // setApartmentData(data);
+  // }, [data]);
 
   const [currentItems, setCurrentItems] = useState([]);
   // const [data, setData] = useState([]);
@@ -40,12 +45,12 @@ const ApartmentSection = () => {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(apartmentData.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(apartmentData.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, apartmentData]);
+    setCurrentItems(data?.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(data?.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, data]);
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) % apartmentData.length;
+    const newOffset = (e.selected * itemsPerPage) % data?.length;
     setItemOffset(newOffset);
   };
 
@@ -88,7 +93,7 @@ const ApartmentSection = () => {
         </div>
 
         <div className="flex flex-wrap w-4/5 border">
-          {currentItems.map((apartment) => (
+          {currentItems?.map((apartment) => (
             <div key={apartment.id}>
               <ApartmentCard
                 apartmentImage={image}

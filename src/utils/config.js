@@ -564,9 +564,21 @@ export const userRegistrationSchema = yup.object().shape({
   lastName: yup.string().required("Last name is a required field"),
   email: yup.string().email("Enter a valid email address").required(),
   phone: yup.string().required("Phone number is a required field"),
-  address: yup.string().required("User name is a required field"),
-  password: yup.string().min(8).max(15).required(),
-  confirmPassword: yup.string().min(8).max(15).required(),
+  address: yup.string().required("Username is a required field"),
+  password: yup
+    .string()
+    .min(8)
+    .max(15)
+    .required("Password is a required field")
+    .matches(/^(?=.*[A-Z])/, " Must contain an uppercase character")
+    .matches(/^(?=.*[a-z])/, " Must contain a lowercase character")
+
+    .matches(/^(?=.*[0-9])/, "  Must contain a number")
+    .matches(/^(?=.*[!@#\$%\^&\*])/, "  Must contain a special case character"),
+
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
 export const userBillingSchema = yup.object().shape({
@@ -577,4 +589,22 @@ export const userBillingSchema = yup.object().shape({
   address: yup.string().required("User name is a required field"),
   // password: yup.string().min(8).max(15).required(),
   // confirmPassword: yup.string().min(8).max(15).required(),
+});
+
+export const checkAvailabilitySchema = yup.object().shape({
+  startDate: yup
+    .string()
+    // .matches(
+    //   "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](20)\\d\\d$", // Date regex
+    //   "Not a valid date" // error message
+    // )
+    .required(),
+
+  endDate: yup
+    .string()
+    // .matches(
+    //   "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](20)\\d\\d$", // Date regex
+    //   "Not a valid date" // error message
+    // )
+    .required(),
 });

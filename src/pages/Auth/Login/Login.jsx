@@ -17,11 +17,12 @@ import { loginSchema } from "../../../utils/config";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../../store/Action/actions";
 import toast from "react-hot-toast";
+import { useLoginNewUserMutation } from "../../../store/Services/authService";
 
 const Login = () => {
-  const { loading, userDetails, error, success } = useSelector(
-    (state) => state.authDataReducer
-  );
+  // const { loading, userDetails, error, success } = useSelector(
+  //   (state) => state.authDataReducer
+  // );
   const {
     handleSubmit,
     register,
@@ -29,21 +30,22 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
+  const [loginNewUser, { isLoading, isSuccess }] = useLoginNewUserMutation();
 
   const dispatch = useDispatch();
 
   const submitForm = async (data) => {
     console.log(data);
-    const result = await dispatch(userLogin(data));
-    console.log("form data", result.payload);
-    console.log("headers", result.headers);
-    if (result?.payload?.status === 200) {
-      toast.success("Login Successfully");
-      localStorage.setItem("userProfile", JSON.stringify(result.payload));
-    }
-    if (result?.payload?.status === 400) {
-      toast.error("Invalid Credentials");
-    }
+    const result = await loginNewUser(data);
+    console.log("form data", result);
+    // console.log("headers", result.headers);
+    // if (result?.payload?.status === 200) {
+    //   toast.success("Login Successfully");
+    //   localStorage.setItem("userProfile", JSON.stringify(result.payload));
+    // }
+    // if (result?.payload?.status === 400) {
+    //   toast.error("Invalid Credentials");
+    // }
   };
   return (
     <>

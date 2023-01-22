@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import AddToCartCard from "../../components/Cards/AddToCartCard";
-import { getRoomType } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
+import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
 
 const FeaturedSection = () => {
   const [availableRooms, setAvailableRooms] = useState([]);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getRooms = async () => {
-      const res = await dispatch(getRoomType(14));
-      setAvailableRooms(res?.payload?.data);
-    };
 
-    getRooms();
-  }, [dispatch]);
+  const { data, loading, success, error } = useGetAllRoomTypeQuery(14);
+
+  useEffect(() => {
+    setAvailableRooms(data);
+  }, [data]);
 
   console.log("availableRooms", availableRooms);
   return (

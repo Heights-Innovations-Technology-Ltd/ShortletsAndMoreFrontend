@@ -59,6 +59,7 @@ const Register = () => {
                 register={register}
                 error={errors.firstName?.message}
                 name="firstName"
+                label="First Name"
               />
               <PrimaryInput
                 placeholder="Last Name"
@@ -66,6 +67,7 @@ const Register = () => {
                 register={register}
                 error={errors.lastName?.message}
                 name="lastName"
+                label="Last Name"
               />
               <PrimaryInput
                 placeholder="Email"
@@ -73,20 +75,23 @@ const Register = () => {
                 register={register}
                 error={errors.email?.message}
                 name="email"
+                label="Email Address"
               />
               <PrimaryInput
                 placeholder="Phone Number"
                 type="text"
                 register={register}
-                error={errors.username?.phone}
+                error={errors.phone?.message}
                 name="phone"
+                label="Phone Number"
               />
               <PrimaryInput
                 placeholder="Address"
                 type="text"
                 register={register}
-                error={errors.username?.address}
+                error={errors.address?.message}
                 name="address"
+                label="Address"
               />
               <PrimaryInput
                 placeholder="Password"
@@ -95,6 +100,7 @@ const Register = () => {
                 register={register}
                 error={errors.password?.message}
                 name="password"
+                label="Password"
               />
               <PrimaryInput
                 placeholder="Confirm Password"
@@ -103,6 +109,7 @@ const Register = () => {
                 register={register}
                 error={errors.confirmPassword?.message}
                 name="confirmPassword"
+                label="Confirm Password"
               />
             </Body>
             <AuthBottom

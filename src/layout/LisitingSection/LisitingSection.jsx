@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { getRoomType } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
 import { useNavigate } from "react-router-dom";
+import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
 
 const LisitingSection = () => {
   const navigate = useNavigate();
@@ -15,28 +16,29 @@ const LisitingSection = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 1;
-  useEffect(() => {
-    let localApartmentID = localStorage.getItem("apartmentID");
-    let ApartmentId = JSON.parse(localApartmentID);
-    console.log("ApartmentId: ", ApartmentId);
+  let localApartmentID = localStorage.getItem("apartmentID");
+  let ApartmentId = JSON.parse(localApartmentID);
+  console.log("ApartmentId: ", ApartmentId);
 
+  const { data, loading, success, error } = useGetAllRoomTypeQuery(ApartmentId);
+
+  useEffect(() => {
     const getApart = async () => {
-      const res = await dispatch(getRoomType(ApartmentId));
-      setGetRoomTypeContainer(res?.payload?.data);
-      console.log(res?.payload?.data);
+      setGetRoomTypeContainer(data);
     };
 
     getApart();
-  }, [dispatch]);
+  }, [data]);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(getRoomTypeContainer.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(getRoomTypeContainer.length / itemsPerPage));
+    setCurrentItems(getRoomTypeContainer?.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(getRoomTypeContainer?.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, getRoomTypeContainer]);
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) % getRoomTypeContainer.length;
+    const newOffset =
+      (e.selected * itemsPerPage) % getRoomTypeContainer?.length;
     setItemOffset(newOffset);
   };
 
@@ -79,7 +81,7 @@ const LisitingSection = () => {
           <ListingSidebar />
         </div>
         <div className="flex flex-wrap w-4/5">
-          {currentItems.map((apartment) => (
+          {currentItems?.map((apartment) => (
             <>
               <AddToCartCard
                 apartmentImage={imageFive}

@@ -15,9 +15,14 @@ import {
   CloseWrapper,
   Question,
   ModalButton,
+  Container,
+  LeftContainer,
+  RightContainer,
+  RightCardWrapper,
 } from "./style";
 import PrimaryInput from "../Input";
 import { CnotinueModalButton } from "../../layout/RoomDetailsSection/style";
+import TextArea from "../TextArea";
 
 const BillingDetails = () => {
   const {
@@ -77,11 +82,8 @@ const BillingDetails = () => {
   const makePayment = () => {};
   const payNow = () => {};
   return (
-    <div
-      className="flex items-start bg-gray-100"
-      style={{ padding: "150px 80px", display: "flex" }}
-    >
-      <div className="bg-white shadow-md m-3 p-6" style={{ width: "60%" }}>
+    <Container>
+      <LeftContainer>
         <h1 className=" font-semibold my-6 border-b ">Billing detail</h1>
         <div style={{ display: "flex", gap: "20px", flexFlow: "column" }}>
           <DoubleGridWrapper>
@@ -167,7 +169,7 @@ const BillingDetails = () => {
             />
           </DoubleGridWrapper>
 
-          <PrimaryInput
+          <TextArea
             placeholder="Other Notes (optional)"
             type="text"
             label="Additional Information"
@@ -176,20 +178,10 @@ const BillingDetails = () => {
             // error={errors.password?.message}
           />
         </div>
-      </div>
+      </LeftContainer>
 
-      <div
-        className=" flex-col justify-center items-center"
-        style={{
-          width: "40%",
-          display: "flex",
-          padding: "0px 80px",
-        }}
-      >
-        <div
-          className="flex flex-col justify-center items-center"
-          style={{ width: "100%" }}
-        >
+      <RightContainer>
+        <RightCardWrapper>
           <div
             className="bg-white shadow-md m-3 p-2  rounded-sm"
             style={{ width: "100%" }}
@@ -237,7 +229,7 @@ const BillingDetails = () => {
               <h5 className="text-xs ">NGN220,800</h5>
             </div>
           </div>
-        </div>
+        </RightCardWrapper>
         <div className="w-full gap-3 flex flex-col">
           <PrimaryButton
             title="Continue"
@@ -251,7 +243,7 @@ const BillingDetails = () => {
             onClick={reserveNow}
           />
         </div>
-      </div>
+      </RightContainer>
 
       <Dialog open={openContinueModal} fullWidth maxWidth="sm">
         <ModalWrapper>
@@ -316,7 +308,8 @@ const BillingDetails = () => {
           </Top>
           <img src={availableImage} alt="available" />
           <Question>
-            Luxury terrance is available. Proceed to add to cart{" "}
+            Your rooms has been reserved. Kindly make payment within 48hours of
+            this reservation.
           </Question>
           <ModalButton>
             <PrimaryButton
@@ -327,7 +320,7 @@ const BillingDetails = () => {
           </ModalButton>
         </ModalWrapper>
       </Dialog>
-    </div>
+    </Container>
   );
 };
 

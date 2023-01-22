@@ -43,6 +43,7 @@ const PrimaryInput = ({
               </div>
             ) : null}
           </InputContainer>
+          {error && <Error>{error}</Error>}
         </CheckWrap>
       ) : (
         <CheckWrap>
