@@ -4,7 +4,7 @@ export const CartContainer = styled.div`
   display: flex;
   flex-flow: column;
   position: absolute;
-  top: 73px;
+  top: 80px;
   width: 400px;
   right: 80px;
   padding: 32px 16px;

@@ -45,7 +45,7 @@ const Navbar = (props) => {
     const localData = localStorage.getItem("cartItemId");
     let newItemContainer = JSON.parse(localData);
 
-    setItemContainer(newItemContainer.length);
+    setItemContainer(newItemContainer && newItemContainer.length);
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GrEdit, GrTrash } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 import cart_img from "../../assets/cart_img.png";
 import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
 import CartTotals from "../CartTotals/CartTotals";
@@ -7,7 +8,7 @@ import CartTotals from "../CartTotals/CartTotals";
 const Cart = () => {
   const [roomContainer, setRoomContainer] = useState([]);
   // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   let localApartmentID = localStorage.getItem("apartmentID");
   let ApartmentId = JSON.parse(localApartmentID);
@@ -49,24 +50,14 @@ const Cart = () => {
                 <img src={cart_img} alt="/" className="w-11" />
                 <h4 className="text-xs ml-4">{room.name}</h4>
               </div>
-              <h5 className="text-xs">{room.price}</h5>
-              <input
-                type="number"
-                className="outline-none border-transparent focus:border-transparent focus:ring-0"
-                style={{
-                  width: "4.25rem",
-                  border: "1px solid #eaeaea",
-                  borderRadius: "0.3rem",
-                  height: "2.4rem",
-                }}
-              />
+              <h5 className="text-xs">NGN {room.price}.00</h5>
 
-              <h5 className="text-xs">NGN34,900</h5>
               <div className="flex justify-center items-center">
                 <GrEdit
                   size={12}
                   className="mr-4"
                   style={{ color: "#8BA00D" }}
+                  onClick={() => navigate("/property/rooms")}
                 />
                 <GrTrash size={12} className="" style={{ color: "#8BA00D" }} />
               </div>

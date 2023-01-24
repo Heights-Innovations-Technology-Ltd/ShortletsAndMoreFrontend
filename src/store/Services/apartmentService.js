@@ -21,10 +21,23 @@ export const apartmentApi = createApi({
       query: (id) => `Room/room-types/${id}`,
     }),
 
-    //user login
+    //check availablity
     checkForAvailability: builder.mutation({
       query: (values) => ({
         url: "/Reservation/room-availability",
+        method: "POST",
+        body: values,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["Rooms"],
+    }),
+
+    //reserve
+    reserveNow: builder.mutation({
+      query: (values) => ({
+        url: "/Reservation",
         method: "POST",
         body: values,
         headers: {
@@ -41,4 +54,5 @@ export const {
   useGetAllApartmentQuery,
   useGetAllRoomTypeQuery,
   useCheckForAvailabilityMutation,
+  useReserveNowMutation,
 } = apartmentApi;

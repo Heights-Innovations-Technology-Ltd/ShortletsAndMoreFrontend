@@ -95,7 +95,7 @@ const RoomDetailsSection = () => {
 
     if (newItemArray) {
       if (newItemArray.includes(id)) {
-        toast.success("item added already");
+        toast.error("item added already");
       } else {
         newItemArray.push(id);
         try {
@@ -215,14 +215,6 @@ const RoomDetailsSection = () => {
                 errorMessage={errors.endDate?.message}
               />
 
-              <CountWrap>
-                <Label>No. of Rooms</Label>
-                <CountWrapper>
-                  <Count>-</Count>
-                  <Count padding="0px 40px">1</Count>
-                  <Count>+</Count>
-                </CountWrapper>
-              </CountWrap>
               <BtnWrap>
                 <PrimaryButton
                   title="Check Availability"

@@ -77,7 +77,11 @@ const CartShow = () => {
         <CartContainer>
           <CartTop>
             <TitleText>Cart</TitleText>
-            <FiX size={24} onClick={handleClose} />
+            <FiX
+              size={24}
+              onClick={handleClose}
+              style={{ cursor: "pointer" }}
+            />
           </CartTop>
           <CartItemWrap>
             <ImageWrapper>

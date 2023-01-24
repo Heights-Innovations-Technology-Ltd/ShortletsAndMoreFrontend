@@ -23,6 +23,7 @@ import {
 import PrimaryInput from "../Input";
 import { CnotinueModalButton } from "../../layout/RoomDetailsSection/style";
 import TextArea from "../TextArea";
+import { useReserveNowMutation } from "../../store/Services/apartmentService";
 
 const BillingDetails = () => {
   const {
@@ -34,18 +35,19 @@ const BillingDetails = () => {
     resolver: yupResolver(userBillingSchema),
   });
 
+  const [reserveNow] = useReserveNowMutation();
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
   const [openContinueModal, setOpenContinueModal] = useState(false);
-  const localProfile = localStorage.getItem("userProfile");
-  const parseData = JSON.parse(localProfile);
 
   useEffect(() => {
     const handleCheck = () => {
+      const localProfile = localStorage.getItem("userProfile");
+      const parseData = JSON.parse(localProfile);
+
       if (!localProfile) {
         toast.error("Kindly Sign In");
-        // navigate("/login");
       }
       if (localProfile) {
         setValue("firstName", parseData?.firstName, {
@@ -61,14 +63,58 @@ const BillingDetails = () => {
         setValue("address", parseData?.address, {
           shouldValidate: true,
         });
+        setValue("phone", parseData?.phone, {
+          shouldValidate: true,
+        });
       }
     };
     handleCheck();
-  }, []);
+  }, [setValue]);
 
-  const reserveNow = (e) => {
+  const handleReserveNow = async (e, formData) => {
     e.preventDefault();
-    setOpenModal(true);
+
+    const localProfile = localStorage.getItem("userProfile");
+    const parseData = JSON.parse(localProfile);
+
+    if (!localProfile) {
+      toast.error("Kindly Sign In");
+    } else {
+      console.log(formData);
+
+      let requiredData = {
+        guestEmail: formData? formData.email : parseData.email,
+        guestId: 14,
+        isReservation: true,
+        firstName: formData? formData.firstName :parseData.firstName,
+        lastName: formData? formData.lastName :parseData.lastName,
+        phone: formData? formData.phone :parseData.phone,
+        address: formData? formData.address :parseData.address,
+        reservation: [
+          {
+            startDate: "2023-01-24",
+            endDate: "2023-01-24",
+            createdAt: "2023-01-24",
+            discountPercent: 0,
+            totalPrice: 3000,
+            numberOfRooms: 1,
+            roomTypeId: 1,
+          },
+        ],
+      };
+      console.log("reeeee", requiredData);
+
+      const response = await reserveNow(requiredData);
+      console.log(response);
+
+      const error = response?.error;
+      if (error) {
+        toast.error(error?.data);
+      } else {
+        setOpenModal(true);
+        localStorage.removeItem("cartItemId");
+      }
+    }
   };
 
   const handleContinue = (e) => {
@@ -237,7 +283,7 @@ const BillingDetails = () => {
             title="Reserve Now"
             width="100%"
             lightBtn
-            onClick={reserveNow}
+            onClick={handleReserveNow}
           />
         </div>
       </RightContainer>
