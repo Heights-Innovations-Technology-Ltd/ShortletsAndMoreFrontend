@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled(motion.div)`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
 `;

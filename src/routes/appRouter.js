@@ -10,6 +10,7 @@ import AddToCart from "../pages/AddToCart/AddToCart";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import BillingDetail from "../pages/BillingDetail/BillingDetail";
+import Contact from "../pages/Contact/Contact";
 import Home from "../pages/Home/Home";
 import Property from "../pages/Property/Property";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
@@ -46,6 +47,7 @@ const AppRouter = () => {
             <Route index element={<AddToCart />} />
             <Route path="checkout" element={<BillingDetail />} />
           </Route>
+          <Route path="contact" element={<Contact />} />
         </Routes>
         <Toaster
           position="top-right"

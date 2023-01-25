@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { motion } from "framer-motion";
 export const Container = styled.div`
   display: flex;
   height: 100%;
@@ -14,7 +14,7 @@ export const Layout = styled.div`
   z-index: 2;
 `;
 
-export const LayoutLeft = styled.div`
+export const LayoutLeft = styled(motion.div)`
   position: sticky;
   top: 0;
   display: flex;

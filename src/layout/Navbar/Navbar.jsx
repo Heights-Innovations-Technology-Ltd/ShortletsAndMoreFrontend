@@ -25,6 +25,7 @@ const Navbar = (props) => {
   const [itemContainer, setItemContainer] = useState(0);
   const [nav, setNav] = useState(false);
   const dispatch = useDispatch();
+  const [change, setChange] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const handleProfile = () => {
     setShowProfile(!showProfile);
@@ -48,6 +49,13 @@ const Navbar = (props) => {
     setItemContainer(newItemContainer && newItemContainer.length);
   }, []);
 
+  window.addEventListener("scroll", () => {
+    if (window.scrollY >= 10) {
+      setChange(true);
+    } else {
+      setChange(false);
+    }
+  });
   return (
     <>
       {/* <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow sticky  inset-x-0 top-0 p-4">
@@ -124,7 +132,9 @@ const Navbar = (props) => {
         </div>
       </div> */}
 
-      <NavContainer>
+      <NavContainer
+        boxShadow={change ? "0px 10px 30px rgba(13, 38, 59, 0.05)" : ""}
+      >
         <NavLinksContainer>
           <NavLink to="/home">
             <NavLinkText>HOME</NavLinkText>
@@ -135,7 +145,7 @@ const Navbar = (props) => {
           <NavLink>
             <NavLinkText>ABOUT</NavLinkText>
           </NavLink>
-          <NavLink>
+          <NavLink to="/contact">
             <NavLinkText>CONTACT</NavLinkText>
           </NavLink>
         </NavLinksContainer>

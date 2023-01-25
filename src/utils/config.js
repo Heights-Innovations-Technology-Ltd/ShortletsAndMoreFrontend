@@ -608,3 +608,8 @@ export const checkAvailabilitySchema = yup.object().shape({
     // )
     .required(),
 });
+
+export const contactSchema = yup.object().shape({
+  email: yup.string().email("Enter a valid email address").required(),
+  phone: yup.string().required("Phone number is a required field"),
+});

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const InputContainer = styled.div`
   width: 100%;
@@ -15,7 +16,7 @@ export const CheckInputContainer = styled.div`
   align-items: center;
 `;
 
-export const CheckWrap = styled.div`
+export const CheckWrap = styled(motion.div)`
   width: 100%;
   display: flex;
   gap: 10px;
@@ -84,7 +85,7 @@ export const Wrapper = styled.div`
 
 export const Label = styled.p`
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
 `;
 export const Iconwrapper = styled.div`
   margin-right: 20px;

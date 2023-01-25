@@ -38,10 +38,16 @@ const PrimaryButton = ({
   };
 
   return (
-    <ButtonContainer width={btnWidth}>
+    <ButtonContainer
+      width={btnWidth}
+      key="MainButton"
+      initial={{ y: 10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: 10, opacity: 0 }}
+    >
       <button
         type={type}
-        className="inline-block px-5 py-3 border-gray-800 text-gray-800 font-medium text-xs leading-tight rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+        className="inline-block px-5 py-3 border-gray-800 text-gray-800 font-medium text-xs leading-tight rounded hover:bg-[#8BA00D] hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
         style={lightBtn ? lightStyle : darkStyle}
         onClick={onClick}
       >

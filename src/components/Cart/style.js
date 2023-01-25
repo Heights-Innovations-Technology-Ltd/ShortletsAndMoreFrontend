@@ -1,13 +1,35 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const CartContainer = styled.div`
+export const CartOverlay = styled.div`
+  position: absolute;
+  border: solid red;
+  padding: 32px 16px;
+  background-color: white;
+  z-index: 2;
+  background-color: rgba(57, 55, 72, 0.22);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 80;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+`;
+
+export const CartContainer = styled(motion.div)`
   display: flex;
   flex-flow: column;
-  position: absolute;
+  position: fixed;
   top: 80px;
   width: 400px;
   right: 80px;
   padding: 32px 16px;
+  box-shadow: 0px 10px 30px rgba(13, 38, 59, 0.05);
   background-color: white;
   z-index: 999;
   padding: 36px;

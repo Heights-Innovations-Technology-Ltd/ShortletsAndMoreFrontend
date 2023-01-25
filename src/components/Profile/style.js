@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const ProfileContainer = styled.div`
+export const ProfileContainer = styled(motion.div)`
   border: 1px solid #edf1f7;
   width: 216px;
   background-color: white;

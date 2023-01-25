@@ -25,7 +25,13 @@ const PrimaryInput = ({
   return (
     <>
       {!check ? (
-        <CheckWrap>
+        <CheckWrap
+          key="InputWithLabel"
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 10, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <Label>{label}</Label>
           <InputContainer>
             {register && (
@@ -46,7 +52,13 @@ const PrimaryInput = ({
           {error && <Error>{error}</Error>}
         </CheckWrap>
       ) : (
-        <CheckWrap>
+        <CheckWrap
+          key="InputWithLabel"
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 10, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <Label>{label}</Label>
           <CheckInputContainer>
             {/* {register && ( */}

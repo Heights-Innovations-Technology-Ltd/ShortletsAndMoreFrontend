@@ -29,6 +29,10 @@ const AuthLayout = ({
     <Container>
       <Layout flexFlow={flexFlow}>
         <LayoutLeft
+          key="LeftAuthLayout"
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 10, opacity: 0 }}
           hideLeftAt={hideLeftAt}
           borderBottomR={borderBottomR}
           borderBottomL={borderBottomL}

@@ -9,6 +9,7 @@ export const NavContainer = styled.div`
   align-items: center;
   z-index: 999;
   justify-content: space-between;
+  box-shadow: ${(props) => props.boxShadow};
 `;
 
 export const NavLinksContainer = styled.div`

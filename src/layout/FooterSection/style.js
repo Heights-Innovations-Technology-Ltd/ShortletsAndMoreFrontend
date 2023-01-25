@@ -89,6 +89,7 @@ export const InputWrapper = styled.div`
 export const Input = styled.input`
   width: 75%;
   border: none;
+  padding-left: 10px;
   outline: none;
 `;
 export const Button = styled.div`
