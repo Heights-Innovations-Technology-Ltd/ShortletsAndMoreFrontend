@@ -39,7 +39,7 @@ export const DateInput = ({
 
   const pickDay = (day) => {
     setDateIsTouched(true);
-    const selectedDate = format(day, "dd/MM/yyyy");
+    const selectedDate = format(day, "yyyy/MM/dd");
     setDate(selectedDate);
     selectDate(selectedDate);
     hideCalendar();
