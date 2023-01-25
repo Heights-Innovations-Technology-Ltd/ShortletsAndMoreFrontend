@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import image from "../../assets/listing_img_four.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
+import PuffLoader from "../../components/Loader";
 import Paginator from "../../components/Paginator";
 import { getApartment } from "../../store/Action/actions";
 import { useGetAllApartmentQuery } from "../../store/Services/apartmentService";
@@ -17,7 +18,7 @@ const ApartmentSection = () => {
   const dispatch = useDispatch();
   const [apartmentData, setApartmentData] = useState([]);
 
-  const { data, loading, success, error } = useGetAllApartmentQuery();
+  const { data, isLoading, isSuccess, isError } = useGetAllApartmentQuery();
   console.log("fetch", data);
 
   // const currentViewData = useMemo(() => {
@@ -93,17 +94,21 @@ const ApartmentSection = () => {
         </div>
 
         <div className="flex flex-wrap w-4/5 border">
-          {currentItems?.map((apartment) => (
-            <div key={apartment.id}>
-              <ApartmentCard
-                apartmentImage={image}
-                apartmentName={apartment.name}
-                apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
-                apartmentDetails={apartment.description}
-                onApartmentClick={() => handleApartmentClick(apartment.id)}
-              />
-            </div>
-          ))}
+          {isLoading ? (
+            <PuffLoader />
+          ) : (
+            currentItems?.map((apartment) => (
+              <div key={apartment.id}>
+                <ApartmentCard
+                  apartmentImage={image}
+                  apartmentName={apartment.name}
+                  apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
+                  apartmentDetails={apartment.description}
+                  onApartmentClick={() => handleApartmentClick(apartment.id)}
+                />
+              </div>
+            ))
+          )}
 
           {/* <PaginationNav1Presentation /> */}
         </div>

@@ -7,6 +7,7 @@ import { getRoomType } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
 import { useNavigate } from "react-router-dom";
 import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
+import PuffLoader from "../../components/Loader";
 
 const LisitingSection = () => {
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ const LisitingSection = () => {
   let ApartmentId = JSON.parse(localApartmentID);
   console.log("ApartmentId: ", ApartmentId);
 
-  const { data, loading, success, error } = useGetAllRoomTypeQuery(ApartmentId);
+  const { data, isLoading, isSuccess, isError } =
+    useGetAllRoomTypeQuery(ApartmentId);
 
   useEffect(() => {
     const getApart = async () => {
@@ -81,19 +83,23 @@ const LisitingSection = () => {
           <ListingSidebar />
         </div>
         <div className="flex flex-wrap w-4/5">
-          {currentItems?.map((apartment) => (
-            <>
-              <AddToCartCard
-                apartmentImage={imageFive}
-                apartmentName={apartment.name}
-                apartmentPrice={apartment.price}
-                apartmentDescription={apartment.description}
-                handleNavigateToDetails={() =>
-                  handleNavigateToDetails(apartment.id)
-                }
-              />
-            </>
-          ))}
+          {isLoading ? (
+            <PuffLoader />
+          ) : (
+            currentItems?.map((apartment) => (
+              <>
+                <AddToCartCard
+                  apartmentImage={imageFive}
+                  apartmentName={apartment.name}
+                  apartmentPrice={apartment.price}
+                  apartmentDescription={apartment.description}
+                  handleNavigateToDetails={() =>
+                    handleNavigateToDetails(apartment.id)
+                  }
+                />
+              </>
+            ))
+          )}
 
           {/* <PaginationNav1Presentation /> */}
         </div>

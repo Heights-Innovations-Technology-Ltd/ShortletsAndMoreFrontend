@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import AddToCartCard from "../../components/Cards/AddToCartCard";
 import imageFive from "../../assets/recent_listing.png";
 import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
+import PuffLoader from "../../components/Loader";
 
 const FeaturedSection = () => {
   const [availableRooms, setAvailableRooms] = useState([]);
 
-  const { data, loading, success, error } = useGetAllRoomTypeQuery(14);
+  const { data, isLoading, isSuccess, isError } = useGetAllRoomTypeQuery(14);
 
   useEffect(() => {
     setAvailableRooms(data);
@@ -27,17 +28,21 @@ const FeaturedSection = () => {
       </p>
 
       <div className="flex items-center justify-center flex-wrap">
-        {availableRooms?.map((apartment) => (
-          <div key={apartment.id}>
-            <AddToCartCard
-              apartmentImage={imageFive}
-              apartmentName={apartment.name}
-              apartmentPrice={apartment.price}
-              apartmentDescription={apartment.description}
-              landing
-            />
-          </div>
-        ))}
+        {isLoading ? (
+          <PuffLoader />
+        ) : (
+          availableRooms?.map((apartment) => (
+            <div key={apartment.id}>
+              <AddToCartCard
+                apartmentImage={imageFive}
+                apartmentName={apartment.name}
+                apartmentPrice={apartment.price}
+                apartmentDescription={apartment.description}
+                landing
+              />
+            </div>
+          ))
+        )}
       </div>
     </>
   );

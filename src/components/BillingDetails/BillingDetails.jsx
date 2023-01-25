@@ -23,7 +23,11 @@ import {
 import PrimaryInput from "../Input";
 import { CnotinueModalButton } from "../../layout/RoomDetailsSection/style";
 import TextArea from "../TextArea";
-import { useReserveNowMutation } from "../../store/Services/apartmentService";
+import {
+  useGetAllRoomTypeQuery,
+  useReserveNowMutation,
+} from "../../store/Services/apartmentService";
+import PuffLoader from "../Loader";
 
 const BillingDetails = () => {
   const {
@@ -34,12 +38,17 @@ const BillingDetails = () => {
   } = useForm({
     resolver: yupResolver(userBillingSchema),
   });
+  let localApartmentID = localStorage.getItem("apartmentID");
+  let ApartmentId = JSON.parse(localApartmentID);
 
   const [reserveNow] = useReserveNowMutation();
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
   const [openContinueModal, setOpenContinueModal] = useState(false);
+  const [roomContainer, setRoomContainer] = useState([]);
+  const { data, isLoading, isSuccess, isError } =
+    useGetAllRoomTypeQuery(ApartmentId);
 
   useEffect(() => {
     const handleCheck = () => {
@@ -83,13 +92,13 @@ const BillingDetails = () => {
       console.log(formData);
 
       let requiredData = {
-        guestEmail: formData? formData.email : parseData.email,
+        guestEmail: formData ? formData.email : parseData.email,
         guestId: 14,
         isReservation: true,
-        firstName: formData? formData.firstName :parseData.firstName,
-        lastName: formData? formData.lastName :parseData.lastName,
-        phone: formData? formData.phone :parseData.phone,
-        address: formData? formData.address :parseData.address,
+        firstName: formData ? formData.firstName : parseData.firstName,
+        lastName: formData ? formData.lastName : parseData.lastName,
+        phone: formData ? formData.phone : parseData.phone,
+        address: formData ? formData.address : parseData.address,
         reservation: [
           {
             startDate: "2023-01-24",
@@ -116,6 +125,24 @@ const BillingDetails = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const localData = localStorage.getItem("cartItemId");
+    let newItemContainer = JSON.parse(localData);
+    console.log(newItemContainer);
+
+    let cartData = [];
+    if (newItemContainer) {
+      data?.forEach((data) => {
+        if (newItemContainer.includes(data?.id)) {
+          cartData.push(data);
+
+          return;
+        }
+      });
+      setRoomContainer(cartData);
+    }
+  }, [data]);
 
   const handleContinue = (e) => {
     e.preventDefault();
@@ -148,14 +175,14 @@ const BillingDetails = () => {
             />
           </DoubleGridWrapper>
 
-          <PrimaryInput
+          {/* <PrimaryInput
             placeholder="Enter Company Name"
             type="text"
             label="Company Name"
             register={register}
             name="companyName"
             // error={errors.password?.message}
-          />
+          /> */}
 
           <PrimaryInput
             placeholder="Select Country"
@@ -189,7 +216,7 @@ const BillingDetails = () => {
             type="text"
             label="Street"
             register={register}
-            name="street"
+            name="address"
             // error={errors.password?.message}
           />
 
@@ -277,6 +304,7 @@ const BillingDetails = () => {
           <PrimaryButton
             title="Continue"
             width="100%"
+            loading={isLoading}
             onClick={handleContinue}
           />
           <PrimaryButton
@@ -306,16 +334,16 @@ const BillingDetails = () => {
             </div>
 
             <hr className="ml-4 mr-4" />
-
-            <div className="p-4 flex flex-row justify-between items-center mt-3">
-              <h4 className="text-xs">Luxury Duplex</h4>
-              <h5 className="text-xs">NGN104,700</h5>
-            </div>
-
-            <div className="p-4 flex flex-row justify-between items-center mb-3">
-              <h4 className="text-xs">Luxury Duplex</h4>
-              <h5 className="text-xs">NGN104,700</h5>
-            </div>
+            {isLoading ? (
+              <PuffLoader />
+            ) : (
+              roomContainer?.map((room) => (
+                <div className="p-4 flex flex-row justify-between items-center mt-3">
+                  <h4 className="text-xs">{room.name}</h4>
+                  <h5 className="text-xs">NGN{room.price}</h5>
+                </div>
+              ))
+            )}
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Subtotal</h4>

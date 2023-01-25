@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonContainer, IconContainer } from "./style";
+import { Oval } from "react-loading-icons";
 
 const PrimaryButton = ({
   lightBtn,
@@ -11,6 +12,7 @@ const PrimaryButton = ({
   type,
   height,
   width,
+  loading,
   btnWidth,
 }) => {
   const lightStyle = {
@@ -43,8 +45,14 @@ const PrimaryButton = ({
         style={lightBtn ? lightStyle : darkStyle}
         onClick={onClick}
       >
-        {title}
-        {icon && <IconContainer>{iconName}</IconContainer>}
+        {loading ? (
+          <Oval stroke="#ffffff" fill="white" width={24} height={24} />
+        ) : (
+          <>
+            {title}
+            {icon && <IconContainer>{iconName}</IconContainer>}
+          </>
+        )}
       </button>
     </ButtonContainer>
   );

@@ -23,6 +23,7 @@ import image from "../../assets/cartImage.png";
 import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
 import { setShowCart } from "../../store/Slice/roomSlice";
 import { useNavigate } from "react-router-dom";
+import PuffLoader from "../Loader";
 
 const CartShow = () => {
   const [roomContainer, setRoomContainer] = useState([]);
@@ -31,8 +32,10 @@ const CartShow = () => {
 
   let localApartmentID = localStorage.getItem("apartmentID");
   let ApartmentId = JSON.parse(localApartmentID);
+  const check = useGetAllRoomTypeQuery(ApartmentId);
 
-  const { data, loading, success, error } = useGetAllRoomTypeQuery(ApartmentId);
+  const { data, isLoading, isSuccess, isError } =
+    useGetAllRoomTypeQuery(ApartmentId);
 
   const handleClose = () => {
     dispatch(setShowCart());
@@ -73,40 +76,48 @@ const CartShow = () => {
 
   return (
     <>
-      {roomContainer?.map((room) => (
-        <CartContainer>
-          <CartTop>
-            <TitleText>Cart</TitleText>
-            <FiX
-              size={24}
-              onClick={handleClose}
-              style={{ cursor: "pointer" }}
-            />
-          </CartTop>
-          <CartItemWrap>
-            <ImageWrapper>
-              <DeleteContainer>
-                <FiX size={18} />
-              </DeleteContainer>
-              <Image src={image} alt="cartImage" />
-            </ImageWrapper>
-            <ItemDetails>
-              <ItemName>{room.name}</ItemName>
-              <ItemPrice>1 X NGN{room.price}</ItemPrice>
-            </ItemDetails>
-          </CartItemWrap>
+      {isLoading ? (
+        <PuffLoader />
+      ) : (
+        roomContainer?.map((room) => (
+          <CartContainer>
+            <CartTop>
+              <TitleText>Cart</TitleText>
+              <FiX
+                size={24}
+                onClick={handleClose}
+                style={{ cursor: "pointer" }}
+              />
+            </CartTop>
+            <CartItemWrap>
+              <ImageWrapper>
+                <DeleteContainer>
+                  <FiX size={18} />
+                </DeleteContainer>
+                <Image src={image} alt="cartImage" />
+              </ImageWrapper>
+              <ItemDetails>
+                <ItemName>{room.name}</ItemName>
+                <ItemPrice>1 X NGN{room.price}</ItemPrice>
+              </ItemDetails>
+            </CartItemWrap>
 
-          <TotalWrapper>
-            <TotalText>Total</TotalText>
-            <TotalPrice>NGN50,000.00</TotalPrice>
-          </TotalWrapper>
+            <TotalWrapper>
+              <TotalText>Total</TotalText>
+              <TotalPrice>NGN50,000.00</TotalPrice>
+            </TotalWrapper>
 
-          <ButtonWrapper>
-            <PrimaryButton title="VIEW CART" onClick={handleView} />
-            <PrimaryButton title="CHECKOUT" lightBtn onClick={handleCheckOut} />
-          </ButtonWrapper>
-        </CartContainer>
-      ))}
+            <ButtonWrapper>
+              <PrimaryButton title="VIEW CART" onClick={handleView} />
+              <PrimaryButton
+                title="CHECKOUT"
+                lightBtn
+                onClick={handleCheckOut}
+              />
+            </ButtonWrapper>
+          </CartContainer>
+        ))
+      )}
     </>
   );
 };

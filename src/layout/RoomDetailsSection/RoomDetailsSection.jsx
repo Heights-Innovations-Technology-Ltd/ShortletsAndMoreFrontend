@@ -220,6 +220,7 @@ const RoomDetailsSection = () => {
                   title="Check Availability"
                   width="100%"
                   type="submit"
+                  loading={isLoading}
                 />
               </BtnWrap>
             </Form>

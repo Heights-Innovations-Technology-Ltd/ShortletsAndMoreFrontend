@@ -10,6 +10,7 @@ import listing_img_one from "../../assets/listing_img_one.png";
 import listing_img_three from "../../assets/listing_img_three.png";
 import listing_img_two from "../../assets/listing_img_two.png";
 import ApartmentCard from "../../components/Cards/ApartmentCard";
+import PuffLoader from "../../components/Loader";
 import { getApartment } from "../../store/Action/actions";
 import { useGetAllApartmentQuery } from "../../store/Services/apartmentService";
 import { apartmentHomeData } from "../../utils/config";
@@ -18,7 +19,7 @@ const RecentListingSection = () => {
   const dispatch = useDispatch();
   const [apartmentData, setApartmentData] = useState([]);
 
-  const { data, loading, success, error } = useGetAllApartmentQuery();
+  const { data, isLoading, isSuccess, isError } = useGetAllApartmentQuery();
   console.log("fetch", data);
 
   useEffect(() => {
@@ -39,17 +40,21 @@ const RecentListingSection = () => {
       </p>
 
       <div className="flex items-center justify-center flex-wrap">
-        {apartmentData?.map((apartment) => (
-          <div key={apartment.id}>
-            <ApartmentCard
-              landing
-              apartmentImage={image}
-              apartmentName={apartment.name}
-              apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
-              apartmentDetails={apartment.description}
-            />
-          </div>
-        ))}
+        {isLoading ? (
+          <PuffLoader />
+        ) : (
+          apartmentData?.map((apartment) => (
+            <div key={apartment.id}>
+              <ApartmentCard
+                landing
+                apartmentImage={image}
+                apartmentName={apartment.name}
+                apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
+                apartmentDetails={apartment.description}
+              />
+            </div>
+          ))
+        )}
       </div>
     </>
   );
