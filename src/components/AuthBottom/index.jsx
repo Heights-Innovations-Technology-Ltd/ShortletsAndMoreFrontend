@@ -5,7 +5,14 @@ import { Container, Span, DirectLink, TextContainer, Text } from "./style";
 import { FaChevronRight } from "react-icons/fa";
 
 const arrowRight = <FaChevronRight />;
-const AuthBottom = ({ buttonTitle, text, link, onClick, directionText }) => {
+const AuthBottom = ({
+  buttonTitle,
+  text,
+  link,
+  onClick,
+  directionText,
+  loading,
+}) => {
   const linkStyle = {
     textDecoration: "none",
   };
@@ -18,6 +25,7 @@ const AuthBottom = ({ buttonTitle, text, link, onClick, directionText }) => {
           width="100%"
           height="55px"
           size="16px"
+          loading={loading}
         />
       </div>
 

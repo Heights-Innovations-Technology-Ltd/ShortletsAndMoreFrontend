@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AuthBottom from "../../../components/AuthBottom";
 import PrimaryInput from "../../../components/Input";
 import AuthLayout from "../../../layout/AuthLayout";
@@ -23,6 +23,7 @@ const Login = () => {
   // const { loading, userDetails, error, success } = useSelector(
   //   (state) => state.authDataReducer
   // );
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -45,6 +46,7 @@ const Login = () => {
     if (responseData) {
       toast.success("Login Successfully");
       localStorage.setItem("userProfile", JSON.stringify(responseData));
+      navigate("/home");
     }
     if (error) {
       toast.error(error?.data);
@@ -107,6 +109,7 @@ const Login = () => {
               buttonTitle={"Sign In"}
               text="Don't have an account ?"
               directionText="Sign Up"
+              loading={isLoading}
               link="/register"
             />
           </FormContainer>

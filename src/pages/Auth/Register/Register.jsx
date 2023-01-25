@@ -118,6 +118,7 @@ const Register = () => {
               text="Already have an account ?"
               directionText="Sign In"
               link="/login"
+              loading={isLoading}
             />
           </FormContainer>
         </AuthLayout>
