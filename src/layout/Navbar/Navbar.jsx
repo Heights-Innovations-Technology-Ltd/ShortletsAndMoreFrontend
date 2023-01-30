@@ -6,10 +6,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo_transparent_background 3.png";
 import Profile from "../../components/Profile";
 import { ReactComponent as LogoIcon } from "../../assets/svg/brandLogo.svg";
+import { ReactComponent as MobileLogoIcon } from "../../assets/svg/mobileLogo.svg";
+import mobileLogo from "../../assets/mobileLogo.png";
 import {
   CartIconContainer,
   Length,
   LengthContainer,
+  MobileDropWrapper,
+  MobileLinkWrapper,
+  MobileLogo,
+  MobileNavContainer,
   NavContainer,
   NavLinksContainer,
   NavLinkText,
@@ -19,6 +25,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setShowCart } from "../../store/Slice/roomSlice";
 import CartShow from "../../components/Cart/cartShow";
+import { FaAlignRight } from "react-icons/fa";
 
 const Navbar = (props) => {
   // const { marginTop, absolute } = props;
@@ -27,6 +34,8 @@ const Navbar = (props) => {
   const dispatch = useDispatch();
   const [change, setChange] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [mobile, setMobile] = useState(false);
+
   const handleProfile = () => {
     setShowProfile(!showProfile);
   };
@@ -56,6 +65,11 @@ const Navbar = (props) => {
       setChange(false);
     }
   });
+
+  const handleDrop = () => {
+    setMobile(!mobile);
+  };
+  useEffect(() => {}, []);
   return (
     <>
       {/* <div className="w-full min-h-[50px] flex justify-around items-center  z-10 bg-white shadow sticky  inset-x-0 top-0 p-4">
@@ -174,6 +188,42 @@ const Navbar = (props) => {
       </NavContainer>
       {showProfile && <Profile />}
       {cartShow && <CartShow />}
+
+      <MobileNavContainer
+        boxShadow={change ? "0px 10px 30px rgba(13, 38, 59, 0.05)" : ""}
+      >
+        <NavLogoContainer>
+          <MobileLogo src={mobileLogo} alt="mobile logo" />
+        </NavLogoContainer>
+        <FaAlignRight color="#8BA00D" size={24} onClick={handleDrop} />
+      </MobileNavContainer>
+
+      {mobile && (
+        <MobileDropWrapper
+          key="MobileDropWrapper"
+          // initial={{ y: 10, opacity: 0 }}
+          // animate={{ y: 0, opacity: 1 }}
+          // exit={{ y: 10, opacity: 0 }}
+          // transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 200 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <MobileLinkWrapper>
+            <NavLink to="/home">
+              <NavLinkText>HOME</NavLinkText>
+            </NavLink>
+            <NavLink to="/property">
+              <NavLinkText>PROPERTY</NavLinkText>
+            </NavLink>
+            <NavLink>
+              <NavLinkText>ABOUT</NavLinkText>
+            </NavLink>
+            <NavLink to="/contact">
+              <NavLinkText>CONTACT</NavLinkText>
+            </NavLink>
+          </MobileLinkWrapper>
+        </MobileDropWrapper>
+      )}
     </>
   );
 };

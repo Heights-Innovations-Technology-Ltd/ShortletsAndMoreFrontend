@@ -80,8 +80,8 @@ const BillingDetails = () => {
     handleCheck();
   }, [setValue]);
 
-  const handleReserveNow = async (e, formData) => {
-    e.preventDefault();
+  const onReserve = async (formData) => {
+    console.log(formData);
 
     const localProfile = localStorage.getItem("userProfile");
     const parseData = JSON.parse(localProfile);
@@ -95,6 +95,52 @@ const BillingDetails = () => {
         guestEmail: formData ? formData.email : parseData.email,
         guestId: 14,
         isReservation: true,
+        firstName: formData ? formData.firstName : parseData.firstName,
+        lastName: formData ? formData.lastName : parseData.lastName,
+        phone: formData ? formData.phone : parseData.phone,
+        address: formData ? formData.address : parseData.address,
+        reservation: [
+          {
+            startDate: "2023-01-24",
+            endDate: "2023-01-24",
+            createdAt: "2023-01-24",
+            discountPercent: 0,
+            totalPrice: 3000,
+            numberOfRooms: 1,
+            roomTypeId: 1,
+          },
+        ],
+      };
+      console.log("reeeee", requiredData);
+
+      const response = await reserveNow(requiredData);
+      console.log(response);
+
+      const error = response?.error;
+      if (error) {
+        toast.error(error?.data);
+      } else {
+        setOpenModal(true);
+        localStorage.removeItem("cartItemId");
+      }
+    }
+  };
+
+  const onPay = async (formData) => {
+    console.log(formData);
+
+    const localProfile = localStorage.getItem("userProfile");
+    const parseData = JSON.parse(localProfile);
+
+    if (!localProfile) {
+      toast.error("Kindly Sign In");
+    } else {
+      console.log(formData);
+
+      let requiredData = {
+        guestEmail: formData ? formData.email : parseData.email,
+        guestId: 14,
+        isReservation: false,
         firstName: formData ? formData.firstName : parseData.firstName,
         lastName: formData ? formData.lastName : parseData.lastName,
         phone: formData ? formData.phone : parseData.phone,
@@ -311,7 +357,7 @@ const BillingDetails = () => {
             title="Reserve Now"
             width="100%"
             lightBtn
-            onClick={handleReserveNow}
+            onClick={handleSubmit(onReserve)}
           />
         </div>
       </RightContainer>
@@ -365,7 +411,11 @@ const BillingDetails = () => {
             </div>
           </div>
           <CnotinueModalButton>
-            <PrimaryButton title="Pay Now" width="100%" onClick={payNow} />
+            <PrimaryButton
+              title="Pay Now"
+              width="100%"
+              onClick={handleSubmit(onPay)}
+            />
           </CnotinueModalButton>
         </ModalWrapper>
       </Dialog>
@@ -386,7 +436,7 @@ const BillingDetails = () => {
             <PrimaryButton
               title="Make Payment"
               width="100%"
-              onClick={makePayment}
+              onClick={handleSubmit(onPay)}
             />
           </ModalButton>
         </ModalWrapper>

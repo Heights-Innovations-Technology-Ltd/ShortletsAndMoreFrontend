@@ -1,4 +1,10 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import {
+  useGetAllApartmentQuery,
+  useSortPropertyQuery,
+} from "../../store/Services/apartmentService";
 import PrimaryButton from "../PrimaryButton";
 import {
   SearchContainer,
@@ -10,14 +16,31 @@ import {
 } from "./styles";
 
 const GeneralSearch = () => {
+  const { data, isLoading, isError } = useSortPropertyQuery();
+
+  const apartmentData = useGetAllApartmentQuery();
+  const [sortApartment, setSortApartment] = useState([]);
+  const [sortApartmentList, setSortApartmentList] = useState([]);
+
+  console.log(apartmentData);
+  useEffect(() => {
+    setSortApartment(data?.facilities?.apartment);
+  }, [data, setSortApartment]);
+
+  useEffect(() => {
+    setSortApartmentList(apartmentData?.data);
+  }, [apartmentData, setSortApartmentList]);
+
+  console.log(sortApartment);
   return (
     <SearchContainer>
       <ContentContainer>
         <InputContainer>
           <InputWhite>
             <Input>
-              <option value="Property Type">Property Type</option>
-              <option value="Property Type">Property Type</option>
+              {sortApartment.map((property) => (
+                <option value={property}>{property}</option>
+              ))}
             </Input>
           </InputWhite>
           <InputWhite>
@@ -28,7 +51,7 @@ const GeneralSearch = () => {
           </InputWhite>
         </InputContainer>
         <ButtonContainer>
-          <PrimaryButton height="55px" title="SEARCH" />
+          <PrimaryButton height="55px" title="SEARCH" type="submit" />
         </ButtonContainer>
       </ContentContainer>
     </SearchContainer>

@@ -21,6 +21,11 @@ export const apartmentApi = createApi({
       query: (id) => `Room/room-types/${id}`,
     }),
 
+    //sorting list of rooms
+    sortProperty: builder.query({
+      query: () => `Util/configuration`,
+    }),
+
     //check availablity
     checkForAvailability: builder.mutation({
       query: (values) => ({
@@ -53,6 +58,7 @@ export const apartmentApi = createApi({
 export const {
   useGetAllApartmentQuery,
   useGetAllRoomTypeQuery,
+  useSortPropertyQuery,
   useCheckForAvailabilityMutation,
   useReserveNowMutation,
 } = apartmentApi;
