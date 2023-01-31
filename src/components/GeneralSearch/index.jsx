@@ -31,14 +31,14 @@ const GeneralSearch = () => {
     setSortApartmentList(apartmentData?.data);
   }, [apartmentData, setSortApartmentList]);
 
-  console.log(sortApartment);
+  console.log(data);
   return (
     <SearchContainer>
       <ContentContainer>
         <InputContainer>
           <InputWhite>
             <Input>
-              {sortApartment.map((property) => (
+              {sortApartment?.map((property) => (
                 <option value={property}>{property}</option>
               ))}
             </Input>

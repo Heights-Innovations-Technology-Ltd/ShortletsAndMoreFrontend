@@ -15,6 +15,39 @@ import { ReactComponent as SecondSvg } from "../assets/svg/map.svg";
 import { ReactComponent as ThirdSvg } from "../assets/svg/note.svg";
 
 import * as yup from "yup";
+
+export const testingData = [
+  {
+    category: null,
+    categoryId: 4,
+    city: null,
+    cityId: 244,
+    company: null,
+    companyId: 114,
+    description: "New lovely building on the coast of lagos",
+    facilities: { Security: true, SwimmingPool: true, Parking: true },
+    id: 14,
+    isActive: true,
+    name: "Invest Apartments",
+    roomTypes: [],
+    rooms: [],
+  },
+  {
+    category: null,
+    categoryId: 4,
+    city: null,
+    cityId: 244,
+    company: null,
+    companyId: 114,
+    description: "Another lovely building on the coast of lagos",
+    facilities: { Security: true, SwimmingPool: true, Parking: false },
+    id: 24,
+    isActive: true,
+    name: "Invent Apartments",
+    roomTypes: [],
+    rooms: [],
+  },
+];
 export const aboutUsData = [
   {
     id: 1,

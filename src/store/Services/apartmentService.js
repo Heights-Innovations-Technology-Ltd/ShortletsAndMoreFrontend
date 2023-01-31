@@ -23,7 +23,7 @@ export const apartmentApi = createApi({
 
     //sorting list of rooms
     sortProperty: builder.query({
-      query: () => `Util/configuration`,
+      query: () => `util/configuration`,
     }),
 
     //check availablity

@@ -35,6 +35,10 @@ export const NavRightContainer = styled.div`
 export const NavLinkText = styled.p`
   font-weight: 500;
   font-size: 16px;
+
+  &:hover {
+    color: #8ba00d;
+  }
 `;
 
 export const CartIconContainer = styled.div`

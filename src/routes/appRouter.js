@@ -15,6 +15,7 @@ import Home from "../pages/Home/Home";
 import Property from "../pages/Property/Property";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
 import Services from "../pages/Services/Services";
+import Testing from "../pages/Testing";
 
 const AppRouter = () => {
   return (
@@ -48,6 +49,7 @@ const AppRouter = () => {
             <Route path="checkout" element={<BillingDetail />} />
           </Route>
           <Route path="contact" element={<Contact />} />
+          <Route path="testing" element={<Testing />} />
         </Routes>
         <Toaster
           position="top-right"

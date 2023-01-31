@@ -39,11 +39,14 @@ import {
   Title,
   TitlePara,
   Wrap,
+  FeatureItems,
   ModalWrapper,
   Top,
   CloseWrapper,
   Question,
+  FeatureItem,
   ModalButton,
+  FeatureWrapper,
 } from "./style";
 import toast from "react-hot-toast";
 import {
@@ -55,6 +58,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const RoomDetailsSection = () => {
+  const features = [
+    { id: 1, result: true, category: "All" },
+    { id: 2, result: true, category: "Television" },
+    { id: 3, result: true, category: "Microwave" },
+    { id: 4, result: true, category: "Heater" },
+  ];
+
   let localApartmentID = localStorage.getItem("apartmentID");
   let ApartmentId = JSON.parse(localApartmentID);
 
@@ -63,6 +73,7 @@ const RoomDetailsSection = () => {
   const [checkForAvailability, { isLoading, isSuccess }] =
     useCheckForAvailabilityMutation();
   const [roomContainer, setRoomContainer] = useState({});
+  const [roomFeatures, setRoomFeatures] = useState([]);
   const {
     handleSubmit,
     register,
@@ -84,7 +95,9 @@ const RoomDetailsSection = () => {
     const check = data?.find((room) => room.id === cID);
     // // if (check) {
     // // }
+    console.log("adddd", check);
     setRoomContainer(check);
+    setRoomFeatures(JSON.parse(check?.features));
   }, [roomID, data]);
 
   const addToCart = async (id) => {
@@ -157,6 +170,11 @@ const RoomDetailsSection = () => {
   };
 
   console.log("che", roomContainer);
+  // useEffect(() => {
+  //   setRoomFeatures(JSON.parse(roomContainer?.features));
+  // }, [roomContainer]);
+
+  console.log("cherrrrr", roomFeatures);
   return (
     <>
       <Container>
@@ -190,6 +208,15 @@ const RoomDetailsSection = () => {
             </SecondDes>
             <ThirdDes>
               <Description>Features</Description>
+              {/* <FeatureWrapper>
+                {roomFeatures?.map((item, index) => (
+                  <FeatureItems key={index}>
+                    <FeatureItem>{roomFeatures.Tele}</FeatureItem>
+                    <FeatureItem>{roomFeatures}</FeatureItem>
+                    <FeatureItem>{roomFeatures}</FeatureItem>
+                  </FeatureItems>
+                ))}
+              </FeatureWrapper> */}
             </ThirdDes>
           </DesContainer>
         </LeftContainer>

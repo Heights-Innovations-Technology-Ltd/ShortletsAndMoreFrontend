@@ -167,3 +167,21 @@ export const CloseWrapper = styled.div`
   background-color: #d7d7d7;
   margin-bottom: 20px; */
 `;
+
+export const FeatureWrapper = styled.div`
+  border: solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+`;
+export const FeatureItems = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const FeatureItem = styled.p`
+  font-weight: 400;
+  font-size: 14px;
+`;

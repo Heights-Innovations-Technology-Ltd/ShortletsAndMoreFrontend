@@ -1,9 +1,11 @@
 import React from "react";
 import PrimaryButton from "../components/PrimaryButton";
+import ItemsLayout from "../layout/ItemsLayout";
 const Testing = () => {
   return (
     <div>
       <PrimaryButton title="View more" />
+      <ItemsLayout />
       {/*<ApartmentCard
         apartmentImage={image}
         apartmentName="Apartment in ajah, Abraham"
