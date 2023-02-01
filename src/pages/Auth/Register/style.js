@@ -5,7 +5,7 @@ export const RegisterContainer = styled.div`
   padding: 0 200px;
 
   @media screen and (max-width: 768px) {
-    padding: 0px 50px;
+    padding: 0px;
   }
 
   @media (min-width: 769px) and (max-width: 1300px) {

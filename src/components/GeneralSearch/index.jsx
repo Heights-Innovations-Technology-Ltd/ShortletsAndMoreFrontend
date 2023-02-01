@@ -16,30 +16,37 @@ import {
 } from "./styles";
 
 const GeneralSearch = () => {
-  const { data, isLoading, isError } = useSortPropertyQuery();
+  const facilities = [
+    { id: 1, result: true, category: "All" },
+    { id: 2, result: true, category: "Security" },
+    { id: 3, result: true, category: "Swimming Pool" },
+    { id: 4, result: true, category: "Parking" },
+  ];
 
-  const apartmentData = useGetAllApartmentQuery();
-  const [sortApartment, setSortApartment] = useState([]);
-  const [sortApartmentList, setSortApartmentList] = useState([]);
+  // const { data, isLoading, isError } = useSortPropertyQuery();
 
-  console.log(apartmentData);
-  useEffect(() => {
-    setSortApartment(data?.facilities?.apartment);
-  }, [data, setSortApartment]);
+  // const apartmentData = useGetAllApartmentQuery();
+  // const [sortApartment, setSortApartment] = useState([]);
+  // const [sortApartmentList, setSortApartmentList] = useState([]);
 
-  useEffect(() => {
-    setSortApartmentList(apartmentData?.data);
-  }, [apartmentData, setSortApartmentList]);
+  // console.log(apartmentData);
+  // useEffect(() => {
+  //   setSortApartment(data?.facilities?.apartment);
+  // }, [data, setSortApartment]);
 
-  console.log(data);
+  // useEffect(() => {
+  //   setSortApartmentList(apartmentData?.data);
+  // }, [apartmentData, setSortApartmentList]);
+
+  // console.log(data);
   return (
     <SearchContainer>
       <ContentContainer>
         <InputContainer>
           <InputWhite>
             <Input>
-              {sortApartment?.map((property) => (
-                <option value={property}>{property}</option>
+              {facilities.map((property) => (
+                <option value={property.category}>{property.category}</option>
               ))}
             </Input>
           </InputWhite>

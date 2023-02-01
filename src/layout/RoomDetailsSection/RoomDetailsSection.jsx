@@ -57,12 +57,15 @@ import { DateInput } from "../../components/Input/dateInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { ReactComponent as MicrowaveIcon } from "../../assets/svg/microwave.svg";
+
+import { ReactComponent as HeaterIcon } from "../../assets/svg/Heater.svg";
+
 const RoomDetailsSection = () => {
   const features = [
-    { id: 1, result: true, category: "All" },
-    { id: 2, result: true, category: "Television" },
-    { id: 3, result: true, category: "Microwave" },
-    { id: 4, result: true, category: "Heater" },
+    { id: 2, result: true, category: "Television", icon: MicrowaveIcon },
+    { id: 3, result: true, category: "Microwave", icon: MicrowaveIcon },
+    { id: 4, result: true, category: "Heater", icon: HeaterIcon },
   ];
 
   let localApartmentID = localStorage.getItem("apartmentID");
@@ -89,6 +92,7 @@ const RoomDetailsSection = () => {
 
   const [openNotModal, setOpenNotModal] = useState(false);
   const { roomID } = useParams();
+  let cID = parseInt(roomID);
 
   useEffect(() => {
     let cID = parseInt(roomID);
@@ -97,7 +101,7 @@ const RoomDetailsSection = () => {
     // // }
     console.log("adddd", check);
     setRoomContainer(check);
-    setRoomFeatures(JSON.parse(check?.features));
+    // setRoomFeatures(JSON.parse(check?.features));
   }, [roomID, data]);
 
   const addToCart = async (id) => {
@@ -151,13 +155,13 @@ const RoomDetailsSection = () => {
     // }
     const newFormData = {
       ...formData,
-      roomTypeId: 2,
+      roomTypeId: cID,
       hotelId: roomContainer?.hotelId,
     };
 
     console.log("submit", newFormData);
     const result = await checkForAvailability(newFormData);
-    console.log("resut", result);
+    console.log("resutingg", result);
     const error = result?.error;
     if (error) {
       toast.error(error?.data);
@@ -169,12 +173,12 @@ const RoomDetailsSection = () => {
     }
   };
 
-  console.log("che", roomContainer);
+  // console.log("che", roomContainer);
   // useEffect(() => {
   //   setRoomFeatures(JSON.parse(roomContainer?.features));
   // }, [roomContainer]);
 
-  console.log("cherrrrr", roomFeatures);
+  // console.log("cherrrrr", roomFeatures);
   return (
     <>
       <Container>
@@ -208,15 +212,15 @@ const RoomDetailsSection = () => {
             </SecondDes>
             <ThirdDes>
               <Description>Features</Description>
-              {/* <FeatureWrapper>
-                {roomFeatures?.map((item, index) => (
+              <FeatureWrapper>
+                {features?.map((item, index) => (
                   <FeatureItems key={index}>
-                    <FeatureItem>{roomFeatures.Tele}</FeatureItem>
-                    <FeatureItem>{roomFeatures}</FeatureItem>
-                    <FeatureItem>{roomFeatures}</FeatureItem>
+                    <item.icon />
+
+                    <FeatureItem>{item.category}</FeatureItem>
                   </FeatureItems>
                 ))}
-              </FeatureWrapper> */}
+              </FeatureWrapper>
             </ThirdDes>
           </DesContainer>
         </LeftContainer>

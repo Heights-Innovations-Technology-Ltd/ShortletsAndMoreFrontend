@@ -92,12 +92,11 @@ export const MobileLinkWrapper = styled.div`
 `;
 
 export const MobileDropWrapper = styled(motion.div)`
-  height: 300px;
   position: fixed;
   background-color: white;
   box-shadow: 0px 10px 30px rgba(13, 38, 59, 0.05);
   width: 100%;
   z-index: 5;
-  padding: 20px 64px;
+  padding: 30px 64px;
   display: flex;
 `;

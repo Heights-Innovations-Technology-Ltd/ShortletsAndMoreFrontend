@@ -36,9 +36,14 @@ export const CardContainer = styled.div`
   display: flex;
   width: 100%;
   flex-flow: row;
+  justify-content: space-between;
   align-items: center;
   gap: 70px;
   margin-top: 68px;
+
+  @media screen and (max-width: 700px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const Card = styled.div`

@@ -82,6 +82,11 @@ export const BodyRight = styled.div`
   @media screen and (max-width: 1000px) {
     grid-template-columns: auto auto;
   }
+  @media screen and (max-width: 700px) {
+    grid-template-columns: auto;
+    align-items: center;
+    justify-content: center;
+  }
 
   @media screen and (min-width: 1550px) {
     grid-template-columns: auto auto auto auto;

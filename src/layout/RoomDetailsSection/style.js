@@ -169,7 +169,6 @@ export const CloseWrapper = styled.div`
 `;
 
 export const FeatureWrapper = styled.div`
-  border: solid red;
   display: flex;
   justify-content: center;
   align-items: center;

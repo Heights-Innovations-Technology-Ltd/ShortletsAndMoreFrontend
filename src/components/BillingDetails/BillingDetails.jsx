@@ -107,13 +107,13 @@ const BillingDetails = () => {
             discountPercent: 0,
             totalPrice: 3000,
             numberOfRooms: 1,
-            roomTypeId: 1,
+            roomTypeId: 4,
           },
         ],
       };
       console.log("reeeee", requiredData);
 
-      const response = await reserveNow(requiredData);
+      const response = await reserveNow(JSON.stringify(requiredData));
       console.log(response);
 
       const error = response?.error;
@@ -153,7 +153,7 @@ const BillingDetails = () => {
             discountPercent: 0,
             totalPrice: 3000,
             numberOfRooms: 1,
-            roomTypeId: 1,
+            roomTypeId: 4,
           },
         ],
       };
@@ -163,10 +163,14 @@ const BillingDetails = () => {
       console.log(response);
 
       const error = response?.error;
+
+      const responseData = response?.data;
+
       if (error) {
         toast.error(error?.data);
       } else {
-        setOpenModal(true);
+        toast.error(response?.data.data);
+        window.open(`https://${responseData.data}`, "_blank");
         localStorage.removeItem("cartItemId");
       }
     }

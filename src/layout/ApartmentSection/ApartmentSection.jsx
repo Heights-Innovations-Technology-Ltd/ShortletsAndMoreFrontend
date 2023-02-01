@@ -75,15 +75,13 @@ const ApartmentSection = () => {
           (item) => JSON.parse(item?.facilities)?.Security === checked.result
         );
         setFilteredData(filtered);
-      }
-      //   else if (checked.category === "Swimming Pool") {
-      //     let filtered = data?.filter(
-      //       (item) =>
-      //         JSON.parse(item?.facilities)?.Swimming Pool === checked.result
-      //     );
-      //     setFilteredData(filtered);
-      //   }
-      else if (checked.category === "Parking") {
+      } else if (checked.category === "Swimming Pool") {
+        let filtered = data?.filter(
+          (item) =>
+            JSON.parse(item?.facilities)["Swimming Pool"] === checked.result
+        );
+        setFilteredData(filtered);
+      } else if (checked.category === "Parking") {
         let filtered = data?.filter(
           (item) => JSON.parse(item?.facilities)?.Parking === checked.result
         );
@@ -145,7 +143,7 @@ const ApartmentSection = () => {
         <Body>
           {isLoading ? (
             <Loading height="300px">
-              <Puff stroke="#00A2D4" fill="white" width={60} />
+              <Puff stroke="#acc130" fill="white" width={60} />
             </Loading>
           ) : (
             <>
@@ -158,12 +156,7 @@ const ApartmentSection = () => {
                 <h3>Main Facilities</h3>
                 <ul>
                   {facilities?.map((fac, index) => (
-                    <li
-                      key={index}
-                      //   style={{
-                      //     color: fac === category.get("category") ? "#00A2D4" : "",
-                      //   }}
-                    >
+                    <li key={index}>
                       <CheckInput
                         type="checkbox"
                         value={fac.category}
