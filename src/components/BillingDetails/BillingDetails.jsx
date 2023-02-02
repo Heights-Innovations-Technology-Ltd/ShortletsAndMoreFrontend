@@ -167,9 +167,9 @@ const BillingDetails = () => {
       const responseData = response?.data;
 
       if (error) {
-        toast.error(error?.data);
+        toast.error(error?.data?.Message);
       } else {
-        toast.error(response?.data.data);
+        // toast.error(response?.data.data);
         window.open(`https://${responseData.data}`, "_blank");
         localStorage.removeItem("cartItemId");
       }
@@ -179,11 +179,10 @@ const BillingDetails = () => {
   useEffect(() => {
     const localData = localStorage.getItem("cartItemId");
     let newItemContainer = JSON.parse(localData);
-    console.log(newItemContainer);
 
     let cartData = [];
     if (newItemContainer) {
-      data?.forEach((data) => {
+      data?.data.forEach((data) => {
         if (newItemContainer.includes(data?.id)) {
           cartData.push(data);
 
@@ -387,8 +386,11 @@ const BillingDetails = () => {
             {isLoading ? (
               <PuffLoader />
             ) : (
-              roomContainer?.map((room) => (
-                <div className="p-4 flex flex-row justify-between items-center mt-3">
+              roomContainer?.map((room, index) => (
+                <div
+                  className="p-4 flex flex-row justify-between items-center mt-3"
+                  key={index}
+                >
                   <h4 className="text-xs">{room.name}</h4>
                   <h5 className="text-xs">NGN{room.price}</h5>
                 </div>

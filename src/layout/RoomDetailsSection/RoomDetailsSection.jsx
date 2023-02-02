@@ -96,7 +96,7 @@ const RoomDetailsSection = () => {
 
   useEffect(() => {
     let cID = parseInt(roomID);
-    const check = data?.find((room) => room.id === cID);
+    const check = data?.data.find((room) => room.id === cID);
     // // if (check) {
     // // }
     console.log("adddd", check);
@@ -200,9 +200,9 @@ const RoomDetailsSection = () => {
                 <img className="" src={galleryMainImage} alt="" />
 
                 <div className="flex mt-4">
-                  {roomDetailsGalleryData.map((data) => {
+                  {roomDetailsGalleryData.map((data, index) => {
                     return (
-                      <div className="p-3">
+                      <div className="p-3" key={index}>
                         <img className="" src={data.gallerySubImage} alt="" />
                       </div>
                     );

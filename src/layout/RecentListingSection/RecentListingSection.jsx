@@ -20,12 +20,12 @@ const RecentListingSection = () => {
   const [apartmentData, setApartmentData] = useState([]);
 
   const { data, isLoading, isSuccess, isError } = useGetAllApartmentQuery();
-  console.log("fetch", data);
 
   useEffect(() => {
-    setApartmentData(data);
+    setApartmentData(data?.data);
   }, [data]);
 
+  console.log("fetch testing ... just to check", apartmentData);
   return (
     <>
       <h1 className="text-center mt-8 mb-4 lg:text-2xl font-semibold">

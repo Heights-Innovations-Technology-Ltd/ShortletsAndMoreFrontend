@@ -70,28 +70,25 @@ const LisitingSection = () => {
 
   console.log("adora", checkedItems);
   useEffect(() => {
-    setFilteredData(data);
+    setFilteredData(data?.data);
     checkedItems.forEach((checked) => {
       if (checked.category === "Television") {
-        let filtered = data?.filter(
+        let filtered = data?.data.filter(
           (item) => JSON.parse(item?.features)?.Television === checked.result
         );
         setFilteredData(filtered);
-      }
-      //   else if (checked.category === "Microwave") {
-      //     let filtered = data?.filter(
-      //       (item) =>
-      //         JSON.parse(item?.features)?.Microwave === checked.result
-      //     );
-      //     setFilteredData(filtered);
-      //   }
-      else if (checked.category === "Heater") {
-        let filtered = data?.filter(
+      } else if (checked.category === "Microwave") {
+        let filtered = data?.data.filter(
+          (item) => JSON.parse(item?.features)?.Microwave === checked.result
+        );
+        setFilteredData(filtered);
+      } else if (checked.category === "Heater") {
+        let filtered = data?.data.filter(
           (item) => JSON.parse(item?.features)?.Heater === checked.result
         );
         setFilteredData(filtered);
       } else {
-        setFilteredData(data);
+        setFilteredData(data?.data);
       }
     });
 
@@ -172,9 +169,10 @@ const LisitingSection = () => {
                 </ul>
               </BodyLeft>
               <BodyRight>
-                {currentItems?.map((apartment) => (
+                {currentItems?.map((apartment, index) => (
                   <>
                     <AddToCartCard
+                      key={index}
                       apartmentImage={imageFive}
                       apartmentName={apartment.name}
                       apartmentPrice={apartment.price}

@@ -68,26 +68,26 @@ const ApartmentSection = () => {
 
   console.log("adora", checkedItems);
   useEffect(() => {
-    setFilteredData(data);
+    setFilteredData(data?.data);
     checkedItems.forEach((checked) => {
       if (checked.category === "Security") {
-        let filtered = data?.filter(
+        let filtered = data?.data.filter(
           (item) => JSON.parse(item?.facilities)?.Security === checked.result
         );
         setFilteredData(filtered);
       } else if (checked.category === "Swimming Pool") {
-        let filtered = data?.filter(
+        let filtered = data?.data.filter(
           (item) =>
             JSON.parse(item?.facilities)["Swimming Pool"] === checked.result
         );
         setFilteredData(filtered);
       } else if (checked.category === "Parking") {
-        let filtered = data?.filter(
+        let filtered = data?.data.filter(
           (item) => JSON.parse(item?.facilities)?.Parking === checked.result
         );
         setFilteredData(filtered);
       } else {
-        setFilteredData(data);
+        setFilteredData(data?.data);
       }
     });
 
@@ -168,9 +168,10 @@ const ApartmentSection = () => {
                 </ul>
               </BodyLeft>
               <BodyRight>
-                {currentItems?.map((apartment) => (
+                {currentItems?.map((apartment, index) => (
                   <div key={apartment.id}>
                     <ApartmentCard
+                      key={index}
                       apartmentImage={image}
                       apartmentName={apartment.name}
                       apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"

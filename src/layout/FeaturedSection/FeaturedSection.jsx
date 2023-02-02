@@ -10,10 +10,9 @@ const FeaturedSection = () => {
   const { data, isLoading, isSuccess, isError } = useGetAllRoomTypeQuery(14);
 
   useEffect(() => {
-    setAvailableRooms(data);
+    setAvailableRooms(data?.data);
   }, [data]);
 
-  console.log("availableRooms", availableRooms);
   return (
     <>
       <h1 className="text-center mt-8 mb-4 lg:text-2xl font-semibold">

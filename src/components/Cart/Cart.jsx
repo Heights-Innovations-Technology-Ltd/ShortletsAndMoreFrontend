@@ -22,7 +22,7 @@ const Cart = () => {
 
     let cartData = [];
     if (newItemContainer) {
-      data?.forEach((data) => {
+      data?.data.forEach((data) => {
         if (newItemContainer.includes(data?.id)) {
           cartData.push(data);
 
