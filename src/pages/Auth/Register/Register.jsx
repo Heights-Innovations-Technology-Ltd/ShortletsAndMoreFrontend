@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../store/Action/actions";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useRegisterNewUserMutation } from "../../../store/Services/authService";
 
 const Register = () => {
@@ -25,6 +26,7 @@ const Register = () => {
     useRegisterNewUserMutation();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const submitForm = async (data) => {
     const newData = { ...data, accessToken: "1234" };
@@ -36,6 +38,7 @@ const Register = () => {
 
     if (responseData) {
       toast.success(responseData?.message);
+      navigate("/login");
     }
     if (error) {
       toast.error(error?.data);

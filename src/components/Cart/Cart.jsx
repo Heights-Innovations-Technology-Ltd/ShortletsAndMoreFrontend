@@ -15,6 +15,7 @@ const Cart = () => {
 
   const { data, loading, success, error } = useGetAllRoomTypeQuery(ApartmentId);
 
+  console.log(data);
   useEffect(() => {
     const localData = localStorage.getItem("cartItemId");
     let newItemContainer = JSON.parse(localData);
@@ -33,6 +34,7 @@ const Cart = () => {
     }
   }, [data]);
 
+  console.log(roomContainer);
   return (
     <div
       className="flex justify-center items-start p-20  bg-gray-100"

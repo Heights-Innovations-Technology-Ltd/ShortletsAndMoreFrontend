@@ -113,10 +113,10 @@ const BillingDetails = () => {
       };
       console.log("reeeee", requiredData);
 
-      const response = await reserveNow(JSON.stringify(requiredData));
-      console.log(response);
+      const reserveResponse = await reserveNow(JSON.stringify(requiredData));
+      console.log("ff", reserveResponse);
 
-      const error = response?.error;
+      const error = reserveResponse?.error;
       if (error) {
         toast.error(error?.data);
       } else {
@@ -160,7 +160,7 @@ const BillingDetails = () => {
       console.log("reeeee", requiredData);
 
       const response = await reserveNow(requiredData);
-      console.log(response);
+      console.log("gggg", response);
 
       const error = response?.error;
 

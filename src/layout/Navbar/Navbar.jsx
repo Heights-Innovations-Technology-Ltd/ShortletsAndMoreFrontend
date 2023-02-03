@@ -104,7 +104,7 @@ const Navbar = (props) => {
           <CartIconContainer onClick={handleToggle}>
             {/* <CartIcon /> */}
             <BsCart3 size={20} />
-            {itemContainer > 0 && (
+            {itemContainer && itemContainer > 0 && (
               <LengthContainer>
                 <Length>{itemContainer}</Length>
               </LengthContainer>

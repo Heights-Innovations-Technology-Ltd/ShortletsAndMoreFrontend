@@ -44,8 +44,8 @@ const Login = () => {
     const responseData = response?.data;
 
     if (responseData) {
-      toast.success("Login Successfully");
-      localStorage.setItem("userProfile", JSON.stringify(responseData));
+      toast.success(responseData?.message);
+      localStorage.setItem("userProfile", JSON.stringify(responseData?.data));
       navigate("/home");
     }
     if (error) {

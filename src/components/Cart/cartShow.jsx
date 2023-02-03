@@ -73,31 +73,30 @@ const CartShow = () => {
       setRoomContainer(cartData);
     }
   }, [data]);
-
   return (
     <>
       {isLoading ? (
         <PuffLoader />
       ) : (
-        roomContainer?.map((room) => (
-          <CartContainer
-            key="CartContainer"
-            // initial={{ y: 10, opacity: 0 }}
-            // animate={{ y: 0, opacity: 1 }}
-            // exit={{ y: 10, opacity: 0 }}
-            // transition={{ duration: 0.3 }}
-            initial={{ opacity: 0, y: 200 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 200 }}
-          >
-            <CartTop>
-              <TitleText>Cart</TitleText>
-              <FiX
-                size={24}
-                onClick={handleClose}
-                style={{ cursor: "pointer" }}
-              />
-            </CartTop>
+        <CartContainer
+          key="CartContainer"
+          // initial={{ y: 10, opacity: 0 }}
+          // animate={{ y: 0, opacity: 1 }}
+          // exit={{ y: 10, opacity: 0 }}
+          // transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 200 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 200 }}
+        >
+          <CartTop>
+            <TitleText>Cart</TitleText>
+            <FiX
+              size={24}
+              onClick={handleClose}
+              style={{ cursor: "pointer" }}
+            />
+          </CartTop>
+          {roomContainer?.map((room) => (
             <CartItemWrap>
               <ImageWrapper>
                 <DeleteContainer>
@@ -107,25 +106,20 @@ const CartShow = () => {
               </ImageWrapper>
               <ItemDetails>
                 <ItemName>{room.name}</ItemName>
-                <ItemPrice>1 X NGN{room.price}</ItemPrice>
+                <ItemPrice>NGN{room.price}</ItemPrice>
               </ItemDetails>
             </CartItemWrap>
+          ))}
+          <TotalWrapper>
+            <TotalText>Total</TotalText>
+            <TotalPrice>NGN50,000.00</TotalPrice>
+          </TotalWrapper>
 
-            <TotalWrapper>
-              <TotalText>Total</TotalText>
-              <TotalPrice>NGN50,000.00</TotalPrice>
-            </TotalWrapper>
-
-            <ButtonWrapper>
-              <PrimaryButton title="VIEW CART" onClick={handleView} />
-              <PrimaryButton
-                title="CHECKOUT"
-                lightBtn
-                onClick={handleCheckOut}
-              />
-            </ButtonWrapper>
-          </CartContainer>
-        ))
+          <ButtonWrapper>
+            <PrimaryButton title="VIEW CART" onClick={handleView} />
+            <PrimaryButton title="CHECKOUT" lightBtn onClick={handleCheckOut} />
+          </ButtonWrapper>
+        </CartContainer>
       )}
     </>
   );

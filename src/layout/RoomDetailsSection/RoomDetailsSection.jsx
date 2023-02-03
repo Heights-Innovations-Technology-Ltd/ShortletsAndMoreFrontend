@@ -162,9 +162,10 @@ const RoomDetailsSection = () => {
     console.log("submit", newFormData);
     const result = await checkForAvailability(newFormData);
     console.log("resutingg", result);
-    const error = result?.error;
-    if (error) {
-      toast.error(error?.data);
+    // const error = result?.error;
+    const responseData = result?.data
+    if (responseData) {
+      toast.error(responseData.message);
       // setOpenNotModal(true);
       setOpenModal(true);
     } else {

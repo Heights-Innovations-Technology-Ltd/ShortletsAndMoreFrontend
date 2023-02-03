@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   useGetAllApartmentQuery,
   useSortPropertyQuery,
@@ -23,6 +24,8 @@ const GeneralSearch = () => {
     { id: 4, result: true, category: "Parking" },
   ];
 
+  const navigate = useNavigate();
+
   // const { data, isLoading, isError } = useSortPropertyQuery();
 
   // const apartmentData = useGetAllApartmentQuery();
@@ -39,6 +42,10 @@ const GeneralSearch = () => {
   // }, [apartmentData, setSortApartmentList]);
 
   // console.log(data);
+
+  const handleSearch = () => {
+    navigate("/property");
+  };
   return (
     <SearchContainer>
       <ContentContainer>
@@ -58,7 +65,12 @@ const GeneralSearch = () => {
           </InputWhite>
         </InputContainer>
         <ButtonContainer>
-          <PrimaryButton height="55px" title="SEARCH" type="submit" />
+          <PrimaryButton
+            height="55px"
+            title="SEARCH"
+            type="submit"
+            onClick={handleSearch}
+          />
         </ButtonContainer>
       </ContentContainer>
     </SearchContainer>
