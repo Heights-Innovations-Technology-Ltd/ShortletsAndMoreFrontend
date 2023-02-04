@@ -2,47 +2,49 @@ import React, { useEffect, useState } from "react";
 import { GrEdit, GrTrash } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import cart_img from "../../assets/cart_img.png";
-import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
-import CartTotals from "../CartTotals/CartTotals";
+import { calculateTotalPrice } from "../../utils/helper";
+import PrimaryButton from "../PrimaryButton";
+import {
+  Container,
+  LeftContainer,
+  RightCardWrapper,
+  RightContainer,
+} from "./style";
 
 const Cart = () => {
   const [roomContainer, setRoomContainer] = useState([]);
-  // const dispatch = useDispatch();
+  const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
 
-  let localApartmentID = localStorage.getItem("apartmentID");
-  let ApartmentId = JSON.parse(localApartmentID);
-
-  const { data, loading, success, error } = useGetAllRoomTypeQuery(ApartmentId);
-
-  console.log(data);
-  useEffect(() => {
+  const getList = () => {
     const localData = localStorage.getItem("cartItemId");
     let newItemContainer = JSON.parse(localData);
-    console.log(newItemContainer);
+    setRoomContainer(newItemContainer);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
 
-    let cartData = [];
-    if (newItemContainer) {
-      data?.data.forEach((data) => {
-        if (newItemContainer.includes(data?.id)) {
-          cartData.push(data);
+  useEffect(() => {
+    const totalPrice = calculateTotalPrice(roomContainer);
+    setTotalPrice(totalPrice);
+  }, [roomContainer]);
 
-          return;
-        }
-      });
-      setRoomContainer(cartData);
+  const handleRemove = (id) => {
+    let localItem = localStorage.getItem("cartItemId");
+    localItem = JSON.parse(localItem);
+    if (localItem) {
+      let array = localItem;
+      let checkFilter = array.filter((item) => item.id !== id);
+      console.log("checking", checkFilter);
+      localStorage.setItem("cartItemId", JSON.stringify(checkFilter));
+      getList();
     }
-  }, [data]);
+  };
 
-  console.log(roomContainer);
   return (
-    <div
-      className="flex justify-center items-start p-20  bg-gray-100"
-      style={{
-        padding: " 150px 80px",
-      }}
-    >
-      <div className="bg-white shadow-md m-3 p-4" style={{ width: "700px" }}>
+    <Container>
+      <LeftContainer>
         <h1 className="ml-4 font-semibold mb-2">Cart</h1>
         {roomContainer?.map((room) => (
           <div key={room.id}>
@@ -61,7 +63,12 @@ const Cart = () => {
                   style={{ color: "#8BA00D" }}
                   onClick={() => navigate("/property/rooms")}
                 />
-                <GrTrash size={12} className="" style={{ color: "#8BA00D" }} />
+                <GrTrash
+                  onClick={() => handleRemove(room.id)}
+                  size={12}
+                  className=""
+                  style={{ color: "#8BA00D" }}
+                />
               </div>
             </div>
             <hr className="mb-2 ml-4 mr-4" />
@@ -92,9 +99,33 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      </div>
-      <CartTotals />
-    </div>
+      </LeftContainer>
+      <RightContainer>
+        <RightCardWrapper>
+          <div className="bg-white shadow-md m-3 p-4" style={{ width: "100%" }}>
+            <h1 className="ml-4 font-semibold">Cart Totals</h1>
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Subtotal</h4>
+              <h5 className="text-xs">NGN{totalPrice}</h5>
+            </div>
+
+            <hr className="ml-4 mr-4" />
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Total</h4>
+              <h5 className="text-xs ">NGN{totalPrice}</h5>
+            </div>
+          </div>
+          <div className="w-full gap-3 flex flex-col">
+            <PrimaryButton
+              title="PROCEED TO CHECKOUT"
+              width="100%"
+              onClick={() => navigate("/cart/checkout")}
+            />
+          </div>
+        </RightCardWrapper>
+      </RightContainer>
+    </Container>
   );
 };
 

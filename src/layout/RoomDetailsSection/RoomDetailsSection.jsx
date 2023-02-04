@@ -104,17 +104,18 @@ const RoomDetailsSection = () => {
     // setRoomFeatures(JSON.parse(check?.features));
   }, [roomID, data]);
 
-  const addToCart = async (id) => {
+  const addToCart = async (data) => {
     // navigate("/cart");
     let itemArray = await localStorage.getItem("cartItemId");
+    console.log("local storage", itemArray);
     let newItemArray = JSON.parse(itemArray);
     console.log(newItemArray);
 
     if (newItemArray) {
-      if (newItemArray.includes(id)) {
+      if (newItemArray.includes(data.id)) {
         toast.error("item added already");
       } else {
-        newItemArray.push(id);
+        newItemArray.push(data);
         try {
           await localStorage.setItem(
             "cartItemId",
@@ -128,7 +129,7 @@ const RoomDetailsSection = () => {
     } else {
       //if the array is empty
       let array = []; //create a new array of items
-      array.push(id); //push the item id to the array
+      array.push(data); //push the item id to the array
 
       try {
         await localStorage.setItem("cartItemId", JSON.stringify(array));
@@ -163,7 +164,7 @@ const RoomDetailsSection = () => {
     const result = await checkForAvailability(newFormData);
     console.log("resutingg", result);
     // const error = result?.error;
-    const responseData = result?.data
+    const responseData = result?.data;
     if (responseData) {
       toast.error(responseData.message);
       // setOpenNotModal(true);
@@ -293,7 +294,7 @@ const RoomDetailsSection = () => {
             <PrimaryButton
               title="Add to Cart"
               width="100%"
-              onClick={() => addToCart(roomContainer.id)}
+              onClick={() => addToCart(roomContainer)}
             />
           </ModalButton>
         </ModalWrapper>

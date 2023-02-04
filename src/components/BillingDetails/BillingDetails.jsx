@@ -23,11 +23,8 @@ import {
 import PrimaryInput from "../Input";
 import { CnotinueModalButton } from "../../layout/RoomDetailsSection/style";
 import TextArea from "../TextArea";
-import {
-  useGetAllRoomTypeQuery,
-  useReserveNowMutation,
-} from "../../store/Services/apartmentService";
-import PuffLoader from "../Loader";
+import { useReserveNowMutation } from "../../store/Services/apartmentService";
+import { calculateTotalPrice } from "../../utils/helper";
 
 const BillingDetails = () => {
   const {
@@ -38,8 +35,6 @@ const BillingDetails = () => {
   } = useForm({
     resolver: yupResolver(userBillingSchema),
   });
-  let localApartmentID = localStorage.getItem("apartmentID");
-  let ApartmentId = JSON.parse(localApartmentID);
 
   const [reserveNow] = useReserveNowMutation();
   const navigate = useNavigate();
@@ -47,8 +42,24 @@ const BillingDetails = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openContinueModal, setOpenContinueModal] = useState(false);
   const [roomContainer, setRoomContainer] = useState([]);
-  const { data, isLoading, isSuccess, isError } =
-    useGetAllRoomTypeQuery(ApartmentId);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const getList = () => {
+    const localData = localStorage.getItem("cartItemId");
+    let newItemContainer = JSON.parse(localData);
+    setRoomContainer(newItemContainer);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
+
+  useEffect(() => {
+    const totalPrice = calculateTotalPrice(roomContainer);
+    setTotalPrice(totalPrice);
+  }, [roomContainer]);
+
+  let vat = 2500;
+  let paymentPrice = totalPrice + vat;
 
   useEffect(() => {
     const handleCheck = () => {
@@ -105,8 +116,8 @@ const BillingDetails = () => {
             endDate: "2023-01-24",
             createdAt: "2023-01-24",
             discountPercent: 0,
-            totalPrice: 3000,
-            numberOfRooms: 1,
+            totalPrice: paymentPrice,
+            numberOfRooms: roomContainer.length,
             roomTypeId: 4,
           },
         ],
@@ -118,7 +129,7 @@ const BillingDetails = () => {
 
       const error = reserveResponse?.error;
       if (error) {
-        toast.error(error?.data);
+        toast.error(error?.data?.Message);
       } else {
         setOpenModal(true);
         localStorage.removeItem("cartItemId");
@@ -151,8 +162,8 @@ const BillingDetails = () => {
             endDate: "2023-01-24",
             createdAt: "2023-01-24",
             discountPercent: 0,
-            totalPrice: 3000,
-            numberOfRooms: 1,
+            totalPrice: paymentPrice,
+            numberOfRooms: roomContainer.length,
             roomTypeId: 4,
           },
         ],
@@ -175,23 +186,6 @@ const BillingDetails = () => {
       }
     }
   };
-
-  useEffect(() => {
-    const localData = localStorage.getItem("cartItemId");
-    let newItemContainer = JSON.parse(localData);
-
-    let cartData = [];
-    if (newItemContainer) {
-      data?.data.forEach((data) => {
-        if (newItemContainer.includes(data?.id)) {
-          cartData.push(data);
-
-          return;
-        }
-      });
-      setRoomContainer(cartData);
-    }
-  }, [data]);
 
   const handleContinue = (e) => {
     e.preventDefault();
@@ -318,34 +312,34 @@ const BillingDetails = () => {
             </div>
 
             <hr className="ml-4 mr-4" />
-
-            <div className="p-4 flex flex-row justify-between items-center mt-3">
-              <h4 className="text-xs">Luxury Duplex</h4>
-              <h5 className="text-xs">NGN104,700</h5>
-            </div>
-
-            <div className="p-4 flex flex-row justify-between items-center mb-3">
-              <h4 className="text-xs">Luxury Duplex</h4>
-              <h5 className="text-xs">NGN104,700</h5>
-            </div>
+            {}
+            {roomContainer?.map((room, index) => (
+              <div
+                className="p-4 flex flex-row justify-between items-center mt-3"
+                key={index}
+              >
+                <h4 className="text-xs">{room.name}</h4>
+                <h5 className="text-xs">NGN{room.price}</h5>
+              </div>
+            ))}
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Subtotal</h4>
-              <h5 className="text-xs">NGN209,700</h5>
+              <h5 className="text-xs">NGN{totalPrice}</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs">Vat</h4>
-              <h5 className="text-xs">NGN4,800</h5>
+              <h5 className="text-xs">NGN{vat}</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Total</h4>
-              <h5 className="text-xs ">NGN220,800</h5>
+              <h5 className="text-xs ">NGN{paymentPrice}</h5>
             </div>
           </div>
         </RightCardWrapper>
@@ -353,7 +347,6 @@ const BillingDetails = () => {
           <PrimaryButton
             title="Continue"
             width="100%"
-            loading={isLoading}
             onClick={handleContinue}
           />
           <PrimaryButton
@@ -383,37 +376,33 @@ const BillingDetails = () => {
             </div>
 
             <hr className="ml-4 mr-4" />
-            {isLoading ? (
-              <PuffLoader />
-            ) : (
-              roomContainer?.map((room, index) => (
-                <div
-                  className="p-4 flex flex-row justify-between items-center mt-3"
-                  key={index}
-                >
-                  <h4 className="text-xs">{room.name}</h4>
-                  <h5 className="text-xs">NGN{room.price}</h5>
-                </div>
-              ))
-            )}
+            {roomContainer?.map((room, index) => (
+              <div
+                className="p-4 flex flex-row justify-between items-center mt-3"
+                key={index}
+              >
+                <h4 className="text-xs">{room.name}</h4>
+                <h5 className="text-xs">NGN{room.price}</h5>
+              </div>
+            ))}
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Subtotal</h4>
-              <h5 className="text-xs">NGN209,700</h5>
+              <h5 className="text-xs">NGN{totalPrice}</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs">Vat</h4>
-              <h5 className="text-xs">NGN4,800</h5>
+              <h5 className="text-xs">NGN{vat}</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Total</h4>
-              <h5 className="text-xs ">NGN220,800</h5>
+              <h5 className="text-xs ">NGN{paymentPrice}</h5>
             </div>
           </div>
           <CnotinueModalButton>
