@@ -28,8 +28,6 @@ export const LeftContact = styled.div`
 export const RightContact = styled.div`
   display: flex;
   width: 50%;
-  background-color: azure;
-  height: 500px;
   padding-left: 20px;
 
   @media screen and (max-width: 900px) {

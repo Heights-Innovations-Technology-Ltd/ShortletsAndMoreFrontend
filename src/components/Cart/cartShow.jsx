@@ -12,6 +12,8 @@ import {
   ItemDetails,
   ItemName,
   ItemPrice,
+  NoItem,
+  NoItemText,
   TitleText,
   TotalPrice,
   TotalText,
@@ -27,6 +29,7 @@ import { calculateTotalPrice } from "../../utils/helper";
 const CartShow = () => {
   const [roomContainer, setRoomContainer] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [itemContainer, setItemContainer] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,14 +49,17 @@ const CartShow = () => {
     const localData = localStorage.getItem("cartItemId");
     let newItemContainer = JSON.parse(localData);
     setRoomContainer(newItemContainer);
+    setItemContainer(newItemContainer && newItemContainer.length);
   };
   useEffect(() => {
     getList();
   }, []);
 
   useEffect(() => {
-    const totalPrice = calculateTotalPrice(roomContainer);
-    setTotalPrice(totalPrice);
+    if (roomContainer) {
+      const totalPrice = calculateTotalPrice(roomContainer);
+      setTotalPrice(totalPrice);
+    }
   }, [roomContainer]);
 
   const handleRemove = (id) => {
@@ -84,29 +90,42 @@ const CartShow = () => {
           <TitleText>Cart</TitleText>
           <FiX size={24} onClick={handleClose} style={{ cursor: "pointer" }} />
         </CartTop>
-        {roomContainer?.map((room, index) => (
-          <CartItemWrap key={index}>
-            <ImageWrapper>
-              <DeleteContainer onClick={() => handleRemove(room.id)}>
-                <FiX size={18} />
-              </DeleteContainer>
-              <Image src={image} alt="cartImage" />
-            </ImageWrapper>
-            <ItemDetails>
-              <ItemName>{room.name}</ItemName>
-              <ItemPrice>NGN{room.price}</ItemPrice>
-            </ItemDetails>
-          </CartItemWrap>
-        ))}
-        <TotalWrapper>
-          <TotalText>Total</TotalText>
-          <TotalPrice>NGN{totalPrice}</TotalPrice>
-        </TotalWrapper>
 
-        <ButtonWrapper>
-          <PrimaryButton title="VIEW CART" onClick={handleView} />
-          <PrimaryButton title="CHECKOUT" lightBtn onClick={handleCheckOut} />
-        </ButtonWrapper>
+        {itemContainer > 0 ? (
+          <>
+            {roomContainer?.map((room, index) => (
+              <CartItemWrap key={index}>
+                <ImageWrapper>
+                  <DeleteContainer onClick={() => handleRemove(room.id)}>
+                    <FiX size={18} />
+                  </DeleteContainer>
+                  <Image src={image} alt="cartImage" />
+                </ImageWrapper>
+                <ItemDetails>
+                  <ItemName>{room.name}</ItemName>
+                  <ItemPrice>NGN{room.price}</ItemPrice>
+                </ItemDetails>
+              </CartItemWrap>
+            ))}
+            <TotalWrapper>
+              <TotalText>Total</TotalText>
+              <TotalPrice>NGN{totalPrice}</TotalPrice>
+            </TotalWrapper>
+
+            <ButtonWrapper>
+              <PrimaryButton title="VIEW CART" onClick={handleView} />
+              <PrimaryButton
+                title="CHECKOUT"
+                lightBtn
+                onClick={handleCheckOut}
+              />
+            </ButtonWrapper>
+          </>
+        ) : (
+          <NoItem>
+            <NoItemText>Your cart is empty</NoItemText>
+          </NoItem>
+        )}
       </CartContainer>
     </>
   );

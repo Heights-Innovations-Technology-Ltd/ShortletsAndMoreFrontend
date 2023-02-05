@@ -34,7 +34,6 @@ const LisitingSection = () => {
 
   let localApartmentID = localStorage.getItem("apartmentID");
   let ApartmentId = JSON.parse(localApartmentID);
-  console.log("ApartmentId: ", ApartmentId);
 
   const { data, isLoading, isSuccess, isError } =
     useGetAllRoomTypeQuery(ApartmentId);
@@ -44,11 +43,9 @@ const LisitingSection = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
-  const itemsPerPage = 2;
+  const itemsPerPage = 1;
 
   const handleClick = (e) => {
-    const add = e.target;
-    console.log(add);
     const { value, checked } = e.target;
 
     if (checked) {
@@ -68,7 +65,6 @@ const LisitingSection = () => {
     }
   };
 
-  console.log("adora", checkedItems);
   useEffect(() => {
     setFilteredData(data?.data);
     checkedItems.forEach((checked) => {
@@ -94,7 +90,7 @@ const LisitingSection = () => {
 
     // setFilteredData(data);
   }, [checkedItems, data]);
-
+  console.log("setFilteredData", filteredData);
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(filteredData?.slice(itemOffset, endOffset));
@@ -102,7 +98,7 @@ const LisitingSection = () => {
   }, [itemOffset, itemsPerPage, filteredData]);
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) % data?.length;
+    const newOffset = (e.selected * itemsPerPage) % filteredData?.length;
     setItemOffset(newOffset);
   };
 

@@ -24,19 +24,23 @@ const Profile = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 200 }}
     >
-      <Link to="/register">
-        <ProfileLists>
-          <User />
-          <ProfileList>Sign Up</ProfileList>
-        </ProfileLists>
-      </Link>
+      {!localProfile && (
+        <Link to="/register">
+          <ProfileLists>
+            <User />
+            <ProfileList>Sign Up</ProfileList>
+          </ProfileLists>
+        </Link>
+      )}
 
-      <Link to="/login">
-        <ProfileLists>
-          <User />
-          <ProfileList>Sign In</ProfileList>
-        </ProfileLists>
-      </Link>
+      {!localProfile && (
+        <Link to="/login">
+          <ProfileLists>
+            <User />
+            <ProfileList>Sign In</ProfileList>
+          </ProfileLists>
+        </Link>
+      )}
 
       {localProfile && (
         <Link to="/login" onClick={handleLogout}>

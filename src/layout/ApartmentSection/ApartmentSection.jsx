@@ -25,9 +25,9 @@ import "./style.css";
 const ApartmentSection = () => {
   const facilities = [
     { id: 1, result: true, category: "All" },
-    { id: 2, result: true, category: "Security" },
-    { id: 3, result: true, category: "Swimming Pool" },
-    { id: 4, result: true, category: "Parking" },
+    { id: 2, result: true, category: "security" },
+    { id: 3, result: true, category: "swimming_pool" },
+    { id: 4, result: true, category: "parking" },
   ];
 
   const navigate = useNavigate();
@@ -45,8 +45,6 @@ const ApartmentSection = () => {
   const itemsPerPage = 2;
 
   const handleClick = (e) => {
-    const add = e.target;
-    console.log(add);
     const { value, checked } = e.target;
 
     if (checked) {
@@ -66,24 +64,23 @@ const ApartmentSection = () => {
     }
   };
 
-  console.log("adora", checkedItems);
   useEffect(() => {
     setFilteredData(data?.data);
     checkedItems.forEach((checked) => {
-      if (checked.category === "Security") {
+      if (checked.category === "security") {
         let filtered = data?.data.filter(
-          (item) => JSON.parse(item?.facilities)?.Security === checked.result
+          (item) => JSON.parse(item?.facilities)?.security === checked.result
         );
         setFilteredData(filtered);
-      } else if (checked.category === "Swimming Pool") {
+      } else if (checked.category === "swimming_pool") {
         let filtered = data?.data.filter(
           (item) =>
-            JSON.parse(item?.facilities)["Swimming Pool"] === checked.result
+            JSON.parse(item?.facilities)?.swimming_pool === checked.result
         );
         setFilteredData(filtered);
-      } else if (checked.category === "Parking") {
+      } else if (checked.category === "parking") {
         let filtered = data?.data.filter(
-          (item) => JSON.parse(item?.facilities)?.Parking === checked.result
+          (item) => JSON.parse(item?.facilities)?.parking === checked.result
         );
         setFilteredData(filtered);
       } else {
@@ -101,7 +98,7 @@ const ApartmentSection = () => {
   }, [itemOffset, itemsPerPage, filteredData]);
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) % data?.length;
+    const newOffset = (e.selected * itemsPerPage) % filteredData?.length;
     setItemOffset(newOffset);
   };
 

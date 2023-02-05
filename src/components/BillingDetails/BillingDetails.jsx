@@ -43,6 +43,7 @@ const BillingDetails = () => {
   const [openContinueModal, setOpenContinueModal] = useState(false);
   const [roomContainer, setRoomContainer] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const createAt = new Date().toISOString().split("T")[0];
 
   const getList = () => {
     const localData = localStorage.getItem("cartItemId");
@@ -54,8 +55,10 @@ const BillingDetails = () => {
   }, []);
 
   useEffect(() => {
-    const totalPrice = calculateTotalPrice(roomContainer);
-    setTotalPrice(totalPrice);
+    if (roomContainer) {
+      const totalPrice = calculateTotalPrice(roomContainer);
+      setTotalPrice(totalPrice);
+    }
   }, [roomContainer]);
 
   let vat = 2500;
@@ -114,10 +117,10 @@ const BillingDetails = () => {
           {
             startDate: "2023-01-24",
             endDate: "2023-01-24",
-            createdAt: "2023-01-24",
+            createdAt: createAt,
             discountPercent: 0,
             totalPrice: paymentPrice,
-            numberOfRooms: roomContainer.length,
+            numberOfRooms: 1,
             roomTypeId: 4,
           },
         ],
@@ -128,9 +131,11 @@ const BillingDetails = () => {
       console.log("ff", reserveResponse);
 
       const error = reserveResponse?.error;
+      const data = reserveResponse?.data;
       if (error) {
         toast.error(error?.data?.Message);
       } else {
+        toast.success(data?.message);
         setOpenModal(true);
         localStorage.removeItem("cartItemId");
       }
@@ -160,10 +165,10 @@ const BillingDetails = () => {
           {
             startDate: "2023-01-24",
             endDate: "2023-01-24",
-            createdAt: "2023-01-24",
+            createdAt: createAt,
             discountPercent: 0,
             totalPrice: paymentPrice,
-            numberOfRooms: roomContainer.length,
+            numberOfRooms: 1,
             roomTypeId: 4,
           },
         ],

@@ -6,6 +6,7 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import Loader from "../components/pageLoader/loader";
 import AddToCart from "../pages/AddToCart/AddToCart";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
@@ -19,7 +20,7 @@ import Testing from "../pages/Testing";
 
 const AppRouter = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<Loader />}>
       <Router>
         <Routes>
           <Route path="/" element={<Outlet />}>

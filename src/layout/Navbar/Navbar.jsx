@@ -29,7 +29,7 @@ import { FaAlignRight } from "react-icons/fa";
 
 const Navbar = (props) => {
   // const { marginTop, absolute } = props;
-  const [itemContainer, setItemContainer] = useState(0);
+  const [itemContainer, setItemContainer] = useState();
   const [nav, setNav] = useState(false);
   const dispatch = useDispatch();
   const [change, setChange] = useState(false);
@@ -104,7 +104,7 @@ const Navbar = (props) => {
           <CartIconContainer onClick={handleToggle}>
             {/* <CartIcon /> */}
             <BsCart3 size={20} />
-            {itemContainer && itemContainer > 0 && (
+            {itemContainer > 0 && (
               <LengthContainer>
                 <Length>{itemContainer}</Length>
               </LengthContainer>

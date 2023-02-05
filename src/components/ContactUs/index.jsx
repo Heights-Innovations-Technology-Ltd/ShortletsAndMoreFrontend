@@ -13,6 +13,7 @@ import {
 } from "./style";
 import { contactSchema } from "../../utils/config";
 import PrimaryButton from "../PrimaryButton";
+import { ReactComponent as AboutIcon } from "../../assets/svg/about.svg";
 
 const ContactUs = () => {
   const {
@@ -64,7 +65,9 @@ const ContactUs = () => {
           </ButtonWrapper>
         </ContactForm>
       </LeftContact>
-      <RightContact></RightContact>
+      <RightContact>
+        <AboutIcon />
+      </RightContact>
     </Contact>
   );
 };

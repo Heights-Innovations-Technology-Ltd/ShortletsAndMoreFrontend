@@ -26,8 +26,10 @@ const Cart = () => {
   }, []);
 
   useEffect(() => {
-    const totalPrice = calculateTotalPrice(roomContainer);
-    setTotalPrice(totalPrice);
+    if (roomContainer) {
+      const totalPrice = calculateTotalPrice(roomContainer);
+      setTotalPrice(totalPrice);
+    }
   }, [roomContainer]);
 
   const handleRemove = (id) => {

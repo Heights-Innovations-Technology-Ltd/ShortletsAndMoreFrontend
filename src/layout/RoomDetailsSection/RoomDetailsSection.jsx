@@ -112,7 +112,8 @@ const RoomDetailsSection = () => {
     console.log(newItemArray);
 
     if (newItemArray) {
-      if (newItemArray.includes(data.id)) {
+      const findId = newItemArray.find((item) => item.id === data.id);
+      if (findId) {
         toast.error("item added already");
       } else {
         newItemArray.push(data);
@@ -166,7 +167,7 @@ const RoomDetailsSection = () => {
     // const error = result?.error;
     const responseData = result?.data;
     if (responseData) {
-      toast.error(responseData.message);
+      toast.success(responseData.message);
       // setOpenNotModal(true);
       setOpenModal(true);
     } else {

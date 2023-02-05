@@ -177,3 +177,15 @@ export const RightCardWrapper = styled.div`
     width: 100%;
   } */
 `;
+
+export const NoItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0px;
+`;
+
+export const NoItemText = styled.p`
+  font-size: 18px;
+`;
