@@ -42,6 +42,7 @@ const BillingDetails = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openContinueModal, setOpenContinueModal] = useState(false);
   const [roomContainer, setRoomContainer] = useState([]);
+  const [requiredItemArray, setRequiredItemArray] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const createAt = new Date().toISOString().split("T")[0];
 
@@ -52,6 +53,16 @@ const BillingDetails = () => {
   };
   useEffect(() => {
     getList();
+  }, []);
+
+  const getRequiredList = () => {
+    const availableData = localStorage.getItem("itemAvailability");
+    let availableItemContainer = JSON.parse(availableData);
+    console.log(availableItemContainer);
+    setRequiredItemArray(availableItemContainer);
+  };
+  useEffect(() => {
+    getRequiredList();
   }, []);
 
   useEffect(() => {
@@ -113,17 +124,18 @@ const BillingDetails = () => {
         lastName: formData ? formData.lastName : parseData.lastName,
         phone: formData ? formData.phone : parseData.phone,
         address: formData ? formData.address : parseData.address,
-        reservation: [
-          {
-            startDate: "2023-01-24",
-            endDate: "2023-01-24",
-            createdAt: createAt,
-            discountPercent: 0,
-            totalPrice: paymentPrice,
-            numberOfRooms: 1,
-            roomTypeId: 4,
-          },
-        ],
+        reservation: requiredItemArray,
+        // [
+        //   {
+        //     startDate: "2023-01-24",
+        //     endDate: "2023-01-24",
+        //     createdAt: createAt,
+        //     discountPercent: 0,
+        //     totalPrice: paymentPrice,
+        //     numberOfRooms: 1,
+        //     roomTypeId: 4,
+        //   },
+        // ],
       };
       console.log("reeeee", requiredData);
 
@@ -161,17 +173,18 @@ const BillingDetails = () => {
         lastName: formData ? formData.lastName : parseData.lastName,
         phone: formData ? formData.phone : parseData.phone,
         address: formData ? formData.address : parseData.address,
-        reservation: [
-          {
-            startDate: "2023-01-24",
-            endDate: "2023-01-24",
-            createdAt: createAt,
-            discountPercent: 0,
-            totalPrice: paymentPrice,
-            numberOfRooms: 1,
-            roomTypeId: 4,
-          },
-        ],
+        reservation: requiredItemArray,
+        // [
+        //   {
+        //     startDate: "2023-01-24",
+        //     endDate: "2023-01-24",
+        //     createdAt: createAt,
+        //     discountPercent: 0,
+        //     totalPrice: paymentPrice,
+        //     numberOfRooms: 1,
+        //     roomTypeId: 4,
+        //   },
+        // ],
       };
       console.log("reeeee", requiredData);
 

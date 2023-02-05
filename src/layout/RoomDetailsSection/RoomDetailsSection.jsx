@@ -77,6 +77,7 @@ const RoomDetailsSection = () => {
     useCheckForAvailabilityMutation();
   const [roomContainer, setRoomContainer] = useState({});
   const [roomFeatures, setRoomFeatures] = useState([]);
+  const createdAt = new Date().toISOString().split("T")[0];
   const {
     handleSubmit,
     register,
@@ -160,8 +161,15 @@ const RoomDetailsSection = () => {
       roomTypeId: cID,
       hotelId: roomContainer?.hotelId,
     };
-
-    console.log("submit", newFormData);
+    const availableData = {
+      ...formData,
+      createdAt: createdAt,
+      discountPercent: 0,
+      totalPrice: roomContainer?.price,
+      numberOfRooms: 1,
+      roomTypeId: cID,
+    };
+    console.log("submit", availableData);
     const result = await checkForAvailability(newFormData);
     console.log("resutingg", result);
     // const error = result?.error;
@@ -170,6 +178,34 @@ const RoomDetailsSection = () => {
       toast.success(responseData.message);
       // setOpenNotModal(true);
       setOpenModal(true);
+
+      let availableArray = await localStorage.getItem("itemAvailability");
+      console.log("local storage", availableArray);
+      let newAvailableArray = JSON.parse(availableArray);
+      console.log(newAvailableArray);
+
+      if (newAvailableArray) {
+        newAvailableArray.push(availableData);
+        try {
+          await localStorage.setItem(
+            "itemAvailability",
+            JSON.stringify(newAvailableArray)
+          );
+        } catch (error) {
+          return error;
+        }
+      } else {
+        let availabilityContainer = [];
+        availabilityContainer.push(availableData);
+        try {
+          await localStorage.setItem(
+            "itemAvailability",
+            JSON.stringify(availabilityContainer)
+          );
+        } catch (error) {
+          return error;
+        }
+      }
     } else {
       // setOpenModal(true);
       setOpenNotModal(true);
