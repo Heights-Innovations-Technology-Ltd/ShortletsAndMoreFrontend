@@ -14,8 +14,12 @@ const ApartmentCard = ({
   apartmentDetails,
   landing,
   onApartmentClick,
+  staff,
+  iconName,
+  handleStaffApartmentClick,
 }) => {
   const navigate = useNavigate();
+
   return (
     <>
       <div
@@ -95,11 +99,26 @@ const ApartmentCard = ({
         {landing && (
           <>
             <hr />
-            <div className="flex justify-end p-4">
+            <div className="flex justify-between p-4">
+              <div>
+                {staff && (
+                  <PrimaryButton
+                    leftIcon
+                    iconName={iconName}
+                    title="Edit"
+                    onClick={() => navigate("/property")}
+                  />
+                )}
+              </div>
+
               <PrimaryButton
                 lightBtn
-                title="View more"
-                onClick={() => navigate("/property")}
+                title={staff ? "View Rooms" : "View more"}
+                onClick={
+                  staff
+                    ? handleStaffApartmentClick
+                    : () => navigate("/property")
+                }
               />
             </div>
           </>

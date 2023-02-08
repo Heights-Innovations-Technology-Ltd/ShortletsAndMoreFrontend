@@ -16,6 +16,120 @@ import { ReactComponent as ThirdSvg } from "../assets/svg/note.svg";
 
 import * as yup from "yup";
 
+const handleLogout = () => {
+  localStorage.clear();
+};
+
+export const servicesData = [
+  {
+    id: 1,
+    serviceImage: imageFive,
+    serviceTitle: "Laundry Service",
+    serviceDetails: "Our fully furnished and equipped apartments.",
+  },
+  {
+    id: 2,
+    serviceImage: imageFive,
+    serviceTitle: "Dining",
+    serviceDetails: "Our fully furnished and equipped apartments.",
+  },
+  {
+    id: 3,
+    serviceImage: imageFive,
+    serviceTitle: "Transport",
+    serviceDetails: "Our fully furnished and equipped apartments.",
+  },
+];
+export const StaffSidebarLinks = [
+  {
+    id: 1,
+    title: "Dashboard",
+    // icon: HomeIcon,
+    path: "/staff-dashboard/home",
+  },
+  {
+    id: 2,
+    title: "Bookings",
+    // icon: BusinessesIcon,
+    path: "/staff-dashboard/businesses",
+    // dropDownList: [
+    //   {
+    //     id: 1,
+    //     title: "Registrations",
+    //     // icon: ResourcesIcon,
+    //     path: "/staff-dashboard/businesses/registration",
+    //   },
+    //   {
+    //     id: 2,
+    //     title: "Services",
+    //     // icon: ServicesIcon,
+    //     path: "/staff-dashboard/businesses/services",
+    //   },
+    //   {
+    //     id: 3,
+    //     title: "Entities",
+    //     icon: EntityIcon,
+    //     path: "/staff-dashboard/businesses/entities",
+    //   },
+    //   {
+    //     id: 4,
+    //     title: "Countries",
+    //     icon: CountryIcon,
+    //     path: "/staff-dashboard/businesses/countries",
+    //   },
+    // ],
+  },
+  {
+    id: 3,
+    title: "Resrvations",
+    // icon: TaxesIcon,
+    path: "/staff-dashboard/taxes/",
+  },
+  {
+    id: 4,
+    title: "Check-ins",
+    // icon: HiringIcon,
+    path: "/staff-dashboard/hiring-and-payroll",
+  },
+  {
+    id: 5,
+    title: "Apartments",
+    // icon: IntellectualIcon,
+    path: "/staff/apartments",
+  },
+  {
+    id: 6,
+    title: "Services",
+    // icon: RewardIcon,
+    path: "/staff/services",
+  },
+  {
+    id: 7,
+    title: "Support",
+    // icon: PaymentIcon,
+    path: "/staff-dashboard/payments",
+  },
+  {
+    id: 8,
+    title: "Accounts",
+    // icon: ResourcesIcon,
+    path: "/staff-dashboard/resources",
+  },
+  {
+    id: 9,
+    title: "Settings",
+    // icon: SettingsIcon,
+    path: "/staff-dashboard/settings/general",
+  },
+  {
+    id: 11,
+    title: "Log Out",
+    // icon: SettingsIcon,
+    function: handleLogout,
+    path: "/login",
+  },
+];
+
 export const testingData = [
   {
     category: null,
@@ -127,24 +241,21 @@ export const similarListingData = [
     apartmentImage: imageOne,
     apartmentName: "Apartment in ajah, Abraham",
     apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
-      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+    apartmentDetails: "Our fully furnished and equipped apartments.",
   },
   {
     id: 2,
     apartmentImage: imageTwo,
     apartmentName: "Apartment in ajah, Abraham",
     apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
-      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+    apartmentDetails: "Our fully furnished and equipped apartments.",
   },
   {
     id: 3,
     apartmentImage: imageThree,
     apartmentName: "Apartment in ajah, Abraham",
     apartmentLocation: "234 Ring road, Lekki Phase 1, Lekki, Lagos",
-    apartmentDetails:
-      "Our fully furnished and equipped apartments are perfect for business or pleasure.",
+    apartmentDetails: "Our fully furnished and equipped apartments.",
   },
   // {
   //   id: 4,

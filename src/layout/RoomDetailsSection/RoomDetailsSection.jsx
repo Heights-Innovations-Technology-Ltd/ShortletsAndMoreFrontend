@@ -47,6 +47,7 @@ import {
   FeatureItem,
   ModalButton,
   FeatureWrapper,
+  Button,
 } from "./style";
 import toast from "react-hot-toast";
 import {
@@ -78,6 +79,7 @@ const RoomDetailsSection = () => {
   const [roomContainer, setRoomContainer] = useState({});
   const [roomFeatures, setRoomFeatures] = useState([]);
   const createdAt = new Date().toISOString().split("T")[0];
+  const [isAdd, setIsAdd] = useState(false);
   const {
     handleSubmit,
     register,
@@ -94,13 +96,11 @@ const RoomDetailsSection = () => {
   const [openNotModal, setOpenNotModal] = useState(false);
   const { roomID } = useParams();
   let cID = parseInt(roomID);
+  const [itemCount, setItemCount] = useState(1);
 
   useEffect(() => {
     let cID = parseInt(roomID);
     const check = data?.data.find((room) => room.id === cID);
-    // // if (check) {
-    // // }
-    console.log("adddd", check);
     setRoomContainer(check);
     // setRoomFeatures(JSON.parse(check?.features));
   }, [roomID, data]);
@@ -118,12 +118,15 @@ const RoomDetailsSection = () => {
         toast.error("item added already");
       } else {
         newItemArray.push(data);
+        setIsAdd(true);
         try {
           await localStorage.setItem(
             "cartItemId",
             JSON.stringify(newItemArray)
           );
           toast.success("item added successfully");
+          setIsAdd(true);
+          console.log("tlocalHHH", isAdd);
         } catch (error) {
           return error;
         }
@@ -136,6 +139,8 @@ const RoomDetailsSection = () => {
       try {
         await localStorage.setItem("cartItemId", JSON.stringify(array));
         toast.success("item added successfully");
+        setIsAdd(true);
+        console.log("tlocal", isAdd);
         // navigate("/products");
       } catch (error) {
         return error;
@@ -165,8 +170,8 @@ const RoomDetailsSection = () => {
       ...formData,
       createdAt: createdAt,
       discountPercent: 0,
-      totalPrice: roomContainer?.price,
-      numberOfRooms: 1,
+      totalPrice: roomContainer?.price * itemCount,
+      numberOfRooms: itemCount,
       roomTypeId: cID,
     };
     console.log("submit", availableData);
@@ -187,10 +192,13 @@ const RoomDetailsSection = () => {
       if (newAvailableArray) {
         newAvailableArray.push(availableData);
         try {
-          await localStorage.setItem(
-            "itemAvailability",
-            JSON.stringify(newAvailableArray)
-          );
+          if (isAdd === true) {
+            console.log("hurrrayyyyy!");
+            await localStorage.setItem(
+              "itemAvailability",
+              JSON.stringify(newAvailableArray)
+            );
+          }
         } catch (error) {
           return error;
         }
@@ -198,10 +206,13 @@ const RoomDetailsSection = () => {
         let availabilityContainer = [];
         availabilityContainer.push(availableData);
         try {
-          await localStorage.setItem(
-            "itemAvailability",
-            JSON.stringify(availabilityContainer)
-          );
+          if (isAdd === true) {
+            console.log("hurrrayyyyy, yes!");
+            await localStorage.setItem(
+              "itemAvailability",
+              JSON.stringify(availabilityContainer)
+            );
+          }
         } catch (error) {
           return error;
         }
@@ -212,6 +223,17 @@ const RoomDetailsSection = () => {
     }
   };
 
+  const handleCountIncrease = (e) => {
+    e.preventDefault();
+    let count = itemCount + 1;
+    setItemCount(count);
+  };
+
+  const handleCountDecrease = (e) => {
+    e.preventDefault();
+    let count = itemCount - 1;
+    setItemCount(count);
+  };
   // console.log("che", roomContainer);
   // useEffect(() => {
   //   setRoomFeatures(JSON.parse(roomContainer?.features));
@@ -268,7 +290,7 @@ const RoomDetailsSection = () => {
             <PriceWrapper>
               <PriceText>NGN{roomContainer?.price}/Night</PriceText>
             </PriceWrapper>
-            <Form onSubmit={handleSubmit(submitForm)}>
+            <Form>
               <DateInput
                 label={"Check In Date"}
                 name="startDate"
@@ -285,12 +307,17 @@ const RoomDetailsSection = () => {
                 errorMessage={errors.endDate?.message}
               />
 
+              <CountWrapper>
+                <Button onClick={handleCountDecrease}>-</Button>
+                <Count>{itemCount}</Count>
+                <Button onClick={handleCountIncrease}>+</Button>
+              </CountWrapper>
               <BtnWrap>
                 <PrimaryButton
                   title="Check Availability"
                   width="100%"
-                  type="submit"
                   height="55px"
+                  onClick={handleSubmit(submitForm)}
                   loading={isLoading}
                 />
               </BtnWrap>
@@ -325,7 +352,7 @@ const RoomDetailsSection = () => {
           </Top>
           <img src={availableImage} alt="available" />
           <Question>
-            Luxury terrance is available. Proceed to add to cart{" "}
+            {roomContainer?.name} is available. Proceed to add to cart{" "}
           </Question>
           <ModalButton>
             <PrimaryButton
@@ -346,7 +373,8 @@ const RoomDetailsSection = () => {
           </Top>
           <img src={notAvailableImage} alt="available" />
           <Question>
-            The Luxury isn’t available at the moment. Check back later
+            {roomContainer?.name} isn’t available at the moment. Check back
+            later
           </Question>
         </ModalWrapper>
       </Dialog>

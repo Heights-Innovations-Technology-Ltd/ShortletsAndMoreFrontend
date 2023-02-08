@@ -7,6 +7,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import Loader from "../components/pageLoader/loader";
+import StaffLayout from "../layout/staffLayout";
 import AddToCart from "../pages/AddToCart/AddToCart";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
@@ -16,6 +17,9 @@ import Home from "../pages/Home/Home";
 import Property from "../pages/Property/Property";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
 import Services from "../pages/Services/Services";
+import StaffApartment from "../pages/staffDashboard/Apartment";
+import StaffRoom from "../pages/staffDashboard/Rooms";
+import StaffServices from "../pages/staffDashboard/Services";
 import Testing from "../pages/Testing";
 
 const AppRouter = () => {
@@ -51,6 +55,16 @@ const AppRouter = () => {
           </Route>
           <Route path="contact" element={<Contact />} />
           <Route path="testing" element={<Testing />} />
+
+          <Route path="staff" element={<StaffLayout />}>
+            {/* <Route index element={<StaffLayout />} /> */}
+
+            <Route path="apartments" element={<Outlet />}>
+              <Route index element={<StaffApartment />} />
+              <Route path="rooms" element={<StaffRoom />} />
+            </Route>
+            <Route path="services" element={<StaffServices />} />
+          </Route>
         </Routes>
         <Toaster
           position="top-right"

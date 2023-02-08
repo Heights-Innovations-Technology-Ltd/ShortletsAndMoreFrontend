@@ -24,7 +24,7 @@ import PrimaryInput from "../Input";
 import { CnotinueModalButton } from "../../layout/RoomDetailsSection/style";
 import TextArea from "../TextArea";
 import { useReserveNowMutation } from "../../store/Services/apartmentService";
-import { calculateTotalPrice } from "../../utils/helper";
+import { calculateTotalPrice, filterList } from "../../utils/helper";
 
 const BillingDetails = () => {
   const {
@@ -43,12 +43,14 @@ const BillingDetails = () => {
   const [openContinueModal, setOpenContinueModal] = useState(false);
   const [roomContainer, setRoomContainer] = useState([]);
   const [requiredItemArray, setRequiredItemArray] = useState([]);
+  const [paymentList, setPaymentList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const createAt = new Date().toISOString().split("T")[0];
 
   const getList = () => {
     const localData = localStorage.getItem("cartItemId");
     let newItemContainer = JSON.parse(localData);
+    console.log("cart ones", newItemContainer);
     setRoomContainer(newItemContainer);
   };
   useEffect(() => {
@@ -58,12 +60,22 @@ const BillingDetails = () => {
   const getRequiredList = () => {
     const availableData = localStorage.getItem("itemAvailability");
     let availableItemContainer = JSON.parse(availableData);
-    console.log(availableItemContainer);
+    console.log("avilable ones", availableItemContainer);
     setRequiredItemArray(availableItemContainer);
   };
   useEffect(() => {
     getRequiredList();
   }, []);
+
+  useEffect(() => {
+    const filteredList = filterList(roomContainer, requiredItemArray);
+    console.log("checking filter", filteredList);
+    setPaymentList(filteredList);
+  }, [roomContainer, requiredItemArray]);
+
+  // console.log("checking cart", roomContainer);
+  // console.log("checking available", requiredItemArray);
+  console.log("sending data", paymentList);
 
   useEffect(() => {
     if (roomContainer) {
@@ -124,7 +136,7 @@ const BillingDetails = () => {
         lastName: formData ? formData.lastName : parseData.lastName,
         phone: formData ? formData.phone : parseData.phone,
         address: formData ? formData.address : parseData.address,
-        reservation: requiredItemArray,
+        reservation: paymentList,
         // [
         //   {
         //     startDate: "2023-01-24",
@@ -173,7 +185,7 @@ const BillingDetails = () => {
         lastName: formData ? formData.lastName : parseData.lastName,
         phone: formData ? formData.phone : parseData.phone,
         address: formData ? formData.address : parseData.address,
-        reservation: requiredItemArray,
+        reservation: paymentList,
         // [
         //   {
         //     startDate: "2023-01-24",

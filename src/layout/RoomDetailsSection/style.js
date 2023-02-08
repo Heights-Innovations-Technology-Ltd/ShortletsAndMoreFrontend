@@ -111,6 +111,10 @@ export const CountWrap = styled.div`
   display: flex;
   flex-flow: column;
 `;
+export const Button = styled.button`
+  background: rgba(217, 217, 217, 0.19);
+  padding: 5px 12px;
+`;
 export const Label = styled.p`
   font-weight: 400;
   font-size: 14px;
@@ -124,7 +128,10 @@ export const CountWrapper = styled.div`
 export const Count = styled.div`
   background: rgba(217, 217, 217, 0.19);
   text-align: center;
-  padding: ${(props) => (props.padding ? props.padding : "0px 10px")};
+  justify-content: center;
+  padding: 5px 12px;
+  align-items: center;
+  /* padding: ${(props) => (props.padding ? props.padding : "0px 10px")}; */
 `;
 
 export const ModalWrapper = styled.div`

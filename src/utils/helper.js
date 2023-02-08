@@ -4,3 +4,15 @@ export const calculateTotalPrice = (itemContainer) => {
   }, 0);
   return totalPrice;
 };
+
+export const filterList = (cartArray, availableArray) => {
+  let filteredList = [];
+  availableArray.forEach((available) => {
+    cartArray.forEach((cartItem) => {
+      if (cartItem.id === available.roomTypeId) {
+        filteredList.push(available);
+      }
+    });
+  });
+  return filteredList;
+};

@@ -8,3 +8,8 @@ export const ButtonContainer = styled(motion.div)`
 export const IconContainer = styled.div`
   margin-left: 32px;
 `;
+export const LeftIconContainer = styled.div`
+  /* background-color: white;
+  padding: 2px;
+  border-radius: 4px; */
+`;
