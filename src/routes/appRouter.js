@@ -17,9 +17,14 @@ import Home from "../pages/Home/Home";
 import Property from "../pages/Property/Property";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
 import Services from "../pages/Services/Services";
+import StaffAccount from "../pages/staffDashboard/Account";
 import StaffApartment from "../pages/staffDashboard/Apartment";
+import StaffBookings from "../pages/staffDashboard/Bookings";
+import StaffCheckIn from "../pages/staffDashboard/CheckIn";
+import StaffReservation from "../pages/staffDashboard/Reservation";
 import StaffRoom from "../pages/staffDashboard/Rooms";
 import StaffServices from "../pages/staffDashboard/Services";
+import StaffSupport from "../pages/staffDashboard/Support";
 import Testing from "../pages/Testing";
 
 const AppRouter = () => {
@@ -63,6 +68,11 @@ const AppRouter = () => {
               <Route index element={<StaffApartment />} />
               <Route path="rooms" element={<StaffRoom />} />
             </Route>
+            <Route path="bookings" element={<StaffBookings />} />
+            <Route path="reservation" element={<StaffReservation />} />
+            <Route path="check-in" element={<StaffCheckIn />} />
+            <Route path="support" element={<StaffSupport />} />
+            <Route path="account" element={<StaffAccount />} />
             <Route path="services" element={<StaffServices />} />
           </Route>
         </Routes>

@@ -14,6 +14,17 @@ import { ReactComponent as FirstSvg } from "../assets/svg/shop.svg";
 import { ReactComponent as SecondSvg } from "../assets/svg/map.svg";
 import { ReactComponent as ThirdSvg } from "../assets/svg/note.svg";
 
+import { AiFillHome, AiFillSetting } from "react-icons/ai";
+import { FaCalendarAlt, FaHotel } from "react-icons/fa";
+import {
+  HiOutlineLogout,
+  HiUser,
+  HiBriefcase,
+  HiChatAlt,
+} from "react-icons/hi";
+import { HiBanknotes } from "react-icons/hi2";
+import { GiMightySpanner } from "react-icons/gi";
+
 import * as yup from "yup";
 
 const handleLogout = () => {
@@ -44,87 +55,61 @@ export const StaffSidebarLinks = [
   {
     id: 1,
     title: "Dashboard",
-    // icon: HomeIcon,
+    icon: AiFillHome,
     path: "/staff-dashboard/home",
   },
   {
     id: 2,
     title: "Bookings",
-    // icon: BusinessesIcon,
-    path: "/staff-dashboard/businesses",
-    // dropDownList: [
-    //   {
-    //     id: 1,
-    //     title: "Registrations",
-    //     // icon: ResourcesIcon,
-    //     path: "/staff-dashboard/businesses/registration",
-    //   },
-    //   {
-    //     id: 2,
-    //     title: "Services",
-    //     // icon: ServicesIcon,
-    //     path: "/staff-dashboard/businesses/services",
-    //   },
-    //   {
-    //     id: 3,
-    //     title: "Entities",
-    //     icon: EntityIcon,
-    //     path: "/staff-dashboard/businesses/entities",
-    //   },
-    //   {
-    //     id: 4,
-    //     title: "Countries",
-    //     icon: CountryIcon,
-    //     path: "/staff-dashboard/businesses/countries",
-    //   },
-    // ],
+    icon: HiBanknotes,
+    path: "/staff/bookings",
   },
   {
     id: 3,
     title: "Resrvations",
-    // icon: TaxesIcon,
-    path: "/staff-dashboard/taxes/",
+    icon: FaCalendarAlt,
+    path: "/staff/reservation",
   },
   {
     id: 4,
     title: "Check-ins",
-    // icon: HiringIcon,
-    path: "/staff-dashboard/hiring-and-payroll",
+    icon: HiBriefcase,
+    path: "/staff/check-in",
   },
   {
     id: 5,
     title: "Apartments",
-    // icon: IntellectualIcon,
+    icon: FaHotel,
     path: "/staff/apartments",
   },
   {
     id: 6,
     title: "Services",
-    // icon: RewardIcon,
+    icon: GiMightySpanner,
     path: "/staff/services",
   },
   {
     id: 7,
     title: "Support",
-    // icon: PaymentIcon,
-    path: "/staff-dashboard/payments",
+    icon: HiChatAlt,
+    path: "/staff/support",
   },
   {
     id: 8,
     title: "Accounts",
-    // icon: ResourcesIcon,
-    path: "/staff-dashboard/resources",
+    icon: HiUser,
+    path: "/staff/account",
   },
   {
     id: 9,
     title: "Settings",
-    // icon: SettingsIcon,
+    icon: AiFillSetting,
     path: "/staff-dashboard/settings/general",
   },
   {
     id: 11,
     title: "Log Out",
-    // icon: SettingsIcon,
+    icon: HiOutlineLogout,
     function: handleLogout,
     path: "/login",
   },
@@ -757,3 +742,171 @@ export const contactSchema = yup.object().shape({
   email: yup.string().email("Enter a valid email address").required(),
   phone: yup.string().required("Phone number is a required field"),
 });
+
+export const tableData = [
+  [
+    // {
+    //   id: 1,
+    //   name: "Akinyemi bamidle",
+    //   apartment: "Exclusive Suite",
+    //   roomType: " Luxury Deluxe",
+    //   date: "2015-12-3",
+    //   time: "02:43PM",
+    //   status: "Completed",
+    // },
+    // {
+    //   id: 2,
+    //   name: "Akinyemi bamidle",
+    //   apartment: "Exclusive Suite",
+    //   roomType: " Luxury Deluxe",
+    //   date: "2015-12-3",
+    //   time: "02:43PM",
+    //   status: "Completed",
+    // },
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+  [
+    "Akinyemi bamidle",
+    "Exclusive Suite",
+    " Luxury Deluxe",
+    "2015-12-3",
+    "02:43PM",
+    "Completed",
+  ],
+];
+
+export const tableDatas = [
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Completed",
+  },
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Pending",
+  },
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Completed",
+  },
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Pending",
+  },
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Completed",
+  },
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Pending",
+  },
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Completed",
+  },
+  {
+    name: "Akinyemi bamidle",
+    apartment: "Exclusive Suite",
+    roomType: " Luxury Deluxe",
+    date: "2015-12-3",
+    time: "02:43PM",
+    status: "Pending",
+  },
+];

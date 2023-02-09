@@ -59,14 +59,24 @@ const StaffSidebar = () => {
             <div>
               <NavLink
                 to={item.path}
-                style={({ isActive }) => (isActive ? { color: "#8ba00d" } : {})}
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: "#8ba00d",
+                        display: "flex",
+                        alignItems: "center",
+                      }
+                    : {
+                        display: "flex",
+                        alignItems: "center",
+                      }
+                }
                 onClick={item.function}
               >
-                {/* <item.icon
-							filled={locationPath?.includes(item.path) || homePathActive}
-							hover={iconHovered === item.id}
-						  /> */}
-                {item.title}
+                <>
+                  <item.icon size={24} />
+                  {item.title}
+                </>
               </NavLink>
             </div>
           </Item>

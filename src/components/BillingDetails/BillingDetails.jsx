@@ -166,6 +166,19 @@ const BillingDetails = () => {
     }
   };
 
+  // const RedirectExample = (link) => {
+  //   useEffect(() => {
+  //     const timeout = setTimeout(() => {
+  //       // 👇️ redirects to an external URL
+  //       window.location.replace(`${link}`);
+  //     }, 3000);
+
+  //     return () => clearTimeout(timeout);
+  //   }, [link]);
+
+  //   return <>Will redirect in 3 seconds...</>;
+  // };
+
   const onPay = async (formData) => {
     console.log(formData);
 
@@ -211,8 +224,12 @@ const BillingDetails = () => {
         toast.error(error?.data?.Message);
       } else {
         // toast.error(response?.data.data);
-        window.open(`https://${responseData.data}`, "_blank");
+        // RedirectExample(response.data);
+        let paymentStatus = (window.location.href = `${responseData.data}`);
+        console.log("check payment result", paymentStatus);
+        navigate("/");
         localStorage.removeItem("cartItemId");
+        localStorage.removeItem("itemAvailability");
       }
     }
   };
