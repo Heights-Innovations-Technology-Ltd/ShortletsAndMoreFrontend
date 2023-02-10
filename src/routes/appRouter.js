@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   Outlet,
+  useParams,
 } from "react-router-dom";
 import Loader from "../components/pageLoader/loader";
 import StaffLayout from "../layout/staffLayout";
@@ -12,6 +13,7 @@ import AddToCart from "../pages/AddToCart/AddToCart";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import BillingDetail from "../pages/BillingDetail/BillingDetail";
+import BookingConfirmation from "../pages/BookingConfirmation/BookingConfirmation";
 import Contact from "../pages/Contact/Contact";
 import Home from "../pages/Home/Home";
 import Property from "../pages/Property/Property";
@@ -28,6 +30,9 @@ import StaffSupport from "../pages/staffDashboard/Support";
 import Testing from "../pages/Testing";
 
 const AppRouter = () => {
+  let data = useParams();
+
+  console.log("checking params", data);
   return (
     <Suspense fallback={<Loader />}>
       <Router>
@@ -59,6 +64,8 @@ const AppRouter = () => {
             <Route path="checkout" element={<BillingDetail />} />
           </Route>
           <Route path="contact" element={<Contact />} />
+          <Route path="confirm" element={<BookingConfirmation />} />
+
           <Route path="testing" element={<Testing />} />
 
           <Route path="staff" element={<StaffLayout />}>

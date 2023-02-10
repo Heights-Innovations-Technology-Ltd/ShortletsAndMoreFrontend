@@ -36,8 +36,25 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+
+    //user login
+    subscriber: builder.mutation({
+      query: (values) => ({
+        url: "/util/subscribers",
+        method: "POST",
+        body: values,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
 //custom hooks
-export const { useRegisterNewUserMutation, useLoginNewUserMutation } = authApi;
+export const {
+  useRegisterNewUserMutation,
+  useLoginNewUserMutation,
+  useSubscriberMutation,
+} = authApi;

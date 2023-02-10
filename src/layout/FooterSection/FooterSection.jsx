@@ -35,7 +35,7 @@ const FooterSection = () => {
                 style={{ color: "#8BA00D" }}
               />
               <FooterContactText>
-                233 old ring Street, North Ajah Lagos, Nigeria
+                87b, corporation drive, Dolphin Estate, ikoyi lagos
               </FooterContactText>
             </FooterItem>
             <FooterItem>
@@ -44,7 +44,7 @@ const FooterSection = () => {
                 className="mr-4 mt-3"
                 style={{ color: "#8BA00D" }}
               />
-              <FooterContactText>123 453 3432</FooterContactText>
+              <FooterContactText>08094822156</FooterContactText>
             </FooterItem>
             <FooterItem>
               <BsEnvelope
@@ -52,7 +52,9 @@ const FooterSection = () => {
                 className="mr-4 mt-3"
                 style={{ color: "#8BA00D" }}
               />
-              <FooterContactText>Support@message.com</FooterContactText>
+              <FooterContactText>
+                inquires@realestatedominoes.com
+              </FooterContactText>
             </FooterItem>
           </FooterLists>
           <FooterIcons>

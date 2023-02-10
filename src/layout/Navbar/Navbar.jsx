@@ -94,7 +94,7 @@ const Navbar = (props) => {
         </NavLogoContainer>
         <NavRightContainer>
           <BsTelephone size={20} />
-          <NavLinkText>(+234) 5678 4895</NavLinkText>
+          <NavLinkText>08094822156</NavLinkText>
           <BsPerson
             size={20}
             // onClick={() => navigate("/login")}

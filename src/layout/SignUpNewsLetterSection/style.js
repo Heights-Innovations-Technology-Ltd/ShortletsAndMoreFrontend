@@ -33,7 +33,7 @@ export const NewsItem = styled.div`
   flex-flow: column;
   gap: 18px;
 `;
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.form`
   display: flex;
   background: #ffffff;
   margin-top: 32px;

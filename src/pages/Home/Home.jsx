@@ -1,4 +1,6 @@
 import React from "react";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import HeroImage from "../../assets/heroimage_bg_home.png";
 import AboutUs from "../../layout/AboutUs";
 import ExplorePropertiesSection from "../../layout/ExplorePropertiesSection/ExplorePropertiesSection";
@@ -12,6 +14,24 @@ import SignUpNewsLetterSection from "../../layout/SignUpNewsLetterSection/SignUp
 import WhyChooseUsSection from "../../layout/WhyChooseUsSection/WhyChooseUsSection";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log("checking locations", location);
+
+  const queryParams = new URLSearchParams(location.search);
+  console.log("checking params", queryParams);
+
+  const message = queryParams.get("message");
+  console.log("checking params status", message);
+
+  const status = queryParams.get("status");
+  console.log("checking params status", status);
+
+  if (status === "success") {
+    navigate("/confirm");
+    toast.success(message);
+  }
+
   return (
     <>
       <NavBar />

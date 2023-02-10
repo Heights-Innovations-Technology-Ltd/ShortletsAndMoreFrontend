@@ -743,6 +743,10 @@ export const contactSchema = yup.object().shape({
   phone: yup.string().required("Phone number is a required field"),
 });
 
+export const subscribeSchema = yup.object().shape({
+  email: yup.string().email("Enter a valid email address").required(),
+});
+
 export const tableData = [
   [
     // {
