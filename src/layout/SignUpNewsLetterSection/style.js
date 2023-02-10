@@ -55,4 +55,5 @@ export const Button = styled.div`
   padding: 15px;
   background: #acc130;
   border-radius: 3px;
+  cursor: pointer;
 `;

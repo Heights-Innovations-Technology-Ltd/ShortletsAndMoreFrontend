@@ -15,6 +15,7 @@ import {
   servicesData,
   similarListingData,
   tableData,
+  tableDatas,
 } from "../../../utils/config";
 import ServiceCard from "../../../components/Cards/ServiceCard";
 import StaffTable from "../../../components/Table";
@@ -27,24 +28,24 @@ const iconName = (
 
 const addIcon = <FaPlus color="white" />;
 const StaffCheckIn = () => {
-  let localApartmentID = localStorage.getItem("staffApartmentID");
-  let ApartmentId = JSON.parse(localApartmentID);
-
-  const [room, setRooms] = useState([]);
-  const { data, isLoading, isSuccess, isError } =
-    useGetAllRoomTypeQuery(ApartmentId);
-  useEffect(() => {
-    setRooms(data?.data);
-  }, [data]);
-
-  const header = ["Name", "Apartment", "Room Type", "Date", "Time", "Status"];
+  const header = ["Name", "Apartment", "Room Type", "Date", "Time", "Action"];
+  const dataBody = tableDatas.map((data) => [
+    data.name,
+    data.apartment,
+    data.roomType,
+    data.date,
+    data.time,
+    <PrimaryButton title="Check-Out" />,
+  ]);
 
   return (
     <div>
       <StaffHeader />
-
+      {/* <ButtonWrapper>
+        <PrimaryButton title="Third Part Booking" leftIcon iconName={addIcon} />
+      </ButtonWrapper> */}
       <>
-        <StaffTable header={header} body={tableData} />
+        <StaffTable header={header} body={dataBody} />
       </>
     </div>
   );

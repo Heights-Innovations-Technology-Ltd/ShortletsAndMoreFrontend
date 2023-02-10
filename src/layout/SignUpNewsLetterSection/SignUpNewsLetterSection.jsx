@@ -27,9 +27,9 @@ const SignUpNewsLetterSection = () => {
 
   const [subscriber, { isLoading, isSuccess }] = useSubscriberMutation();
 
-  const onSubmit = async(formData) => {
-    const response = await subscriber(formData)
-    console.log("form respnose", response)
+  const onSubmit = async (formData) => {
+    const response = await subscriber(formData);
+    console.log("form respnose");
   };
   return (
     <div
@@ -52,9 +52,13 @@ const SignUpNewsLetterSection = () => {
           <NewsText>and get latest news & update</NewsText>
         </NewsItem>
 
-        <InputWrapper onSubmit={handleSubmit(onSubmit)}>
-          <Input placeholder="Enter your email" {...register} type="submit" name="email"/>
-          <Button>
+        <InputWrapper>
+          <Input
+            placeholder="Enter your email"
+            {...register("email")}
+            name="email"
+          />
+          <Button onClick={handleSubmit(onSubmit)}>
             {isLoading ? (
               <Oval stroke="#ffffff" fill="white" width={24} height={24} />
             ) : (

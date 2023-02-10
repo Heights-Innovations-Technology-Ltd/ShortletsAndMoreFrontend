@@ -1,50 +1,44 @@
 import React from "react";
-import ApartmentCard from "../../../components/Cards/ApartmentCard";
 import StaffHeader from "../../../components/StaffHeader";
-import {
-  useGetAllApartmentQuery,
-  useGetAllRoomTypeQuery,
-} from "../../../store/Services/apartmentService";
-import { ApartmentContainer, ButtonWrapper, LeftIconContainer } from "./style";
-import image from "../../../assets/listing_img_four.png";
-import { useEffect } from "react";
-import { useState } from "react";
-import { FaPen, FaPlus } from "react-icons/fa";
+
+import { ButtonContainer, Status } from "./style";
+
 import PrimaryButton from "../../../components/PrimaryButton";
-import {
-  servicesData,
-  similarListingData,
-  tableData,
-} from "../../../utils/config";
-import ServiceCard from "../../../components/Cards/ServiceCard";
+import { tableDatas } from "../../../utils/config";
 import StaffTable from "../../../components/Table";
-// import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
-const iconName = (
-  <LeftIconContainer>
-    <FaPen color="#8BA00D" />
-  </LeftIconContainer>
-);
+import { FaRedo } from "react-icons/fa";
+import { AiOutlineDelete } from "react-icons/ai";
 
-const addIcon = <FaPlus color="white" />;
+const process = <FaRedo color="white" size={14} />;
+const deleteIcon = <AiOutlineDelete color="white" size={18} />;
 const StaffAccount = () => {
-  let localApartmentID = localStorage.getItem("staffApartmentID");
-  let ApartmentId = JSON.parse(localApartmentID);
-
-  const [room, setRooms] = useState([]);
-  const { data, isLoading, isSuccess, isError } =
-    useGetAllRoomTypeQuery(ApartmentId);
-  useEffect(() => {
-    setRooms(data?.data);
-  }, [data]);
-
-  const header = ["Name", "Apartment", "Room Type", "Date", "Time", "Status"];
+  const header = ["Name", "Email", "Phone Number", "Status", "Action"];
+  const dataBody = tableDatas.map((data) => [
+    data.name,
+    data.email,
+    data.number,
+    <Status
+      color={data.active === "Active" ? "#2F8511" : "#C43C20"}
+      background={
+        data.active === "Active"
+          ? "rgba(47, 133, 17, 0.1)"
+          : "rgba(231, 175, 164, 0.3)"
+      }
+      Icon
+    >
+      {data.active}
+    </Status>,
+    <ButtonContainer>
+      <PrimaryButton title="Reset Password" leftIcon iconName={process} />
+      <PrimaryButton title="Delete" redBtn leftIcon iconName={deleteIcon} />
+    </ButtonContainer>,
+  ]);
 
   return (
     <div>
       <StaffHeader />
-
       <>
-        <StaffTable header={header} body={tableData} />
+        <StaffTable header={header} body={dataBody} />
       </>
     </div>
   );

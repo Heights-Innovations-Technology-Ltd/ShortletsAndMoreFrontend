@@ -50,5 +50,5 @@ export const Status = styled.div`
   color: ${(props) => props.color};
   text-align: center;
   border-radius: 12px;
-  padding: 4px 16px;
+  padding: 4px 8px;
 `;

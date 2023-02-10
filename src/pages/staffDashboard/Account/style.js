@@ -44,3 +44,17 @@ export const LeftIconContainer = styled.div`
   padding: 2px;
   border-radius: 4px;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+export const Status = styled.div`
+  background-color: ${(props) => props.background};
+  color: ${(props) => props.color};
+  text-align: center;
+  border-radius: 12px;
+  padding: 4px 8px;
+`;

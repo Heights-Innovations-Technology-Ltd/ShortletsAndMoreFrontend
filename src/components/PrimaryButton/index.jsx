@@ -15,6 +15,7 @@ const PrimaryButton = ({
   loading,
   leftIcon,
   btnWidth,
+  redBtn,
 }) => {
   const lightStyle = {
     border: "1px solid #8BA00D",
@@ -37,6 +38,17 @@ const PrimaryButton = ({
     width: width,
     justifyContent: "center",
   };
+  const redStyle = {
+    border: "1px solid #C43C20",
+    color: "#ffffff",
+    backgroundColor: "#C43C20",
+    display: "flex",
+    fontSize: size,
+    height: height,
+    alignItems: "center",
+    width: width,
+    justifyContent: "center",
+  };
 
   return (
     <ButtonContainer
@@ -49,7 +61,7 @@ const PrimaryButton = ({
       <button
         type={type}
         className="flex items-center justify-center px-5 py-3 border-gray-800 text-gray-800 gap-2 font-medium text-xs leading-tight rounded hover:bg-[#8BA00D] hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-        style={lightBtn ? lightStyle : darkStyle}
+        style={lightBtn ? lightStyle : redBtn ? redStyle : darkStyle}
         onClick={onClick}
       >
         {loading ? (

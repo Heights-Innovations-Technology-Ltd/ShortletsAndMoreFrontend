@@ -41,8 +41,20 @@ const StaffBookings = () => {
     data.date,
     data.time,
     <Status
-      color={data.status === "Completed" ? "#51f567" : "red"}
-      background={data.status === "Completed" ? "#e1f7e4" : "#f7e1e1"}
+      color={
+        data.status === "Checked In"
+          ? "#2F8511"
+          : data.status === "Pending"
+          ? "#FFCA2A"
+          : "#C43C20"
+      }
+      background={
+        data.status === "Checked In"
+          ? "rgba(47, 133, 17, 0.1)"
+          : data.status === "Pending"
+          ? "rgba(255, 233, 168, 0.5)"
+          : "rgba(231, 175, 164, 0.3)"
+      }
     >
       {data.status}
     </Status>,
