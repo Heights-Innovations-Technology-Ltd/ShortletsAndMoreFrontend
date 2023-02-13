@@ -2,11 +2,14 @@ import React from "react";
 import PrimaryButton from "../PrimaryButton";
 import {
   LeftIconContainer,
+  SeeAll,
   SortContainer,
   TableBody,
   TableBodyData,
   TableBodyRow,
   TableButton,
+  TableCardTitle,
+  TableCardTop,
   TableContainer,
   TableHeader,
   TableHeaderRow,
@@ -15,18 +18,29 @@ import {
 } from "./style";
 
 import { BiSortAlt2 } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
 const sortIcon = (
   <LeftIconContainer>
     <BiSortAlt2 color="#f3f6e7" />
   </LeftIconContainer>
 );
 
-const StaffTable = ({ header, body, arrOfObject }) => {
+const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
   return (
     <TableContainer>
-      <SortContainer>
-        <TableButton>{sortIcon} Sort</TableButton>
-      </SortContainer>
+      {staffHome ? (
+        <TableCardTop>
+          <TableCardTitle>Recent Check- Ins </TableCardTitle>
+          <NavLink to="/staff/check-in">
+            <SeeAll>See All</SeeAll>
+          </NavLink>
+        </TableCardTop>
+      ) : (
+        <SortContainer>
+          <TableButton>{sortIcon} Sort</TableButton>
+        </SortContainer>
+      )}
+
       <TableWrapper>
         <TableHeader>
           <TableHeaderRow>

@@ -13,7 +13,21 @@ export const SortContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-
+export const TableCardTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const TableCardTitle = styled.p`
+  font-weight: 600;
+  font-size: 23px;
+  color: #171b03;
+`;
+export const SeeAll = styled.p`
+  font-weight: 400;
+  font-size: 16px;
+  color: #8ba00d;
+  text-decoration: underline;
+`;
 export const TableWrapper = styled.table`
   width: 100%;
   color: #242627;

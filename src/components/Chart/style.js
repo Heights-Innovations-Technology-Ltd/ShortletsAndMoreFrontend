@@ -1,5 +1,6 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
-export const ChartContainer = styled.div`
+export const ChartContainer = styled(motion.div)`
   background: #fafafa;
   border-radius: 4px;
   padding-top: 24px;
@@ -29,7 +30,7 @@ export const TopContent = styled.div`
   select {
     font-size: 12px;
     color: #4e5152;
-    background-color: none;
+    background-color: #fafafa;
     border: none;
     outline: none;
   }

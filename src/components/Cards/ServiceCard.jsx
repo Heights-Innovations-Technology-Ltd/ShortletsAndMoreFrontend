@@ -1,7 +1,7 @@
 import React from "react";
 import { Down, Image, Paragraph, ServiceContainer, Title, Top } from "./style";
 // import image from "../../assets/listing_img_one.png";
-const ServiceCard = ({ image, title, detail }) => {
+const ServiceCard = ({ image, title, detail, service }) => {
   return (
     <ServiceContainer>
       <Top>
@@ -11,7 +11,7 @@ const ServiceCard = ({ image, title, detail }) => {
         <Title>{title}</Title>
         <Paragraph>{detail}</Paragraph>
 
-        <hr />
+        {service && <hr />}
       </Down>
     </ServiceContainer>
   );

@@ -69,7 +69,12 @@ const CheckInBarChart = () => {
   ];
 
   return (
-    <ChartContainer>
+    <ChartContainer
+      key="chart"
+      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: 200 }}
+      exit={{ opacity: 0, x: 200 }}
+    >
       <TopContent>
         <h3>Check-Ins</h3>
         <select

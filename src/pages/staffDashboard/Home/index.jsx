@@ -33,7 +33,7 @@ const StaffHome = () => {
           <StaffStatusCard />
           <CheckInBarChart />
           <>
-            <StaffTable header={header} body={dataBody} arrOfObject />
+            <StaffTable staffHome header={header} body={dataBody} arrOfObject />
           </>
         </LeftContainer>
         <RightContainer>

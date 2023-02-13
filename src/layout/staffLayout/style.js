@@ -28,6 +28,7 @@ export const BodyRight = styled.div`
   width: 100%;
   height: 100%;
   padding: 45px;
+  overflow-x: hidden;
 
   @media screen and (max-width: 700px) {
     width: 100%;

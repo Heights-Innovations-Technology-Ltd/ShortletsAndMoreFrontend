@@ -16,7 +16,16 @@ import {
 import { AiOutlineMore } from "react-icons/ai";
 const ServicesCard = () => {
   return (
-    <ServicesContainer>
+    <ServicesContainer
+      key="statusCard"
+      // initial={{ y: 10, opacity: 0 }}
+      // animate={{ y: 0, opacity: 1 }}
+      // exit={{ y: 10, opacity: 0 }}
+      transition={{ duration: 0.9 }}
+      initial={{ opacity: 0, y: 200 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 200 }}
+    >
       <ServicesCardTop>
         <ServicesCardTitle>Services</ServicesCardTitle>
         <NavLink to="/staff/services">

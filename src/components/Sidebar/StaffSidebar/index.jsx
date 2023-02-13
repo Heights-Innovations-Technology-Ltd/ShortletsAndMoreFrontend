@@ -75,7 +75,7 @@ const StaffSidebar = () => {
               >
                 <>
                   <item.icon size={24} />
-                  {item.title}
+                  {expanded ? item.title : null}
                 </>
               </NavLink>
             </div>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const ServiceContainer = styled.div`
   max-width: 441px;
@@ -42,7 +43,7 @@ export const Testing = styled.div`
   width: 100%;
 `;
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   background: #fafafa;
   border-radius: 4px;
   padding: 20px 16px;
@@ -82,7 +83,7 @@ export const Count = styled.p`
 `;
 
 //services card
-export const ServicesContainer = styled.div`
+export const ServicesContainer = styled(motion.div)`
   background: #fafafa;
   border-radius: 4px;
   width: 100%;

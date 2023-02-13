@@ -42,6 +42,7 @@ const StaffServices = () => {
         {servicesData.map((service) => (
           <div key={service.id}>
             <ServiceCard
+              service
               title={service.serviceTitle}
               detail={service.serviceDetails}
               image={service.serviceImage}

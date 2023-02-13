@@ -23,7 +23,7 @@ export const Status = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-flow: row;
-  width: 95%;
+  width: 100%;
   gap: 36px;
 `;
 

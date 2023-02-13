@@ -3,7 +3,7 @@ export const Container = styled.div`
   display: flex;
   flex-flow: row;
   align-items: center;
-  width: 95%;
+  width: 100%;
   gap: 36px;
 `;
 

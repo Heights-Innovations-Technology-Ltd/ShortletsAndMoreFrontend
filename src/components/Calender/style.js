@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const CalenderContainer = styled.div`
+export const CalenderContainer = styled(motion.div)`
   background: #fafafa;
   border-radius: 4px;
   padding: 50px 24px;

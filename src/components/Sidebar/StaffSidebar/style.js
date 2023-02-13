@@ -14,7 +14,6 @@ export const SidebarWrapper = styled(motion.div)`
   flex-flow: column;
   flex: 1;
   gap: 66px;
-
   position: sticky;
   /* top: 57.1px; */
 
