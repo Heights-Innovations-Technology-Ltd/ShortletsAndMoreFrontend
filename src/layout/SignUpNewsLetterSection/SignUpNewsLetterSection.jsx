@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { subscribeSchema } from "../../utils/config";
 import { Oval } from "react-loading-icons";
+import toast from "react-hot-toast";
 
 const SignUpNewsLetterSection = () => {
   const {
@@ -28,8 +29,10 @@ const SignUpNewsLetterSection = () => {
   const [subscriber, { isLoading, isSuccess }] = useSubscriberMutation();
 
   const onSubmit = async (formData) => {
+    console.log(formData);
     const response = await subscriber(formData);
-    console.log("form respnose");
+    console.log("form respnose", response);
+    toast.success(response?.data?.message)
   };
   return (
     <div

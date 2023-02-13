@@ -10,6 +10,7 @@ import {
   ButtonWrapper,
   LeftIconContainer,
   Status,
+  TableContainer,
 } from "./style";
 import image from "../../../assets/listing_img_four.png";
 import { useEffect } from "react";
@@ -62,13 +63,13 @@ const StaffBookings = () => {
 
   return (
     <div>
-      <StaffHeader />
+      <StaffHeader title="Bookings" />
       <ButtonWrapper>
         <PrimaryButton title="Third Part Booking" leftIcon iconName={addIcon} />
       </ButtonWrapper>
-      <>
+      <TableContainer>
         <StaffTable header={header} body={dataBody} arrOfObject />
-      </>
+      </TableContainer>
     </div>
   );
 };

@@ -13,7 +13,9 @@ import imageFive from "../assets/recent_listing.png";
 import { ReactComponent as FirstSvg } from "../assets/svg/shop.svg";
 import { ReactComponent as SecondSvg } from "../assets/svg/map.svg";
 import { ReactComponent as ThirdSvg } from "../assets/svg/note.svg";
-
+import { ReactComponent as LaundrySvg } from "../assets/svg/laundry.svg";
+import { ReactComponent as TransportSvg } from "../assets/svg/transport.svg";
+import { ReactComponent as RestaurantSvg } from "../assets/svg/restaurant.svg";
 import { AiFillHome, AiFillSetting } from "react-icons/ai";
 import { FaCalendarAlt, FaHotel } from "react-icons/fa";
 import {
@@ -56,7 +58,7 @@ export const StaffSidebarLinks = [
     id: 1,
     title: "Dashboard",
     icon: AiFillHome,
-    path: "/staff-dashboard/home",
+    path: "/staff/home",
   },
   {
     id: 2,
@@ -104,7 +106,7 @@ export const StaffSidebarLinks = [
     id: 9,
     title: "Settings",
     icon: AiFillSetting,
-    path: "/staff-dashboard/settings/general",
+    path: "/staff/settings",
   },
   {
     id: 11,
@@ -952,4 +954,12 @@ export const tableDatas = [
     time: "02:43PM",
     status: "Pending",
   },
+];
+
+export const services = [
+  { id: 1, name: "Laundry", image: LaundrySvg },
+  { id: 2, name: "Transport", image: TransportSvg },
+  { id: 3, name: "Restaurants", image: RestaurantSvg },
+  { id: 4, name: "Laundry", image: LaundrySvg },
+  { id: 5, name: "Laundry", image: LaundrySvg },
 ];

@@ -16,17 +16,20 @@ import {
 import { HiOutlineChevronUp, HiOutlineChevronDown } from "react-icons/hi";
 import { ReactComponent as SearchIcon } from "../../assets/svg/headerSearch.svg";
 import { ReactComponent as NotificationIcon } from "../../assets/svg/notification.svg";
-
-const image = "../../assets//user.png";
-const StaffHeader = () => {
+import StaffProfile from "../Profile/StaffProfile";
+import image from "../../assets/user.png";
+const StaffHeader = ({ title = "Dashboard" }) => {
   const [click, setIsClicked] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const handleClick = () => {
     setIsClicked(!click);
+    setShowProfile(!showProfile);
   };
+
   return (
     <Container>
       <LeftContainer>
-        <LeftHeader>Dashboard</LeftHeader>
+        <LeftHeader>{title}</LeftHeader>
         <LeftInputWrapper>
           <Input type="text" placeholder="Search" />
           <SearchIcon />
@@ -38,7 +41,7 @@ const StaffHeader = () => {
         </BellContainer>
         <UserContainer>
           <ImageContainer>
-            {/* <Image src={image} alt="users" /> */}A
+            <Image src={image} alt="users" />
           </ImageContainer>
           <Username>Akinyemi Bamidele</Username>
           <DropDown onClick={handleClick}>
@@ -46,6 +49,7 @@ const StaffHeader = () => {
           </DropDown>
         </UserContainer>
       </RightContainer>
+      {showProfile && <StaffProfile />}
     </Container>
   );
 };

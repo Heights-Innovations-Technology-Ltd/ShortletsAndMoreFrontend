@@ -23,9 +23,11 @@ import StaffAccount from "../pages/staffDashboard/Account";
 import StaffApartment from "../pages/staffDashboard/Apartment";
 import StaffBookings from "../pages/staffDashboard/Bookings";
 import StaffCheckIn from "../pages/staffDashboard/CheckIn";
+import StaffHome from "../pages/staffDashboard/Home";
 import StaffReservation from "../pages/staffDashboard/Reservation";
 import StaffRoom from "../pages/staffDashboard/Rooms";
 import StaffServices from "../pages/staffDashboard/Services";
+import StaffSettings from "../pages/staffDashboard/Settings";
 import StaffSupport from "../pages/staffDashboard/Support";
 import Testing from "../pages/Testing";
 
@@ -69,8 +71,8 @@ const AppRouter = () => {
           <Route path="testing" element={<Testing />} />
 
           <Route path="staff" element={<StaffLayout />}>
-            {/* <Route index element={<StaffLayout />} /> */}
-
+            <Route index element={<StaffHome />} />
+            <Route path="home" element={<StaffHome />} />
             <Route path="apartments" element={<Outlet />}>
               <Route index element={<StaffApartment />} />
               <Route path="rooms" element={<StaffRoom />} />
@@ -81,6 +83,7 @@ const AppRouter = () => {
             <Route path="support" element={<StaffSupport />} />
             <Route path="account" element={<StaffAccount />} />
             <Route path="services" element={<StaffServices />} />
+            <Route path="settings" element={<StaffSettings />} />
           </Route>
         </Routes>
         <Toaster

@@ -34,7 +34,7 @@ const StaffApartment = () => {
 
   return (
     <div>
-      <StaffHeader />
+      <StaffHeader title="Apartments" />
       <ButtonWrapper>
         <PrimaryButton title="Create Apartments" leftIcon iconName={addIcon} />
       </ButtonWrapper>

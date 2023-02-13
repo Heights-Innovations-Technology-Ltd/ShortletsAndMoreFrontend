@@ -1,7 +1,7 @@
 import React from "react";
 import StaffHeader from "../../../components/StaffHeader";
 
-import { ButtonContainer, Status } from "./style";
+import { ButtonContainer, Status, TableContainer } from "./style";
 
 import PrimaryButton from "../../../components/PrimaryButton";
 import { tableDatas } from "../../../utils/config";
@@ -36,10 +36,10 @@ const StaffAccount = () => {
 
   return (
     <div>
-      <StaffHeader />
-      <>
+      <StaffHeader title="Accounts" />
+      <TableContainer>
         <StaffTable header={header} body={dataBody} />
-      </>
+      </TableContainer>
     </div>
   );
 };

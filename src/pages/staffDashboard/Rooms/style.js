@@ -44,3 +44,6 @@ export const LeftIconContainer = styled.div`
   padding: 2px;
   border-radius: 4px;
 `;
+export const TableContainer = styled.div`
+  margin-top: 24px;
+`;

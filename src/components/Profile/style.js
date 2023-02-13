@@ -48,3 +48,15 @@ export const Delete = styled.p`
   color: #ed4e3a;
   font-size: 14px;
 `;
+
+export const StaffProfileContainer = styled(motion.div)`
+  border: 1px solid #edf1f7;
+  width: 216px;
+  background-color: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  right: 40px;
+  z-index: 10;
+  top: 100px;
+`;

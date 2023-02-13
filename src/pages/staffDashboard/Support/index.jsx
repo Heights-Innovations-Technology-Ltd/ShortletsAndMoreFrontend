@@ -1,7 +1,7 @@
 import React from "react";
 import StaffHeader from "../../../components/StaffHeader";
 
-import { Status } from "./style";
+import { Status, TableContainer } from "./style";
 
 import PrimaryButton from "../../../components/PrimaryButton";
 import { tableDatas } from "../../../utils/config";
@@ -44,10 +44,10 @@ const StaffSupport = () => {
 
   return (
     <div>
-      <StaffHeader />
-      <>
+      <StaffHeader title="Support" />
+      <TableContainer>
         <StaffTable header={header} body={dataBody} />
-      </>
+      </TableContainer>
     </div>
   );
 };

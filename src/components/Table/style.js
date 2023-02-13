@@ -5,8 +5,8 @@ export const TableContainer = styled.div`
   border-radius: 4px;
   padding: 40px;
   gap: 32px;
-  margin-top: 24px;
   display: flex;
+  width: 100%;
   flex-direction: column;
 `;
 export const SortContainer = styled.div`

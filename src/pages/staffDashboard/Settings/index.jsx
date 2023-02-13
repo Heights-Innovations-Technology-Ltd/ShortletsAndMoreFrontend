@@ -21,7 +21,7 @@ const iconName = (
 );
 
 const addIcon = <FaPlus color="white" />;
-const StaffServices = () => {
+const StaffSettings = () => {
   let localApartmentID = localStorage.getItem("staffApartmentID");
   let ApartmentId = JSON.parse(localApartmentID);
 
@@ -34,10 +34,8 @@ const StaffServices = () => {
 
   return (
     <div>
-      <StaffHeader title="Services" />
-      <ButtonWrapper>
-        <PrimaryButton title="Add Service" leftIcon iconName={addIcon} />
-      </ButtonWrapper>
+      <StaffHeader title="Settings" />
+
       <ApartmentContainer>
         {servicesData.map((service) => (
           <div key={service.id}>
@@ -53,4 +51,4 @@ const StaffServices = () => {
   );
 };
 
-export default StaffServices;
+export default StaffSettings;

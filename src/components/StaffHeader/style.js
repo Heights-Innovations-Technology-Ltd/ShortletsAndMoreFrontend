@@ -2,9 +2,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-flow: row;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 95%;
+  gap: 36px;
 `;
 
 export const LeftContainer = styled.div`
@@ -12,7 +12,7 @@ export const LeftContainer = styled.div`
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-  width: 70%;
+  width: 65%;
 `;
 export const LeftHeader = styled.p`
   font-weight: 600;
@@ -42,7 +42,6 @@ export const RightContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 30%;
-  padding-left: 16px;
 `;
 
 export const BellContainer = styled.div`
@@ -71,6 +70,7 @@ export const ImageContainer = styled.div`
 export const Image = styled.img`
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 `;
 export const Username = styled.p`
   font-weight: 400;

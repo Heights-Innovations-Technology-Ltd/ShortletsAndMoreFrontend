@@ -58,3 +58,6 @@ export const Status = styled.div`
   border-radius: 12px;
   padding: 4px 8px;
 `;
+export const TableContainer = styled.div`
+  margin-top: 24px;
+`;

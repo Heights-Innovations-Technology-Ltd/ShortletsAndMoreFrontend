@@ -5,7 +5,12 @@ import {
   useGetAllApartmentQuery,
   useGetAllRoomTypeQuery,
 } from "../../../store/Services/apartmentService";
-import { ApartmentContainer, ButtonWrapper, LeftIconContainer } from "./style";
+import {
+  ApartmentContainer,
+  ButtonWrapper,
+  LeftIconContainer,
+  TableContainer,
+} from "./style";
 import image from "../../../assets/listing_img_four.png";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -40,13 +45,13 @@ const StaffCheckIn = () => {
 
   return (
     <div>
-      <StaffHeader />
+      <StaffHeader title="Check - Ins" />
       {/* <ButtonWrapper>
         <PrimaryButton title="Third Part Booking" leftIcon iconName={addIcon} />
       </ButtonWrapper> */}
-      <>
+      <TableContainer>
         <StaffTable header={header} body={dataBody} />
-      </>
+      </TableContainer>
     </div>
   );
 };
