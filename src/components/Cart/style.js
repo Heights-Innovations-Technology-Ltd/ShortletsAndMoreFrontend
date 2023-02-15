@@ -189,3 +189,25 @@ export const NoItem = styled.div`
 export const NoItemText = styled.p`
   font-size: 18px;
 `;
+
+export const CountWrapper = styled.div`
+  width: 30%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+`;
+export const Count = styled.div`
+  background: rgba(217, 217, 217, 0.19);
+  text-align: center;
+  justify-content: center;
+  padding: 5px 12px;
+  font-size: 14px;
+  align-items: center;
+  /* padding: ${(props) => (props.padding ? props.padding : "0px 10px")}; */
+`;
+
+export const Button = styled.button`
+  background: rgba(217, 217, 217, 0.19);
+  padding: 5px 12px;
+  font-size: 14px;
+`;

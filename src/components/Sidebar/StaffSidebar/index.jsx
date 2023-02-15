@@ -74,7 +74,7 @@ const StaffSidebar = () => {
                 onClick={item.function}
               >
                 <>
-                  <item.icon size={24} />
+                  <item.icon size={20} />
                   {expanded ? item.title : null}
                 </>
               </NavLink>

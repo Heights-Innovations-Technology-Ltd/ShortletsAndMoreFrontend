@@ -16,3 +16,16 @@ export const filterList = (cartArray, availableArray) => {
   });
   return filteredList;
 };
+
+export const mergedData = (cartContainer, availableItemContainer) => {
+  let mergeContainer = [];
+  cartContainer.forEach((cart) => {
+    availableItemContainer.forEach((availableItem) => {
+      if (availableItem.roomTypeId === cart.id) {
+        let merged = { ...availableItem, ...cart };
+        mergeContainer.push(merged);
+      }
+    });
+  });
+  return mergeContainer;
+};

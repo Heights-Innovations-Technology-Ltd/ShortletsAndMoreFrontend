@@ -30,7 +30,7 @@ const FeaturedSection = () => {
         {isLoading ? (
           <PuffLoader />
         ) : (
-          availableRooms?.map((apartment) => (
+          availableRooms?.slice(0, 4).map((apartment) => (
             <div key={apartment.id}>
               <AddToCartCard
                 apartmentImage={imageFive}

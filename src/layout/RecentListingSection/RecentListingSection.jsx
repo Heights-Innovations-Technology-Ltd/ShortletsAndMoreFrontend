@@ -43,7 +43,7 @@ const RecentListingSection = () => {
         {isLoading ? (
           <PuffLoader />
         ) : (
-          apartmentData?.map((apartment) => (
+          apartmentData?.slice(0, 4).map((apartment) => (
             <div key={apartment.id}>
               <ApartmentCard
                 landing
