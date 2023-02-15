@@ -1,6 +1,6 @@
 export const calculateTotalPrice = (itemContainer) => {
   const totalPrice = itemContainer.reduce((accumulator, room) => {
-    return accumulator + room.price;
+    return accumulator + room.price * room.quantity;
   }, 0);
   return totalPrice;
 };

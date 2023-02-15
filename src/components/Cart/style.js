@@ -26,7 +26,7 @@ export const CartContainer = styled(motion.div)`
   flex-flow: column;
   position: fixed;
   top: 80px;
-  width: 400px;
+  width: 450px;
   right: 80px;
   padding: 32px 16px;
   box-shadow: 0px 10px 30px rgba(13, 38, 59, 0.05);
@@ -191,9 +191,10 @@ export const NoItemText = styled.p`
 `;
 
 export const CountWrapper = styled.div`
-  width: 30%;
+  width: 20%;
   display: flex;
   flex-flow: row;
+  gap: 8px;
   justify-content: space-between;
 `;
 export const Count = styled.div`

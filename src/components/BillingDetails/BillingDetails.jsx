@@ -137,17 +137,6 @@ const BillingDetails = () => {
         phone: formData ? formData.phone : parseData.phone,
         address: formData ? formData.address : parseData.address,
         reservation: paymentList,
-        // [
-        //   {
-        //     startDate: "2023-01-24",
-        //     endDate: "2023-01-24",
-        //     createdAt: createAt,
-        //     discountPercent: 0,
-        //     totalPrice: paymentPrice,
-        //     numberOfRooms: 1,
-        //     roomTypeId: 4,
-        //   },
-        // ],
       };
       console.log("reeeee", requiredData);
 
@@ -165,19 +154,6 @@ const BillingDetails = () => {
       }
     }
   };
-
-  // const RedirectExample = (link) => {
-  //   useEffect(() => {
-  //     const timeout = setTimeout(() => {
-  //       // 👇️ redirects to an external URL
-  //       window.location.replace(`${link}`);
-  //     }, 3000);
-
-  //     return () => clearTimeout(timeout);
-  //   }, [link]);
-
-  //   return <>Will redirect in 3 seconds...</>;
-  // };
 
   const onPay = async (formData) => {
     console.log(formData);
@@ -199,17 +175,6 @@ const BillingDetails = () => {
         phone: formData ? formData.phone : parseData.phone,
         address: formData ? formData.address : parseData.address,
         reservation: paymentList,
-        // [
-        //   {
-        //     startDate: "2023-01-24",
-        //     endDate: "2023-01-24",
-        //     createdAt: createAt,
-        //     discountPercent: 0,
-        //     totalPrice: paymentPrice,
-        //     numberOfRooms: 1,
-        //     roomTypeId: 4,
-        //   },
-        // ],
       };
       console.log("reeeee", requiredData);
 
@@ -366,7 +331,9 @@ const BillingDetails = () => {
                 key={index}
               >
                 <h4 className="text-xs">{room.name}</h4>
-                <h5 className="text-xs">NGN{room.price}</h5>
+                <h5 className="text-xs">
+                  {room.quantity} X NGN{room.price}
+                </h5>
               </div>
             ))}
 
@@ -429,7 +396,9 @@ const BillingDetails = () => {
                 key={index}
               >
                 <h4 className="text-xs">{room.name}</h4>
-                <h5 className="text-xs">NGN{room.price}</h5>
+                <h5 className="text-xs">
+                  {room.quantity} X NGN{room.price}
+                </h5>
               </div>
             ))}
 

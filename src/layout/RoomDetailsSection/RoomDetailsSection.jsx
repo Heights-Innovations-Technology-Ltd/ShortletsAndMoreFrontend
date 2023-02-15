@@ -98,6 +98,7 @@ const RoomDetailsSection = () => {
   const { roomID } = useParams();
   let cID = parseInt(roomID);
   const [itemCount, setItemCount] = useState(1);
+  const [noOfRooms, setNoOfRooms] = useState(0);
 
   useEffect(() => {
     let cID = parseInt(roomID);
@@ -105,60 +106,6 @@ const RoomDetailsSection = () => {
     setRoomContainer(check);
     // setRoomFeatures(JSON.parse(check?.features));
   }, [roomID, data]);
-
-  const addToCart = async (data) => {
-    // navigate("/cart");
-    let itemArray = await localStorage.getItem("cartItemId");
-    console.log("local storage", itemArray);
-    let newItemArray = JSON.parse(itemArray);
-    console.log(newItemArray);
-
-    if (newItemArray) {
-      const findId = newItemArray.find((item) => item.id === data.id);
-      if (findId) {
-        toast.error("item added already");
-      } else {
-        newItemArray.push(data);
-        setIsAdd(true);
-        await localStorage.setItem(
-          "itemAvailability",
-          JSON.stringify(availableContainer)
-        );
-        try {
-          await localStorage.setItem(
-            "cartItemId",
-            JSON.stringify(newItemArray)
-          );
-          toast.success("item added successfully");
-          setIsAdd(true);
-          await localStorage.setItem(
-            "itemAvailability",
-            JSON.stringify(availableContainer)
-          );
-        } catch (error) {
-          setIsAdd(false);
-          return error;
-        }
-      }
-    } else {
-      //if the array is empty
-      let array = []; //create a new array of items
-      array.push(data); //push the item id to the array
-      setIsAdd(true);
-      try {
-        await localStorage.setItem("cartItemId", JSON.stringify(array));
-        toast.success("item added successfully");
-        setIsAdd(true);
-        await localStorage.setItem(
-          "itemAvailability",
-          JSON.stringify(availableContainer)
-        );
-      } catch (error) {
-        setIsAdd(false);
-        return error;
-      }
-    }
-  };
 
   const handleDateChange = (value) => {
     setValue("startDate", value);
@@ -168,6 +115,7 @@ const RoomDetailsSection = () => {
     setValue("endDate", value);
   };
 
+  //checking for availability
   const submitForm = async (formData) => {
     // const addData ={
     //   roomTypeId: "",
@@ -189,10 +137,17 @@ const RoomDetailsSection = () => {
     console.log("submit", availableData);
     const result = await checkForAvailability(newFormData);
     console.log("resutingg", result);
+
     // const error = result?.error;
     const responseData = result?.data;
     if (responseData) {
       toast.success(responseData.message);
+      let message = responseData.message;
+      console.log(message);
+      let number = message.replace(/[^0-9]/g, "");
+      let convertedNumber = parseInt(number);
+      console.log("ddd", convertedNumber);
+      setNoOfRooms(convertedNumber);
       // setOpenNotModal(true);
       setOpenModal(true);
 
@@ -240,7 +195,70 @@ const RoomDetailsSection = () => {
     }
   };
 
-  console.log("checking", availableContainer)
+  //add item to cart
+  const addToCart = async (data) => {
+    // navigate("/cart");
+    let itemArray = await localStorage.getItem("cartItemId");
+    console.log("local storage", itemArray);
+    let newItemArray = JSON.parse(itemArray);
+    console.log(newItemArray);
+
+    if (itemCount <= noOfRooms) {
+      //add to cart
+      if (newItemArray) {
+        const findId = newItemArray.find((item) => item.id === data.id);
+        if (findId) {
+          toast.error("item added already");
+        } else {
+          let newData = { ...data, number: noOfRooms, quantity: itemCount };
+          newItemArray.push(newData);
+          setIsAdd(true);
+          await localStorage.setItem(
+            "itemAvailability",
+            JSON.stringify(availableContainer)
+          );
+          try {
+            await localStorage.setItem(
+              "cartItemId",
+              JSON.stringify(newItemArray)
+            );
+            toast.success("item added successfully");
+            setIsAdd(true);
+            await localStorage.setItem(
+              "itemAvailability",
+              JSON.stringify(availableContainer)
+            );
+          } catch (error) {
+            setIsAdd(false);
+            return error;
+          }
+        }
+      } else {
+        //if the array is empty
+        let array = []; //create a new array of items
+        let newData = { ...data, number: noOfRooms, quantity: itemCount };
+        array.push(newData); //push the item id to the array
+
+        setIsAdd(true);
+        try {
+          await localStorage.setItem("cartItemId", JSON.stringify(array));
+          toast.success("item added successfully");
+          setIsAdd(true);
+          await localStorage.setItem(
+            "itemAvailability",
+            JSON.stringify(availableContainer)
+          );
+        } catch (error) {
+          setIsAdd(false);
+          return error;
+        }
+      }
+    } else {
+      toast.error(`Just ${noOfRooms} room availablbe for this room type`);
+    }
+  };
+
+  console.log("checking", availableContainer);
   const handleCountIncrease = (e) => {
     e.preventDefault();
     let count = itemCount + 1;

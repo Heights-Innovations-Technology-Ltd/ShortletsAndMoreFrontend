@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Button,
   ButtonWrapper,
   CartContainer,
   CartItemWrap,
   CartTop,
   CartWrapperContainer,
+  Count,
+  CountWrapper,
   DeleteContainer,
   Image,
   ImageWrapper,
@@ -25,11 +28,14 @@ import image from "../../assets/cartImage.png";
 import { setShowCart } from "../../store/Slice/roomSlice";
 import { useNavigate } from "react-router-dom";
 import { calculateTotalPrice } from "../../utils/helper";
+import id from "date-fns/esm/locale/id/index.js";
 
 const CartShow = () => {
   const [roomContainer, setRoomContainer] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemContainer, setItemContainer] = useState(0);
+  const createdAt = new Date().toISOString().split("T")[0];
+  const [itemCount, setItemCount] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -50,6 +56,15 @@ const CartShow = () => {
     let newItemContainer = JSON.parse(localData);
     setRoomContainer(newItemContainer);
     setItemContainer(newItemContainer && newItemContainer.length);
+
+    // const availableData = {
+
+    //   createdAt: createdAt,
+    //   discountPercent: 0,
+    //   totalPrice: roomContainer?.price * itemCount,
+    //   numberOfRooms: itemCount,
+    //   roomTypeId: cID,
+    // };
   };
   useEffect(() => {
     getList();
@@ -73,6 +88,16 @@ const CartShow = () => {
       getList();
     }
   };
+
+  // const handleCountIncrease = () => {
+  //   setItemCount((prev) => prev + 1);
+  // };
+
+  // const handleCountDecrease = () => {
+  //   if (itemCount > 1) {
+  //     setItemCount((prev) => prev - 1);
+  //   }
+  // };
 
   return (
     <>
@@ -101,9 +126,17 @@ const CartShow = () => {
                   </DeleteContainer>
                   <Image src={image} alt="cartImage" />
                 </ImageWrapper>
+                {/* <CountWrapper>
+                  <Button onClick={handleCountDecrease}>-</Button>
+                  <Count>{itemCount}</Count>
+                  <Button onClick={handleCountIncrease}>+</Button>
+                </CountWrapper> */}
+
                 <ItemDetails>
                   <ItemName>{room.name}</ItemName>
-                  <ItemPrice>NGN{room.price}</ItemPrice>
+                  <ItemPrice>
+                    {room.quantity} X NGN{room.price}
+                  </ItemPrice>
                 </ItemDetails>
               </CartItemWrap>
             ))}

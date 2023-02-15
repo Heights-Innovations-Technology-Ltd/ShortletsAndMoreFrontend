@@ -56,7 +56,10 @@ const Cart = () => {
                 <img src={cart_img} alt="/" className="w-11" />
                 <h4 className="text-xs ml-4">{room.name}</h4>
               </div>
-              <h5 className="text-xs">NGN {room.price}.00</h5>
+              <h5 className="text-xs">
+                {" "}
+                {room.quantity} X NGN {room.price}.00
+              </h5>
 
               <div className="flex justify-center items-center">
                 <GrEdit
