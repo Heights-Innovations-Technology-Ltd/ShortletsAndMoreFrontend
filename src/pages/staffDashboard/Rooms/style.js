@@ -3,9 +3,22 @@ import styled from "styled-components";
 export const ButtonWrapper = styled.div`
   margin-top: 18px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 `;
 
+export const BackWrapper = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  cursor: pointer;
+`;
+export const BackText = styled.p`
+  font-weight: 500;
+  font-size: 19px;
+  text-align: center;
+  color: #8ba00d;
+`;
 export const ApartmentContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
@@ -58,20 +71,13 @@ export const ModalButton = styled.div`
   width: 100%;
 `;
 export const CloseWrapper = styled.div`
-  /* display: flex;
-  justify-content: center;
   cursor: pointer;
-  align-items: center;
-  padding: 10px;
-  border-radius: 100%;
-  background-color: #d7d7d7;
-  margin-bottom: 20px; */
 `;
 export const Top = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 80%;
+  width: 100%;
 `;
 export const FormContainer = styled.form`
   width: 100%;

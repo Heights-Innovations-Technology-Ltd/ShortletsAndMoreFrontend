@@ -18,6 +18,8 @@ import {
   Top,
   CheckInputContainer,
   CheckListContainer,
+  BackWrapper,
+  BackText,
 } from "./style";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -34,6 +36,8 @@ import { ReactComponent as CloseIcon } from "../../../assets/svg/close.svg";
 import PrimaryInput from "../../../components/Input";
 import TextArea from "../../../components/TextArea";
 import DropDown from "../../../components/Input/dropDown";
+import { AiFillCaretLeft } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const addIcon = <FaPlus color="white" />;
 const StaffRoom = () => {
@@ -50,15 +54,18 @@ const StaffRoom = () => {
 
   let localApartmentID = localStorage.getItem("staffApartmentID");
   let ApartmentId = JSON.parse(localApartmentID);
+  const navigate = useNavigate();
 
   const [room, setRooms] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   const [action, setAction] = useState();
-  const { data, refetch } = useGetAllRoomTypeQuery(ApartmentId);
+  const [fetchedEditRoom, setFetchedEditRoom] = useState({});
 
+  const { data, refetch } = useGetAllRoomTypeQuery(ApartmentId);
   const [createRoom, { isLoading }] = useCreateRoomMutation();
   const [editRoom, editState] = useEditRoomMutation();
+
   const {
     handleSubmit,
     register,
@@ -143,6 +150,7 @@ const StaffRoom = () => {
     setOpenModal(true);
 
     const getRoomDetails = data?.data.find((room) => room.id === id);
+    setFetchedEditRoom(getRoomDetails);
     if (getRoomDetails) {
       setValue("roomType", getRoomDetails?.name, {
         shouldValidate: true,
@@ -157,6 +165,11 @@ const StaffRoom = () => {
       setValue("price", getRoomDetails?.price, {
         shouldValidate: true,
       });
+    } else {
+      setValue("roomType", "");
+      setValue("description", "");
+      setValue("numberOfUnits", "");
+      setValue("price", "");
     }
   };
   const handleEdit = async (formData) => {
@@ -184,10 +197,17 @@ const StaffRoom = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div>
       <StaffHeader title="Apartment/Rooms" />
       <ButtonWrapper>
+        <BackWrapper onClick={handleBack}>
+          <AiFillCaretLeft color="#8BA00D" size="24px" />
+          <BackText>Back</BackText>
+        </BackWrapper>
         <PrimaryButton
           title="Create Rooms"
           leftIcon
@@ -254,6 +274,7 @@ const StaffRoom = () => {
               name="numberOfUnits"
               register={register}
               onChange={handleUnitChange}
+              defaultValue={action === "edit" && fetchedEditRoom?.numberOfUnits}
               errorMessage={errors.numberOfUnits?.message}
             />
             <PrimaryInput

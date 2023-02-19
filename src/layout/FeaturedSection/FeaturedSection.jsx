@@ -14,7 +14,7 @@ const FeaturedSection = () => {
   }, [data]);
 
   return (
-    <>
+    <div>
       <h1 className="text-center mt-8 mb-4 lg:text-2xl font-semibold">
         Featured room
       </h1>
@@ -26,7 +26,7 @@ const FeaturedSection = () => {
         no further than our featured room!
       </p>
 
-      <div className="flex items-center justify-center flex-wrap">
+      <div className="flex items-center px-20 flex-wrap justify-between">
         {isLoading ? (
           <PuffLoader />
         ) : (
@@ -43,7 +43,7 @@ const FeaturedSection = () => {
           ))
         )}
       </div>
-    </>
+    </div>
   );
 };
 
