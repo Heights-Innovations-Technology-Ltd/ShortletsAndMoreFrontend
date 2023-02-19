@@ -45,14 +45,18 @@ const StaffLogin = () => {
 
     if (responseData) {
       store.dispatch(saveStaffInfo(responseData));
+      console.log("stafflogin.jsx", responseData);
       localStorage.setItem(
         "staffLoginProfile",
-        JSON.stringify(responseData?.data)
+        JSON.stringify(responseData)
       );
       navigate("/staff");
       toast.success(response?.message);
     }
-    if (error) {
+    // if (error) {
+    //   toast.error("Invalid credentials");
+    // }
+    else {
       toast.error("Invalid credentials");
     }
   };

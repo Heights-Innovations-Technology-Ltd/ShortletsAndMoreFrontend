@@ -19,6 +19,8 @@ import { ReactComponent as NotificationIcon } from "../../assets/svg/notificatio
 import StaffProfile from "../Profile/StaffProfile";
 import image from "../../assets/user.png";
 const StaffHeader = ({ title = "Dashboard" }) => {
+  const staffInfo = JSON.parse(localStorage.getItem("staffLoginProfile"));
+
   const [click, setIsClicked] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const handleClick = () => {
@@ -43,7 +45,9 @@ const StaffHeader = ({ title = "Dashboard" }) => {
           <ImageContainer>
             <Image src={image} alt="users" />
           </ImageContainer>
-          <Username>Akinyemi Bamidele</Username>
+          <Username>
+            {staffInfo.firstName} {staffInfo.lastName}
+          </Username>
           <DropDown onClick={handleClick}>
             {click ? <HiOutlineChevronUp /> : <HiOutlineChevronDown />}
           </DropDown>

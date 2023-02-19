@@ -1,12 +1,12 @@
 import React from "react";
-import image from "../../assets/mobileLogo.png";
-import { Image, LoaderWrapper } from "./styled";
+import { LoaderWrapper } from "./styled";
 import "./loader.css";
+import { ReactComponent as BrandLogoIcon } from "../../assets/svg/sidebarLogo.svg";
 
 const Loader = () => {
   return (
     <LoaderWrapper>
-      <Image src={image} alt="logo" />
+      <BrandLogoIcon />
       <div className="lds-ellipsis">
         <div></div>
         <div></div>

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState, useEffect } from "react";
+import React, { Suspense, lazy } from "react";
 import { Toaster } from "react-hot-toast";
 import {
   BrowserRouter as Router,
@@ -23,17 +23,30 @@ import Home from "../pages/Home/Home";
 import Property from "../pages/Property/Property";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
 import Services from "../pages/Services/Services";
-import StaffAccount from "../pages/staffDashboard/Account";
-import StaffApartment from "../pages/staffDashboard/Apartment";
+import StaffAccounts from "../pages/staffDashboard/Account";
+import StaffApartments from "../pages/staffDashboard/Apartment";
 import StaffBookings from "../pages/staffDashboard/Bookings";
-import StaffCheckIn from "../pages/staffDashboard/CheckIn";
+import StaffCheckIns from "../pages/staffDashboard/CheckIn";
 import StaffHome from "../pages/staffDashboard/Home";
-import StaffReservation from "../pages/staffDashboard/Reservation";
-import StaffRoom from "../pages/staffDashboard/Rooms";
+import StaffReservations from "../pages/staffDashboard/Reservation";
+import StaffRooms from "../pages/staffDashboard/Rooms";
 import StaffServices from "../pages/staffDashboard/Services";
 import StaffSettings from "../pages/staffDashboard/Settings";
-import StaffSupport from "../pages/staffDashboard/Support";
+import StaffSupports from "../pages/staffDashboard/Support";
 import Testing from "../pages/Testing";
+
+const StaffDashboard = lazy(() => import("../pages/staffDashboard/Home"));
+const StaffBooking = lazy(() => import("../pages/staffDashboard/Bookings"));
+const StaffReservation = lazy(() =>
+  import("../pages/staffDashboard/Reservation")
+);
+const StaffCheckIn = lazy(() => import("../pages/staffDashboard/CheckIn"));
+const StaffApartment = lazy(() => import("../pages/staffDashboard/Apartment"));
+const StaffRoom = lazy(() => import("../pages/staffDashboard/Rooms"));
+const StaffService = lazy(() => import("../pages/staffDashboard/Services"));
+const StaffSupport = lazy(() => import("../pages/staffDashboard/Support"));
+const StaffAccount = lazy(() => import("../pages/staffDashboard/Account"));
+const StaffSetting = lazy(() => import("../pages/staffDashboard/Settings"));
 
 const AppRouter = () => {
   let data = useParams();
@@ -79,19 +92,19 @@ const AppRouter = () => {
           <Route path="staff-login" element={<StaffLogin />} />
           <Route path="staff-register" element={<StaffRegister />} />
           <Route path="staff" element={<StaffLayout />}>
-            <Route index element={<StaffHome />} />
-            <Route path="home" element={<StaffHome />} />
+            <Route index element={<StaffDashboard />} />
+            <Route path="home" element={<StaffDashboard />} />
             <Route path="apartments" element={<Outlet />}>
               <Route index element={<StaffApartment />} />
               <Route path="rooms" element={<StaffRoom />} />
             </Route>
-            <Route path="bookings" element={<StaffBookings />} />
+            <Route path="bookings" element={<StaffBooking />} />
             <Route path="reservation" element={<StaffReservation />} />
             <Route path="check-in" element={<StaffCheckIn />} />
             <Route path="support" element={<StaffSupport />} />
             <Route path="account" element={<StaffAccount />} />
-            <Route path="services" element={<StaffServices />} />
-            <Route path="settings" element={<StaffSettings />} />
+            <Route path="services" element={<StaffService />} />
+            <Route path="settings" element={<StaffSetting />} />
           </Route>
         </Routes>
         <Toaster

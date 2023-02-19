@@ -1,12 +1,18 @@
-import React from "react";
-import { useRoutes, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
 import AppRouter from "./routes/appRouter";
-import Routes from "./routes/Routes";
+import { saveStaffInfo } from "./store/Slice/staffSlice";
+import { store } from "./store/store";
 
 const App = () => {
-  let data = useParams();
 
-  console.log("checking params on app", data);
+  const staffInfo = JSON.parse(localStorage.getItem("staffLoginProfile"));
+  console.log("app.js", staffInfo);
+
+  useEffect(() => {
+    if (staffInfo) {
+      store.dispatch(saveStaffInfo(staffInfo));
+    }
+  }, [staffInfo]);
 
   // let elements = useRoutes(Routes);
 

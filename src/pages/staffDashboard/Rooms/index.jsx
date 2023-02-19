@@ -1,10 +1,6 @@
 import React from "react";
-import ApartmentCard from "../../../components/Cards/ApartmentCard";
 import StaffHeader from "../../../components/StaffHeader";
-import {
-  useGetAllApartmentQuery,
-  useGetAllRoomTypeQuery,
-} from "../../../store/Services/apartmentService";
+import { useGetAllRoomTypeQuery } from "../../../store/Services/apartmentService";
 import {
   useCreateRoomMutation,
   useEditRoomMutation,
@@ -15,7 +11,6 @@ import {
   CheckInput,
   CloseWrapper,
   FormContainer,
-  LeftIconContainer,
   ModalButton,
   ModalWrapper,
   TextContainer,
@@ -27,12 +22,9 @@ import {
 import { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaPen, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import PrimaryButton from "../../../components/PrimaryButton";
-import {
-  createRoomSchema,
-  unitOptions,
-} from "../../../utils/config";
+import { createRoomSchema, unitOptions } from "../../../utils/config";
 import AddToCartCard from "../../../components/Cards/AddToCartCard";
 import imageFive from "../../../assets/recent_listing.png";
 import { Dialog } from "@mui/material";
@@ -42,11 +34,6 @@ import { ReactComponent as CloseIcon } from "../../../assets/svg/close.svg";
 import PrimaryInput from "../../../components/Input";
 import TextArea from "../../../components/TextArea";
 import DropDown from "../../../components/Input/dropDown";
-const iconName = (
-  <LeftIconContainer>
-    <FaPen color="#8BA00D" />
-  </LeftIconContainer>
-);
 
 const addIcon = <FaPlus color="white" />;
 const StaffRoom = () => {
@@ -68,8 +55,7 @@ const StaffRoom = () => {
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   const [action, setAction] = useState();
-  const { data, isSuccess, isError, refetch } =
-    useGetAllRoomTypeQuery(ApartmentId);
+  const { data, refetch } = useGetAllRoomTypeQuery(ApartmentId);
 
   const [createRoom, { isLoading }] = useCreateRoomMutation();
   const [editRoom, editState] = useEditRoomMutation();
@@ -125,8 +111,6 @@ const StaffRoom = () => {
       });
     }
   };
-
-  console.log("checkItems", checkedItems);
 
   const onSubmit = async (formData) => {
     setAction("add");
