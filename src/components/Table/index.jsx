@@ -30,9 +30,9 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
     <TableContainer>
       {staffHome ? (
         <TableCardTop>
-          <TableCardTitle>Recent Check- Ins </TableCardTitle>
+          <TableCardTitle>Recent Check - Ins </TableCardTitle>
           <NavLink to="/staff/check-in">
-            <SeeAll>See All</SeeAll>
+            <SeeAll>See all</SeeAll>
           </NavLink>
         </TableCardTop>
       ) : (

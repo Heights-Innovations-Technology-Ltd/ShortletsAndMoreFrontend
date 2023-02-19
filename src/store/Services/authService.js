@@ -14,7 +14,7 @@ export const authApi = createApi({
     //user registration
     registerNewUser: builder.mutation({
       query: (data) => ({
-        url: "/Guest",
+        url: "/guest",
         method: "POST",
         body: data,
         headers: {
@@ -27,7 +27,7 @@ export const authApi = createApi({
     //user login
     loginNewUser: builder.mutation({
       query: (values) => ({
-        url: "/Guest/login",
+        url: "/guest/login",
         method: "POST",
         body: values,
         headers: {
@@ -49,6 +49,32 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+
+    //reset password
+    resetPassword: builder.mutation({
+      query: (values) => ({
+        url: "/guest/update-password",
+        method: "POST",
+        body: values,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    //update password
+    updatePassword: builder.mutation({
+      query: ({ code, values }) => ({
+        url: `/guest/update-password/${code}`,
+        method: "PUT",
+        body: values,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -57,4 +83,6 @@ export const {
   useRegisterNewUserMutation,
   useLoginNewUserMutation,
   useSubscriberMutation,
+  useResetPasswordMutation,
+  useUpdatePasswordMutation,
 } = authApi;

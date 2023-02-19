@@ -9,9 +9,20 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import {
+  useGetAllApartmentsQuery,
+  useGetAllBookingsQuery,
+  useGetAllReservationsQuery,
+} from "../../store/Services/staffService";
 import { ChartContainer, TopContent } from "./style";
 
 const CheckInBarChart = () => {
+  //endpoints
+  const allApartments = useGetAllApartmentsQuery();
+  const getAllReservations = useGetAllReservationsQuery();
+  const getAllBookings = useGetAllBookingsQuery();
+
+  console.log(getAllReservations?.data);
   const data = [
     {
       name: "Mon",

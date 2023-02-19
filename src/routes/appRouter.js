@@ -12,6 +12,10 @@ import StaffLayout from "../layout/staffLayout";
 import AddToCart from "../pages/AddToCart/AddToCart";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
+import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
+import StaffLogin from "../pages/Auth/StaffAuth/Login/Login";
+import StaffRegister from "../pages/Auth/StaffAuth/Register/Register";
+import UpdatePassword from "../pages/Auth/UpdatePassword/UpdatePassword";
 import BillingDetail from "../pages/BillingDetail/BillingDetail";
 import BookingConfirmation from "../pages/BookingConfirmation/BookingConfirmation";
 import Contact from "../pages/Contact/Contact";
@@ -61,6 +65,8 @@ const AppRouter = () => {
           <Route path="login" element={<Outlet />}>
             <Route index element={<Login />} />
           </Route>
+          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="update-password/:resetID" element={<UpdatePassword />} />
           <Route path="cart" element={<Outlet />}>
             <Route index element={<AddToCart />} />
             <Route path="checkout" element={<BillingDetail />} />
@@ -70,6 +76,8 @@ const AppRouter = () => {
 
           <Route path="testing" element={<Testing />} />
 
+          <Route path="staff-login" element={<StaffLogin />} />
+          <Route path="staff-register" element={<StaffRegister />} />
           <Route path="staff" element={<StaffLayout />}>
             <Route index element={<StaffHome />} />
             <Route path="home" element={<StaffHome />} />

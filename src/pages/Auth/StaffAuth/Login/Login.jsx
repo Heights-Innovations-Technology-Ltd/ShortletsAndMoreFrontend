@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import AuthBottom from "../../../components/AuthBottom";
-import PrimaryInput from "../../../components/Input";
-import AuthLayout from "../../../layout/AuthLayout";
-import Navbar from "../../../layout/Navbar/Navbar";
+import AuthBottom from "../../../../components/AuthBottom";
+import PrimaryInput from "../../../../components/Input";
+import AuthLayout from "../../../../layout/AuthLayout";
+import Navbar from "../../../../layout/Navbar/Navbar";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -13,53 +13,51 @@ import {
   ForgotPassword,
   LoginContainer,
 } from "./style";
-import { loginSchema } from "../../../utils/config";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../../store/Action/actions";
+import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { useLoginNewUserMutation } from "../../../store/Services/authService";
+import { store } from "../../../../store/store";
+import { staffLoginSchema } from "../../../../utils/config";
+import { useLoginNewStaffMutation } from "../../../../store/Services/staffService";
+import { saveStaffInfo } from "../../../../store/Slice/staffSlice";
 
-const Login = () => {
-  // const { loading, userDetails, error, success } = useSelector(
-  //   (state) => state.authDataReducer
-  // );
+const StaffLogin = () => {
   const navigate = useNavigate();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(staffLoginSchema),
   });
-  const [loginNewUser, { isLoading, isSuccess }] = useLoginNewUserMutation();
+  const [loginNewStaff, { isLoading, isSuccess, response }] =
+    useLoginNewStaffMutation();
 
   const dispatch = useDispatch();
 
   const submitForm = async (data) => {
     console.log(data);
-    const response = await loginNewUser(data);
+    const response = await loginNewStaff(data).unwrap();
     console.log("form data", response);
 
     const error = response?.error;
     const responseData = response?.data;
+    console.log(responseData);
 
     if (responseData) {
-      toast.success(responseData?.message);
-      localStorage.setItem("userProfile", JSON.stringify(responseData?.data));
-      navigate("/home");
+      store.dispatch(saveStaffInfo(responseData));
+      localStorage.setItem(
+        "staffLoginProfile",
+        JSON.stringify(responseData?.data)
+      );
+      navigate("/staff");
+      toast.success(response?.message);
     }
     if (error) {
-      toast.error(error?.data);
+      toast.error("Invalid credentials");
     }
-    // console.log("headers", result.headers);
-    // if (result?.payload?.status === 200) {
-    //   toast.success("Login Successfully");
-    //   localStorage.setItem("userProfile", JSON.stringify(result.payload));
-    // }
-    // if (result?.payload?.status === 400) {
-    //   toast.error("Invalid Credentials");
-    // }
   };
+
+  console.log("headdd", response);
   return (
     <>
       <Navbar />
@@ -75,9 +73,9 @@ const Login = () => {
             <HeaderText>SIGN IN</HeaderText>
             <Body>
               <PrimaryInput
-                placeholder="Enter Email"
+                placeholder="Enter Username"
                 type="text"
-                label="Email Address"
+                label="Username"
                 register={register}
                 name="username"
                 error={errors.username?.message}
@@ -94,7 +92,7 @@ const Login = () => {
             </Body>
             <ForgotPassword>
               <NavLink
-                to="/reset-password"
+                to=""
                 style={{
                   textDecoration: "none",
                   fontSize: "16px",
@@ -110,7 +108,7 @@ const Login = () => {
               text="Don't have an account ?"
               directionText="Sign Up"
               loading={isLoading}
-              link="/register"
+              link="/staff-register"
             />
           </FormContainer>
         </AuthLayout>
@@ -119,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default StaffLogin;

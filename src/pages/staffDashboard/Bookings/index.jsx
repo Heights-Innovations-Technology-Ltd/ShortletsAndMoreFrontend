@@ -25,6 +25,7 @@ import {
 } from "../../../utils/config";
 import ServiceCard from "../../../components/Cards/ServiceCard";
 import StaffTable from "../../../components/Table";
+import { useGetAllReservationsQuery } from "../../../store/Services/staffService";
 // import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
 const iconName = (
   <LeftIconContainer>
@@ -34,13 +35,22 @@ const iconName = (
 
 const addIcon = <FaPlus color="white" />;
 const StaffBookings = () => {
-  const header = ["Name", "Apartment", "Room Type", "Date", "Time", "Status"];
-  const dataBody = tableDatas.map((data) => [
-    data.name,
-    data.apartment,
-    data.roomType,
-    data.date,
-    data.time,
+  const getAllReservations = useGetAllReservationsQuery();
+
+  const header = [
+    "Name",
+    "Reference Number",
+    "Number of Rooms",
+    "Start Date",
+    "End Date",
+    "Status",
+  ];
+  const dataBody = getAllReservations?.data?.data[0]?.map((data) => [
+    data.guest,
+    data.referenceNumber,
+    data.numberOfRooms,
+    data.startDate.slice(0, 10),
+    data.endDate.slice(0, 10),
     <Status
       color={
         data.status === "Checked In"

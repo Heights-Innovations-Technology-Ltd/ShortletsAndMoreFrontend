@@ -60,8 +60,8 @@ const StaffApartment = () => {
           </div>
         ))}
 
-        {similarListingData.map((apartment) => (
-          <div key={apartment.id}>
+        {similarListingData.map((apartment, index) => (
+          <div key={index}>
             <ApartmentCard
               apartmentImage={apartment.apartmentImage}
               landing

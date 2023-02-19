@@ -6,6 +6,9 @@ import { ReactComponent as CoaxialIcon } from "../../assets/svg/coaxial.svg";
 import { ReactComponent as WifiIcon } from "../../assets/svg/wifi.svg";
 import { ReactComponent as AirIcon } from "../../assets/svg/air-conditioner.svg";
 import { useNavigate } from "react-router-dom";
+import { FaPen, FaPlus } from "react-icons/fa";
+
+let iconName = <FaPen color="#8BA00D" />;
 
 const AddToCartCard = ({
   apartmentImage,
@@ -14,6 +17,8 @@ const AddToCartCard = ({
   apartmentPrice,
   landing,
   handleNavigateToDetails,
+  staff,
+  handleStaffEdit,
 }) => {
   const navigate = useNavigate();
   return (
@@ -98,8 +103,19 @@ const AddToCartCard = ({
                   /Night
                 </span>
               </div>
-
-              <PrimaryButton title="View" onClick={handleNavigateToDetails} />
+              {staff ? (
+                <PrimaryButton
+                  title={
+                    <>
+                      <FaPen color="white" />
+                      Edit
+                    </>
+                  }
+                  onClick={handleStaffEdit}
+                />
+              ) : (
+                <PrimaryButton title="View" onClick={handleNavigateToDetails} />
+              )}
             </div>
           </>
         )}

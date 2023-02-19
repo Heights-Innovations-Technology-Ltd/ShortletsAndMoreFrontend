@@ -20,22 +20,27 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 import { apartmentApi } from "./Services/apartmentService";
 import { authApi } from "./Services/authService";
+import { staffApi } from "./Services/staffService";
 
 import { UserDataReducer } from "./Slice/authSlice";
 import { ApartmentDataReducer } from "./Slice/roomSlice";
+import { StaffDataReducer } from "./Slice/staffSlice";
 
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [apartmentApi.reducerPath]: apartmentApi.reducer,
+    [staffApi.reducerPath]: staffApi.reducer,
     UserDataReducer: UserDataReducer,
     ApartmentDataReducer: ApartmentDataReducer,
+    StaffDataReducer: StaffDataReducer,
   },
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
       authApi.middleware,
       apartmentApi.middleware,
+      staffApi.middleware,
     ]),
 });
 

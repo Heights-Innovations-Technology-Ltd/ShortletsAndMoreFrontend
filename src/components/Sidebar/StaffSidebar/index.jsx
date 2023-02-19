@@ -55,7 +55,7 @@ const StaffSidebar = () => {
       </Top>
       <SidebarLinks>
         {StaffSidebarLinks.map((item, index) => (
-          <Item>
+          <Item key={index}>
             <div>
               <NavLink
                 to={item.path}

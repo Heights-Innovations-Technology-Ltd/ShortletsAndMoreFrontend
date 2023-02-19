@@ -113,7 +113,7 @@ export const StaffSidebarLinks = [
     title: "Log Out",
     icon: HiOutlineLogout,
     function: handleLogout,
-    path: "/login",
+    path: "/staff-login",
   },
 ];
 
@@ -681,6 +681,13 @@ export const roomDetailsGalleryData = [
     gallerySubImage: galleryMainFive,
   },
 ];
+export const updateSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Enter a valid email address")
+    .required("Email is a required field"),
+  password: yup.string().required("Password is a required field"),
+});
 
 export const loginSchema = yup.object().shape({
   username: yup
@@ -710,6 +717,33 @@ export const userRegistrationSchema = yup.object().shape({
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
+});
+
+export const staffLoginSchema = yup.object().shape({
+  username: yup.string().required("Username is a required field"),
+  password: yup.string().required("Password is a required field"),
+});
+
+export const staffRegistrationSchema = yup.object().shape({
+  firstName: yup.string().required("First name is a required field"),
+  lastName: yup.string().required("Last name is a required field"),
+  email: yup.string().email("Enter a valid email address").required(),
+  username: yup.string().required("Username is a required field"),
+  password: yup
+    .string()
+    .min(8)
+    .max(15)
+    .required("Password is a required field")
+    .matches(/^(?=.*[A-Z])/, " Must contain an uppercase character")
+    .matches(/^(?=.*[a-z])/, " Must contain a lowercase character")
+
+    .matches(/^(?=.*[0-9])/, "  Must contain a number")
+    .matches(/^(?=.*[!@#\$%\^&\*])/, "  Must contain a special case character"),
+
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
+  role: yup.string().required("Role is a required field"),
 });
 
 export const userBillingSchema = yup.object().shape({
@@ -748,6 +782,26 @@ export const contactSchema = yup.object().shape({
 export const subscribeSchema = yup.object().shape({
   email: yup.string().email("Enter a valid email address").required(),
 });
+
+export const createRoomSchema = yup.object().shape({
+  roomType: yup.string().required("Name is a required field"),
+  description: yup.string().required("Description is a required field"),
+  numberOfUnits: yup.string().required("Number of Units is a required field"),
+  price: yup.string().required("Price is a required field"),
+});
+
+export const unitOptions = [
+  { value: 1, label: 1 },
+  { value: 2, label: 2 },
+  { value: 3, label: 3 },
+  { value: 4, label: 4 },
+  { value: 5, label: 5 },
+  { value: 6, label: 6 },
+  { value: 7, label: 7 },
+  { value: 8, label: 8 },
+  { value: 9, label: 9 },
+  { value: 10, label: 10 },
+];
 
 export const tableData = [
   [

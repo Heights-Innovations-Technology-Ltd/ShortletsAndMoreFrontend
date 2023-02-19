@@ -9,6 +9,7 @@ import {
   ApartmentContainer,
   ButtonWrapper,
   LeftIconContainer,
+  Status,
   TableContainer,
 } from "./style";
 import image from "../../../assets/listing_img_four.png";
@@ -24,6 +25,7 @@ import {
 } from "../../../utils/config";
 import ServiceCard from "../../../components/Cards/ServiceCard";
 import StaffTable from "../../../components/Table";
+import { useGetAllBookingsQuery } from "../../../store/Services/staffService";
 // import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
 const iconName = (
   <LeftIconContainer>
@@ -33,13 +35,39 @@ const iconName = (
 
 const addIcon = <FaPlus color="white" />;
 const StaffReservation = () => {
-  const header = ["Name", "Apartment", "Room Type", "Date", "Time", "Action"];
-  const dataBody = tableDatas.map((data) => [
-    data.name,
-    data.apartment,
-    data.roomType,
-    data.date,
-    data.time,
+  const getAllBookings = useGetAllBookingsQuery();
+  console.log(getAllBookings?.data?.data);
+  const header = [
+    "Name",
+    "No of Rooms",
+    "Start Date",
+    "End Date",
+    "Status",
+    "Action",
+  ];
+  const dataBody = getAllBookings?.data?.data?.map((data) => [
+    data.guest,
+    data.numberOfRooms,
+    data.startDate.slice(0, 10),
+    data.endDate.slice(0, 10),
+    <Status
+      color={
+        data.status === "booked"
+          ? "#2F8511"
+          : data.status === "Pending"
+          ? "#FFCA2A"
+          : "#C43C20"
+      }
+      background={
+        data.status === "booked"
+          ? "rgba(47, 133, 17, 0.1)"
+          : data.status === "Pending"
+          ? "rgba(255, 233, 168, 0.5)"
+          : "rgba(231, 175, 164, 0.3)"
+      }
+    >
+      {data.status}
+    </Status>,
     <PrimaryButton title=" View " lightBtn />,
   ]);
 

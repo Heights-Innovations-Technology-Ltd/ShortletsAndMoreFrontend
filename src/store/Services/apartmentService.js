@@ -13,12 +13,12 @@ export const apartmentApi = createApi({
 
     //get all apartment
     getAllApartment: builder.query({
-      query: () => "Apartment",
+      query: () => "apartment",
     }),
 
     //get all room types in an apartment
     getAllRoomType: builder.query({
-      query: (id) => `Room/room-types/${id}`,
+      query: (id) => `room/room-types/${id}`,
     }),
 
     //sorting list of rooms
@@ -29,7 +29,7 @@ export const apartmentApi = createApi({
     //check availablity
     checkForAvailability: builder.mutation({
       query: (values) => ({
-        url: "/Reservation/room-availability",
+        url: "/reservation/room-availability",
         method: "POST",
         body: values,
         headers: {
@@ -42,7 +42,7 @@ export const apartmentApi = createApi({
     //reserve
     reserveNow: builder.mutation({
       query: (values) => ({
-        url: "/Reservation",
+        url: "/reservation",
         method: "POST",
         body: values,
         headers: {

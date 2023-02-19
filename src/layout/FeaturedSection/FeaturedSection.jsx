@@ -7,7 +7,7 @@ import PuffLoader from "../../components/Loader";
 const FeaturedSection = () => {
   const [availableRooms, setAvailableRooms] = useState([]);
 
-  const { data, isLoading, isSuccess, isError } = useGetAllRoomTypeQuery(14);
+  const { data, isLoading, isSuccess, isError } = useGetAllRoomTypeQuery(24);
 
   useEffect(() => {
     setAvailableRooms(data?.data);

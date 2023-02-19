@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CardTitle,
   CardTop,
@@ -12,16 +12,28 @@ import {
 import { ReactComponent as BookingsSvg } from "../../assets/svg/bookings.svg";
 import { ReactComponent as ReservationsSvg } from "../../assets/svg/reservations.svg";
 import { ReactComponent as ApartmentSvg } from "../../assets/svg/apartment.svg";
+import {
+  useGetAllApartmentsQuery,
+  useGetAllBookingsQuery,
+  useGetAllReservationsQuery,
+} from "../../store/Services/staffService";
 
 const StaffStatusCard = () => {
+  //endpoints
+  const allApartments = useGetAllApartmentsQuery();
+  const getAllReservations = useGetAllReservationsQuery();
+  const getAllBookings = useGetAllBookingsQuery();
+
+  let booking = getAllBookings?.data?.data?.length;
+  let reservation = getAllReservations?.data?.data[0]?.length;
+  let apartment = allApartments?.data?.data?.length;
+
+  let total = booking + reservation + apartment;
+
   return (
     <Testing>
       <Container
-        key="statusCard"
-        // initial={{ y: 10, opacity: 0 }}
-        // animate={{ y: 0, opacity: 1 }}
-        // exit={{ y: 10, opacity: 0 }}
-        // transition={{ duration: 0.3 }}
+        key="bookingCard"
         initial={{ opacity: 0, y: -200 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 200 }}
@@ -31,16 +43,16 @@ const StaffStatusCard = () => {
           <BookingsSvg />
         </CardTop>
         <ProgressContainer>
-          <ProgressFill background="#8BA00D" width="65%"></ProgressFill>
+          <ProgressFill
+            background="#8BA00D"
+            width={`${(reservation / total) * 100}%`}
+          ></ProgressFill>
         </ProgressContainer>
-        <Count>5,000</Count>
+        <Count>{getAllReservations?.data?.data[0]?.length}</Count>
       </Container>
 
       <Container
-        key="statusCard"
-        // initial={{ y: 10, opacity: 0 }}
-        // animate={{ y: 0, opacity: 1 }}
-        // exit={{ y: 10, opacity: 0 }}
+        key="reservationCard"
         transition={{ duration: 0.3 }}
         initial={{ opacity: 0, y: -200 }}
         animate={{ opacity: 1, y: 0 }}
@@ -51,16 +63,16 @@ const StaffStatusCard = () => {
           <ReservationsSvg />
         </CardTop>
         <ProgressContainer>
-          <ProgressFill background="#FFCA2A" width="50%"></ProgressFill>
+          <ProgressFill
+            background="#FFCA2A"
+            width={`${(booking / total) * 100}%`}
+          ></ProgressFill>
         </ProgressContainer>
-        <Count>1,000</Count>
+        <Count>{getAllBookings?.data?.data?.length}</Count>
       </Container>
 
       <Container
-        key="statusCard"
-        // initial={{ y: 10, opacity: 0 }}
-        // animate={{ y: 0, opacity: 1 }}
-        // exit={{ y: 10, opacity: 0 }}
+        key="apartmentCard"
         transition={{ duration: 0.6 }}
         initial={{ opacity: 0, y: -200 }}
         animate={{ opacity: 1, y: 0 }}
@@ -71,9 +83,12 @@ const StaffStatusCard = () => {
           <ApartmentSvg />
         </CardTop>
         <ProgressContainer>
-          <ProgressFill background="#C43C20" width="30%"></ProgressFill>
+          <ProgressFill
+            background="#C43C20"
+            width={`${(apartment / total) * 100}%`}
+          ></ProgressFill>
         </ProgressContainer>
-        <Count>100</Count>
+        <Count>{allApartments?.data?.data?.length}</Count>
       </Container>
     </Testing>
   );

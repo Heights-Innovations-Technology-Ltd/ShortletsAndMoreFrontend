@@ -47,3 +47,11 @@ export const LeftIconContainer = styled.div`
 export const TableContainer = styled.div`
   margin-top: 24px;
 `;
+
+export const Status = styled.div`
+  background-color: ${(props) => props.background};
+  color: ${(props) => props.color};
+  text-align: center;
+  border-radius: 12px;
+  padding: 4px 8px;
+`;
