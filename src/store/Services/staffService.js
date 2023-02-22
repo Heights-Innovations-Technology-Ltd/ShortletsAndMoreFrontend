@@ -23,6 +23,16 @@ export const staffApi = createApi({
   endpoints: (builder) => ({
     // actions we want to perform.
 
+    //get all categories
+    getAllCategories: builder.query({
+      query: () => "settings/categories",
+    }),
+
+    //get all states
+    getAllStates: builder.query({
+      query: () => "util/countries",
+    }),
+
     //get all apartments
     getAllApartments: builder.query({
       query: () => "apartment",
@@ -99,11 +109,39 @@ export const staffApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+
+    //create apartment
+    createApartment: builder.mutation({
+      query: (data) => ({
+        url: "/apartment",
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    //edit apartment
+    editApartment: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/apartment/${id}`,
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
 //custom hooks
 export const {
+  useGetAllCategoriesQuery,
+  useGetAllStatesQuery,
   useGetAllApartmentsQuery,
   useGetAllReservationsQuery,
   useGetAllBookingsQuery,
@@ -111,4 +149,6 @@ export const {
   useLoginNewStaffMutation,
   useCreateRoomMutation,
   useEditRoomMutation,
+  useCreateApartmentMutation,
+  useEditApartmentMutation,
 } = staffApi;

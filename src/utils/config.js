@@ -783,6 +783,13 @@ export const subscribeSchema = yup.object().shape({
   email: yup.string().email("Enter a valid email address").required(),
 });
 
+export const createApartmentSchema = yup.object().shape({
+  name: yup.string().required("Name is a required field"),
+  description: yup.string().required("Description is a required field"),
+  city: yup.string().required("City is a required field"),
+  categoryId: yup.string().required("Category is a required field"),
+});
+
 export const createRoomSchema = yup.object().shape({
   roomType: yup.string().required("Name is a required field"),
   description: yup.string().required("Description is a required field"),
@@ -801,6 +808,11 @@ export const unitOptions = [
   { value: 8, label: 8 },
   { value: 9, label: 9 },
   { value: 10, label: 10 },
+];
+
+export const cityOptions = [
+  { value: "Lagos", label: "Lagos" },
+  { value: "Ibadan", label: "Ibadan" },
 ];
 
 export const tableData = [
