@@ -66,10 +66,13 @@ const StaffApartment = () => {
   const [checkedItems, setCheckedItems] = useState({});
   const [category, setCategory] = useState([]);
   const [statesList, setStates] = useState([]);
+  const [clickedApartment, setClickedApartment] = useState({});
+  const [clickedApartmentId, setClickedApartmentId] = useState();
   const [apartment, setApartment] = useState([]);
   const [stateContainer, setStateContainer] = useState([]);
   const { data, isLoading, isSuccess, isError, refetch } =
     useGetAllApartmentQuery();
+
   const [createApartment] = useCreateApartmentMutation();
   const [editApartment, editState] = useEditApartmentMutation();
   const categories = useGetAllCategoriesQuery();
@@ -181,29 +184,61 @@ const StaffApartment = () => {
     }
   };
 
+  const handleEditApartment = async (id) => {
+    console.log("apartment Id", id);
+    setAction("edit");
+    setOpenModal(true);
+    setClickedApartmentId(id);
+    const getApartmentDetails = await data?.data?.find(
+      (apartment) => apartment.id === id
+    );
+    console.log("araobje", getApartmentDetails);
+    setClickedApartment(getApartmentDetails);
+    console.log("details", clickedApartment);
+    if (getApartmentDetails) {
+      setValue("name", getApartmentDetails?.name, {
+        shouldValidate: true,
+      });
+
+      setValue("description", getApartmentDetails?.description, {
+        shouldValidate: true,
+      });
+      setValue("city", getApartmentDetails?.numberOfUnits, {
+        shouldValidate: true,
+      });
+      setValue("categoryId", getApartmentDetails?.categoryId, {
+        shouldValidate: true,
+      });
+    } else {
+      setValue("name", "");
+      setValue("description", "");
+      setValue("city", "");
+      setValue("categoryId", "");
+    }
+  };
   const handleEdit = async (formData) => {
     setAction("edit");
-    // let requiredData = {
-    //   ...formData,
-    //   coverImage: "",
-    //   features: checkedItems,
-    // };
+    let requiredData = {
+      ...formData,
+      facilities: checkedItems,
+    };
+    console.log("details", requiredData);
 
-    // let createRoomResponse = await editRoom({
-    //   apartmentId: ApartmentId,
-    //   data: requiredData,
-    // });
+    let editApartmentResponse = await editApartment({
+      id: clickedApartmentId,
+      data: requiredData,
+    });
 
-    // const error = createRoomResponse?.error;
-    // const responseData = createRoomResponse?.data;
-    // if (responseData) {
-    //   toast.success(responseData?.message);
-    //   refetch();
-    //   setOpenModal(false);
-    // }
-    // if (error) {
-    //   toast.error("Error Occurred");
-    // }
+    const error = editApartmentResponse?.error;
+    const responseData = editApartmentResponse?.data;
+    if (responseData) {
+      toast.success(responseData?.message);
+      refetch();
+      setOpenModal(false);
+    }
+    if (error) {
+      toast.error("Error Occurred");
+    }
   };
 
   return (
@@ -232,6 +267,7 @@ const StaffApartment = () => {
               handleStaffApartmentClick={() =>
                 handleStaffApartmentClick(apartment.id)
               }
+              handleApartmentEdit={() => handleEditApartment(apartment.id)}
               //   onApartmentClick={() =>
               //     handleApartmentClick(apartment.id)
               //   }
@@ -298,7 +334,9 @@ const StaffApartment = () => {
               name="city"
               register={register}
               onChange={handleCity}
-              // defaultValue={action === "edit" && fetchedEditRoom?.numberOfUnits}
+              defaultValue={
+                action === "edit" && clickedApartment && clickedApartment?.city
+              }
               // errorMessage={errors.numberOfUnits?.message}
             />
             <DropDown
@@ -307,7 +345,11 @@ const StaffApartment = () => {
               name="categoryId"
               register={register}
               onChange={handleCategory}
-              // defaultValue={action === "edit" && fetchedEditRoom?.numberOfUnits}
+              defaultValue={
+                action === "edit" &&
+                clickedApartment &&
+                clickedApartment?.categoryId
+              }
               // errorMessage={errors.numberOfUnits?.message}
             />
 

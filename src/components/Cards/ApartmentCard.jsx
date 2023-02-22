@@ -17,6 +17,7 @@ const ApartmentCard = ({
   staff,
   iconName,
   handleStaffApartmentClick,
+  handleApartmentEdit,
 }) => {
   const navigate = useNavigate();
 
@@ -106,7 +107,7 @@ const ApartmentCard = ({
                     leftIcon
                     iconName={iconName}
                     title="Edit"
-                    onClick={() => navigate("/property")}
+                    onClick={handleApartmentEdit}
                   />
                 )}
               </div>

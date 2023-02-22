@@ -127,7 +127,7 @@ export const staffApi = createApi({
     editApartment: builder.mutation({
       query: ({ id, data }) => ({
         url: `/apartment/${id}`,
-        method: "POST",
+        method: "PUT",
         body: data,
         headers: {
           "Content-type": "application/json; charset=UTF-8",
