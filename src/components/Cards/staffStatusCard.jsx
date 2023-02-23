@@ -40,6 +40,7 @@ const StaffStatusCard = () => {
       >
         <CardTop>
           <CardTitle>Total Bookings</CardTitle>
+          {/*paid */}
           <BookingsSvg />
         </CardTop>
         <ProgressContainer>
@@ -60,6 +61,7 @@ const StaffStatusCard = () => {
       >
         <CardTop>
           <CardTitle>Total Reservation</CardTitle>
+          {/*paid or not */}
           <ReservationsSvg />
         </CardTop>
         <ProgressContainer>

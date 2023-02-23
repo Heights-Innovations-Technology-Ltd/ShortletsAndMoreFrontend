@@ -36,7 +36,6 @@ const iconName = (
 const addIcon = <FaPlus color="white" />;
 const StaffReservation = () => {
   const getAllBookings = useGetAllBookingsQuery();
-  console.log(getAllBookings?.data?.data);
   const header = [
     "Name",
     "No of Rooms",

@@ -22,49 +22,48 @@ const CheckInBarChart = () => {
   const getAllReservations = useGetAllReservationsQuery();
   const getAllBookings = useGetAllBookingsQuery();
 
-  console.log(getAllReservations?.data);
   const data = [
     {
       name: "Mon",
       Reservation: 400,
       Bookings: 240,
-      Apartment: 230,
+      // Apartment: 230,
     },
     {
       name: "Tue",
       Reservation: 300,
       Bookings: 139,
-      Apartment: 230,
+      // Apartment: 230,
     },
     {
       name: "Wed",
       Reservation: 200,
       Bookings: 800,
-      Apartment: 230,
+      // Apartment: 230,
     },
     {
       name: "Thur",
       Reservation: 278,
       Bookings: 600,
-      Apartment: 230,
+      // Apartment: 230,
     },
     {
       name: "Fri",
       Reservation: 189,
       Bookings: 700,
-      Apartment: 230,
+      // Apartment: 230,
     },
     {
       name: "Sat",
       Reservation: 239,
       Bookings: 380,
-      Apartment: 230,
+      // Apartment: 230,
     },
     {
       name: "Sun",
       Reservation: 349,
       Bookings: 430,
-      Apartment: 230,
+      // Apartment: 230,
     },
   ];
 
@@ -113,7 +112,7 @@ const CheckInBarChart = () => {
           <Legend />
           <Bar dataKey="Bookings" fill="#8BA00D" barSize={6} radius={20} />
           <Bar dataKey="Reservation" fill="#FFCA2A" barSize={6} radius={20} />
-          <Bar dataKey="Apartment" fill="#C43C20" barSize={6} radius={20} />
+          {/* <Bar dataKey="Apartment" fill="#C43C20" barSize={6} radius={20} /> */}
         </BarChart>
       </ResponsiveContainer>
     </ChartContainer>

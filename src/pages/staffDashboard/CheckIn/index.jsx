@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { FaPen, FaPlus } from "react-icons/fa";
 import PrimaryButton from "../../../components/PrimaryButton";
+import { useGetAllCheckInsQuery } from "../../../store/Services/staffService";
 import {
   servicesData,
   similarListingData,
@@ -33,6 +34,7 @@ const iconName = (
 
 const addIcon = <FaPlus color="white" />;
 const StaffCheckIn = () => {
+  const getAllCheckIns = useGetAllCheckInsQuery();
   const header = ["Name", "Apartment", "Room Type", "Date", "Time", "Action"];
   const dataBody = tableDatas.map((data) => [
     data.name,

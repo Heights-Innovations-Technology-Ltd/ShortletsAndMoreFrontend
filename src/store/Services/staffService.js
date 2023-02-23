@@ -33,6 +33,11 @@ export const staffApi = createApi({
       query: () => "util/countries",
     }),
 
+    //get all states
+    getAllCheckIns: builder.query({
+      query: () => "room/check-in",
+    }),
+
     //get all apartments
     getAllApartments: builder.query({
       query: () => "apartment",
@@ -46,6 +51,11 @@ export const staffApi = createApi({
     //get all reservations
     getAllBookings: builder.query({
       query: () => "reservation/all-bookings",
+    }),
+
+    //get all staffs
+    getAllStaffs: builder.query({
+      query: () => "user",
     }),
 
     //staff registration
@@ -135,6 +145,18 @@ export const staffApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+
+    //delete user
+    deleteUser: builder.mutation({
+      query: (userId) => ({
+        url: `/user/${userId}`,
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -143,6 +165,8 @@ export const {
   useGetAllCategoriesQuery,
   useGetAllStatesQuery,
   useGetAllApartmentsQuery,
+  useGetAllCheckInsQuery,
+  useGetAllStaffsQuery,
   useGetAllReservationsQuery,
   useGetAllBookingsQuery,
   useRegisterNewStaffMutation,
@@ -151,4 +175,5 @@ export const {
   useEditRoomMutation,
   useCreateApartmentMutation,
   useEditApartmentMutation,
+  useDeleteUserMutation,
 } = staffApi;
