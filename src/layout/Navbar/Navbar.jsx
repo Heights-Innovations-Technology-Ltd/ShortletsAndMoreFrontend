@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import { BsChatSquareDots } from 'react-icons/bs';
 import { BsCart3, BsPerson, BsTelephone } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
@@ -23,32 +23,24 @@ import {
   NavRightContainer,
 } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowCart } from "../../store/Slice/roomSlice";
 import CartShow from "../../components/Cart/cartShow";
 import { FaAlignRight } from "react-icons/fa";
 
 const Navbar = (props) => {
   // const { marginTop, absolute } = props;
   const [itemContainer, setItemContainer] = useState();
-  const [nav, setNav] = useState(false);
-  const dispatch = useDispatch();
   const [change, setChange] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showCarts, setShowCarts] = useState(false);
   const [mobile, setMobile] = useState(false);
 
-  const handleProfile = () => {
-    setShowProfile(!showProfile);
-  };
-
-  const cartShow = useSelector((store) => store.ApartmentDataReducer.showCart);
-
-  const handleNav = () => {
-    setNav(!nav);
-  };
   const navigate = useNavigate();
 
-  const handleToggle = () => {
-    dispatch(setShowCart());
+  const handleProfileToggle = () => {
+    setShowProfile(false);
+  };
+  const handleCartToggle = () => {
+    setShowCarts(false);
   };
 
   useEffect(() => {
@@ -95,13 +87,9 @@ const Navbar = (props) => {
         <NavRightContainer>
           <BsTelephone size={20} />
           <NavLinkText>08094822156</NavLinkText>
-          <BsPerson
-            size={20}
-            // onClick={() => navigate("/login")}
-            onClick={handleProfile}
-          />
+          <BsPerson size={20} onClick={() => setShowProfile(!showProfile)} />
 
-          <CartIconContainer onClick={handleToggle}>
+          <CartIconContainer onClick={() => setShowCarts(!showCarts)}>
             {/* <CartIcon /> */}
             <BsCart3 size={20} />
             {itemContainer > 0 && (
@@ -112,8 +100,14 @@ const Navbar = (props) => {
           </CartIconContainer>
         </NavRightContainer>
       </NavContainer>
-      {showProfile && <Profile />}
-      {cartShow && <CartShow />}
+      {showProfile && <Profile handleProfileToggle={handleProfileToggle} />}
+      {showCarts && (
+        <CartShow
+          handleCartToggle={handleCartToggle}
+          setShowCarts={setShowCarts}
+          showCarts={showCarts}
+        />
+      )}
 
       <MobileNavContainer
         boxShadow={change ? "0px 10px 30px rgba(13, 38, 59, 0.05)" : ""}

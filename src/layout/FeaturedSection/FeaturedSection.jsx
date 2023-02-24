@@ -26,7 +26,7 @@ const FeaturedSection = () => {
         no further than our featured room!
       </p>
 
-      <div className="flex items-center px-20 flex-wrap justify-between">
+      <div className="flex items-center flex-wrap justify-center">
         {isLoading ? (
           <PuffLoader />
         ) : (

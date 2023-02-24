@@ -275,7 +275,7 @@ const StaffApartment = () => {
           </div>
         ))}
 
-        {similarListingData.map((apartment, index) => (
+        {/* {similarListingData.map((apartment, index) => (
           <div key={index}>
             <ApartmentCard
               apartmentImage={apartment.apartmentImage}
@@ -287,7 +287,7 @@ const StaffApartment = () => {
               apartmentDetails={apartment.apartmentDetails}
             />
           </div>
-        ))}
+        ))} */}
       </ApartmentContainer>
 
       <Dialog open={openModal} fullWidth maxWidth="sm">

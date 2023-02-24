@@ -42,7 +42,7 @@ const ApartmentSection = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
-  const itemsPerPage = 2;
+  const itemsPerPage = 4;
 
   const handleClick = (e) => {
     const { value, checked } = e.target;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { calculateTotalPrice } from "../../utils/helper";
 import id from "date-fns/esm/locale/id/index.js";
 
-const CartShow = () => {
+const CartShow = ({ handleCartToggle, setShowCarts, showCarts }) => {
   const [roomContainer, setRoomContainer] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemContainer, setItemContainer] = useState(0);
@@ -39,17 +39,33 @@ const CartShow = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    dispatch(setShowCart());
-  };
+  const cartRef = useRef();
+
+  useEffect(() => {
+    const handleProfile = (e) => {
+      if (!cartRef.current.contains(e.target)) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleCartToggle();
+      }
+    };
+    document.addEventListener("mousedown", handleProfile);
+
+    return () => {
+      document.removeEventListener("mousedown", handleProfile);
+    };
+  });
+  // const handleClose = () => {
+  //   dispatch(setShowCart());
+  // };
   const handleView = () => {
     navigate("/cart");
-    dispatch(setShowCart());
+    // dispatch(setShowCart());
   };
 
   const handleCheckOut = () => {
     navigate("/cart/checkout");
-    dispatch(setShowCart());
+    // dispatch(setShowCart());
   };
   const getList = () => {
     const localData = localStorage.getItem("cartItemId");
@@ -100,67 +116,66 @@ const CartShow = () => {
   // };
 
   return (
-    <>
-      <CartContainer
-        key="CartContainer"
-        // initial={{ y: 10, opacity: 0 }}
-        // animate={{ y: 0, opacity: 1 }}
-        // exit={{ y: 10, opacity: 0 }}
-        // transition={{ duration: 0.3 }}
-        initial={{ opacity: 0, y: 200 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 200 }}
-      >
-        <CartTop>
-          <TitleText>Cart</TitleText>
-          <FiX size={24} onClick={handleClose} style={{ cursor: "pointer" }} />
-        </CartTop>
+    <CartContainer
+      key="CartContainer"
+      ref={cartRef}
+      // initial={{ y: 10, opacity: 0 }}
+      // animate={{ y: 0, opacity: 1 }}
+      // exit={{ y: 10, opacity: 0 }}
+      // transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 200 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 200 }}
+    >
+      <CartTop>
+        <TitleText>Cart</TitleText>
+        <FiX
+          size={24}
+          onClick={() => setShowCarts(!showCarts)}
+          style={{ cursor: "pointer" }}
+        />
+      </CartTop>
 
-        {itemContainer > 0 ? (
-          <>
-            {roomContainer?.map((room, index) => (
-              <CartItemWrap key={index}>
-                <ImageWrapper>
-                  <DeleteContainer onClick={() => handleRemove(room.id)}>
-                    <FiX size={18} />
-                  </DeleteContainer>
-                  <Image src={image} alt="cartImage" />
-                </ImageWrapper>
-                {/* <CountWrapper>
+      {itemContainer > 0 ? (
+        <>
+          {roomContainer?.map((room, index) => (
+            <CartItemWrap key={index}>
+              <ImageWrapper>
+                <DeleteContainer onClick={() => handleRemove(room.id)}>
+                  <FiX size={18} />
+                </DeleteContainer>
+                <Image src={image} alt="cartImage" />
+              </ImageWrapper>
+              {/* <CountWrapper>
                   <Button onClick={handleCountDecrease}>-</Button>
                   <Count>{itemCount}</Count>
                   <Button onClick={handleCountIncrease}>+</Button>
                 </CountWrapper> */}
 
-                <ItemDetails>
-                  <ItemName>{room.name}</ItemName>
-                  <ItemPrice>
-                    {room.quantity} X NGN{room.price}
-                  </ItemPrice>
-                </ItemDetails>
-              </CartItemWrap>
-            ))}
-            <TotalWrapper>
-              <TotalText>Total</TotalText>
-              <TotalPrice>NGN{totalPrice}</TotalPrice>
-            </TotalWrapper>
+              <ItemDetails>
+                <ItemName>{room.name}</ItemName>
+                <ItemPrice>
+                  {room.quantity} X NGN{room.price}
+                </ItemPrice>
+              </ItemDetails>
+            </CartItemWrap>
+          ))}
+          <TotalWrapper>
+            <TotalText>Total</TotalText>
+            <TotalPrice>NGN{totalPrice}</TotalPrice>
+          </TotalWrapper>
 
-            <ButtonWrapper>
-              <PrimaryButton title="VIEW CART" onClick={handleView} />
-              <PrimaryButton
-                title="CHECKOUT"
-                lightBtn
-                onClick={handleCheckOut}
-              />
-            </ButtonWrapper>
-          </>
-        ) : (
-          <NoItem>
-            <NoItemText>Your cart is empty</NoItemText>
-          </NoItem>
-        )}
-      </CartContainer>
-    </>
+          <ButtonWrapper>
+            <PrimaryButton title="VIEW CART" onClick={handleView} />
+            <PrimaryButton title="CHECKOUT" lightBtn onClick={handleCheckOut} />
+          </ButtonWrapper>
+        </>
+      ) : (
+        <NoItem>
+          <NoItemText>Your cart is empty</NoItemText>
+        </NoItem>
+      )}
+    </CartContainer>
   );
 };
 

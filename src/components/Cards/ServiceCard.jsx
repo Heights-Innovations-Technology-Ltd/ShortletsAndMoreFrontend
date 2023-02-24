@@ -1,6 +1,5 @@
 import React from "react";
 import { Down, Image, Paragraph, ServiceContainer, Title, Top } from "./style";
-// import image from "../../assets/listing_img_one.png";
 const ServiceCard = ({ image, title, detail, service }) => {
   return (
     <ServiceContainer>

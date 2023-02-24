@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import HeroImage from "../../assets/heroimage_bg_home.png";
@@ -27,10 +27,12 @@ const Home = () => {
   const status = queryParams.get("status");
   console.log("checking params status", status);
 
-  if (status === "success") {
-    navigate("/confirm");
-    toast.success(message);
-  }
+  useEffect(() => {
+    if (status === "success") {
+      navigate("/confirm");
+      toast.success(message);
+    }
+  }, [status, message, navigate]);
 
   return (
     <>

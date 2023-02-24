@@ -121,13 +121,15 @@ const StaffRoom = () => {
 
   const onSubmit = async (formData) => {
     setAction("add");
-
+    console.log(action);
     let requiredData = {
       ...formData,
       coverImage: "",
       features: checkedItems,
     };
 
+    console.log("regq", requiredData);
+    console.log("regaaq", ApartmentId);
     let createRoomResponse = await createRoom({
       apartmentId: ApartmentId,
       data: requiredData,
@@ -179,7 +181,8 @@ const StaffRoom = () => {
       coverImage: "",
       features: checkedItems,
     };
-
+    console.log(ApartmentId);
+    console.log(requiredData);
     let createRoomResponse = await editRoom({
       apartmentId: ApartmentId,
       data: requiredData,

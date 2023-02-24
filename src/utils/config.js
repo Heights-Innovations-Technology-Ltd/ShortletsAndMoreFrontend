@@ -817,24 +817,6 @@ export const cityOptions = [
 
 export const tableData = [
   [
-    // {
-    //   id: 1,
-    //   name: "Akinyemi bamidle",
-    //   apartment: "Exclusive Suite",
-    //   roomType: " Luxury Deluxe",
-    //   date: "2015-12-3",
-    //   time: "02:43PM",
-    //   status: "Completed",
-    // },
-    // {
-    //   id: 2,
-    //   name: "Akinyemi bamidle",
-    //   apartment: "Exclusive Suite",
-    //   roomType: " Luxury Deluxe",
-    //   date: "2015-12-3",
-    //   time: "02:43PM",
-    //   status: "Completed",
-    // },
     "Akinyemi bamidle",
     "Exclusive Suite",
     " Luxury Deluxe",

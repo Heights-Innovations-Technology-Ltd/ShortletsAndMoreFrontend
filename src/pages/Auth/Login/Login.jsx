@@ -41,16 +41,16 @@ const Login = () => {
     console.log("form data", response);
 
     const error = response?.error;
-    const responseData = response?.data;
+    const responseData = response;
 
-    if (responseData) {
+    if (response?.data) {
       toast.success(responseData?.message);
       localStorage.setItem("userProfile", JSON.stringify(responseData?.data));
       navigate("/home");
+    } else {
+      toast.error("Invalid Credentials");
     }
-    if (error) {
-      toast.error(error?.data);
-    }
+
     // console.log("headers", result.headers);
     // if (result?.payload?.status === 200) {
     //   toast.success("Login Successfully");
