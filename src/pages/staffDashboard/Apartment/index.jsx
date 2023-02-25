@@ -65,13 +65,11 @@ const StaffApartment = () => {
   const [action, setAction] = useState();
   const [checkedItems, setCheckedItems] = useState({});
   const [category, setCategory] = useState([]);
-  const [statesList, setStates] = useState([]);
   const [clickedApartment, setClickedApartment] = useState({});
   const [clickedApartmentId, setClickedApartmentId] = useState();
   const [apartment, setApartment] = useState([]);
   const [stateContainer, setStateContainer] = useState([]);
-  const { data, isLoading, isSuccess, isError, refetch } =
-    useGetAllApartmentQuery();
+  const { data, isLoading, refetch } = useGetAllApartmentQuery();
 
   const [createApartment] = useCreateApartmentMutation();
   const [editApartment, editState] = useEditApartmentMutation();
@@ -97,12 +95,12 @@ const StaffApartment = () => {
 
   let categoryData = category?.map((c) => ({ value: c.id, label: c.name }));
 
-  // useEffect(() => {
-  //   setStates(states?.data?.data);
-  // }, [states]);
+  let allStates = states?.data?.data[0]?.states;
 
-  console.log("all state", categoryData);
-  // statesList?.map((state) => setStateContainer(state.states));
+  let newStatesList = allStates?.map((state, index) => ({
+    value: index,
+    label: state,
+  }));
 
   const handleCheckClick = (e) => {
     const { value, checked } = e.target;
@@ -195,7 +193,7 @@ const StaffApartment = () => {
     console.log("araobje", getApartmentDetails);
     setClickedApartment(getApartmentDetails);
     console.log("details", clickedApartment);
-    if (getApartmentDetails) {
+    if (getApartmentDetails && action === "edit") {
       setValue("name", getApartmentDetails?.name, {
         shouldValidate: true,
       });
@@ -268,26 +266,9 @@ const StaffApartment = () => {
                 handleStaffApartmentClick(apartment.id)
               }
               handleApartmentEdit={() => handleEditApartment(apartment.id)}
-              //   onApartmentClick={() =>
-              //     handleApartmentClick(apartment.id)
-              //   }
             />
           </div>
         ))}
-
-        {/* {similarListingData.map((apartment, index) => (
-          <div key={index}>
-            <ApartmentCard
-              apartmentImage={apartment.apartmentImage}
-              landing
-              staff
-              iconName={iconName}
-              apartmentName={apartment.apartmentName}
-              apartmentLocation={apartment.apartmentLocation}
-              apartmentDetails={apartment.apartmentDetails}
-            />
-          </div>
-        ))} */}
       </ApartmentContainer>
 
       <Dialog open={openModal} fullWidth maxWidth="sm">
@@ -330,7 +311,7 @@ const StaffApartment = () => {
 
             <DropDown
               label="City"
-              options={cityOptions}
+              options={newStatesList}
               name="city"
               register={register}
               onChange={handleCity}

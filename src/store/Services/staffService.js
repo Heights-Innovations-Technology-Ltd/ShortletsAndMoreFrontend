@@ -6,7 +6,8 @@ export const staffApi = createApi({
 
     baseUrl: "http://adminhitl-001-site1.ctempurl.com/api/",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().StaffDataReducer.staffInfo.accessToken;
+      const token = getState().StaffDataReducer.staffInfo?.data?.accessToken;
+
       headers.set("Access-Control-Expose-Headers", "access-token");
       headers.set("Access-Control-Allow-Origin", "*");
       headers.set("Access-Control-Allow-Methods", "*");
@@ -109,8 +110,8 @@ export const staffApi = createApi({
 
     //edit room
     editRoom: builder.mutation({
-      query: ({ apartmentId, data }) => ({
-        url: `/room/apartment/${apartmentId}/update-room-type`,
+      query: ({ apartmentId, roomTypeId, data }) => ({
+        url: `/room/apartment/${apartmentId}/update-room-type/${roomTypeId}`,
         method: "PUT",
         body: data,
         headers: {

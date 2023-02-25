@@ -14,17 +14,17 @@ const Profile = ({ handleProfileToggle }) => {
   };
 
   useEffect(() => {
-    const handleProfile = (e) => {
+    const onClickOutside = (e) => {
       if (!profileRef.current.contains(e.target)) {
         e.preventDefault();
         e.stopPropagation();
         handleProfileToggle();
       }
     };
-    document.addEventListener("mousedown", handleProfile);
+    document.addEventListener("mousedown", onClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleProfile);
+      document.removeEventListener("mousedown", onClickOutside);
     };
   });
 

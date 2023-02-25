@@ -136,7 +136,7 @@ const CartShow = ({ handleCartToggle, setShowCarts, showCarts }) => {
         />
       </CartTop>
 
-      {itemContainer > 0 ? (
+      {itemContainer && itemContainer > 0 ? (
         <>
           {roomContainer?.map((room, index) => (
             <CartItemWrap key={index}>

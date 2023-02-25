@@ -153,6 +153,7 @@ const StaffRoom = () => {
 
     const getRoomDetails = data?.data.find((room) => room.id === id);
     setFetchedEditRoom(getRoomDetails);
+    console.log("getRoomDetails", getRoomDetails);
     if (getRoomDetails) {
       setValue("roomType", getRoomDetails?.name, {
         shouldValidate: true,
@@ -185,6 +186,7 @@ const StaffRoom = () => {
     console.log(requiredData);
     let createRoomResponse = await editRoom({
       apartmentId: ApartmentId,
+      roomTypeId: fetchedEditRoom?.id,
       data: requiredData,
     });
 
@@ -220,9 +222,8 @@ const StaffRoom = () => {
       </ButtonWrapper>
       <ApartmentContainer>
         {room?.map((apartment, index) => (
-          <>
+          <div key={index}>
             <AddToCartCard
-              key={index}
               apartmentImage={imageFive}
               apartmentName={apartment.name}
               apartmentPrice={apartment.price}
@@ -230,7 +231,7 @@ const StaffRoom = () => {
               staff
               handleStaffEdit={() => handleRoomEdit(apartment.id)}
             />
-          </>
+          </div>
         ))}
       </ApartmentContainer>
 
