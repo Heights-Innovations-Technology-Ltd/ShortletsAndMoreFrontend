@@ -47,6 +47,9 @@ const StaffService = lazy(() => import("../pages/staffDashboard/Services"));
 const StaffSupport = lazy(() => import("../pages/staffDashboard/Support"));
 const StaffAccount = lazy(() => import("../pages/staffDashboard/Account"));
 const StaffSetting = lazy(() => import("../pages/staffDashboard/Settings"));
+const StaffSettingsCategory = lazy(() =>
+  import("../pages/staffDashboard/Categories")
+);
 
 const AppRouter = () => {
   let data = useParams();
@@ -104,7 +107,10 @@ const AppRouter = () => {
             <Route path="support" element={<StaffSupport />} />
             <Route path="account" element={<StaffAccount />} />
             <Route path="services" element={<StaffService />} />
-            <Route path="settings" element={<StaffSetting />} />
+            <Route path="settings" element={<Outlet />}>
+              <Route index element={<StaffSetting />} />
+              <Route path="categories" element={<StaffSettingsCategory />} />
+            </Route>
           </Route>
         </Routes>
         <Toaster

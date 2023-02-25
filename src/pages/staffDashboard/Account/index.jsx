@@ -1,11 +1,16 @@
 import React from "react";
 import StaffHeader from "../../../components/StaffHeader";
 
-import { ButtonContainer, Status, TableContainer } from "./style";
+import {
+  ButtonContainer,
+  ButtonWrapper,
+  Status,
+  TableContainer,
+} from "./style";
 
 import PrimaryButton from "../../../components/PrimaryButton";
 import StaffTable from "../../../components/Table";
-import { FaRedo } from "react-icons/fa";
+import { FaRedo, FaPlus } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 import {
   useGetAllStaffsQuery,
@@ -15,6 +20,8 @@ import toast from "react-hot-toast";
 
 const process = <FaRedo color="white" size={14} />;
 const deleteIcon = <AiOutlineDelete color="white" size={18} />;
+const addIcon = <FaPlus color="white" />;
+
 const StaffAccount = () => {
   const { data, refetch } = useGetAllStaffsQuery();
   const [deleteUser] = useDeleteUserMutation();
@@ -65,6 +72,9 @@ const StaffAccount = () => {
   return (
     <div>
       <StaffHeader title="Accounts" />
+      <ButtonWrapper>
+        <PrimaryButton title="Add User" leftIcon iconName={addIcon} />
+      </ButtonWrapper>
       <TableContainer>
         <StaffTable header={header} body={dataBody} />
       </TableContainer>

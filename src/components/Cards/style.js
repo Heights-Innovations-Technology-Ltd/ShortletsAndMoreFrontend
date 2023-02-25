@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 
 export const ServiceContainer = styled.div`
   max-width: 441px;
-  max-height: 456px;
+  height: 456px;
   border-radius: 4px;
-  border-radius: solid red;
 `;
 
 export const Top = styled.div`

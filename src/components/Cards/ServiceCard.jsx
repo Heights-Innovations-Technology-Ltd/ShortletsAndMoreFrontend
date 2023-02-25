@@ -1,8 +1,14 @@
 import React from "react";
 import { Down, Image, Paragraph, ServiceContainer, Title, Top } from "./style";
-const ServiceCard = ({ image, title, detail, service }) => {
+const ServiceCard = ({
+  image,
+  title,
+  detail,
+  service,
+  handleCategoryNavigate,
+}) => {
   return (
-    <ServiceContainer>
+    <ServiceContainer onClick={handleCategoryNavigate}>
       <Top>
         <Image src={image} alt="service" />
       </Top>
