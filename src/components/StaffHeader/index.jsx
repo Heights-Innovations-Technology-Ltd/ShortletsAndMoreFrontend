@@ -46,7 +46,7 @@ const StaffHeader = ({ title = "Dashboard" }) => {
             <Image src={image} alt="users" />
           </ImageContainer>
           <Username>
-            {staffInfo.firstName} {staffInfo.lastName}
+            {staffInfo?.data.firstName} {staffInfo?.data.lastName}
           </Username>
           <DropDown onClick={handleClick}>
             {click ? <HiOutlineChevronUp /> : <HiOutlineChevronDown />}

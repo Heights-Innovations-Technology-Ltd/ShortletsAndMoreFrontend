@@ -2,12 +2,13 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 import "./style.css";
 import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
+import styled from "styled-components";
 
 const left = <HiArrowSmLeft size={20} color="#0D263B" />;
 const right = <HiArrowSmRight size={20} color="#0D263B" />;
 const Paginator = ({ handlePageClick, pageCount }) => {
   return (
-    <div className="flex flex-col lg:flex-row justify-center items-center my-10 ml-0 md:ml-80">
+    <PaginatorWrapper>
       <ReactPaginate
         breakLabel="..."
         nextLabel={right}
@@ -22,8 +23,14 @@ const Paginator = ({ handlePageClick, pageCount }) => {
         nextLinkClassName="page-num"
         activeLinkClassName="active"
       />
-    </div>
+    </PaginatorWrapper>
   );
 };
 
 export default Paginator;
+export const PaginatorWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;

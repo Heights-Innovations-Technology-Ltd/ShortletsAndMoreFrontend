@@ -1,8 +1,10 @@
-import React from "react";
-import PrimaryButton from "../PrimaryButton";
+import React, { useEffect, useState } from "react";
 import {
+  CountWrapper,
+  CountText,
   LeftIconContainer,
   SeeAll,
+  SelectWrapper,
   SortContainer,
   TableBody,
   TableBodyData,
@@ -14,11 +16,13 @@ import {
   TableHeader,
   TableHeaderRow,
   TableHeaderTitle,
+  TablePaginatorWrapper,
   TableWrapper,
 } from "./style";
 
 import { BiSortAlt2 } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
+import Paginator from "../Paginator";
 const sortIcon = (
   <LeftIconContainer>
     <BiSortAlt2 color="#f3f6e7" />
@@ -26,6 +30,50 @@ const sortIcon = (
 );
 
 const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
+  const [currentItems, setCurrentItems] = useState([]);
+  const [count, setCount] = useState(10);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = count;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(body?.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(body?.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, body]);
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * itemsPerPage) % body?.length;
+    setItemOffset(newOffset);
+  };
+
+  const options = [
+    {
+      value: 10,
+      name: 10,
+    },
+    {
+      value: 15,
+      name: 15,
+    },
+    {
+      value: 20,
+      name: 20,
+    },
+    {
+      value: 50,
+      name: 50,
+    },
+    {
+      value: 100,
+      name: 100,
+    },
+  ];
+
+  const handleSelectValue = (e) => {
+    let value = e.target.value;
+    setCount(value);
+  };
   return (
     <TableContainer>
       {staffHome ? (
@@ -52,7 +100,7 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
 
         {arrOfObject ? (
           <TableBody>
-            {body?.map((text, index) => (
+            {currentItems?.map((text, index) => (
               <TableBodyRow key={index}>
                 {Object.values(text).map((value, index) => (
                   <TableBodyData key={index}>{value}</TableBodyData>
@@ -62,7 +110,7 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
           </TableBody>
         ) : (
           <TableBody>
-            {body?.map((data, index) => (
+            {currentItems?.map((data, index) => (
               <TableBodyRow key={index}>
                 {data?.map((text, index) => (
                   <TableBodyData key={index}>{text}</TableBodyData>
@@ -72,6 +120,22 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
           </TableBody>
         )}
       </TableWrapper>
+
+      {body.length > 10 && (
+        <TablePaginatorWrapper>
+          <CountWrapper>
+            <CountText>Rows per page:</CountText>
+            <SelectWrapper onChange={handleSelectValue}>
+              {options.map((option, index) => (
+                <option value={option.value} key={index}>
+                  {option.name}
+                </option>
+              ))}
+            </SelectWrapper>
+          </CountWrapper>
+          <Paginator handlePageClick={handlePageClick} pageCount={pageCount} />
+        </TablePaginatorWrapper>
+      )}
     </TableContainer>
   );
 };

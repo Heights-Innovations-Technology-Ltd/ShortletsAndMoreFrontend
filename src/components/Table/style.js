@@ -94,3 +94,24 @@ export const LeftIconContainer = styled.div`
   padding: 2px;
   border-radius: 4px;
 `;
+
+export const TablePaginatorWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 48px;
+`;
+
+export const CountWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const CountText = styled.p`
+  font-weight: 400;
+  font-size: 13px;
+  color: #828477;
+`;
+export const SelectWrapper = styled.select`
+  border: none;
+  outline: none;
+`;
