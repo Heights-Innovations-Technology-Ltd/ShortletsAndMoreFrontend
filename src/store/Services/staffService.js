@@ -158,6 +158,32 @@ export const staffApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+
+    //create categories
+    createCategory: builder.mutation({
+      query: (data) => ({
+        url: "/settings/categories",
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    //edit category
+    editCategory: builder.mutation({
+      query: ({ id, name, data }) => ({
+        url: `/settings/categories${id}/${name}`,
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -177,4 +203,6 @@ export const {
   useCreateApartmentMutation,
   useEditApartmentMutation,
   useDeleteUserMutation,
+  useCreateCategoryMutation,
+  useEditCategoryMutation,
 } = staffApi;

@@ -184,14 +184,14 @@ const StaffRoom = () => {
     };
     console.log(ApartmentId);
     console.log(requiredData);
-    let createRoomResponse = await editRoom({
+    let editRoomResponse = await editRoom({
       apartmentId: ApartmentId,
       roomTypeId: fetchedEditRoom?.id,
       data: requiredData,
     });
 
-    const error = createRoomResponse?.error;
-    const responseData = createRoomResponse?.data;
+    const error = editRoomResponse?.error;
+    const responseData = editRoomResponse?.data;
     if (responseData) {
       toast.success(responseData?.message);
       refetch();
@@ -309,7 +309,6 @@ const StaffRoom = () => {
                 width="100%"
                 type="submit"
                 loading={action === "add" ? isLoading : editState.isLoading}
-                // onClick={handleSubmit(onPay)}
               />
             </ModalButton>
           </FormContainer>

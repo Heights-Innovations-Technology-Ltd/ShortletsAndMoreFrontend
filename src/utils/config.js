@@ -782,6 +782,9 @@ export const contactSchema = yup.object().shape({
 export const subscribeSchema = yup.object().shape({
   email: yup.string().email("Enter a valid email address").required(),
 });
+export const categorySchema = yup.object().shape({
+  categoryName: yup.string().required(),
+});
 
 export const createApartmentSchema = yup.object().shape({
   name: yup.string().required("Name is a required field"),
