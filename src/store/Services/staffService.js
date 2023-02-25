@@ -7,7 +7,6 @@ export const staffApi = createApi({
     baseUrl: "http://adminhitl-001-site1.ctempurl.com/api/",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().StaffDataReducer.staffInfo?.data?.accessToken;
-
       headers.set("Access-Control-Expose-Headers", "access-token");
       headers.set("Access-Control-Allow-Origin", "*");
       headers.set("Access-Control-Allow-Methods", "*");
@@ -82,16 +81,7 @@ export const staffApi = createApi({
           "Content-type": "application/json; charset=UTF-8",
         },
       }),
-      // transformResponse: (response) => response.data,
-      // transformResponse(response, meta) {
-      //   console.log(meta.response);
-      // },
-      // transformResponse(apiResponse, meta) {
-      //   return {
-      //     apiResponse,
-      //     header: meta.response.headers,
-      //   };
-      // },
+
       invalidatesTags: ["Staff"],
     }),
 
@@ -175,7 +165,7 @@ export const staffApi = createApi({
     //edit category
     editCategory: builder.mutation({
       query: ({ id, name, data }) => ({
-        url: `/settings/categories${id}/${name}`,
+        url: `/settings/categories/${id}/${name}`,
         method: "PUT",
         body: data,
         headers: {

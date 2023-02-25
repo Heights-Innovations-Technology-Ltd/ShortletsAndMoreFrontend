@@ -7,6 +7,7 @@ import PrimaryButton from "../../../components/PrimaryButton";
 
 import StaffTable from "../../../components/Table";
 import { useGetAllBookingsQuery } from "../../../store/Services/staffService";
+import PuffLoader from "../../../components/Loader";
 
 const StaffReservation = () => {
   const getAllBookings = useGetAllBookingsQuery();
@@ -47,9 +48,12 @@ const StaffReservation = () => {
   return (
     <div>
       <StaffHeader title="Reservations" />
-
       <TableContainer>
-        <StaffTable header={header} body={dataBody} />
+        {getAllBookings?.isLoading ? (
+          <PuffLoader />
+        ) : (
+          <StaffTable header={header} body={dataBody} />
+        )}
       </TableContainer>
     </div>
   );

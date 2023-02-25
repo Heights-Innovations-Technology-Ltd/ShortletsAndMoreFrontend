@@ -43,6 +43,7 @@ import {
   useGetAllCategoriesQuery,
   useGetAllStatesQuery,
 } from "../../../store/Services/staffService";
+import PuffLoader from "../../../components/Loader";
 // import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
 const iconName = (
   <LeftIconContainer>
@@ -250,26 +251,30 @@ const StaffApartment = () => {
           onClick={addApartment}
         />
       </ButtonWrapper>
-      <ApartmentContainer>
-        {apartment?.map((apartment, index) => (
-          <div key={apartment.id}>
-            <ApartmentCard
-              key={index}
-              landing
-              staff
-              apartmentImage={image}
-              apartmentName={apartment.name}
-              apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
-              apartmentDetails={apartment.description}
-              iconName={iconName}
-              handleStaffApartmentClick={() =>
-                handleStaffApartmentClick(apartment.id)
-              }
-              handleApartmentEdit={() => handleEditApartment(apartment.id)}
-            />
-          </div>
-        ))}
-      </ApartmentContainer>
+      {isLoading ? (
+        <PuffLoader />
+      ) : (
+        <ApartmentContainer>
+          {apartment?.map((apartment, index) => (
+            <div key={apartment.id}>
+              <ApartmentCard
+                key={index}
+                landing
+                staff
+                apartmentImage={image}
+                apartmentName={apartment.name}
+                apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
+                apartmentDetails={apartment.description}
+                iconName={iconName}
+                handleStaffApartmentClick={() =>
+                  handleStaffApartmentClick(apartment.id)
+                }
+                handleApartmentEdit={() => handleEditApartment(apartment.id)}
+              />
+            </div>
+          ))}
+        </ApartmentContainer>
+      )}
 
       <Dialog open={openModal} fullWidth maxWidth="sm">
         <ModalWrapper>

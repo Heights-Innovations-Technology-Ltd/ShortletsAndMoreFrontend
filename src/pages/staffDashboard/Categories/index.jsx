@@ -33,6 +33,7 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close.svg";
 import PrimaryInput from "../../../components/Input";
 import { categorySchema } from "../../../utils/config";
+import PuffLoader from "../../../components/Loader";
 
 const process = <FaPen color="white" size={14} />;
 const deleteIcon = <AiOutlineDelete color="white" size={18} />;
@@ -40,8 +41,8 @@ const addIcon = <FaPlus color="white" />;
 
 const StaffSettingsCategories = () => {
   const navigate = useNavigate();
-  const { data, refetch } = useGetAllCategoriesQuery();
-  const [createCategory, { isLoading }] = useCreateCategoryMutation();
+  const { data, refetch, isLoading } = useGetAllCategoriesQuery();
+  const [createCategory, createState] = useCreateCategoryMutation();
   const [editCategory, editState] = useEditCategoryMutation();
 
   const [openModal, setOpenModal] = useState(false);
@@ -166,7 +167,11 @@ const StaffSettingsCategories = () => {
       </ButtonWrapper>
 
       <TableContainer>
-        <StaffTable header={header} body={dataBody} />
+        {isLoading ? (
+          <PuffLoader />
+        ) : (
+          <StaffTable header={header} body={dataBody} />
+        )}
       </TableContainer>
 
       <Dialog open={openModal} fullWidth maxWidth="sm">
@@ -203,7 +208,9 @@ const StaffSettingsCategories = () => {
                 title={action === "add" ? "Create Category" : "Edit Category"}
                 width="100%"
                 type="submit"
-                loading={action === "add" ? isLoading : editState.isLoading}
+                loading={
+                  action === "add" ? createState.isLoading : editState.isLoading
+                }
               />
             </ModalButton>
           </FormContainer>

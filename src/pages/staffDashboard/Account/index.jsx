@@ -17,13 +17,14 @@ import {
   useDeleteUserMutation,
 } from "../../../store/Services/staffService";
 import toast from "react-hot-toast";
+import PuffLoader from "../../../components/Loader";
 
 const process = <FaRedo color="white" size={14} />;
 const deleteIcon = <AiOutlineDelete color="white" size={18} />;
 const addIcon = <FaPlus color="white" />;
 
 const StaffAccount = () => {
-  const { data, refetch } = useGetAllStaffsQuery();
+  const { data, isLoading, refetch } = useGetAllStaffsQuery();
   const [deleteUser] = useDeleteUserMutation();
 
   const header = ["Name", "Email", "Username", "Status", "Action"];
@@ -76,7 +77,11 @@ const StaffAccount = () => {
         <PrimaryButton title="Add User" leftIcon iconName={addIcon} />
       </ButtonWrapper>
       <TableContainer>
-        <StaffTable header={header} body={dataBody} />
+        {isLoading ? (
+          <PuffLoader />
+        ) : (
+          <StaffTable header={header} body={dataBody} />
+        )}
       </TableContainer>
     </div>
   );

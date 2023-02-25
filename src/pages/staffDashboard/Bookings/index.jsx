@@ -1,37 +1,14 @@
 import React from "react";
-import ApartmentCard from "../../../components/Cards/ApartmentCard";
 import StaffHeader from "../../../components/StaffHeader";
-import {
-  useGetAllApartmentQuery,
-  useGetAllRoomTypeQuery,
-} from "../../../store/Services/apartmentService";
-import {
-  ApartmentContainer,
-  ButtonWrapper,
-  LeftIconContainer,
-  Status,
-  TableContainer,
-} from "./style";
-import image from "../../../assets/listing_img_four.png";
-import { useEffect } from "react";
-import { useState } from "react";
+
+import { ButtonWrapper, Status, TableContainer } from "./style";
+
 import { FaPen, FaPlus } from "react-icons/fa";
 import PrimaryButton from "../../../components/PrimaryButton";
-import {
-  servicesData,
-  similarListingData,
-  tableData,
-  tableDatas,
-} from "../../../utils/config";
-import ServiceCard from "../../../components/Cards/ServiceCard";
+
 import StaffTable from "../../../components/Table";
 import { useGetAllReservationsQuery } from "../../../store/Services/staffService";
-// import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
-const iconName = (
-  <LeftIconContainer>
-    <FaPen color="#8BA00D" />
-  </LeftIconContainer>
-);
+import PuffLoader from "../../../components/Loader";
 
 const addIcon = <FaPlus color="white" />;
 const StaffBookings = () => {
@@ -77,7 +54,11 @@ const StaffBookings = () => {
         <PrimaryButton title="Third Part Booking" leftIcon iconName={addIcon} />
       </ButtonWrapper>
       <TableContainer>
-        <StaffTable header={header} body={dataBody} arrOfObject />
+        {getAllReservations?.isLoading ? (
+          <PuffLoader />
+        ) : (
+          <StaffTable header={header} body={dataBody} arrOfObject />
+        )}
       </TableContainer>
     </div>
   );

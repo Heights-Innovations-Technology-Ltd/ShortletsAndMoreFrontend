@@ -20,6 +20,7 @@ import {
   CheckListContainer,
   BackWrapper,
   BackText,
+  LoaderWrapper,
 } from "./style";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -38,6 +39,7 @@ import TextArea from "../../../components/TextArea";
 import DropDown from "../../../components/Input/dropDown";
 import { AiFillCaretLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import PuffLoader from "../../../components/Loader";
 
 const addIcon = <FaPlus color="white" />;
 const StaffRoom = () => {
@@ -62,8 +64,8 @@ const StaffRoom = () => {
   const [action, setAction] = useState();
   const [fetchedEditRoom, setFetchedEditRoom] = useState({});
 
-  const { data, refetch } = useGetAllRoomTypeQuery(ApartmentId);
-  const [createRoom, { isLoading }] = useCreateRoomMutation();
+  const { data, refetch, isLoading } = useGetAllRoomTypeQuery(ApartmentId);
+  const [createRoom, createState] = useCreateRoomMutation();
   const [editRoom, editState] = useEditRoomMutation();
 
   const {
@@ -220,20 +222,24 @@ const StaffRoom = () => {
           onClick={addRoom}
         />
       </ButtonWrapper>
-      <ApartmentContainer>
-        {room?.map((apartment, index) => (
-          <div key={index}>
-            <AddToCartCard
-              apartmentImage={imageFive}
-              apartmentName={apartment.name}
-              apartmentPrice={apartment.price}
-              apartmentDescription={apartment.description}
-              staff
-              handleStaffEdit={() => handleRoomEdit(apartment.id)}
-            />
-          </div>
-        ))}
-      </ApartmentContainer>
+      {isLoading ? (
+        <PuffLoader />
+      ) : (
+        <ApartmentContainer>
+          {room?.map((apartment, index) => (
+            <div key={index}>
+              <AddToCartCard
+                apartmentImage={imageFive}
+                apartmentName={apartment.name}
+                apartmentPrice={apartment.price}
+                apartmentDescription={apartment.description}
+                staff
+                handleStaffEdit={() => handleRoomEdit(apartment.id)}
+              />
+            </div>
+          ))}
+        </ApartmentContainer>
+      )}
 
       <Dialog open={openModal} fullWidth maxWidth="sm">
         <ModalWrapper>
@@ -308,7 +314,9 @@ const StaffRoom = () => {
                 title={action === "add" ? "Create Room" : "Edit Room"}
                 width="100%"
                 type="submit"
-                loading={action === "add" ? isLoading : editState.isLoading}
+                loading={
+                  action === "add" ? createState.isLoading : editState.isLoading
+                }
               />
             </ModalButton>
           </FormContainer>
