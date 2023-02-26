@@ -47,3 +47,30 @@ export const LeftIconContainer = styled.div`
 export const TableContainer = styled.div`
   margin-top: 24px;
 `;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 24px;
+  flex-flow: column;
+`;
+export const ModalButton = styled.div`
+  width: 100%;
+`;
+export const Question = styled.p`
+  margin-bottom: 30px;
+  font-size: clamp(16px, 1.5vw, 20px);
+  max-width: 300px;
+  text-align: center;
+`;
+export const Top = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 80%;
+`;
+
+export const CloseWrapper = styled.div`
+  cursor: pointer;
+`;

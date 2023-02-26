@@ -181,7 +181,7 @@ export const staffApi = createApi({
     checkIn: builder.mutation({
       query: (data) => ({
         url: "room/check-in",
-        method: "PUT",
+        method: "POST",
         body: data,
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -192,10 +192,9 @@ export const staffApi = createApi({
 
     //check out
     checkOut: builder.mutation({
-      query: ({ reservationId, data }) => ({
+      query: (reservationId) => ({
         url: `/room/check-out/${reservationId}`,
-        method: "PUT",
-        body: data,
+        method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
