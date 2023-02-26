@@ -36,10 +36,13 @@ const StaffBookings = () => {
   const getAllReservations = useGetAllReservationsQuery();
   const getRoom = useGetRoomQuery();
   const [checkIn, chehckInState] = useCheckInMutation();
+
+  const [reference, setReference] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [roomList, setRoomList] = useState([]);
 
-  const handleCheckIn = (roomType) => {
+  const handleCheckIn = (roomType, referenceNumber) => {
+    setReference(referenceNumber);
     setOpenModal(true);
     const check = getRoom?.data?.data?.filter(
       (reserve) => reserve.roomTypeId === roomType
@@ -86,7 +89,7 @@ const StaffBookings = () => {
     </Status>,
     <PrimaryButton
       title="Check In"
-      onClick={() => handleCheckIn(data.roomType)}
+      onClick={() => handleCheckIn(data.roomType, data.referenceNumber)}
     />,
   ]);
 
@@ -94,12 +97,15 @@ const StaffBookings = () => {
     setOpenModal(false);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const requiredData = {
-      roomIds: [],
-      reservationId: "string",
+      roomIds: [4],
+      reservationId: reference,
     };
+    console.log(" redp", requiredData);
     const response = await checkIn(requiredData);
+    console.log(" redp", response);
   };
 
   // const handleUnitChange = (value) => {

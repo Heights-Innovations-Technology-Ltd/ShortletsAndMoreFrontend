@@ -44,6 +44,7 @@ import {
   useGetAllStatesQuery,
 } from "../../../store/Services/staffService";
 import PuffLoader from "../../../components/Loader";
+import FileUpload from "../../../components/FileUpload";
 // import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
 const iconName = (
   <LeftIconContainer>
@@ -69,6 +70,7 @@ const StaffApartment = () => {
   const [clickedApartment, setClickedApartment] = useState({});
   const [clickedApartmentId, setClickedApartmentId] = useState();
   const [apartment, setApartment] = useState([]);
+  const [image, setImage] = useState(null);
   const [stateContainer, setStateContainer] = useState([]);
   const { data, isLoading, refetch } = useGetAllApartmentQuery();
 
@@ -102,6 +104,13 @@ const StaffApartment = () => {
     value: index,
     label: state,
   }));
+
+  const handleHandleImage = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    setImage(file);
+    console.log("files", file);
+  };
 
   const handleCheckClick = (e) => {
     const { value, checked } = e.target;
@@ -161,6 +170,29 @@ const StaffApartment = () => {
   const onSubmit = async (formData) => {
     setAction("add");
     console.log("formData", formData);
+
+    // const formImgData = new FormData();
+    // formImgData.append("image", image);
+    // let token = "Wb95IfBjzn0MUJOqTfGuVjJlzNxC8dehEYa9qgL0";
+    // let api_key = "ca15a2995042ca013e148db93e887b74bec77";
+    // let email =
+    //   "v1.0-7995a01f297097c2dfbe68b7-cb8b703ce06e81ac6ea5804fa0e90df3e8904c64f0011598dc54a4cdf6585051fe4e6ad7689417ad516a5ddd47bac712070bb7e6b9dc766ca7a4e40cda2e98ffe137158ed122c47617";
+
+    // const response = await fetch(
+    //   "https://api.cloudflare.com/client/v4/accounts/cd9da82696b72c8181f03336f9f63667/images/v1",
+    //   {
+    //     headers: {
+    //       "X-Auth-Email": email,
+    //       "X-Auth-Key": api_key,
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //     method: "POST",
+    //     body: formImgData,
+    //   }
+    // );
+    // console.log("response", response);
+    // // const imageUrl = await response.text()
+
     let requiredData = {
       ...formData,
 
@@ -353,6 +385,11 @@ const StaffApartment = () => {
               ))}
             </CheckInputContainer>
 
+            <FileUpload
+              name="file"
+              // fileName={"Apartment Image"}
+              onChange={handleHandleImage}
+            />
             <ModalButton>
               <PrimaryButton
                 title={action === "add" ? "Create Apartment" : "Edit Apartment"}
