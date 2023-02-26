@@ -131,8 +131,7 @@ const StaffSettingsCategories = () => {
     console.log(formData);
     let editCateoryResponse = await editCategory({
       id: fetchedEditCategory?.id,
-      name: fetchedEditCategory?.name,
-      data: formData,
+      categoryName: formData.categoryName,
     });
 
     const error = editCateoryResponse?.error;

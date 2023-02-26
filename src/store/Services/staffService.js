@@ -57,7 +57,10 @@ export const staffApi = createApi({
     getAllStaffs: builder.query({
       query: () => "user",
     }),
-
+    //get room
+    getRoom: builder.query({
+      query: () => "room",
+    }),
     //staff registration
     registerNewStaff: builder.mutation({
       query: (data) => ({
@@ -164,8 +167,33 @@ export const staffApi = createApi({
 
     //edit category
     editCategory: builder.mutation({
-      query: ({ id, name, data }) => ({
-        url: `/settings/categories/${id}/${name}`,
+      query: ({ id, categoryName }) => ({
+        url: `/settings/categories/${id}/${categoryName}`,
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    //check in
+    checkIn: builder.mutation({
+      query: (data) => ({
+        url: "room/check-in",
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    //check out
+    checkOut: builder.mutation({
+      query: ({ reservationId, data }) => ({
+        url: `/room/check-out/${reservationId}`,
         method: "PUT",
         body: data,
         headers: {
@@ -186,6 +214,7 @@ export const {
   useGetAllStaffsQuery,
   useGetAllReservationsQuery,
   useGetAllBookingsQuery,
+  useGetRoomQuery,
   useRegisterNewStaffMutation,
   useLoginNewStaffMutation,
   useCreateRoomMutation,
@@ -195,4 +224,6 @@ export const {
   useDeleteUserMutation,
   useCreateCategoryMutation,
   useEditCategoryMutation,
+  useCheckInMutation,
+  useCheckOutMutation,
 } = staffApi;
