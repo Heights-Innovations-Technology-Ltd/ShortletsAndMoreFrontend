@@ -74,3 +74,10 @@ export const Top = styled.div`
 export const CloseWrapper = styled.div`
   cursor: pointer;
 `;
+export const Status = styled.div`
+  background-color: ${(props) => props.background};
+  color: ${(props) => props.color};
+  text-align: center;
+  border-radius: 12px;
+  padding: 4px 8px;
+`;

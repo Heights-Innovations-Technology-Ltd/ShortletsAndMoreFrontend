@@ -6,7 +6,6 @@ import {
   ModalWrapper,
   Status,
   TableContainer,
-  BackText,
   CloseWrapper,
   FormContainer,
   ModalButton,
@@ -14,32 +13,32 @@ import {
   Top,
 } from "./style";
 import { Dialog } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close.svg";
 import { FaPen, FaPlus } from "react-icons/fa";
 import PrimaryButton from "../../../components/PrimaryButton";
 
+import PuffLoader from "../../../components/Loader";
 import StaffTable from "../../../components/Table";
 import {
   useCheckInMutation,
   useGetAllReservationsQuery,
   useGetRoomQuery,
 } from "../../../store/Services/staffService";
-import PuffLoader from "../../../components/Loader";
-import PrimaryInput from "../../../components/Input";
-import DropDown from "../../../components/Input/dropDown";
-import { useEffect } from "react";
+import TestingMultiple from "../../../components/Input/testingMultiple";
+import toast from "react-hot-toast";
 
 const addIcon = <FaPlus color="white" />;
+
 const StaffBookings = () => {
   const getAllReservations = useGetAllReservationsQuery();
+  console.log(getAllReservations);
   const getRoom = useGetRoomQuery();
   const [checkIn, chehckInState] = useCheckInMutation();
 
   const [reference, setReference] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [roomList, setRoomList] = useState([]);
+  const [lists, setList] = useState([]);
 
   const handleCheckIn = (roomType, referenceNumber) => {
     setReference(referenceNumber);
@@ -47,13 +46,15 @@ const StaffBookings = () => {
     const check = getRoom?.data?.data?.filter(
       (reserve) => reserve.roomTypeId === roomType
     );
+    console.log(check);
     let roomList = check?.map((room) => ({
-      value: room.hotelId,
+      value: room.id,
       label: room.name,
     }));
     setRoomList(roomList);
   };
 
+  console.log(roomList);
   const header = [
     "Name",
     "Reference Number",
@@ -63,7 +64,7 @@ const StaffBookings = () => {
     "Status",
     "Action",
   ];
-  const dataBody = getAllReservations?.data?.data[0]?.map((data) => [
+  const dataBody = getAllReservations?.data?.data?.map((data) => [
     data.guest,
     data.referenceNumber,
     data.numberOfRooms,
@@ -97,22 +98,48 @@ const StaffBookings = () => {
     setOpenModal(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitCheckIn = async (e) => {
     e.preventDefault();
     const requiredData = {
-      roomIds: [4],
+      roomIds: lists,
       reservationId: reference,
     };
     console.log(" redp", requiredData);
     const response = await checkIn(requiredData);
     console.log(" redp", response);
+
+    const error = response?.error;
+    const responseData = response?.data;
+    if (responseData) {
+      toast.success(responseData?.message);
+      setOpenModal(false);
+    }
+    if (error) {
+      toast.error(error?.data?.Message);
+    }
   };
 
-  // const handleUnitChange = (value) => {
-  //   var string = Object.values(value)[0];
-  //   setValue("numberOfUnits", string, { shouldValidate: true });
-  // };
-
+  const handleClick = (e) => {
+    const { value, checked } = e.target;
+    console.log(value, checked);
+    if (checked) {
+      roomList.forEach((list) => {
+        if (value === list.label) {
+          console.log(list);
+          setList((prev) => [...prev, list.value]);
+        }
+      });
+    } else {
+      roomList?.forEach((list) => {
+        if (value === list.label) {
+          setList((prev) => {
+            return [...prev.filter((item) => item !== list.value)];
+          });
+        }
+      });
+    }
+  };
+  console.log("liii", lists);
   return (
     <div>
       <StaffHeader title="Bookings" />
@@ -140,17 +167,12 @@ const StaffBookings = () => {
             </h1>
           </TextContainer>
 
-          <FormContainer onSubmit={handleSubmit}>
-            <DropDown
-              label="Number of Units"
+          <FormContainer onSubmit={handleSubmitCheckIn}>
+            <TestingMultiple
               options={roomList}
-              name="numberOfUnits"
-              // register={register}
-              // onChange={handleUnitChange}
-              // defaultValue={action === "edit" && fetchedEditRoom?.numberOfUnits}
-              // errorMessage={errors.numberOfUnits?.message}
+              list={lists}
+              handleClick={handleClick}
             />
-
             <ModalButton>
               <PrimaryButton
                 title={"Check In"}

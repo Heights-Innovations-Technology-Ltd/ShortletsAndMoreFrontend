@@ -786,6 +786,10 @@ export const categorySchema = yup.object().shape({
   categoryName: yup.string().required(),
 });
 
+export const checkinSchema = yup.object().shape({
+  roomIds: yup.string().required(),
+});
+
 export const createApartmentSchema = yup.object().shape({
   name: yup.string().required("Name is a required field"),
   description: yup.string().required("Description is a required field"),

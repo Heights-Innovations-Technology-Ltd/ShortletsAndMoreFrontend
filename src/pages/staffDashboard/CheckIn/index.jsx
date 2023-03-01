@@ -10,13 +10,15 @@ import {
   ModalButton,
   ModalWrapper,
   Question,
+  Status,
   TableContainer,
   Top,
 } from "./style";
-
+import toast from "react-hot-toast";
 import { useState } from "react";
 import { FaPen, FaPlus } from "react-icons/fa";
 import PrimaryButton from "../../../components/PrimaryButton";
+import PuffLoader from "../../../components/Loader";
 import {
   useCheckOutMutation,
   useGetAllCheckInsQuery,
@@ -30,30 +32,70 @@ const StaffCheckIn = () => {
   const [checkOut, checkOutState] = useCheckOutMutation();
   const [reference, setReference] = useState();
   const [openModal, setOpenModal] = useState(false);
-  const header = ["Name", "Apartment", "Room Type", "Date", "Time", "Action"];
+  const header = [
+    "ID",
+    "Reference Number",
+    "Room Type",
+    "Chcek In",
+    "Check Out",
+    "Status",
+    "Action",
+  ];
 
-  const handleCheckoutModal = (referenceNumber) => {
+  const handleCheckoutModal = async (referenceNumber) => {
     setOpenModal(true);
     setReference(referenceNumber);
+    console.log(referenceNumber);
   };
 
+  console.log("all check in", getAllCheckIns);
   const handleCheckout = async () => {
     const response = await checkOut(reference);
     console.log(response);
+
+    const error = response?.error;
+    const responseData = response?.data;
+    if (responseData) {
+      toast.success(responseData?.message);
+      getAllCheckIns.refetch();
+      setOpenModal(false);
+    }
+    if (error) {
+      toast.error(error?.data?.Message);
+    }
   };
 
   const handleModalClose = () => {
     setOpenModal(false);
   };
-  const dataBody = tableDatas.map((data) => [
-    data.name,
-    data.apartment,
+  const dataBody = getAllCheckIns?.data?.data[0]?.map((data) => [
+    data.reservationId,
+    data.reservationReference,
     data.roomType,
-    data.date,
-    data.time,
+    data.checkinDate.slice(0, 10),
+    data.checkoutDate.slice(0, 10),
+    <Status
+      color={
+        data.status === "Checked In"
+          ? "#2F8511"
+          : data.status === "Pending"
+          ? "#FFCA2A"
+          : "#C43C20"
+      }
+      background={
+        data.status === "Checked In"
+          ? "rgba(47, 133, 17, 0.1)"
+          : data.status === "Pending"
+          ? "rgba(255, 233, 168, 0.5)"
+          : "rgba(231, 175, 164, 0.3)"
+      }
+    >
+      {data.status}
+    </Status>,
+
     <PrimaryButton
       title="Check-Out"
-      onClick={() => handleCheckoutModal(data.referenceNumber)}
+      onClick={() => handleCheckoutModal(data.reservationReference)}
     />,
   ]);
 
@@ -61,7 +103,11 @@ const StaffCheckIn = () => {
     <div>
       <StaffHeader title="Check - Ins" />
       <TableContainer>
-        <StaffTable header={header} body={dataBody} />
+        {getAllCheckIns?.isLoading ? (
+          <PuffLoader />
+        ) : (
+          <StaffTable header={header} body={dataBody} arrOfObject />
+        )}
       </TableContainer>
 
       <Dialog open={openModal} fullWidth maxWidth="sm">
@@ -78,6 +124,7 @@ const StaffCheckIn = () => {
               title="Yes, Checkout"
               width="100%"
               onClick={handleCheckout}
+              loading={checkOutState.isLoading}
             />
           </ModalButton>
         </ModalWrapper>

@@ -1,0 +1,51 @@
+:root {
+  /* Colors variable */
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  /* -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; */
+}
+p {
+  margin: 0;
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper,
+.css-uhb5lp {
+  width: 100% !important;
+  max-width: 96vw !important;
+  align-items: center;
+  overflow: visible !important;
+
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+*:focus {
+  outline: none !important;
+}
+
+.button__effect {
+  transition: 0.3s ease all;
+}
+.button__effect:hover {
+  opacity: 0.9;
+}
+.button__effect:focus {
+  opacity: 0.7;
+}
+.button__effect:active {
+  opacity: 0.9;
+  transform: scale(0.95);
+}

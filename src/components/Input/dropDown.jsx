@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper, Label, ErrMsg, Top } from "./style";
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 
 const DropDown = ({
   label,
@@ -20,6 +20,7 @@ const DropDown = ({
   register,
   launch,
   height,
+  multiSelect,
   fontSize,
   disable,
   ...rest
@@ -50,15 +51,20 @@ const DropDown = ({
     placeholder: (base, state) => ({
       ...base,
       fontSize: fontSize ? fontSize : 14,
+      border: "none",
+
+      outlineColor: "none",
+      // border: "solid blue",
     }),
-    input: (provided, state) => ({
+    input: (provided, { isFocused }) => ({
       ...provided,
       height: height || 50,
       borderRadius: 5,
       margin: 0,
       width: "100%",
+      border: isFocused ? "none" : "none",
       padding: 0,
-      outlineColor: "red",
+      outlineColor: "none",
     }),
     option: (provided, state) => ({
       ...provided,
@@ -66,7 +72,81 @@ const DropDown = ({
       padding: 20,
       fontSize: fontSize ? fontSize : 14,
     }),
+
+    multiValue: (styles, { data }) => {
+      // const color = chroma(data.color);
+      return {
+        ...styles,
+        // backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ":hover": {
+        backgroundColor: data.color,
+        color: "white",
+      },
+    }),
   };
+
+  // const colourStyles: StylesConfig<ColourOption, true> = {
+  //   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  //   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+  //     const color = chroma(data.color);
+  //     return {
+  //       ...styles,
+  //       backgroundColor: isDisabled
+  //         ? undefined
+  //         : isSelected
+  //         ? data.color
+  //         : isFocused
+  //         ? color.alpha(0.1).css()
+  //         : undefined,
+  //       color: isDisabled
+  //         ? '#ccc'
+  //         : isSelected
+  //         ? chroma.contrast(color, 'white') > 2
+  //           ? 'white'
+  //           : 'black'
+  //         : data.color,
+  //       cursor: isDisabled ? 'not-allowed' : 'default',
+
+  //       ':active': {
+  //         ...styles[':active'],
+  //         backgroundColor: !isDisabled
+  //           ? isSelected
+  //             ? data.color
+  //             : color.alpha(0.3).css()
+  //           : undefined,
+  //       },
+  //     };
+  //   },
+  //   multiValue: (styles, { data }) => {
+  //     const color = chroma(data.color);
+  //     return {
+  //       ...styles,
+  //       backgroundColor: color.alpha(0.1).css(),
+  //     };
+  //   },
+  //   multiValueLabel: (styles, { data }) => ({
+  //     ...styles,
+  //     color: data.color,
+  //   }),
+  //   multiValueRemove: (styles, { data }) => ({
+  //     ...styles,
+  //     color: data.color,
+  //     ':hover': {
+  //       backgroundColor: data.color,
+  //       color: 'white',
+  //     },
+  //   }),
+  // };
+
   return (
     <Wrapper
       // className={containerStyle}
@@ -82,17 +162,36 @@ const DropDown = ({
 
         {/* {errorMessage ? <ErrMsg>{errorMessage}</ErrMsg> : null} */}
       </Top>
-
-      <Select
-        onChange={onChange}
-        options={options}
-        styles={selectStyle}
-        defaultValue={{
-          value: defaultValue && defaultValue,
-          label: defaultValue && defaultValue,
-        }}
-        isDisabled={disable}
-      />
+      {multiSelect ? (
+        //   <Select
+        //   closeMenuOnSelect={false}
+        //   defaultValue={[colourOptions[0], colourOptions[1]]}
+        //   isMulti
+        //   options={colourOptions}
+        //   styles={colourStyles}
+        // />
+        <Select
+          onChange={onChange}
+          options={options}
+          styles={selectStyle}
+          defaultValue={{
+            value: defaultValue && defaultValue,
+            label: defaultValue && defaultValue,
+          }}
+          isDisabled={disable}
+        />
+      ) : (
+        <Select
+          onChange={onChange}
+          options={options}
+          styles={selectStyle}
+          defaultValue={{
+            value: defaultValue && defaultValue,
+            label: defaultValue && defaultValue,
+          }}
+          isDisabled={disable}
+        />
+      )}
     </Wrapper>
   );
 };

@@ -146,3 +146,70 @@ export const CalendarWrapper = styled.div`
     }
   }
 `;
+
+export const DropDownWrapper = styled.div`
+  background: #ffffff;
+  width: 100%;
+  position: relative;
+  padding: 10px auto;
+  height: 50px;
+  border-radius: 8px;
+  background: #fafafa;
+  border: 1px solid #e1e1de;
+`;
+
+export const CheckInputBox = styled.input`
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.46);
+`;
+
+export const ShowList = styled.div`
+  background: #ffffff;
+  width: 90%;
+  display: flex;
+  gap: 10px;
+`;
+
+export const ShowListIcon = styled.div`
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+`;
+
+export const DropDown = styled.div`
+  background: #ffffff;
+  border: 1px solid #e1e1de;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  padding: 10px 0px;
+`;
+
+export const ListItems = styled.ul`
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ListItem = styled.li`
+  display: flex;
+  gap: 10px;
+  padding: 5px 10px;
+  align-items: center;
+
+  &:hover {
+    background-color: #f3f6e7;
+    cursor: pointer;
+  }
+`;
+
+export const Item = styled.p`
+  border: solid 1px #e1e1de;
+  border-radius: 4px;
+  align-items: center;
+  text-align: center;
+  padding: 5px 5px 0px 5px;
+  background-color: #f3f6e7;
+`;
