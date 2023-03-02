@@ -76,14 +76,14 @@ const StaffCheckIn = () => {
     data.checkoutDate.slice(0, 10),
     <Status
       color={
-        data.status === "Checked In"
+        data.status === "checked-in"
           ? "#2F8511"
           : data.status === "Pending"
           ? "#FFCA2A"
           : "#C43C20"
       }
       background={
-        data.status === "Checked In"
+        data.status === "checked-in"
           ? "rgba(47, 133, 17, 0.1)"
           : data.status === "Pending"
           ? "rgba(255, 233, 168, 0.5)"

@@ -25,7 +25,7 @@ const StaffStatusCard = () => {
   const getAllBookings = useGetAllBookingsQuery();
 
   let booking = getAllBookings?.data?.data?.length;
-  let reservation = getAllReservations?.data?.data[0]?.length;
+  let reservation = getAllReservations?.data?.data?.length;
   let apartment = allApartments?.data?.data?.length;
 
   let total = booking + reservation + apartment;
@@ -49,7 +49,7 @@ const StaffStatusCard = () => {
             width={`${(reservation / total) * 100}%`}
           ></ProgressFill>
         </ProgressContainer>
-        <Count>{getAllReservations?.data?.data[0]?.length}</Count>
+        <Count>{getAllReservations?.data?.data?.length}</Count>
       </Container>
 
       <Container

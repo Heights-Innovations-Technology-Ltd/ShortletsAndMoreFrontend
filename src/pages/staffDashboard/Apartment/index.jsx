@@ -71,7 +71,7 @@ const StaffApartment = () => {
   const [clickedApartment, setClickedApartment] = useState({});
   const [clickedApartmentId, setClickedApartmentId] = useState();
   const [apartment, setApartment] = useState([]);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState({});
   const [stateContainer, setStateContainer] = useState([]);
   const { data, isLoading, refetch } = useGetAllApartmentQuery();
 
@@ -109,8 +109,10 @@ const StaffApartment = () => {
   const handleHandleImage = async (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-    setImage(file);
-    console.log("files", file);
+
+    const response = await convertToLink(file);
+    console.log("response", response);
+    setImage(response);
   };
 
   const handleCheckClick = (e) => {
@@ -172,8 +174,8 @@ const StaffApartment = () => {
     setAction("add");
     console.log("formData", formData);
 
-    const response = convertToLink(image);
-    console.log("response", response);
+    console.log("image", image);
+
     // const imageUrl = await response.text()
 
     let requiredData = {
