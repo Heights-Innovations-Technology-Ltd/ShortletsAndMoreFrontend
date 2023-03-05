@@ -40,6 +40,8 @@ import DropDown from "../../../components/Input/dropDown";
 import { AiFillCaretLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import PuffLoader from "../../../components/Loader";
+import FileUpload from "../../../components/FileUpload";
+import { convertToLink } from "../../../utils/helper";
 
 const addIcon = <FaPlus color="white" />;
 const StaffRoom = () => {
@@ -63,6 +65,7 @@ const StaffRoom = () => {
   const [checkedItems, setCheckedItems] = useState({});
   const [action, setAction] = useState();
   const [fetchedEditRoom, setFetchedEditRoom] = useState({});
+  const [image, setImage] = useState({});
 
   const { data, refetch, isLoading } = useGetAllRoomTypeQuery(ApartmentId);
   const [createRoom, createState] = useCreateRoomMutation();
@@ -76,7 +79,7 @@ const StaffRoom = () => {
   } = useForm({
     resolver: yupResolver(createRoomSchema),
   });
-
+  console.log("do me", data);
   useEffect(() => {
     setRooms(data?.data);
   }, [data]);
@@ -120,13 +123,20 @@ const StaffRoom = () => {
       });
     }
   };
+  const handleHandleImage = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
 
+    const response = await convertToLink(file);
+    console.log("response", response);
+    setImage(response);
+  };
   const onSubmit = async (formData) => {
     setAction("add");
     console.log(action);
     let requiredData = {
       ...formData,
-      coverImage: "",
+      coverImage: image.url,
       features: checkedItems,
     };
 
@@ -181,7 +191,7 @@ const StaffRoom = () => {
     setAction("edit");
     let requiredData = {
       ...formData,
-      coverImage: "",
+      coverImage: image.url,
       features: checkedItems,
     };
     console.log(ApartmentId);
@@ -229,7 +239,11 @@ const StaffRoom = () => {
           {room?.map((apartment, index) => (
             <div key={index}>
               <AddToCartCard
-                apartmentImage={imageFive}
+                apartmentImage={
+                  apartment.coverImage && apartment.coverImage !== "string"
+                    ? apartment.coverImage
+                    : imageFive
+                }
                 apartmentName={apartment.name}
                 apartmentPrice={apartment.price}
                 apartmentDescription={apartment.description}
@@ -308,6 +322,12 @@ const StaffRoom = () => {
                 </CheckListContainer>
               ))}
             </CheckInputContainer>
+
+            <FileUpload
+              name="file"
+              // fileName={"Apartment Image"}
+              onChange={handleHandleImage}
+            />
 
             <ModalButton>
               <PrimaryButton
