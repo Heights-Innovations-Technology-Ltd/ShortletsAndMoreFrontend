@@ -3,8 +3,8 @@ export const staffApi = createApi({
   reducerPath: "staffApi", // a unique key that defines where the redux store will store the cache.
   baseQuery: fetchBaseQuery({
     // the base query used by each endpoint to request data.
-    baseUrl: `${process.env.REACT_APP_DEV_BASE_URL}`,
-    // baseUrl: "http://adminhitl-001-site1.ctempurl.com/api/",
+    // baseUrl: `${process.env.REACT_APP_DEV_BASE_URL}`,
+    baseUrl: "http://adminhitl-001-site1.ctempurl.com/api/",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().StaffDataReducer.staffInfo?.data?.accessToken;
       headers.set("Access-Control-Expose-Headers", "access-token");
