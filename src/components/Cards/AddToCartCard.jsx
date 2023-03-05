@@ -5,11 +5,30 @@ import { ReactComponent as BedIcon } from "../../assets/svg/bed.svg";
 import { ReactComponent as CoaxialIcon } from "../../assets/svg/coaxial.svg";
 import { ReactComponent as WifiIcon } from "../../assets/svg/wifi.svg";
 import { ReactComponent as AirIcon } from "../../assets/svg/air-conditioner.svg";
+import { useNavigate } from "react-router-dom";
+import { FaPen, FaPlus } from "react-icons/fa";
 
-const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
+let iconName = <FaPen color="#8BA00D" />;
+
+const AddToCartCard = ({
+  apartmentImage,
+  apartmentName,
+  apartmentDescription,
+  apartmentPrice,
+  landing,
+  handleNavigateToDetails,
+  staff,
+  handleStaffEdit,
+}) => {
+  const navigate = useNavigate();
   return (
     <div>
-      <div className="bg-white w-80 shadow-md m-3">
+      <div
+        className="bg-white w-full shadow-md m-2 pb-2"
+        style={{
+          maxWidth: "300px",
+        }}
+      >
         <div className="h-2/3 w-full">
           <img
             className="w-full h-full object-cover"
@@ -18,7 +37,29 @@ const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
           />
         </div>
         <div className="px-4 flex flex-col mt-4 mb-4">
-          <p className="text-xl font-medium capitalize">{apartmentName}</p>
+          <p
+            className="text-xl font-medium capitalize"
+            style={{
+              fontSize: "20px",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
+          >
+            {apartmentName}
+          </p>
+
+          <p
+            className=""
+            style={{
+              fontSize: "14px",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
+          >
+            {apartmentDescription}
+          </p>
         </div>
 
         <div className="flex justify-between items-center mb-4 px-6">
@@ -49,23 +90,45 @@ const AddToCartCard = ({ apartmentImage, apartmentName, apartmentPrice }) => {
           </div>
         </div>
 
-        <hr />
+        {!landing && (
+          <>
+            <hr />
 
-        <div className="flex justify-between items-center p-4">
-          <div className="" style={{ color: "#8BA00D" }}>
-            <span className="font-semibold lg:text-sm">
-              NGN{apartmentPrice}
-            </span>
-            <span className="" style={{ fontSize: "0.75rem" }}>
-              /Night
-            </span>
-          </div>
-
-          <PrimaryButton title="ADD TO CART" />
-        </div>
+            <div className="flex justify-between items-center p-4">
+              <div className="" style={{ color: "#8BA00D" }}>
+                <span className="font-semibold lg:text-sm">
+                  NGN{apartmentPrice}
+                </span>
+                <span className="" style={{ fontSize: "0.75rem" }}>
+                  /Night
+                </span>
+              </div>
+              {staff ? (
+                <PrimaryButton
+                  title={
+                    <>
+                      <FaPen color="white" />
+                      Edit
+                    </>
+                  }
+                  onClick={handleStaffEdit}
+                />
+              ) : (
+                <PrimaryButton title="View" onClick={handleNavigateToDetails} />
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
 export default AddToCartCard;
+
+// min-width: clamp(181px, 18vw, 263px);
+// width: 100%;
+// /* max-width: 263px; */
+// max-width: 300px;
+// min-height: 120px;
+// max-height: 238px;

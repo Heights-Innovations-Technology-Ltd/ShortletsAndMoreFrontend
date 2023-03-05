@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import HeroImage from "../../assets/heroimage_bg_Property.png";
 import FooterSection from "../../layout/FooterSection/FooterSection";
 import Hero from "../../layout/Hero/Hero";
@@ -6,6 +7,8 @@ import NavBar from "../../layout/Navbar/Navbar";
 import RoomDetailsSection from "../../layout/RoomDetailsSection/RoomDetailsSection";
 
 const RoomDetails = () => {
+  const { roomID } = useParams();
+  console.log("fetch", roomID);
   return (
     <div>
       {/* <TopBar /> */}

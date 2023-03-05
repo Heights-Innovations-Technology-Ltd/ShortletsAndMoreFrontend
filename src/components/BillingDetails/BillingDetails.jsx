@@ -1,253 +1,458 @@
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { userBillingSchema } from "../../utils/config";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import PrimaryButton from "../PrimaryButton";
+import { Dialog } from "@mui/material";
+import { ReactComponent as CloseIcon } from "../../assets/svg/close.svg";
+import availableImage from "../../assets/available.png";
+import {
+  DoubleGridWrapper,
+  ModalWrapper,
+  Top,
+  CloseWrapper,
+  Question,
+  ModalButton,
+  Container,
+  LeftContainer,
+  RightContainer,
+  RightCardWrapper,
+} from "./style";
+import PrimaryInput from "../Input";
+import { CnotinueModalButton } from "../../layout/RoomDetailsSection/style";
+import TextArea from "../TextArea";
+import { useReserveNowMutation } from "../../store/Services/apartmentService";
+import { calculateTotalPrice, filterList } from "../../utils/helper";
+
 const BillingDetails = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    resolver: yupResolver(userBillingSchema),
+  });
+
+  const [reserveNow] = useReserveNowMutation();
+  const navigate = useNavigate();
+
+  const [openModal, setOpenModal] = useState(false);
+  const [openContinueModal, setOpenContinueModal] = useState(false);
+  const [roomContainer, setRoomContainer] = useState([]);
+  const [requiredItemArray, setRequiredItemArray] = useState([]);
+  const [paymentList, setPaymentList] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const createAt = new Date().toISOString().split("T")[0];
+
+  const getList = () => {
+    const localData = localStorage.getItem("cartItemId");
+    let newItemContainer = JSON.parse(localData);
+    console.log("cart ones", newItemContainer);
+    setRoomContainer(newItemContainer);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
+
+  const getRequiredList = () => {
+    const availableData = localStorage.getItem("itemAvailability");
+    let availableItemContainer = JSON.parse(availableData);
+    console.log("avilable ones", availableItemContainer);
+    setRequiredItemArray(availableItemContainer);
+  };
+  useEffect(() => {
+    getRequiredList();
+  }, []);
+
+  useEffect(() => {
+    const filteredList = filterList(roomContainer, requiredItemArray);
+    console.log("checking filter", filteredList);
+    setPaymentList(filteredList);
+  }, [roomContainer, requiredItemArray]);
+
+  // console.log("checking cart", roomContainer);
+  // console.log("checking available", requiredItemArray);
+  console.log("sending data", paymentList);
+
+  useEffect(() => {
+    if (roomContainer) {
+      const totalPrice = calculateTotalPrice(roomContainer);
+      setTotalPrice(totalPrice);
+    }
+  }, [roomContainer]);
+
+  let vat = 2500;
+  let paymentPrice = totalPrice + vat;
+
+  useEffect(() => {
+    const handleCheck = () => {
+      const localProfile = localStorage.getItem("userProfile");
+      const parseData = JSON.parse(localProfile);
+
+      if (!localProfile) {
+        toast.error("Kindly Sign In");
+      }
+      if (localProfile) {
+        setValue("firstName", parseData?.firstName, {
+          shouldValidate: true,
+        });
+
+        setValue("lastName", parseData?.lastName, {
+          shouldValidate: true,
+        });
+        setValue("email", parseData?.email, {
+          shouldValidate: true,
+        });
+        setValue("address", parseData?.address, {
+          shouldValidate: true,
+        });
+        setValue("phone", parseData?.phone, {
+          shouldValidate: true,
+        });
+      }
+    };
+    handleCheck();
+  }, [setValue]);
+
+  const onReserve = async (formData) => {
+    console.log(formData);
+
+    const localProfile = localStorage.getItem("userProfile");
+    const parseData = JSON.parse(localProfile);
+
+    if (!localProfile) {
+      toast.error("Kindly Sign In");
+    } else {
+      console.log(formData);
+
+      let requiredData = {
+        guestEmail: formData ? formData.email : parseData.email,
+        guestId: 14,
+        isReservation: true,
+        firstName: formData ? formData.firstName : parseData.firstName,
+        lastName: formData ? formData.lastName : parseData.lastName,
+        phone: formData ? formData.phone : parseData.phone,
+        address: formData ? formData.address : parseData.address,
+        reservation: paymentList,
+      };
+      console.log("reeeee", requiredData);
+
+      const reserveResponse = await reserveNow(JSON.stringify(requiredData));
+      console.log("ff", reserveResponse);
+
+      const error = reserveResponse?.error;
+      const data = reserveResponse?.data;
+      if (error) {
+        toast.error(error?.data?.Message);
+      } else {
+        toast.success(data?.message);
+        setOpenModal(true);
+        localStorage.removeItem("cartItemId");
+      }
+    }
+  };
+
+  const onPay = async (formData) => {
+    console.log(formData);
+
+    const localProfile = localStorage.getItem("userProfile");
+    const parseData = JSON.parse(localProfile);
+
+    if (!localProfile) {
+      toast.error("Kindly Sign In");
+    } else {
+      console.log(formData);
+
+      let requiredData = {
+        guestEmail: formData ? formData.email : parseData.email,
+        guestId: 14,
+        isReservation: false,
+        firstName: formData ? formData.firstName : parseData.firstName,
+        lastName: formData ? formData.lastName : parseData.lastName,
+        phone: formData ? formData.phone : parseData.phone,
+        address: formData ? formData.address : parseData.address,
+        reservation: paymentList,
+      };
+      console.log("reeeee", requiredData);
+
+      const response = await reserveNow(requiredData);
+      console.log("gggg", response);
+
+      const error = response?.error;
+
+      const responseData = response?.data;
+
+      if (error) {
+        toast.error(error?.data?.Message);
+      } else {
+        // toast.error(response?.data.data);
+        // RedirectExample(response.data);
+        let paymentStatus = (window.location.href = `${responseData.data}`);
+        console.log("check payment result", paymentStatus);
+        navigate("/");
+        localStorage.removeItem("cartItemId");
+        localStorage.removeItem("itemAvailability");
+      }
+    }
+  };
+
+  const handleContinue = (e) => {
+    e.preventDefault();
+    setOpenContinueModal(true);
+  };
+
+  const makePayment = () => {};
+  const payNow = () => {};
   return (
-    <div className="flex justify-center items-start p-20 bg-gray-100">
-      <div className="bg-white shadow-md m-3 p-4" style={{ width: "900px" }}>
-        <h1 className="ml-4 font-semibold mb-2">Billing detail</h1>
-        <div>
-          <hr className="ml-4 mr-4" />
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
+    <Container>
+      <LeftContainer>
+        <h1 className=" font-semibold my-6 border-b ">Billing detail</h1>
+        <div style={{ display: "flex", gap: "20px", flexFlow: "column" }}>
+          <DoubleGridWrapper>
+            <PrimaryInput
+              placeholder="First Name"
               type="text"
-              placeholder="First name "
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
+              label="First Name"
+              register={register}
+              name="firstName"
+              // error={errors.username?.message}
             />
-            <input
+            <PrimaryInput
+              placeholder="Last Name"
               type="text"
-              placeholder="First name "
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
+              label="Last Name"
+              register={register}
+              name="lastName"
+              // error={errors.password?.message}
             />
-          </div>
+          </DoubleGridWrapper>
 
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="Company name (optional)"
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
+          {/* <PrimaryInput
+            placeholder="Enter Company Name"
+            type="text"
+            label="Company Name"
+            register={register}
+            name="companyName"
+            // error={errors.password?.message}
+          /> */}
 
-          <div className="p-4 flex flex-row justify-between items-center text-gray-700 ">
-            <select
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-              style={{ color: "gray" }}
-            >
-              <option>Country</option>
-              <option>Key West</option>
-              <option>Maldives</option>
-              <option>Cozumel</option>
-            </select>
-          </div>
+          <PrimaryInput
+            placeholder="Select Country"
+            type="text"
+            label="Country"
+            register={register}
+            name="country"
+            // error={errors.password?.message}
+          />
+          <DoubleGridWrapper>
+            <PrimaryInput
+              placeholder="Select State"
+              type="text"
+              label="State"
+              register={register}
+              name="state"
+              // error={errors.username?.message}
+            />
+            <PrimaryInput
+              placeholder="Last Name"
+              type="text"
+              label="Town/City"
+              register={register}
+              name="town"
+              // error={errors.password?.message}
+            />
+          </DoubleGridWrapper>
 
-          <div className="p-4 flex flex-col justify-between items-center">
-            <input
-              type="text"
-              placeholder="Street address"
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
+          <PrimaryInput
+            placeholder="Street Address"
+            type="text"
+            label="Street"
+            register={register}
+            name="address"
+            // error={errors.password?.message}
+          />
 
-            <input
+          <DoubleGridWrapper>
+            <PrimaryInput
+              placeholder="Enter Phone Number"
               type="text"
-              placeholder=""
-              className="block p-2 w-full mt-4 text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
+              label="Phone"
+              register={register}
+              name="phone"
+              // error={errors.username?.message}
             />
-          </div>
+            <PrimaryInput
+              placeholder="Enter email address"
+              type="email"
+              label="Email"
+              register={register}
+              name="email"
+              // error={errors.password?.message}
+            />
+          </DoubleGridWrapper>
 
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="Postal / ZIP"
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-            <input
-              type="text"
-              placeholder="Town / City "
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
-
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="State"
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-            <input
-              type="text"
-              placeholder="Phone"
-              className="block p-2 w-[22.5rem] text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
-
-          <div className="p-4 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="Your Email"
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
-
-          <div className="p-4 flex flex-col justify-between">
-            <label htmlFor="" className="ml-2 mb-20">
-              Additional Information
-            </label>
-            <input
-              type="text"
-              placeholder="Order notes (optional)"
-              className="block p-2 w-full text-xs text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            />
-          </div>
+          <TextArea
+            placeholder="Other Notes (optional)"
+            type="text"
+            label="Additional Information"
+            register={register}
+            name="addtional"
+            // error={errors.password?.message}
+          />
         </div>
-      </div>
+      </LeftContainer>
 
-      <div className="flex flex-col justify-center items-center">
-        <div className="flex flex-col justify-center items-center">
+      <RightContainer>
+        <RightCardWrapper>
           <div
-            className="bg-white shadow-md m-3 p-2 w-[250px] rounded-sm"
-            //   style={{ width: "250px" }}
+            className="bg-white shadow-md m-3 p-2  rounded-sm"
+            style={{ width: "100%" }}
           >
-            <h1 className="ml-4 font-semibold text-xs">Cart Totals</h1>
+            <h1
+              className="ml-4 mb-4 font-semibold text-xl pl-2"
+              style={{ borderLeft: "2px solid #8BA00D" }}
+            >
+              Cart Totals
+            </h1>
 
             <div className="p-4 flex flex-row justify-between items-center">
-              <h4 className="text-xs">Product</h4>
-              <h5 className="text-xs">Subtotal</h5>
+              <h4 className="text-xs font-semibold">Product</h4>
+              <h5 className="text-xs font-semibold">Subtotal</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
-
-            <div className="p-4 flex flex-row justify-between items-center">
-              <h4 className="text-xs">Luxury Duplex</h4>
-              <h5 className="text-xs">NGN104,700</h5>
-            </div>
-
-            <div className="p-4 flex flex-row justify-between items-center">
-              <h4 className="text-xs">Luxury Duplex</h4>
-              <h5 className="text-xs">NGN104,700</h5>
-            </div>
+            {}
+            {roomContainer?.map((room, index) => (
+              <div
+                className="p-4 flex flex-row justify-between items-center mt-3"
+                key={index}
+              >
+                <h4 className="text-xs">{room.name}</h4>
+                <h5 className="text-xs">
+                  {room.quantity} X NGN{room.price}
+                </h5>
+              </div>
+            ))}
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Subtotal</h4>
-              <h5 className="text-xs">NGN209,700</h5>
+              <h5 className="text-xs">NGN{totalPrice}</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs">Vat</h4>
-              <h5 className="text-xs">NGN4,800</h5>
+              <h5 className="text-xs">NGN{vat}</h5>
             </div>
 
             <hr className="ml-4 mr-4" />
 
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Total</h4>
-              <h5 className="text-xs ">NGN220,800</h5>
+              <h5 className="text-xs ">NGN{paymentPrice}</h5>
             </div>
           </div>
+        </RightCardWrapper>
+        <div className="w-full gap-3 flex flex-col">
+          <PrimaryButton
+            title="Continue"
+            width="100%"
+            onClick={handleContinue}
+          />
+          <PrimaryButton
+            title="Reserve Now"
+            width="100%"
+            lightBtn
+            onClick={handleSubmit(onReserve)}
+          />
         </div>
+      </RightContainer>
 
-        <div className="flex flex-col justify-center items-center">
-          <div
-            className="bg-white shadow-md m-3 p-4 w-[250px] rounded-sm"
-            //   style={{ width: "250px" }}
-          >
-            <input
-              checked
-              id="default-radio-2"
-              type="radio"
-              value=""
-              name="default-radio"
-              className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
+      <Dialog open={openContinueModal} fullWidth maxWidth="sm">
+        <ModalWrapper>
+          <Top>
+            <CloseWrapper onClick={() => setOpenContinueModal(false)}>
+              <CloseIcon />
+            </CloseWrapper>
+          </Top>
+          <div style={{ width: "100%" }}>
+            <h1 className="ml-4 mb-4 font-semibold text-xl pl-2">
+              Booking Preview
+            </h1>
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Product</h4>
+              <h5 className="text-xs font-semibold">Subtotal</h5>
+            </div>
+
+            <hr className="ml-4 mr-4" />
+            {roomContainer?.map((room, index) => (
+              <div
+                className="p-4 flex flex-row justify-between items-center mt-3"
+                key={index}
+              >
+                <h4 className="text-xs">{room.name}</h4>
+                <h5 className="text-xs">
+                  {room.quantity} X NGN{room.price}
+                </h5>
+              </div>
+            ))}
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Subtotal</h4>
+              <h5 className="text-xs">NGN{totalPrice}</h5>
+            </div>
+
+            <hr className="ml-4 mr-4" />
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs">Vat</h4>
+              <h5 className="text-xs">NGN{vat}</h5>
+            </div>
+
+            <hr className="ml-4 mr-4" />
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Total</h4>
+              <h5 className="text-xs ">NGN{paymentPrice}</h5>
+            </div>
+          </div>
+          <CnotinueModalButton>
+            <PrimaryButton
+              title="Pay Now"
+              width="100%"
+              onClick={handleSubmit(onPay)}
             />
-            <label
-              for="default-radio-2"
-              className="ml-2 text-xs font-medium text-gray-900 "
-            >
-              Direct bank transfer
-            </label>
+          </CnotinueModalButton>
+        </ModalWrapper>
+      </Dialog>
 
-            <p className="mt-4 ml-1" style={{ fontSize: "0.5rem" }}>
-              Make your payment directly into our <br /> bank account
-            </p>
-
-            <div className="flex flex-col justify-between mt-14">
-              <div className="flex items-center">
-                {/* <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> */}
-                <input
-                  checked
-                  id="default-radio-2"
-                  type="radio"
-                  value=""
-                  name="default-radio"
-                  className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
-                />
-                <label
-                  for="default-radio-2"
-                  className="ml-2 text-xs font-medium text-gray-900 "
-                >
-                  Check paymemts
-                </label>
-              </div>
-              <div className="flex items-center mt-2">
-                <input
-                  id="default-radio-2"
-                  type="radio"
-                  value=""
-                  name="default-radio"
-                  className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
-                />
-                <label
-                  for="default-radio-2"
-                  className="ml-2 text-xs font-medium text-gray-900"
-                >
-                  Cash on delivery
-                </label>
-              </div>
-              <div className="flex items-center mt-2">
-                <input
-                  id="default-radio-2"
-                  type="radio"
-                  value=""
-                  name="default-radio"
-                  className="w-3 h-3 text-gray-400 bg-gray-100 border-gray-300 focus:ring-gray-200"
-                />
-                <label
-                  for="default-radio-2"
-                  className="ml-2 text-xs font-medium text-gray-900"
-                >
-                  Paypal
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          className="inline-block px-2 py-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight capitalize hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-          style={{
-            border: "1px solid #8BA00D",
-            color: "#ffffff",
-            backgroundColor: "#8BA00D",
-            width: "250px",
-          }}
-        >
-          PLACE ORDER
-        </button>
-
-        <button
-          type="button"
-          className="inline-block mt-2 px-2 py-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight capitalize hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-          style={{
-            border: "1px solid #8BA00D",
-            color: "#ffffff",
-            backgroundColor: "#8BA00D",
-            width: "250px",
-          }}
-        >
-          REVIEW YOUR BOOKING
-        </button>
-      </div>
-    </div>
+      <Dialog open={openModal} fullWidth maxWidth="sm">
+        <ModalWrapper>
+          <Top>
+            <CloseWrapper onClick={() => setOpenModal(false)}>
+              <CloseIcon />
+            </CloseWrapper>
+          </Top>
+          <img src={availableImage} alt="available" />
+          <Question>
+            Your rooms has been reserved. Kindly make payment within 48hours of
+            this reservation.
+          </Question>
+          <ModalButton>
+            <PrimaryButton
+              title="Make Payment"
+              width="100%"
+              onClick={handleSubmit(onPay)}
+            />
+          </ModalButton>
+        </ModalWrapper>
+      </Dialog>
+    </Container>
   );
 };
 

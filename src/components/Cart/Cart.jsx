@@ -1,93 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GrEdit, GrTrash } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 import cart_img from "../../assets/cart_img.png";
-import CartTotals from "../CartTotals/CartTotals";
+import { calculateTotalPrice } from "../../utils/helper";
+import PrimaryButton from "../PrimaryButton";
+import {
+  Container,
+  LeftContainer,
+  RightCardWrapper,
+  RightContainer,
+} from "./style";
 
 const Cart = () => {
+  const [roomContainer, setRoomContainer] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
+
+  const getList = () => {
+    const localData = localStorage.getItem("cartItemId");
+    let newItemContainer = JSON.parse(localData);
+    setRoomContainer(newItemContainer);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
+
+  useEffect(() => {
+    if (roomContainer) {
+      const totalPrice = calculateTotalPrice(roomContainer);
+      setTotalPrice(totalPrice);
+    }
+  }, [roomContainer]);
+
+  const handleRemove = (id) => {
+    let localItem = localStorage.getItem("cartItemId");
+    localItem = JSON.parse(localItem);
+    if (localItem) {
+      let array = localItem;
+      let checkFilter = array.filter((item) => item.id !== id);
+      console.log("checking", checkFilter);
+      localStorage.setItem("cartItemId", JSON.stringify(checkFilter));
+      getList();
+    }
+  };
+
   return (
-    <div className="flex justify-center items-start p-20 bg-gray-100">
-      <div className="bg-white shadow-md m-3 p-4" style={{ width: "700px" }}>
+    <Container>
+      <LeftContainer>
         <h1 className="ml-4 font-semibold mb-2">Cart</h1>
-        <div>
-          <hr className="ml-4 mr-4" />
-          <div className="p-4 flex flex-row justify-between items-center">
-            <div className="flex justify-between items-center">
-              <img src={cart_img} alt="/" className="w-11" />
-              <h4 className="text-xs ml-4">Luxury Duplex With Terrace</h4>
-            </div>
-            <h5 className="text-xs">NGN34,900</h5>
-            <input
-              type="number"
-              className="outline-none border-transparent focus:border-transparent focus:ring-0"
-              style={{
-                width: "4.25rem",
-                border: "1px solid #eaeaea",
-                borderRadius: "0.3rem",
-                height: "2.4rem",
-              }}
-            />
+        {roomContainer?.map((room) => (
+          <div key={room.id}>
+            <hr className="ml-4 mr-4" />
+            <div className="p-4 flex flex-row justify-between items-center">
+              <div className="flex justify-between items-center">
+                <img src={cart_img} alt="/" className="w-11" />
+                <h4 className="text-xs ml-4">{room.name}</h4>
+              </div>
+              <h5 className="text-xs">
+                {" "}
+                {room.quantity} X NGN {room.price}.00
+              </h5>
 
-            <h5 className="text-xs">NGN34,900</h5>
-            <div className="flex justify-center items-center">
-              <GrEdit size={12} className="mr-4" style={{ color: "#8BA00D" }} />
-              <GrTrash size={12} className="" style={{ color: "#8BA00D" }} />
+              <div className="flex justify-center items-center">
+                <GrEdit
+                  size={12}
+                  className="mr-4"
+                  style={{ color: "#8BA00D" }}
+                  onClick={() => navigate("/property/rooms")}
+                />
+                <GrTrash
+                  onClick={() => handleRemove(room.id)}
+                  size={12}
+                  className=""
+                  style={{ color: "#8BA00D" }}
+                />
+              </div>
             </div>
+            <hr className="mb-2 ml-4 mr-4" />
           </div>
-          <hr className="mb-2 ml-4 mr-4" />
-        </div>
-        <div>
-          <div className="p-4 flex flex-row justify-between items-center">
-            <div className="flex justify-between items-center">
-              <img src={cart_img} alt="/" className="w-11" />
-              <h4 className="text-xs ml-4">Luxury Duplex With Terrace</h4>
-            </div>
-            <h5 className="text-xs">NGN34,900</h5>
-            <input
-              type="number"
-              className="outline-none border-transparent focus:border-transparent focus:ring-0"
-              style={{
-                width: "4.25rem",
-                border: "1px solid #eaeaea",
-                borderRadius: "0.3rem",
-                height: "2.4rem",
-              }}
-            />
-            <h5 className="text-xs">NGN34,900</h5>
-            <div className="flex justify-center items-center">
-              <GrEdit size={12} className="mr-4" style={{ color: "#8BA00D" }} />
-              <GrTrash size={12} className="" style={{ color: "#8BA00D" }} />
-            </div>
-          </div>
-          <hr className="mb-2 ml-4 mr-4" />
-        </div>
-
-        <div>
-          <div className="p-4 flex flex-row justify-between items-center">
-            <div className="flex justify-between items-center">
-              <img src={cart_img} alt="/" className="w-11" />
-              <h4 className="text-xs ml-4">Luxury Duplex With Terrace</h4>
-            </div>
-            <h5 className="text-xs">NGN34,900</h5>
-
-            <input
-              type="number"
-              className="outline-none border-transparent focus:border-transparent focus:ring-0"
-              style={{
-                width: "4.25rem",
-                border: "1px solid #eaeaea",
-                borderRadius: "0.3rem",
-                height: "2.4rem",
-              }}
-            />
-
-            <h5 className="text-xs">NGN34,900</h5>
-            <div className="flex justify-center items-center">
-              <GrEdit size={12} className="mr-4" style={{ color: "#8BA00D" }} />
-              <GrTrash size={12} className="" style={{ color: "#8BA00D" }} />
-            </div>
-          </div>
-          <hr className="mb-2 ml-4 mr-4" />
-        </div>
+        ))}
 
         <div>
           <div className="p-4 flex flex-row justify-between items-center">
@@ -113,9 +104,33 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      </div>
-      <CartTotals />
-    </div>
+      </LeftContainer>
+      <RightContainer>
+        <RightCardWrapper>
+          <div className="bg-white shadow-md m-3 p-4" style={{ width: "100%" }}>
+            <h1 className="ml-4 font-semibold">Cart Totals</h1>
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Subtotal</h4>
+              <h5 className="text-xs">NGN{totalPrice}</h5>
+            </div>
+
+            <hr className="ml-4 mr-4" />
+
+            <div className="p-4 flex flex-row justify-between items-center">
+              <h4 className="text-xs font-semibold">Total</h4>
+              <h5 className="text-xs ">NGN{totalPrice}</h5>
+            </div>
+          </div>
+          <div className="w-full gap-3 flex flex-col">
+            <PrimaryButton
+              title="PROCEED TO CHECKOUT"
+              width="100%"
+              onClick={() => navigate("/cart/checkout")}
+            />
+          </div>
+        </RightCardWrapper>
+      </RightContainer>
+    </Container>
   );
 };
 

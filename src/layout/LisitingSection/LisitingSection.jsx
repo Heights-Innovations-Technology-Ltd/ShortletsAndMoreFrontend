@@ -1,14 +1,112 @@
-import React from "react";
-import bed from "../../assets/bed.png";
-import recent_listing from "../../assets/recent_listing.png";
-import wifi from "../../assets/wifi.png";
-// import { PaginationNav1Presentation } from "../../components/Pagination/Pagination";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
-import { cartData } from "../../utils/config";
 import AddToCartCard from "../../components/Cards/AddToCartCard";
+import Paginator from "../../components/Paginator";
+import { useDispatch } from "react-redux";
+import { getRoomType } from "../../store/Action/actions";
+import imageFive from "../../assets/recent_listing.png";
+import { useNavigate } from "react-router-dom";
+import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
+import PuffLoader from "../../components/Loader";
+import {
+  Body,
+  BodyLeft,
+  BodyRight,
+  CheckInput,
+  Container,
+  Footer,
+  Loading,
+} from "./style";
+import { Puff } from "react-loading-icons";
 
 const LisitingSection = () => {
+  const features = [
+    { id: 1, result: true, category: "All" },
+    { id: 2, result: true, category: "Television" },
+    { id: 3, result: true, category: "Microwave" },
+    { id: 4, result: true, category: "Heater" },
+  ];
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [apartmentData, setApartmentData] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  let localApartmentID = localStorage.getItem("apartmentID");
+  let ApartmentId = JSON.parse(localApartmentID);
+
+  const { data, isLoading, isSuccess, isError } =
+    useGetAllRoomTypeQuery(ApartmentId);
+
+  const [currentItems, setCurrentItems] = useState([]);
+  // const [data, setData] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const [filteredData, setFilteredData] = useState([]);
+  const itemsPerPage = 1;
+
+  const handleClick = (e) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      features.forEach((item) => {
+        if (value === item.category) {
+          setCheckedItems((prev) => [...prev, item]);
+        }
+      });
+    } else {
+      features.forEach((fac) => {
+        if (value === fac.category) {
+          setCheckedItems((prev) => {
+            return [...prev.filter((item) => item.category !== fac.category)];
+          });
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    setFilteredData(data?.data);
+    checkedItems.forEach((checked) => {
+      if (checked.category === "Television") {
+        let filtered = data?.data.filter(
+          (item) => JSON.parse(item?.features)?.Television === checked.result
+        );
+        setFilteredData(filtered);
+      } else if (checked.category === "Microwave") {
+        let filtered = data?.data.filter(
+          (item) => JSON.parse(item?.features)?.Microwave === checked.result
+        );
+        setFilteredData(filtered);
+      } else if (checked.category === "Heater") {
+        let filtered = data?.data.filter(
+          (item) => JSON.parse(item?.features)?.Heater === checked.result
+        );
+        setFilteredData(filtered);
+      } else {
+        setFilteredData(data?.data);
+      }
+    });
+
+    // setFilteredData(data);
+  }, [checkedItems, data]);
+  console.log("setFilteredData", filteredData);
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(filteredData?.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredData?.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, filteredData]);
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * itemsPerPage) % filteredData?.length;
+    setItemOffset(newOffset);
+  };
+
+  const handleNavigateToDetails = (roomID) => {
+    console.log("id", roomID);
+    navigate(`/property/rooms/${roomID}`);
+  };
+
   return (
     <>
       <div
@@ -28,7 +126,7 @@ const LisitingSection = () => {
             style={{ fontSize: "0.5rem" }}
           >
             <option selected disabled>
-              <span>Sort by:</span> Newest Listings
+              {/* <span>Sort by:</span> Newest Listings */}
             </option>
             <option value="US">United States</option>
             <option value="CA">Canada</option>
@@ -38,65 +136,55 @@ const LisitingSection = () => {
         </div>
       </div>
 
-      <div className="flex md:ml-20 flex-wrap md:flex-nowrap justify-center">
-        <div>
-          <ListingSidebar />
-        </div>
-        <div className="flex items-center flex-wrap w-4/5">
-          {cartData.map((apartment) => (
+      <Container>
+        <Body>
+          {isLoading ? (
+            <Loading height="300px">
+              <Puff stroke="#00A2D4" fill="white" width={60} />
+            </Loading>
+          ) : (
             <>
-              <AddToCartCard
-                apartmentImage={apartment.apartmentImage}
-                apartmentName={apartment.apartmentName}
-                apartmentPrice={apartment.apartmentPrice}
-              />
+              <BodyLeft>
+                <input
+                  className="w-full bg-white placeholder:font-italitc border-0 py-1 pl-3 pr-10 outline-none border-transparent focus:border-transparent focus:ring-0"
+                  placeholder=""
+                  type="text"
+                />
+                <h3>Main Features</h3>
+                <ul>
+                  {features?.map((feature, index) => (
+                    <li key={index}>
+                      <CheckInput
+                        type="checkbox"
+                        value={feature.category}
+                        onClick={handleClick}
+                      />
+                      {feature.category}
+                    </li>
+                  ))}
+                </ul>
+              </BodyLeft>
+              <BodyRight>
+                {currentItems?.map((apartment, index) => (
+                  <>
+                    <AddToCartCard
+                      key={index}
+                      apartmentImage={imageFive}
+                      apartmentName={apartment.name}
+                      apartmentPrice={apartment.price}
+                      apartmentDescription={apartment.description}
+                      handleNavigateToDetails={() =>
+                        handleNavigateToDetails(apartment.id)
+                      }
+                    />
+                  </>
+                ))}
+              </BodyRight>
             </>
-          ))}
-
-          {/* <PaginationNav1Presentation /> */}
-        </div>
-      </div>
-
-      <div class="flex flex-col lg:flex-row justify-center items-center mb-28 mt-20 ml-0 md:ml-80">
-        <nav
-          aria-label="Pagination"
-          class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0"
-        >
-          <a href="#" class="p-2 mr-4 rounded-2xl hover:bg-gray-100">
-            <BsArrowLeft size="1rem" />
-          </a>
-          <a href="#" class="px-4 py-2 rounded-2xl hover:bg-gray-100">
-            1{" "}
-          </a>
-          <a
-            href="#"
-            class="px-4 py-2 rounded-3xl  text-gray-900 font-medium hover:bg-gray-100"
-            style={{ backgroundColor: "#8BA00D" }}
-          >
-            {" "}
-            2{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            3{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            4{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            ...{" "}
-          </a>
-          <a href="#" class="px-4 py-2 rounded-3xl hover:bg-gray-100">
-            {" "}
-            25{" "}
-          </a>
-          <a href="#" class="p-2 ml-4 rounded-3xl hover:bg-gray-100">
-            <BsArrowRight size="1rem" style={{ fontWeight: "bold" }} />
-          </a>
-        </nav>
-      </div>
+          )}
+        </Body>
+        <Paginator handlePageClick={handlePageClick} pageCount={pageCount} />
+      </Container>
     </>
   );
 };

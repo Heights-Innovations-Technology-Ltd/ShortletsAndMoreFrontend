@@ -1,4 +1,5 @@
 import React from "react";
+import GeneralSearch from "../../components/GeneralSearch";
 
 const Hero = (props) => {
   const { HeroImage, heroMainText, heroSubText, objectCover, opacity60 } =
@@ -12,7 +13,7 @@ const Hero = (props) => {
       />
       <div className="">
         <div className="absolute top-[32%] w-full md:-[50%] flex flex-col text-white p-4">
-          <h1 className="flex justify-center font-semibold lg:text-4xl md:text-2xl sm:text-sm text-center mb-4">
+          <h1 className="flex justify-center font-semibold overflow-hidden lg:text-4xl md:text-2xl sm:text-sm text-center mb-4">
             {/* {Let's Find an apartment that's perfect for you} */}
             {heroMainText}
           </h1>
@@ -20,6 +21,7 @@ const Hero = (props) => {
             {/* search confidently with your trusted source of apartment */}
             {heroSubText}
           </p>
+          <GeneralSearch />
         </div>
       </div>
     </div>
