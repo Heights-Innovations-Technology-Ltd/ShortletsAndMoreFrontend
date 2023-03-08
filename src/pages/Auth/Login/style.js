@@ -37,4 +37,5 @@ export const ForgotPassword = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 15px;
+  color: #8ba00d;
 `;

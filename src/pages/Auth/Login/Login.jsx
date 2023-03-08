@@ -41,9 +41,9 @@ const Login = () => {
     console.log("form data", response);
 
     const error = response?.error;
-    const responseData = response;
+    const responseData = response.data;
 
-    if (response?.data) {
+    if (responseData) {
       toast.success(responseData?.message);
       localStorage.setItem("userProfile", JSON.stringify(responseData?.data));
       navigate("/home");
@@ -99,7 +99,6 @@ const Login = () => {
                   textDecoration: "none",
                   fontSize: "16px",
                   fontWeight: "400",
-                  color: "#171B03",
                 }}
               >
                 Forgot Password

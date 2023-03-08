@@ -42,7 +42,7 @@ const ResetPassword = () => {
       toast.success(responseData?.message);
       let resetCode = responseData?.data.slice(17);
       localStorage.setItem("updateCode", resetCode);
-      navigate(`/update-password/${resetCode}`);
+      navigate(`/update-password/${resetCode}`, { state: data.email });
     }
     if (error) {
       toast.error(error?.data);
