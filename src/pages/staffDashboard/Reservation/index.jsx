@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import StaffHeader from "../../../components/StaffHeader";
 
 import { Status, TableContainer } from "./style";
@@ -8,7 +8,7 @@ import PrimaryButton from "../../../components/PrimaryButton";
 import StaffTable from "../../../components/Table";
 import { useGetAllBookingsQuery } from "../../../store/Services/staffService";
 import PuffLoader from "../../../components/Loader";
-import { sortTableData } from "../../../utils/helper";
+
 
 const StaffReservation = () => {
   const getAllBookings = useGetAllBookingsQuery();
@@ -22,18 +22,6 @@ const StaffReservation = () => {
     "Status",
     "Action",
   ];
-
-  const handleSort = () => {
-    let dd = [...getAllBookings?.data?.data];
-    let sortedArr = dd.sort(sortTableData);
-    console.log(sortedArr);
-
-    // let notifications = data
-    // ? [...data]?.sort((a, b) =>
-    //     compareAsc(new Date(b?.createdAt), new Date(a?.createdAt))
-    //   )
-    // : [];
-  };
 
   const dataBody = getAllBookings?.data?.data?.map((data) => [
     data.guest,
@@ -68,7 +56,7 @@ const StaffReservation = () => {
         {getAllBookings?.isLoading ? (
           <PuffLoader />
         ) : (
-          <StaffTable header={header} body={dataBody} handleSort={handleSort} />
+          <StaffTable header={header} body={dataBody} />
         )}
       </TableContainer>
     </div>
