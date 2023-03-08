@@ -23,6 +23,7 @@ import {
 import { BiSortAlt2 } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import Paginator from "../Paginator";
+import { sortTableData } from "../../utils/helper";
 const sortIcon = (
   <LeftIconContainer>
     <BiSortAlt2 color="#f3f6e7" />
@@ -35,15 +36,24 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = count;
+  const [daultData, setDaultData] = useState(body)
+
+  const handleSort = () => {
+    let dd = [...body];
+    let sortedArr = dd.sort(sortTableData);
+    console.log(sortedArr);
+    setDaultData(sortedArr)
+  };
+
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(body?.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(body?.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, body]);
+    setCurrentItems(daultData?.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(daultData?.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, daultData]);
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) % body?.length;
+    const newOffset = (e.selected * itemsPerPage) % daultData?.length;
     setItemOffset(newOffset);
   };
 
@@ -74,6 +84,8 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
     let value = e.target.value;
     setCount(value);
   };
+
+
   return (
     <TableContainer>
       {staffHome ? (
@@ -84,7 +96,7 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
           </NavLink>
         </TableCardTop>
       ) : (
-        <SortContainer>
+        <SortContainer onClick={handleSort}>
           <TableButton>{sortIcon} Sort</TableButton>
         </SortContainer>
       )}

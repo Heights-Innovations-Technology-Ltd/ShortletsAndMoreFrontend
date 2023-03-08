@@ -8,10 +8,11 @@ import PrimaryButton from "../../../components/PrimaryButton";
 import StaffTable from "../../../components/Table";
 import { useGetAllBookingsQuery } from "../../../store/Services/staffService";
 import PuffLoader from "../../../components/Loader";
-import Paginator from "../../../components/Paginator";
+import { sortTableData } from "../../../utils/helper";
 
 const StaffReservation = () => {
   const getAllBookings = useGetAllBookingsQuery();
+  // const [table ]
 
   const header = [
     "Name",
@@ -21,6 +22,19 @@ const StaffReservation = () => {
     "Status",
     "Action",
   ];
+
+  const handleSort = () => {
+    let dd = [...getAllBookings?.data?.data];
+    let sortedArr = dd.sort(sortTableData);
+    console.log(sortedArr);
+
+    // let notifications = data
+    // ? [...data]?.sort((a, b) =>
+    //     compareAsc(new Date(b?.createdAt), new Date(a?.createdAt))
+    //   )
+    // : [];
+  };
+
   const dataBody = getAllBookings?.data?.data?.map((data) => [
     data.guest,
     data.numberOfRooms,
@@ -54,7 +68,7 @@ const StaffReservation = () => {
         {getAllBookings?.isLoading ? (
           <PuffLoader />
         ) : (
-          <StaffTable header={header} body={dataBody} />
+          <StaffTable header={header} body={dataBody} handleSort={handleSort} />
         )}
       </TableContainer>
     </div>

@@ -100,3 +100,9 @@ export const mergedChartData = (checkin, reservation) => {
 export const getUniqueListBy = (arr, key) => {
   return [...new Map(arr.map((item) => [item[key], item])).values()];
 };
+
+export const sortTableData = (a, b) => {
+  var dateA = new Date(a.date).getTime();
+  var dateB = new Date(b.date).getTime();
+  return dateA - dateB ? 1 : -1;
+};
