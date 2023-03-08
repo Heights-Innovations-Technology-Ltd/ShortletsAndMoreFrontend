@@ -16,6 +16,8 @@ import {
   Container,
   Footer,
   Loading,
+  Result,
+  TopContent,
 } from "./style";
 import { Puff } from "react-loading-icons";
 
@@ -43,7 +45,7 @@ const LisitingSection = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
-  const itemsPerPage = 1;
+  const itemsPerPage = 8;
 
   const handleClick = (e) => {
     const { value, checked } = e.target;
@@ -90,7 +92,7 @@ const LisitingSection = () => {
 
     // setFilteredData(data);
   }, [checkedItems, data]);
-  console.log("setFilteredData", filteredData);
+
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(filteredData?.slice(itemOffset, endOffset));
@@ -107,34 +109,44 @@ const LisitingSection = () => {
     navigate(`/property/rooms/${roomID}`);
   };
 
+  const options = [
+    {
+      value: "Nigeria",
+      name: "Nigeria",
+    },
+    {
+      value: "United State",
+      name: "United State",
+    },
+    {
+      value: "France",
+      name: "France",
+    },
+    {
+      value: "Canada",
+      name: "Canada",
+    },
+  ];
+
   return (
     <>
-      <div
-        className="flex justify-between items-center flex-wrap mt-20 mb-4 md:mb-0"
-        style={{ width: "93.333333%" }}
-      >
-        <div>
-          <p className="md:ml-96 ml-10" style={{ fontSize: "0.5rem" }}>
-            200 results
-          </p>
-        </div>
-
-        <div className="flex items-center">
-          <select
-            id="underline_select"
-            className="block p-2 px- w-full text-sm text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            style={{ fontSize: "0.5rem" }}
-          >
-            <option selected disabled>
-              {/* <span>Sort by:</span> Newest Listings */}
+      <TopContent>
+        <h3>
+          Avalaible Rooms
+          <Result>Showing {filteredData?.length} Results</Result>
+        </h3>
+        <select
+          name="time"
+          // onChange={(event) => setFilter(event.target.value)}
+          // value={filterBy}
+        >
+          {options.map((option, index) => (
+            <option value={option.value} key={index}>
+              {option.name}
             </option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
-          </select>
-        </div>
-      </div>
+          ))}
+        </select>
+      </TopContent>
 
       <Container>
         <Body>

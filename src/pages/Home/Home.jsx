@@ -46,7 +46,7 @@ const Home = () => {
       />
       <RecentListingSection />
       <FeaturedSection />
-      <AboutUs />
+      {/* <AboutUs /> */}
       {/* <ExplorePropertiesSection /> */}
       <WhyChooseUsSection />
       <OurTestimonialSection />

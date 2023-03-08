@@ -74,7 +74,7 @@ const Navbar = (props) => {
           <NavLink to="/property">
             <NavLinkText>PROPERTY</NavLinkText>
           </NavLink>
-          <NavLink>
+          <NavLink to="/about-us">
             <NavLinkText>ABOUT</NavLinkText>
           </NavLink>
           <NavLink to="/contact">

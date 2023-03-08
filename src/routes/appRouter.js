@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Loader from "../components/pageLoader/loader";
 import StaffLayout from "../layout/staffLayout";
+import AboutUs from "../pages/About";
 import AddToCart from "../pages/AddToCart/AddToCart";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
@@ -88,6 +89,7 @@ const AppRouter = () => {
             <Route path="checkout" element={<BillingDetail />} />
           </Route>
           <Route path="contact" element={<Contact />} />
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="confirm" element={<BookingConfirmation />} />
 
           <Route path="testing" element={<Testing />} />
