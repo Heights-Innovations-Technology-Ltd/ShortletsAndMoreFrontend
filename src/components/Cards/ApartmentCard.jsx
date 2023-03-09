@@ -24,12 +24,13 @@ const ApartmentCard = ({
   return (
     <>
       <div
-        className="bg-white  m-2 rounded-sm border border-[#E6E9EC]"
+        className="bg-white  m-2 rounded-md border border-[#E6E9EC]"
         style={{
           maxWidth: "300px",
+          height: staff ? "500px" : "",
         }}
       >
-        <div className="h-2/3 w-full relative">
+        <div className="h-1/2 w-full relative">
           <img
             className="w-full h-full object-cover"
             src={apartmentImage}
@@ -45,7 +46,7 @@ const ApartmentCard = ({
             </p>
           </div>
         </div>
-        <div className="flex flex-col  mt-4" style={{ padding: "20px" }}>
+        <div className="flex flex-col h-30% mt-1" style={{ padding: "20px" }}>
           <p
             className=" font-medium"
             style={{
@@ -59,19 +60,33 @@ const ApartmentCard = ({
           </p>
           <div className="flex items-center">
             <BsGeoAltFill size={12} className="mt-1 mr-1" />
-            <p className=" mt-2 font-normal" style={{ fontSize: "12px" }}>
+            <p
+              className=" mt-2 font-normal"
+              style={{
+                fontSize: "12px",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
               {apartmentLocation}
             </p>
           </div>
           <p
-            className=" mt-2 mb-4"
-            style={{ fontSize: "11px", lineHeight: "16px" }}
+            className=" my-2"
+            style={{
+              fontSize: "11px",
+              lineHeight: "16px",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
           >
             {apartmentDetails}
           </p>
         </div>
 
-        <div className="flex justify-between items-center mb-4 px-6">
+        <div className="flex justify-between h-10% items-center mb-2 px-6">
           <div className="flex flex-col justify-center items-center">
             <PoolIcon />
             <p className="font-light" style={{ fontSize: "13px" }}>
