@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import StaffHeader from "../../../components/StaffHeader";
 
 import { Status, TableContainer } from "./style";
@@ -8,10 +8,11 @@ import PrimaryButton from "../../../components/PrimaryButton";
 import StaffTable from "../../../components/Table";
 import { useGetAllBookingsQuery } from "../../../store/Services/staffService";
 import PuffLoader from "../../../components/Loader";
-import Paginator from "../../../components/Paginator";
+
 
 const StaffReservation = () => {
   const getAllBookings = useGetAllBookingsQuery();
+  // const [table ]
 
   const header = [
     "Name",
@@ -21,6 +22,7 @@ const StaffReservation = () => {
     "Status",
     "Action",
   ];
+
   const dataBody = getAllBookings?.data?.data?.map((data) => [
     data.guest,
     data.numberOfRooms,

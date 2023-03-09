@@ -41,9 +41,9 @@ const Login = () => {
     console.log("form data", response);
 
     const error = response?.error;
-    const responseData = response;
+    const responseData = response.data;
 
-    if (response?.data) {
+    if (responseData) {
       toast.success(responseData?.message);
       localStorage.setItem("userProfile", JSON.stringify(responseData?.data));
       navigate("/home");
@@ -66,8 +66,8 @@ const Login = () => {
       <LoginContainer>
         <AuthLayout
           flexFlow="row-reverse"
-          justifyContent="flex-end"
-          borderBottomL="300px"
+          // justifyContent="flex-end"
+          // borderBottomL="300px"
           headerText="Login in now!"
           subText="Keep track of your favourite properties and get updates when new listings become available"
         >
@@ -99,7 +99,6 @@ const Login = () => {
                   textDecoration: "none",
                   fontSize: "16px",
                   fontWeight: "400",
-                  color: "#171B03",
                 }}
               >
                 Forgot Password

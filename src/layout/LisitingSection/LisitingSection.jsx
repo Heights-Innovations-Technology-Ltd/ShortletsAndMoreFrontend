@@ -6,7 +6,10 @@ import { useDispatch } from "react-redux";
 import { getRoomType } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
 import { useNavigate } from "react-router-dom";
-import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
+import {
+  useGetAllRoomTypeQuery,
+  useGetAllStatesQuery,
+} from "../../store/Services/apartmentService";
 import PuffLoader from "../../components/Loader";
 import {
   Body,
@@ -16,6 +19,8 @@ import {
   Container,
   Footer,
   Loading,
+  Result,
+  TopContent,
 } from "./style";
 import { Puff } from "react-loading-icons";
 
@@ -29,6 +34,7 @@ const LisitingSection = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const states = useGetAllStatesQuery();
   const [apartmentData, setApartmentData] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
 
@@ -43,7 +49,7 @@ const LisitingSection = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
-  const itemsPerPage = 1;
+  const itemsPerPage = 8;
 
   const handleClick = (e) => {
     const { value, checked } = e.target;
@@ -90,7 +96,7 @@ const LisitingSection = () => {
 
     // setFilteredData(data);
   }, [checkedItems, data]);
-  console.log("setFilteredData", filteredData);
+
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(filteredData?.slice(itemOffset, endOffset));
@@ -107,34 +113,31 @@ const LisitingSection = () => {
     navigate(`/property/rooms/${roomID}`);
   };
 
+  let allStates = states?.data?.data[0]?.states || [];
+  let newStatesList = allStates?.map((state, index) => ({
+    value: index,
+    label: state,
+  }));
+
   return (
     <>
-      <div
-        className="flex justify-between items-center flex-wrap mt-20 mb-4 md:mb-0"
-        style={{ width: "93.333333%" }}
-      >
-        <div>
-          <p className="md:ml-96 ml-10" style={{ fontSize: "0.5rem" }}>
-            200 results
-          </p>
-        </div>
-
-        <div className="flex items-center">
-          <select
-            id="underline_select"
-            className="block p-2 px- w-full text-sm text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            style={{ fontSize: "0.5rem" }}
-          >
-            <option selected disabled>
-              {/* <span>Sort by:</span> Newest Listings */}
+      <TopContent>
+        <h3>
+          Avalaible Rooms
+          <Result>Showing {filteredData?.length} Results</Result>
+        </h3>
+        <select
+          name="time"
+          // onChange={(event) => setFilter(event.target.value)}
+          // value={filterBy}
+        >
+          {newStatesList.map((option, index) => (
+            <option value={option.value} key={index}>
+              {option.label}
             </option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
-          </select>
-        </div>
-      </div>
+          ))}
+        </select>
+      </TopContent>
 
       <Container>
         <Body>
@@ -169,7 +172,12 @@ const LisitingSection = () => {
                   <>
                     <AddToCartCard
                       key={index}
-                      apartmentImage={imageFive}
+                      apartmentImage={
+                        apartment.coverImage &&
+                        apartment.coverImage !== "string"
+                          ? apartment.coverImage
+                          : imageFive
+                      }
                       apartmentName={apartment.name}
                       apartmentPrice={apartment.price}
                       apartmentDescription={apartment.description}

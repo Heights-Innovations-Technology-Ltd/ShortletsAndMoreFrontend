@@ -9,6 +9,8 @@ import {
   Container,
   Footer,
   Loading,
+  Result,
+  TopContent,
 } from "./style";
 import { Puff } from "react-loading-icons";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +19,10 @@ import ApartmentCard from "../../components/Cards/ApartmentCard";
 import PuffLoader from "../../components/Loader";
 import Paginator from "../../components/Paginator";
 import { getApartment } from "../../store/Action/actions";
-import { useGetAllApartmentQuery } from "../../store/Services/apartmentService";
+import {
+  useGetAllApartmentQuery,
+  useGetAllStatesQuery,
+} from "../../store/Services/apartmentService";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
 import "./style.css";
 // let pageSize = 1;
@@ -32,8 +37,10 @@ const ApartmentSection = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [apartmentData, setApartmentData] = useState([]);
+  const states = useGetAllStatesQuery();
+  const [stateData, setStateData] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
 
   const { data, isLoading, isSuccess, isError } = useGetAllApartmentQuery();
 
@@ -42,7 +49,7 @@ const ApartmentSection = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
 
   const handleClick = (e) => {
     const { value, checked } = e.target;
@@ -89,7 +96,33 @@ const ApartmentSection = () => {
     });
 
     // setFilteredData(data);
-  }, [checkedItems, data]);
+  }, [checkedItems, data, selectedState]);
+
+  const handleStateClick = (e) => {
+    let selectedValue = e.target.value;
+    setSelectedState(selectedValue);
+  };
+  const handleInputChange = (e) => {
+    let selectedValue = e.target.value;
+    setSelectedState(selectedValue);
+  };
+
+  useEffect(() => {
+    let dataSet = [];
+    data?.data?.forEach((data) => {
+      if (selectedState.toLowerCase() === data.city.name.toLowerCase()) {
+        dataSet.push(data);
+        console.log("ff", dataSet);
+        setFilteredData(dataSet);
+      } else {
+        console.log("not found");
+      }
+      console.log("ff1", dataSet);
+    });
+    console.log("ff2", dataSet);
+  }, [selectedState, data]);
+
+  console.log("adora", filteredData);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -107,34 +140,32 @@ const ApartmentSection = () => {
     localStorage.setItem("apartmentID", JSON.stringify(apartmentId));
   };
 
+  let allStates = states?.data?.data[0]?.states || [];
+  let newStatesList = allStates?.map((state) => ({
+    value: state,
+    label: state,
+  }));
+
   return (
     <>
-      <div
-        className="flex justify-between items-center flex-wrap mt-20 mb-4 md:mb-0"
-        style={{ width: "93.333333%" }}
-      >
-        <div>
-          <p className="md:ml-96 ml-10" style={{ fontSize: "0.5rem" }}>
-            200 results
-          </p>
-        </div>
-
-        <div className="flex items-center">
-          <select
-            id="underline_select"
-            className="block p-2 px- w-full text-sm text-gray-700  border-0 border-b-2 border-gray-100  dark:text-gray-700 dark:border-gray-100 focus:outline-none focus:ring-0 focus:border-gray-200"
-            style={{ fontSize: "0.5rem" }}
-          >
-            <option selected disabled>
-              {/* <span>Sort by:</span> Newest Listings */}
+      <TopContent>
+        <h3>
+          Avalaible Apartments
+          <Result>Showing {filteredData?.length} Results</Result>
+        </h3>
+        <select
+          name="time"
+          onChange={handleStateClick}
+          // onChange={(event) => setFilter(event.target.value)}
+          // value={filterBy}
+        >
+          {newStatesList.map((option, index) => (
+            <option value={option.value} key={index}>
+              {option.label}
             </option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
-          </select>
-        </div>
-      </div>
+          ))}
+        </select>
+      </TopContent>
 
       <Container>
         <Body>
@@ -146,9 +177,10 @@ const ApartmentSection = () => {
             <>
               <BodyLeft>
                 <input
-                  className="w-full bg-white placeholder:font-italitc border-0 py-1 pl-3 pr-10 outline-none border-transparent focus:border-transparent focus:ring-0"
-                  placeholder=""
+                  className="w-full bg-white placeholder:font-italitc border-0 py-1 text-sm pl-3 pr-10 outline-none border-transparent focus:border-transparent focus:ring-0"
+                  placeholder="Enter State"
                   type="text"
+                  onChange={handleInputChange}
                 />
                 <h3>Main Facilities</h3>
                 <ul>
@@ -169,7 +201,12 @@ const ApartmentSection = () => {
                   <div key={apartment.id}>
                     <ApartmentCard
                       key={index}
-                      apartmentImage={image}
+                      apartmentImage={
+                        apartment.coverImage &&
+                        apartment.coverImage !== "string"
+                          ? apartment.coverImage
+                          : image
+                      }
                       apartmentName={apartment.name}
                       apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
                       apartmentDetails={apartment.description}

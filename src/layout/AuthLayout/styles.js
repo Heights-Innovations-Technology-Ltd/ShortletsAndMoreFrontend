@@ -17,6 +17,7 @@ export const Layout = styled.div`
 export const LayoutLeft = styled(motion.div)`
   position: sticky;
   top: 0;
+  /* border: solid red; */
   display: flex;
   background: linear-gradient(
     143.21deg,
@@ -24,17 +25,26 @@ export const LayoutLeft = styled(motion.div)`
     rgba(255, 202, 42, 0) 280.51%
   );
   flex-direction: column;
-  gap: 200px;
+  gap: 100px;
   border-bottom-right-radius: ${(props) => props.borderBottomR};
   border-bottom-left-radius: ${(props) => props.borderBottomL};
-  padding: 85px 50px 20px 50px;
+  padding: 85px 0px 20px 0px;
   width: 50%;
   height: 100vh;
   @media screen and (max-width: 1000px) {
     display: none;
   }
+
+  img {
+    width: 75%;
+  }
 `;
 
+export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export const LayoutRight = styled.div`
   display: flex;
   width: 50%;
@@ -75,7 +85,7 @@ export const TextContainer = styled.div`
 
 export const IconContainer = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 20px;
+  justify-content: center;
   align-items: center;
-  justify-content: ${(props) => props.justifyContent};
 `;

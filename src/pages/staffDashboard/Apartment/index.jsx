@@ -72,7 +72,7 @@ const StaffApartment = () => {
   const [clickedApartmentId, setClickedApartmentId] = useState();
   const [apartment, setApartment] = useState([]);
   const [image, setImage] = useState({});
-  const [stateContainer, setStateContainer] = useState([]);
+  const [stateContainer, setStateContainer] = useState("");
   const { data, isLoading, refetch } = useGetAllApartmentQuery();
 
   const [createApartment] = useCreateApartmentMutation();
@@ -97,12 +97,13 @@ const StaffApartment = () => {
     setCategory(categories?.data?.data);
   }, [categories]);
 
-  let categoryData = category?.map((c) => ({ value: c.id, label: c.name }));
+  let categoryData = category?.map((c) => ({ value: c.id, label: c.Name }));
+  console.log(category);
 
   let allStates = states?.data?.data[0]?.states;
 
   let newStatesList = allStates?.map((state, index) => ({
-    value: index,
+    value: state,
     label: state,
   }));
 
@@ -147,6 +148,7 @@ const StaffApartment = () => {
   };
   const handleCity = (value) => {
     var string = Object.values(value)[0];
+    console.log("ds", value);
     setValue("city", string, { shouldValidate: true });
   };
 
@@ -172,32 +174,26 @@ const StaffApartment = () => {
 
   const onSubmit = async (formData) => {
     setAction("add");
-    console.log("formData", formData);
-
-    console.log("image", image);
-
-    // const imageUrl = await response.text()
-
     let requiredData = {
       ...formData,
-
+      coverImage: image.url,
       facilities: checkedItems,
     };
 
     console.log("requiredData", requiredData);
 
-    // let createApartmentResponse = await createApartment(requiredData);
-    // console.log("ggg", createApartmentResponse);
-    // const error = createApartmentResponse?.error;
-    // const responseData = createApartmentResponse?.data;
-    // if (responseData) {
-    //   toast.success(responseData?.message);
-    //   refetch();
-    //   setOpenModal(false);
-    // }
-    // if (error) {
-    //   toast.error("Error Occurred");
-    // }
+    let createApartmentResponse = await createApartment(requiredData);
+    console.log("ggg", createApartmentResponse);
+    const error = createApartmentResponse?.error;
+    const responseData = createApartmentResponse?.data;
+    if (responseData) {
+      toast.success(responseData?.message);
+      refetch();
+      setOpenModal(false);
+    }
+    if (error) {
+      toast.error("Error Occurred");
+    }
   };
 
   const handleEditApartment = async (id) => {
@@ -211,7 +207,8 @@ const StaffApartment = () => {
     console.log("araobje", getApartmentDetails);
     setClickedApartment(getApartmentDetails);
     console.log("details", clickedApartment);
-    if (getApartmentDetails && action === "edit") {
+
+    if (getApartmentDetails) {
       setValue("name", getApartmentDetails?.name, {
         shouldValidate: true,
       });
@@ -219,10 +216,17 @@ const StaffApartment = () => {
       setValue("description", getApartmentDetails?.description, {
         shouldValidate: true,
       });
-      setValue("city", getApartmentDetails?.numberOfUnits, {
+      console.log("cccc", categoryData);
+
+      setValue("city", getApartmentDetails?.city?.name, {
         shouldValidate: true,
       });
-      setValue("categoryId", getApartmentDetails?.categoryId, {
+      let findCategory = categoryData.find(
+        (cat) => cat.value === getApartmentDetails?.categoryId
+      );
+      setStateContainer(findCategory.label);
+
+      setValue("categoryId", findCategory.label, {
         shouldValidate: true,
       });
     } else {
@@ -236,6 +240,7 @@ const StaffApartment = () => {
     setAction("edit");
     let requiredData = {
       ...formData,
+      coverImage: image.url,
       facilities: checkedItems,
     };
     console.log("details", requiredData);
@@ -278,7 +283,11 @@ const StaffApartment = () => {
                 key={index}
                 landing
                 staff
-                apartmentImage={staticImage}
+                apartmentImage={
+                  apartment.coverImage && apartment.coverImage !== "string"
+                    ? apartment.coverImage
+                    : staticImage
+                }
                 apartmentName={apartment.name}
                 apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
                 apartmentDetails={apartment.description}
@@ -338,7 +347,9 @@ const StaffApartment = () => {
               register={register}
               onChange={handleCity}
               defaultValue={
-                action === "edit" && clickedApartment && clickedApartment?.city
+                action === "edit" &&
+                clickedApartment &&
+                clickedApartment?.city?.name
               }
               // errorMessage={errors.numberOfUnits?.message}
             />
@@ -349,9 +360,7 @@ const StaffApartment = () => {
               register={register}
               onChange={handleCategory}
               defaultValue={
-                action === "edit" &&
-                clickedApartment &&
-                clickedApartment?.categoryId
+                action === "edit" && clickedApartment && stateContainer
               }
               // errorMessage={errors.numberOfUnits?.message}
             />

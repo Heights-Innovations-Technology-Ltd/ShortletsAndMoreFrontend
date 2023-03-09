@@ -176,10 +176,10 @@ export const CloseWrapper = styled.div`
 `;
 
 export const FeatureWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 36px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: clamp(16px, 1.6vw, 24px);
+  width: 60%;
 `;
 export const FeatureItems = styled.div`
   display: flex;

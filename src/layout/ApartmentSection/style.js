@@ -32,7 +32,6 @@ export const BodyLeft = styled.div`
   font-size: clamp(14px, 1.5rem, 16px);
 
   h3 {
-    font-style: italic;
     font-weight: 300;
     font-size: 12px;
     line-height: 16px;
@@ -48,7 +47,6 @@ export const BodyLeft = styled.div`
     display: flex;
     flex-flow: column;
     gap: 16px;
-    font-style: italic;
     font-weight: 300;
     font-size: 12px;
     line-height: 16px;
@@ -101,4 +99,37 @@ export const Loading = styled.div`
   width: 100%;
   padding: 40px;
   height: ${({ height }) => height && height};
+`;
+
+export const TopContent = styled.div`
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  padding-right: 40px;
+  margin: 24px auto;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-left: 35px;
+    color: #151717;
+  }
+
+  select {
+    font-size: 12px;
+    color: #4e5152;
+    background-color: #fafafa;
+    border: none;
+    outline: none;
+  }
+`;
+
+export const Result = styled.span`
+  color: #8ba00d;
+  background-color: #fafafa;
+  padding: 5px 10px;
+  font-weight: 500;
+  font-size: 20px !important;
+  border-radius: 4px;
+  margin-left: 20px;
 `;

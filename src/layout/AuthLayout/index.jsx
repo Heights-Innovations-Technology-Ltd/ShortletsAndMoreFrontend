@@ -9,6 +9,7 @@ import {
   SubText,
   IconContainer,
   TextContainer,
+  ImageContainer,
 } from "./styles";
 import image from "../../assets/bigLogo.png";
 import { ReactComponent as InstagramIcon } from "../../assets/svg/insta.svg";
@@ -37,7 +38,9 @@ const AuthLayout = ({
           borderBottomR={borderBottomR}
           borderBottomL={borderBottomL}
         >
-          <img src={image} alt="brand" />
+          <ImageContainer>
+            <img src={image} alt="brand" />
+          </ImageContainer>
           <IconContainer justifyContent={justifyContent}>
             <InstagramIcon />
             <GoogleIcon />

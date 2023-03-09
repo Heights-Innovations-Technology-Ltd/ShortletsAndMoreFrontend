@@ -42,7 +42,7 @@ const ResetPassword = () => {
       toast.success(responseData?.message);
       let resetCode = responseData?.data.slice(17);
       localStorage.setItem("updateCode", resetCode);
-      navigate(`/update-password/${resetCode}`);
+      navigate(`/update-password/${resetCode}`, { state: data.email });
     }
     if (error) {
       toast.error(error?.data);
@@ -54,8 +54,8 @@ const ResetPassword = () => {
       <LoginContainer>
         <AuthLayout
           flexFlow="row-reverse"
-          justifyContent="flex-end"
-          borderBottomL="300px"
+          // justifyContent="flex-end"
+          // borderBottomL="300px"
           headerText="Login in now!"
           subText="Keep track of your favourite properties and get updates when new listings become available"
         >
@@ -73,7 +73,7 @@ const ResetPassword = () => {
             </Body>
 
             <AuthBottom
-              buttonTitle={"Sign In"}
+              buttonTitle={"Reset Password"}
               text="Don't have an account ?"
               directionText="Sign Up"
               loading={isLoading}

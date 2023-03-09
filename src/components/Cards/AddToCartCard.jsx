@@ -27,9 +27,10 @@ const AddToCartCard = ({
         className="bg-white w-full shadow-md m-2 pb-2"
         style={{
           maxWidth: "300px",
+          height: staff ? "400px" : "",
         }}
       >
-        <div className="h-2/3 w-full">
+        <div className="h-1/2 w-full">
           <img
             className="w-full h-full object-cover"
             src={apartmentImage}

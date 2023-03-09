@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import AuthBottom from "../../../components/AuthBottom";
 import PrimaryInput from "../../../components/Input";
 import AuthLayout from "../../../layout/AuthLayout";
@@ -7,12 +7,7 @@ import Navbar from "../../../layout/Navbar/Navbar";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormContainer, HeaderText, Body, LoginContainer } from "./style";
-import {
-  loginSchema,
-  subscribeSchema,
-  updateSchema,
-} from "../../../utils/config";
-import { useDispatch } from "react-redux";
+import { updateSchema } from "../../../utils/config";
 import toast from "react-hot-toast";
 import { useUpdatePasswordMutation } from "../../../store/Services/authService";
 
@@ -29,33 +24,33 @@ const UpdatePassword = () => {
     resolver: yupResolver(updateSchema),
   });
   const code = localStorage.getItem("updateCode");
+  const { state } = useLocation();
+  let email = state;
   console.log("codee", code);
+  console.log("email", email);
   const [updatePassword, { isLoading, isSuccess }] =
     useUpdatePasswordMutation(code);
 
   const submitForm = async (data) => {
     console.log(data);
-    const response = await updatePassword(data);
+    let newData = {
+      email: email,
+      password: data.password,
+    };
+    const response = await updatePassword({ code: code, values: newData });
     console.log("form data", response);
 
     const error = response?.error;
     const responseData = response?.data;
 
-    // if (responseData) {
-    //   // toast.success(responseData?.message);
-    //   navigate("/home");
-    // }
-    // if (error) {
-    //   toast.error(error?.data);
-    // }
-    // console.log("headers", result.headers);
-    // if (result?.payload?.status === 200) {
-    //   toast.success("Login Successfully");
-    //   localStorage.setItem("userProfile", JSON.stringify(result.payload));
-    // }
-    // if (result?.payload?.status === 400) {
-    //   toast.error("Invalid Credentials");
-    // }
+    if (responseData) {
+      console.log(responseData?.message);
+      toast.success(responseData?.message);
+      navigate("/login");
+    }
+    if (error) {
+      toast.error(error?.data);
+    }
   };
   return (
     <>
@@ -63,23 +58,14 @@ const UpdatePassword = () => {
       <LoginContainer>
         <AuthLayout
           flexFlow="row-reverse"
-          justifyContent="flex-end"
-          borderBottomL="300px"
+          // justifyContent="flex-end"
+          // borderBottomL="300px"
           headerText="Login in now!"
           subText="Keep track of your favourite properties and get updates when new listings become available"
         >
           <FormContainer onSubmit={handleSubmit(submitForm)}>
             <HeaderText>UPDATE PASSWORD</HeaderText>
             <Body>
-              <PrimaryInput
-                placeholder="Enter Email"
-                type="text"
-                label="Email Address"
-                register={register}
-                name="email"
-                error={errors.email?.message}
-              />
-
               <PrimaryInput
                 placeholder="New Password"
                 rightText
@@ -89,10 +75,20 @@ const UpdatePassword = () => {
                 name="password"
                 error={errors.password?.message}
               />
+
+              <PrimaryInput
+                placeholder="Confirm New Password"
+                rightText
+                type="password"
+                label="Confirm New Password"
+                register={register}
+                name="confirmPassword"
+                error={errors.confirmPassword?.message}
+              />
             </Body>
 
             <AuthBottom
-              buttonTitle={"Sign In"}
+              buttonTitle={"Update Password"}
               text="Don't have an account ?"
               directionText="Sign Up"
               loading={isLoading}
