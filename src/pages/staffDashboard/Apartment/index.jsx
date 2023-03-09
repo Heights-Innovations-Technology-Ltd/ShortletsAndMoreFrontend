@@ -216,7 +216,7 @@ const StaffApartment = () => {
       setValue("description", getApartmentDetails?.description, {
         shouldValidate: true,
       });
-      setValue("city", getApartmentDetails?.numberOfUnits, {
+      setValue("city", getApartmentDetails?.city?.name, {
         shouldValidate: true,
       });
       setValue("categoryId", getApartmentDetails?.categoryId, {
@@ -340,7 +340,9 @@ const StaffApartment = () => {
               register={register}
               onChange={handleCity}
               defaultValue={
-                action === "edit" && clickedApartment && clickedApartment?.city
+                action === "edit" &&
+                clickedApartment &&
+                clickedApartment?.city?.name
               }
               // errorMessage={errors.numberOfUnits?.message}
             />

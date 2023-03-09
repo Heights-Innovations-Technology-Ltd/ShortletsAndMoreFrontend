@@ -40,6 +40,7 @@ const ApartmentSection = () => {
   const states = useGetAllStatesQuery();
   const [stateData, setStateData] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
 
   const { data, isLoading, isSuccess, isError } = useGetAllApartmentQuery();
 
@@ -95,7 +96,25 @@ const ApartmentSection = () => {
     });
 
     // setFilteredData(data);
-  }, [checkedItems, data]);
+  }, [checkedItems, data, selectedState]);
+
+  const handleStateClick = (e) => {
+    let selectedValue = e.target.value;
+    setSelectedState(selectedValue);
+  };
+
+  useEffect(() => {
+    let dataSet = [];
+    filteredData?.forEach((data) => {
+      if (selectedState === data.city.name) {
+        dataSet.push(data);
+        console.log("ff2", dataSet);
+        setFilteredData(dataSet);
+      }
+    });
+  }, [selectedState]);
+
+  console.log("adora", filteredData);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -114,8 +133,8 @@ const ApartmentSection = () => {
   };
 
   let allStates = states?.data?.data[0]?.states || [];
-  let newStatesList = allStates?.map((state, index) => ({
-    value: index,
+  let newStatesList = allStates?.map((state) => ({
+    value: state,
     label: state,
   }));
 
@@ -128,6 +147,7 @@ const ApartmentSection = () => {
         </h3>
         <select
           name="time"
+          onChange={handleStateClick}
           // onChange={(event) => setFilter(event.target.value)}
           // value={filterBy}
         >
