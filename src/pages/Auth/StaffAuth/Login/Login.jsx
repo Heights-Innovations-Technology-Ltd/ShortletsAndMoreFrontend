@@ -49,8 +49,7 @@ const StaffLogin = () => {
       localStorage.setItem("staffLoginProfile", JSON.stringify(responseData));
       navigate("/staff");
       toast.success(response?.message);
-    }
-    else {
+    } else {
       toast.error("Invalid credentials");
     }
   };
@@ -61,8 +60,8 @@ const StaffLogin = () => {
       <LoginContainer>
         <AuthLayout
           flexFlow="row-reverse"
-          justifyContent="flex-end"
-          borderBottomL="300px"
+          // justifyContent="flex-end"
+          // borderBottomL="300px"
           headerText="Login in now!"
           subText="Keep track of your favourite properties and get updates when new listings become available"
         >

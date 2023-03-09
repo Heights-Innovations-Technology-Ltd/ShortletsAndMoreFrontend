@@ -113,7 +113,7 @@ const LisitingSection = () => {
     navigate(`/property/rooms/${roomID}`);
   };
 
-  let allStates = states?.data?.data[0]?.states;
+  let allStates = states?.data?.data[0]?.states || [];
   let newStatesList = allStates?.map((state, index) => ({
     value: index,
     label: state,

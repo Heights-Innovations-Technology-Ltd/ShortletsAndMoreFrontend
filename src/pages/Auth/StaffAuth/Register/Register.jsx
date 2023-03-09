@@ -49,7 +49,7 @@ const StaffRegister = () => {
       <Navbar />
       <RegisterContainer>
         <AuthLayout
-          borderBottomR="300px"
+          // borderBottomR="300px"
           headerText="Don’t have an account!"
           subText="Keep track of your favorite properties and get updates when new listings become available"
         >

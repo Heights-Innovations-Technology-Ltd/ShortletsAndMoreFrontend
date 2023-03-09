@@ -38,7 +38,7 @@ const ApartmentSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const states = useGetAllStatesQuery();
-  const [apartmentData, setApartmentData] = useState([]);
+  const [stateData, setStateData] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
 
   const { data, isLoading, isSuccess, isError } = useGetAllApartmentQuery();
@@ -113,7 +113,7 @@ const ApartmentSection = () => {
     localStorage.setItem("apartmentID", JSON.stringify(apartmentId));
   };
 
-  let allStates = states?.data?.data[0]?.states;
+  let allStates = states?.data?.data[0]?.states || [];
   let newStatesList = allStates?.map((state, index) => ({
     value: index,
     label: state,
