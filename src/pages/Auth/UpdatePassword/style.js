@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const LoginContainer = styled.div`
   display: flex;
   width: 100%;
-  padding: 0 200px;
+  /* padding: 0 200px; */
 
   @media screen and (max-width: 768px) {
     padding: 0px;
@@ -18,7 +18,7 @@ export const FormContainer = styled.form`
   display: flex;
   flex-flow: column;
   width: 100%;
-  padding: 120px 70px 100px 70px;
+  padding: 120px 120px 100px 80px;
 `;
 export const HeaderText = styled.p`
   font-weight: 500;

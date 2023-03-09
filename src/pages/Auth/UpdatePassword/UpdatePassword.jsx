@@ -58,8 +58,8 @@ const UpdatePassword = () => {
       <LoginContainer>
         <AuthLayout
           flexFlow="row-reverse"
-          justifyContent="flex-end"
-          borderBottomL="300px"
+          // justifyContent="flex-end"
+          // borderBottomL="300px"
           headerText="Login in now!"
           subText="Keep track of your favourite properties and get updates when new listings become available"
         >
@@ -88,7 +88,7 @@ const UpdatePassword = () => {
             </Body>
 
             <AuthBottom
-              buttonTitle={"Sign In"}
+              buttonTitle={"Update Password"}
               text="Don't have an account ?"
               directionText="Sign Up"
               loading={isLoading}

@@ -172,7 +172,12 @@ const LisitingSection = () => {
                   <>
                     <AddToCartCard
                       key={index}
-                      apartmentImage={imageFive}
+                      apartmentImage={
+                        apartment.coverImage &&
+                        apartment.coverImage !== "string"
+                          ? apartment.coverImage
+                          : imageFive
+                      }
                       apartmentName={apartment.name}
                       apartmentPrice={apartment.price}
                       apartmentDescription={apartment.description}
