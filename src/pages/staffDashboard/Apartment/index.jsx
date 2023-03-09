@@ -72,7 +72,7 @@ const StaffApartment = () => {
   const [clickedApartmentId, setClickedApartmentId] = useState();
   const [apartment, setApartment] = useState([]);
   const [image, setImage] = useState({});
-  const [stateContainer, setStateContainer] = useState([]);
+  const [stateContainer, setStateContainer] = useState("");
   const { data, isLoading, refetch } = useGetAllApartmentQuery();
 
   const [createApartment] = useCreateApartmentMutation();
@@ -216,10 +216,17 @@ const StaffApartment = () => {
       setValue("description", getApartmentDetails?.description, {
         shouldValidate: true,
       });
+      console.log("cccc", categoryData);
+
       setValue("city", getApartmentDetails?.city?.name, {
         shouldValidate: true,
       });
-      setValue("categoryId", getApartmentDetails?.categoryId, {
+      let findCategory = categoryData.find(
+        (cat) => cat.value === getApartmentDetails?.categoryId
+      );
+      setStateContainer(findCategory.label);
+
+      setValue("categoryId", findCategory.label, {
         shouldValidate: true,
       });
     } else {
@@ -355,7 +362,8 @@ const StaffApartment = () => {
               defaultValue={
                 action === "edit" &&
                 clickedApartment &&
-                clickedApartment?.categoryId
+                stateContainer !== "" &&
+                stateContainer
               }
               // errorMessage={errors.numberOfUnits?.message}
             />
