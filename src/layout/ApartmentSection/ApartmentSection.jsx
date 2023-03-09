@@ -102,17 +102,25 @@ const ApartmentSection = () => {
     let selectedValue = e.target.value;
     setSelectedState(selectedValue);
   };
+  const handleInputChange = (e) => {
+    let selectedValue = e.target.value;
+    setSelectedState(selectedValue);
+  };
 
   useEffect(() => {
     let dataSet = [];
-    filteredData?.forEach((data) => {
-      if (selectedState === data.city.name) {
+    data?.data?.forEach((data) => {
+      if (selectedState.toLowerCase() === data.city.name.toLowerCase()) {
         dataSet.push(data);
-        console.log("ff2", dataSet);
+        console.log("ff", dataSet);
         setFilteredData(dataSet);
+      } else {
+        console.log("not found");
       }
+      console.log("ff1", dataSet);
     });
-  }, [selectedState]);
+    console.log("ff2", dataSet);
+  }, [selectedState, data]);
 
   console.log("adora", filteredData);
 
@@ -169,9 +177,10 @@ const ApartmentSection = () => {
             <>
               <BodyLeft>
                 <input
-                  className="w-full bg-white placeholder:font-italitc border-0 py-1 pl-3 pr-10 outline-none border-transparent focus:border-transparent focus:ring-0"
-                  placeholder=""
+                  className="w-full bg-white placeholder:font-italitc border-0 py-1 text-sm pl-3 pr-10 outline-none border-transparent focus:border-transparent focus:ring-0"
+                  placeholder="Enter State"
                   type="text"
+                  onChange={handleInputChange}
                 />
                 <h3>Main Facilities</h3>
                 <ul>
@@ -192,7 +201,12 @@ const ApartmentSection = () => {
                   <div key={apartment.id}>
                     <ApartmentCard
                       key={index}
-                      apartmentImage={image}
+                      apartmentImage={
+                        apartment.coverImage &&
+                        apartment.coverImage !== "string"
+                          ? apartment.coverImage
+                          : image
+                      }
                       apartmentName={apartment.name}
                       apartmentLocation="234 Ring road, Lekki Phase 1, Lekki, Lagos"
                       apartmentDetails={apartment.description}

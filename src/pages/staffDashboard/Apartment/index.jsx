@@ -360,10 +360,7 @@ const StaffApartment = () => {
               register={register}
               onChange={handleCategory}
               defaultValue={
-                action === "edit" &&
-                clickedApartment &&
-                stateContainer !== "" &&
-                stateContainer
+                action === "edit" && clickedApartment && stateContainer
               }
               // errorMessage={errors.numberOfUnits?.message}
             />
