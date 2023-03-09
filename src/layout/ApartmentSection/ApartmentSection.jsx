@@ -19,10 +19,12 @@ import ApartmentCard from "../../components/Cards/ApartmentCard";
 import PuffLoader from "../../components/Loader";
 import Paginator from "../../components/Paginator";
 import { getApartment } from "../../store/Action/actions";
-import { useGetAllApartmentQuery } from "../../store/Services/apartmentService";
+import {
+  useGetAllApartmentQuery,
+  useGetAllStatesQuery,
+} from "../../store/Services/apartmentService";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
 import "./style.css";
-import { useGetAllStatesQuery } from "../../store/Services/staffService";
 // let pageSize = 1;
 
 const ApartmentSection = () => {
@@ -111,31 +113,11 @@ const ApartmentSection = () => {
     localStorage.setItem("apartmentID", JSON.stringify(apartmentId));
   };
 
-  const options = [
-    {
-      value: "Nigeria",
-      name: "Nigeria",
-    },
-    {
-      value: "United State",
-      name: "United State",
-    },
-    {
-      value: "France",
-      name: "France",
-    },
-    {
-      value: "Canada",
-      name: "Canada",
-    },
-  ];
-
-  // let allStates = states?.data?.data[0]?.states;
-
-  // let newStatesList = allStates?.map((state, index) => ({
-  //   value: index,
-  //   label: state,
-  // }));
+  let allStates = states?.data?.data[0]?.states;
+  let newStatesList = allStates?.map((state, index) => ({
+    value: index,
+    label: state,
+  }));
 
   return (
     <>
@@ -149,9 +131,9 @@ const ApartmentSection = () => {
           // onChange={(event) => setFilter(event.target.value)}
           // value={filterBy}
         >
-          {options.map((option, index) => (
+          {newStatesList.map((option, index) => (
             <option value={option.value} key={index}>
-              {option.name}
+              {option.label}
             </option>
           ))}
         </select>

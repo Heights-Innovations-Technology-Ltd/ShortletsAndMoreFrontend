@@ -1024,6 +1024,4 @@ export const services = [
   { id: 1, name: "Laundry", image: LaundrySvg },
   { id: 2, name: "Transport", image: TransportSvg },
   { id: 3, name: "Restaurants", image: RestaurantSvg },
-  { id: 4, name: "Laundry", image: LaundrySvg },
-  { id: 5, name: "Laundry", image: LaundrySvg },
 ];

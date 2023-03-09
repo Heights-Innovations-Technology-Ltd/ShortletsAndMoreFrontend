@@ -16,6 +16,11 @@ export const apartmentApi = createApi({
       query: () => "apartment",
     }),
 
+    //get all states
+    getAllStates: builder.query({
+      query: () => "util/countries",
+    }),
+
     //get all room types in an apartment
     getAllRoomType: builder.query({
       query: (id) => `room/room-types/${id}`,
@@ -58,6 +63,7 @@ export const apartmentApi = createApi({
 export const {
   useGetAllApartmentQuery,
   useGetAllRoomTypeQuery,
+  useGetAllStatesQuery,
   useSortPropertyQuery,
   useCheckForAvailabilityMutation,
   useReserveNowMutation,

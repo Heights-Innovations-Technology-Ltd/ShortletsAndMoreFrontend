@@ -128,7 +128,7 @@ export const TopContent = styled.div`
 `;
 
 export const Result = styled.span`
-  color: #4e5152;
+  color: #8ba00d;
   background-color: #fafafa;
   padding: 5px 10px;
   font-weight: 500;

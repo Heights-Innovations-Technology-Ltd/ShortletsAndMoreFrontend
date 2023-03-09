@@ -6,7 +6,10 @@ import { useDispatch } from "react-redux";
 import { getRoomType } from "../../store/Action/actions";
 import imageFive from "../../assets/recent_listing.png";
 import { useNavigate } from "react-router-dom";
-import { useGetAllRoomTypeQuery } from "../../store/Services/apartmentService";
+import {
+  useGetAllRoomTypeQuery,
+  useGetAllStatesQuery,
+} from "../../store/Services/apartmentService";
 import PuffLoader from "../../components/Loader";
 import {
   Body,
@@ -31,6 +34,7 @@ const LisitingSection = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const states = useGetAllStatesQuery();
   const [apartmentData, setApartmentData] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
 
@@ -109,24 +113,11 @@ const LisitingSection = () => {
     navigate(`/property/rooms/${roomID}`);
   };
 
-  const options = [
-    {
-      value: "Nigeria",
-      name: "Nigeria",
-    },
-    {
-      value: "United State",
-      name: "United State",
-    },
-    {
-      value: "France",
-      name: "France",
-    },
-    {
-      value: "Canada",
-      name: "Canada",
-    },
-  ];
+  let allStates = states?.data?.data[0]?.states;
+  let newStatesList = allStates?.map((state, index) => ({
+    value: index,
+    label: state,
+  }));
 
   return (
     <>
@@ -140,9 +131,9 @@ const LisitingSection = () => {
           // onChange={(event) => setFilter(event.target.value)}
           // value={filterBy}
         >
-          {options.map((option, index) => (
+          {newStatesList.map((option, index) => (
             <option value={option.value} key={index}>
-              {option.name}
+              {option.label}
             </option>
           ))}
         </select>
