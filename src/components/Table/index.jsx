@@ -36,15 +36,14 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = count;
-  const [daultData, setDaultData] = useState(body)
+  const [daultData, setDaultData] = useState(body || []);
 
   const handleSort = () => {
     let dd = [...body];
     let sortedArr = dd.sort(sortTableData);
     console.log(sortedArr);
-    setDaultData(sortedArr)
+    setDaultData(sortedArr);
   };
-
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -84,7 +83,6 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
     let value = e.target.value;
     setCount(value);
   };
-
 
   return (
     <TableContainer>
@@ -133,7 +131,7 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
         )}
       </TableWrapper>
 
-      {body.length > 10 && (
+      {body?.length > 10 && (
         <TablePaginatorWrapper>
           <CountWrapper>
             <CountText>Rows per page:</CountText>

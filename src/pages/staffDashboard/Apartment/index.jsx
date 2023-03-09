@@ -207,7 +207,8 @@ const StaffApartment = () => {
     console.log("araobje", getApartmentDetails);
     setClickedApartment(getApartmentDetails);
     console.log("details", clickedApartment);
-    if (getApartmentDetails && action === "edit") {
+
+    if (getApartmentDetails) {
       setValue("name", getApartmentDetails?.name, {
         shouldValidate: true,
       });
