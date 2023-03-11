@@ -19,6 +19,7 @@ const AddToCartCard = ({
   handleNavigateToDetails,
   staff,
   handleStaffEdit,
+  room,
 }) => {
   const navigate = useNavigate();
   return (
@@ -27,7 +28,7 @@ const AddToCartCard = ({
         className="bg-white w-full shadow-md m-2 pb-2"
         style={{
           maxWidth: "300px",
-          height: staff ? "400px" : "",
+          height: staff ? "400px" : room ? "400px" : "",
         }}
       >
         <div className="h-1/2 w-full">

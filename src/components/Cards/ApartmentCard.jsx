@@ -18,6 +18,7 @@ const ApartmentCard = ({
   iconName,
   handleStaffApartmentClick,
   handleApartmentEdit,
+  property,
 }) => {
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ const ApartmentCard = ({
         className="bg-white  m-2 rounded-md border border-[#E6E9EC]"
         style={{
           maxWidth: "300px",
-          height: staff ? "500px" : "",
+          height: staff ? "500px" : property ? "400px" : "",
         }}
       >
         <div className="h-1/2 w-full relative">
