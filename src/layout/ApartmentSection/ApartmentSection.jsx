@@ -201,6 +201,7 @@ const ApartmentSection = () => {
                   <div key={apartment.id}>
                     <ApartmentCard
                       key={index}
+                      property
                       apartmentImage={
                         apartment.coverImage &&
                         apartment.coverImage !== "string"

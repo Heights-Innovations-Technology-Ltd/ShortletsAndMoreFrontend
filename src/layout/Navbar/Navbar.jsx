@@ -65,7 +65,8 @@ const Navbar = (props) => {
   return (
     <>
       <NavContainer
-        boxShadow={change ? "0px 10px 30px rgba(13, 38, 59, 0.05)" : ""}
+        bg={change ? "white" : " white"}
+        boxShadow={change ? "0px 10px 30px  rgba(255, 202, 42, 0)" : ""}
       >
         <NavLinksContainer>
           <NavLink to="/home">

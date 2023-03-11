@@ -66,7 +66,8 @@ export const BodyLeft = styled.div`
 `;
 export const BodyRight = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto;
+  /* grid-template-columns: auto auto auto; */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: clamp(16px, 1.6vw, 24px);
   width: 100%;
 
@@ -87,7 +88,7 @@ export const BodyRight = styled.div`
   }
 
   @media screen and (min-width: 1550px) {
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 `;
 export const CheckInput = styled.input`

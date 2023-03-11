@@ -2,7 +2,8 @@ import styled from "styled-components";
 export const RegisterContainer = styled.div`
   display: flex;
   width: 100%;
-  /* padding: 0 200px; */
+  padding: 0 200px;
+  background: #f7f8f9;
 
   @media screen and (max-width: 768px) {
     padding: 0px;
