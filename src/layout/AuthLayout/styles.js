@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
+  background: #f7f8f9;
 `;
 
 export const Layout = styled.div`
@@ -17,6 +18,7 @@ export const Layout = styled.div`
 export const LayoutLeft = styled(motion.div)`
   position: sticky;
   top: 0;
+  margin-top: 100px;
   /* border: solid red; */
   display: flex;
   background: linear-gradient(
@@ -29,8 +31,8 @@ export const LayoutLeft = styled(motion.div)`
   border-bottom-right-radius: ${(props) => props.borderBottomR};
   border-bottom-left-radius: ${(props) => props.borderBottomL};
   padding: 85px 0px 20px 0px;
-  width: 50%;
-  height: 100vh;
+  width: 45%;
+  height: 80vh;
   @media screen and (max-width: 1000px) {
     display: none;
   }
@@ -47,7 +49,7 @@ export const ImageContainer = styled.div`
 `;
 export const LayoutRight = styled.div`
   display: flex;
-  width: 50%;
+  width: 55%;
   @media screen and (max-width: 1000px) {
     width: 100%;
   }

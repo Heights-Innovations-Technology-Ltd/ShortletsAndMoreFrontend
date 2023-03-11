@@ -65,8 +65,9 @@ export const BodyLeft = styled.div`
 `;
 export const BodyRight = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto;
-  gap: clamp(16px, 1.6vw, 24px);
+  /* grid-template-columns: auto auto auto; */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* gap: clamp(16px, 1.6vw, 24px); */
   width: 100%;
   @media screen and (max-width: 430px) {
     display: flex;
@@ -84,7 +85,7 @@ export const BodyRight = styled.div`
     justify-content: center;
   }
   @media screen and (min-width: 1550px) {
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 `;
 export const CheckInput = styled.input`

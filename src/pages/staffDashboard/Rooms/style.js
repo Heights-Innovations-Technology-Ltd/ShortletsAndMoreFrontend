@@ -21,7 +21,8 @@ export const BackText = styled.p`
 `;
 export const ApartmentContainer = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto;
+  /* grid-template-columns: auto auto auto; */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: clamp(16px, 1.6vw, 24px);
   width: 100%;
   position: sticky;
@@ -48,7 +49,8 @@ export const ApartmentContainer = styled.div`
     justify-content: center;
   }
   @media screen and (min-width: 1550px) {
-    grid-template-columns: auto auto auto auto;
+    /* grid-template-columns: auto auto auto auto; */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 `;
 
