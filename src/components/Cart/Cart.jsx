@@ -108,7 +108,7 @@ const Cart = () => {
       <RightContainer>
         <RightCardWrapper>
           <div className="bg-white shadow-md m-3 p-4" style={{ width: "100%" }}>
-            <h1 className="ml-4 font-semibold">Cart Totals</h1>
+            <h1 className="ml-4 font-semibold">Cart</h1>
             <div className="p-4 flex flex-row justify-between items-center">
               <h4 className="text-xs font-semibold">Subtotal</h4>
               <h5 className="text-xs">NGN{totalPrice}</h5>

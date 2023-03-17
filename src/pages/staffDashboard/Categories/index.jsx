@@ -61,7 +61,7 @@ const StaffSettingsCategories = () => {
 
   const header = ["Name", "Number of Apartments", "Created On", "Action"];
   const dataBody = data?.data?.map((data) => [
-    <>{data.name}</>,
+    <>{data.Name}</>,
     data.id,
     data.id,
     <ButtonContainer>

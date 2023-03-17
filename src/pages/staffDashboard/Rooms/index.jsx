@@ -258,15 +258,17 @@ const StaffRoom = () => {
       <Dialog open={openModal} fullWidth maxWidth="sm">
         <ModalWrapper>
           <Top>
+          <TextContainer>
+            <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
+            {action === "add" ? " Create a Room" : " Edit a Room"}
+             
+            </h1>
+          </TextContainer>
             <CloseWrapper onClick={handleModalClose}>
               <CloseIcon />
             </CloseWrapper>
           </Top>
-          <TextContainer>
-            <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
-              Create a Room
-            </h1>
-          </TextContainer>
+         
 
           <FormContainer
             onSubmit={

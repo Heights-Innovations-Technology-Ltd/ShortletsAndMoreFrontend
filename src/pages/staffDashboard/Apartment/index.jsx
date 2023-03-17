@@ -305,15 +305,15 @@ const StaffApartment = () => {
       <Dialog open={openModal} fullWidth maxWidth="sm">
         <ModalWrapper>
           <Top>
+            <TextContainer>
+              <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
+                {action === "add" ? "Create Apartment" : "Edit Apartment"}
+              </h1>
+            </TextContainer>
             <CloseWrapper onClick={handleModalClose}>
               <CloseIcon />
             </CloseWrapper>
           </Top>
-          <TextContainer>
-            <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
-              Create an Apartment
-            </h1>
-          </TextContainer>
 
           <FormContainer
             onSubmit={

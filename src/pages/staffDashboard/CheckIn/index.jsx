@@ -33,7 +33,7 @@ const StaffCheckIn = () => {
   const [reference, setReference] = useState();
   const [openModal, setOpenModal] = useState(false);
   const header = [
-    "ID",
+    // "ID",
     "Reference Number",
     "Room Type",
     "Chcek In",
@@ -69,7 +69,7 @@ const StaffCheckIn = () => {
     setOpenModal(false);
   };
   const dataBody = getAllCheckIns?.data?.data[0]?.map((data) => [
-    data.reservationId,
+    // data.reservationId,
     data.reservationReference,
     data.roomType,
     data.checkinDate.slice(0, 10),

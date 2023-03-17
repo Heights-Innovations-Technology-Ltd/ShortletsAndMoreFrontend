@@ -26,7 +26,6 @@ import { Puff } from "react-loading-icons";
 
 const LisitingSection = () => {
   const features = [
-    { id: 1, result: true, category: "All" },
     { id: 2, result: true, category: "Television" },
     { id: 3, result: true, category: "Microwave" },
     { id: 4, result: true, category: "Heater" },

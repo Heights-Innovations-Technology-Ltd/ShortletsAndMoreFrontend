@@ -54,7 +54,12 @@ const StaffHome = () => {
             {getAllCheckIns?.isLoading ? (
               <PuffLoader />
             ) : (
-              <StaffTable header={header} body={dataBody} arrOfObject />
+              <StaffTable
+                header={header}
+                body={dataBody}
+                arrOfObject
+                staffHome
+              />
             )}
           </>
         </LeftContainer>

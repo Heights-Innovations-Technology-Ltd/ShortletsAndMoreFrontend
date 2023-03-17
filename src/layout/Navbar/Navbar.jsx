@@ -64,10 +64,7 @@ const Navbar = (props) => {
   useEffect(() => {}, []);
   return (
     <>
-      <NavContainer
-        bg={change ? "white" : " white"}
-        boxShadow={change ? "0px 10px 30px  rgba(255, 202, 42, 0)" : ""}
-      >
+      <NavContainer boxShadow={!change ? "" : "0px 2px 5px 0px #c8c8c8"}>
         <NavLinksContainer>
           <NavLink to="/home">
             <NavLinkText>HOME</NavLinkText>
