@@ -38,7 +38,6 @@ const Cart = () => {
     if (localItem) {
       let array = localItem;
       let checkFilter = array.filter((item) => item.id !== id);
-      console.log("checking", checkFilter);
       localStorage.setItem("cartItemId", JSON.stringify(checkFilter));
       getList();
     }

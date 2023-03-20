@@ -28,15 +28,12 @@ const StaffRegister = () => {
 
   const submitForm = async (data) => {
     // const newData = { ...data, accessToken: "1234" };
-    console.log(data);
     const response = await registerNewStaff(data);
-    console.log("form data", response);
     const error = response?.error;
     const responseData = response?.data;
 
     if (responseData) {
       toast.success(responseData?.message);
-      console.log("success", responseData);
       navigate("/staff-login");
     }
     if (error) {

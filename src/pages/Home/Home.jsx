@@ -16,16 +16,12 @@ import WhyChooseUsSection from "../../layout/WhyChooseUsSection/WhyChooseUsSecti
 const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("checking locations", location);
 
   const queryParams = new URLSearchParams(location.search);
-  console.log("checking params", queryParams);
 
   const message = queryParams.get("message");
-  console.log("checking params status", message);
 
   const status = queryParams.get("status");
-  console.log("checking params status", status);
 
   useEffect(() => {
     if (status === "success") {

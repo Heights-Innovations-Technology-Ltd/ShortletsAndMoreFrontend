@@ -112,17 +112,11 @@ const ApartmentSection = () => {
     data?.data?.forEach((data) => {
       if (selectedState.toLowerCase() === data.city.name.toLowerCase()) {
         dataSet.push(data);
-        console.log("ff", dataSet);
         setFilteredData(dataSet);
       } else {
-        console.log("not found");
       }
-      console.log("ff1", dataSet);
     });
-    console.log("ff2", dataSet);
   }, [selectedState, data]);
-
-  console.log("adora", filteredData);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;

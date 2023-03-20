@@ -30,15 +30,12 @@ const ResetPassword = () => {
   const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation();
 
   const submitForm = async (data) => {
-    console.log(data);
     const response = await resetPassword(data);
-    console.log("form data", response);
 
     const error = response?.error;
     const responseData = response?.data;
 
     if (responseData) {
-      console.log(responseData?.data);
       toast.success(responseData?.message);
       let resetCode = responseData?.data.slice(17);
       localStorage.setItem("updateCode", resetCode);

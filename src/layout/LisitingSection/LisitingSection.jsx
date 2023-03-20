@@ -108,7 +108,6 @@ const LisitingSection = () => {
   };
 
   const handleNavigateToDetails = (roomID) => {
-    console.log("id", roomID);
     navigate(`/property/rooms/${roomID}`);
   };
 

@@ -23,7 +23,6 @@ const StaffReservation = () => {
   const getAllBookings = useGetAllBookingsQuery();
   const [openModal, setOpenModal] = useState(false);
   const [getClickedData, setClickedData] = useState({});
-  console.log(getAllBookings?.data?.data);
 
   const handleModalClose = () => {
     setOpenModal(false);
@@ -34,7 +33,6 @@ const StaffReservation = () => {
     const check = getAllBookings?.data?.data?.find(
       (reserve) => reserve.referenceNumber === referenceNumber
     );
-    console.log(check);
     setClickedData(check);
   };
   const header = [

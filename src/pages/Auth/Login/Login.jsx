@@ -36,9 +36,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const submitForm = async (data) => {
-    console.log(data);
     const response = await loginNewUser(data);
-    console.log("form data", response);
 
     const error = response?.error;
     const responseData = response.data;

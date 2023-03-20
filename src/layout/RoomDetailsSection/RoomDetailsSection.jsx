@@ -134,27 +134,21 @@ const RoomDetailsSection = () => {
       numberOfRooms: itemCount,
       roomTypeId: cID,
     };
-    console.log("submit", availableData);
     const result = await checkForAvailability(newFormData);
-    console.log("resutingg", result);
 
     // const error = result?.error;
     const responseData = result?.data;
     if (responseData) {
       toast.success(responseData.message);
       let message = responseData.message;
-      console.log(message);
       let number = message.replace(/[^0-9]/g, "");
       let convertedNumber = parseInt(number);
-      console.log("ddd", convertedNumber);
       setNoOfRooms(convertedNumber);
       // setOpenNotModal(true);
       setOpenModal(true);
 
       let availableArray = await localStorage.getItem("itemAvailability");
-      console.log("local storage", availableArray);
       let newAvailableArray = JSON.parse(availableArray);
-      console.log(newAvailableArray);
 
       if (newAvailableArray) {
         newAvailableArray.push(availableData);
@@ -199,10 +193,7 @@ const RoomDetailsSection = () => {
   const addToCart = async (data) => {
     // navigate("/cart");
     let itemArray = await localStorage.getItem("cartItemId");
-    console.log("local storage", itemArray);
     let newItemArray = JSON.parse(itemArray);
-    console.log(newItemArray);
-
     if (itemCount <= noOfRooms) {
       //add to cart
       if (newItemArray) {
@@ -258,7 +249,6 @@ const RoomDetailsSection = () => {
     }
   };
 
-  console.log("checking", availableContainer);
   const handleCountIncrease = (e) => {
     e.preventDefault();
     let count = itemCount + 1;

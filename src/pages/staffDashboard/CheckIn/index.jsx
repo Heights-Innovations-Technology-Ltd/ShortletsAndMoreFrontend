@@ -45,13 +45,10 @@ const StaffCheckIn = () => {
   const handleCheckoutModal = async (referenceNumber) => {
     setOpenModal(true);
     setReference(referenceNumber);
-    console.log(referenceNumber);
   };
 
-  console.log("all check in", getAllCheckIns);
   const handleCheckout = async () => {
     const response = await checkOut(reference);
-    console.log(response);
 
     const error = response?.error;
     const responseData = response?.data;

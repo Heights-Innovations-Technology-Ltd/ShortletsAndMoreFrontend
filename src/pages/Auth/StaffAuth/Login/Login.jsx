@@ -35,17 +35,13 @@ const StaffLogin = () => {
   const dispatch = useDispatch();
 
   const submitForm = async (data) => {
-    console.log(data);
     const response = await loginNewStaff(data);
-    console.log("form data", response);
 
     const error = response?.error;
     const responseData = response?.data;
-    console.log(responseData);
 
     if (response?.data) {
       store.dispatch(saveStaffInfo(responseData));
-      console.log("stafflogin.jsx", responseData);
       localStorage.setItem("staffLoginProfile", JSON.stringify(responseData));
       navigate("/staff");
       toast.success(responseData?.message);

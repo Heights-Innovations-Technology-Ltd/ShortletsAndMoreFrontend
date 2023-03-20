@@ -79,7 +79,6 @@ const StaffRoom = () => {
   } = useForm({
     resolver: yupResolver(createRoomSchema),
   });
-  console.log("do me", data);
   useEffect(() => {
     setRooms(data?.data);
   }, [data]);
@@ -128,25 +127,20 @@ const StaffRoom = () => {
     const file = e.target.files[0];
 
     const response = await convertToLink(file);
-    console.log("response", response);
     setImage(response);
   };
   const onSubmit = async (formData) => {
     setAction("add");
-    console.log(action);
     let requiredData = {
       ...formData,
       coverImage: image.url,
       features: checkedItems,
     };
 
-    console.log("regq", requiredData);
-    console.log("regaaq", ApartmentId);
     let createRoomResponse = await createRoom({
       apartmentId: ApartmentId,
       data: requiredData,
     });
-    console.log("ggg", createRoomResponse);
     const error = createRoomResponse?.error;
     const responseData = createRoomResponse?.data;
     if (responseData) {
@@ -165,7 +159,6 @@ const StaffRoom = () => {
 
     const getRoomDetails = data?.data.find((room) => room.id === id);
     setFetchedEditRoom(getRoomDetails);
-    console.log("getRoomDetails", getRoomDetails);
     if (getRoomDetails) {
       setValue("roomType", getRoomDetails?.name, {
         shouldValidate: true,
@@ -194,8 +187,6 @@ const StaffRoom = () => {
       coverImage: image.url,
       features: checkedItems,
     };
-    console.log(ApartmentId);
-    console.log(requiredData);
     let editRoomResponse = await editRoom({
       apartmentId: ApartmentId,
       roomTypeId: fetchedEditRoom?.id,
@@ -258,17 +249,15 @@ const StaffRoom = () => {
       <Dialog open={openModal} fullWidth maxWidth="sm">
         <ModalWrapper>
           <Top>
-          <TextContainer>
-            <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
-            {action === "add" ? " Create a Room" : " Edit a Room"}
-             
-            </h1>
-          </TextContainer>
+            <TextContainer>
+              <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
+                {action === "add" ? " Create a Room" : " Edit a Room"}
+              </h1>
+            </TextContainer>
             <CloseWrapper onClick={handleModalClose}>
               <CloseIcon />
             </CloseWrapper>
           </Top>
-         
 
           <FormContainer
             onSubmit={

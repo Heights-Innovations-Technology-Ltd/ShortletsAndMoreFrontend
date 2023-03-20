@@ -25,7 +25,6 @@ const RecentListingSection = () => {
     setApartmentData(data?.data);
   }, [data]);
 
-  console.log("fetch testing ... just to check", apartmentData);
   return (
     <>
       <h1 className="text-center mt-8 mb-4 lg:text-2xl font-semibold">
