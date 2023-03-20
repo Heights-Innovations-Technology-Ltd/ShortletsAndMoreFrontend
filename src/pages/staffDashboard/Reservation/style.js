@@ -55,3 +55,39 @@ export const Status = styled.div`
   border-radius: 12px;
   padding: 4px 8px;
 `;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 34px 48px;
+  flex-flow: column;
+`;
+export const ModalButton = styled.div`
+  width: 100%;
+`;
+export const CloseWrapper = styled.div`
+  cursor: pointer;
+`;
+export const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+export const FormContainer = styled.form`
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+`;
+export const TextContainer = styled.div`
+  display: flex;
+`;
+export const ModalContent = styled.div`
+  display: flex;
+  flex-flow: column;
+  gap: 16px;
+  width: 100%;
+`;
+export const PriceText = styled.p``;
