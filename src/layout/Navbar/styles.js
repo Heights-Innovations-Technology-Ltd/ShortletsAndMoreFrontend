@@ -6,7 +6,7 @@ export const NavContainer = styled.div`
   width: 100%;
   padding: 10px 64px;
   position: fixed;
-  background-color: ${(props) => props.bg};
+  background-color: white;
   align-items: center;
   z-index: 999;
   justify-content: space-between;

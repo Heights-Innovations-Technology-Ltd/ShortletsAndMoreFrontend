@@ -41,7 +41,6 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
   const handleSort = () => {
     let dd = [...body];
     let sortedArr = dd.sort(sortTableData);
-    console.log(sortedArr);
     setDaultData(sortedArr);
   };
 

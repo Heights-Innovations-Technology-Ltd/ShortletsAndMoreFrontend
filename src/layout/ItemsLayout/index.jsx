@@ -43,7 +43,6 @@ const ItemsLayout = () => {
 
   const handleClick = (e) => {
     const add = e.target;
-    console.log(add);
     const { value, checked } = e.target;
 
     if (checked) {
@@ -62,8 +61,6 @@ const ItemsLayout = () => {
       });
     }
   };
-
-  console.log("adora", checkedItems);
   useEffect(() => {
     setFilteredData(data);
     checkedItems.forEach((checked) => {

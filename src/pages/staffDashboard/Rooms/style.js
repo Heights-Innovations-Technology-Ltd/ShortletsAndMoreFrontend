@@ -66,7 +66,6 @@ export const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 34px 48px;
   flex-flow: column;
 `;
 export const ModalButton = styled.div`
@@ -77,15 +76,18 @@ export const CloseWrapper = styled.div`
 `;
 export const Top = styled.div`
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  background-color: #8ba00d;
+  padding: 14px 40px;
 `;
 export const FormContainer = styled.form`
   width: 100%;
   display: flex;
   gap: 24px;
   flex-direction: column;
+  padding: 34px 48px;
 `;
 export const TextContainer = styled.div`
   display: flex;

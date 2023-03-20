@@ -55,7 +55,6 @@ const StaffSettingsCategory = lazy(() =>
 const AppRouter = () => {
   let data = useParams();
 
-  console.log("checking params", data);
   return (
     <Suspense fallback={<Loader />}>
       <Router>

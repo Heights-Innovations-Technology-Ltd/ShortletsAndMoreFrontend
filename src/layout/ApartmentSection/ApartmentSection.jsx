@@ -29,7 +29,6 @@ import "./style.css";
 
 const ApartmentSection = () => {
   const facilities = [
-    { id: 1, result: true, category: "All" },
     { id: 2, result: true, category: "security" },
     { id: 3, result: true, category: "swimming_pool" },
     { id: 4, result: true, category: "parking" },
@@ -45,7 +44,6 @@ const ApartmentSection = () => {
   const { data, isLoading, isSuccess, isError } = useGetAllApartmentQuery();
 
   const [currentItems, setCurrentItems] = useState([]);
-  // const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
@@ -90,6 +88,8 @@ const ApartmentSection = () => {
           (item) => JSON.parse(item?.facilities)?.parking === checked.result
         );
         setFilteredData(filtered);
+      } else if (checked.category === "All") {
+        setFilteredData(data?.data);
       } else {
         setFilteredData(data?.data);
       }
@@ -112,17 +112,11 @@ const ApartmentSection = () => {
     data?.data?.forEach((data) => {
       if (selectedState.toLowerCase() === data.city.name.toLowerCase()) {
         dataSet.push(data);
-        console.log("ff", dataSet);
         setFilteredData(dataSet);
       } else {
-        console.log("not found");
       }
-      console.log("ff1", dataSet);
     });
-    console.log("ff2", dataSet);
   }, [selectedState, data]);
-
-  console.log("adora", filteredData);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;

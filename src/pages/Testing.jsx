@@ -4,7 +4,6 @@ import FileUpload from "../components/FileUpload";
 const Testing = () => {
   const handleChange = (e) => {
     let file = e.target.files[0];
-    console.log(file);
   };
   return (
     <div>

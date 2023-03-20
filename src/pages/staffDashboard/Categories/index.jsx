@@ -57,11 +57,10 @@ const StaffSettingsCategories = () => {
     resolver: yupResolver(categorySchema),
   });
 
-  console.log(data?.data);
 
   const header = ["Name", "Number of Apartments", "Created On", "Action"];
   const dataBody = data?.data?.map((data) => [
-    <>{data.name}</>,
+    <>{data.Name}</>,
     data.id,
     data.id,
     <ButtonContainer>
@@ -93,10 +92,8 @@ const StaffSettingsCategories = () => {
 
   const onSubmit = async (formData) => {
     setAction("add");
-    console.log(formData);
 
     let createCateoryResponse = await createCategory(formData);
-    console.log("ggg", createCateoryResponse);
     const error = createCateoryResponse?.error;
     const responseData = createCateoryResponse?.data;
     if (responseData) {
@@ -117,7 +114,6 @@ const StaffSettingsCategories = () => {
       (category) => category.id === categoryId
     );
     setFetchedEditCategory(getCategoryDetails);
-    console.log("getRoomDetails", getCategoryDetails);
     if (getCategoryDetails) {
       setValue("categoryName", getCategoryDetails?.name, {
         shouldValidate: true,
@@ -128,7 +124,6 @@ const StaffSettingsCategories = () => {
   };
   const handleEdit = async (formData) => {
     setAction("edit");
-    console.log(formData);
     let editCateoryResponse = await editCategory({
       id: fetchedEditCategory?.id,
       categoryName: formData.categoryName,

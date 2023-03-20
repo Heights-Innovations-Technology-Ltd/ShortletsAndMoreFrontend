@@ -10,7 +10,6 @@ import {
 
 const CalenderCard = () => {
   const [value, onChange] = useState(new Date());
-  console.log(value);
   return (
     <CalenderContainer
       key="calender"

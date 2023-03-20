@@ -30,9 +30,7 @@ const Register = () => {
 
   const submitForm = async (data) => {
     const newData = { ...data, accessToken: "1234" };
-    console.log(data);
     const response = await registerNewUser(newData);
-    console.log("form data", response);
     const error = response?.error;
     const responseData = response?.data;
 

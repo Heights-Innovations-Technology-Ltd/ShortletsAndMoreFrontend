@@ -6,7 +6,7 @@ import { store } from "./store/store";
 
 const App = () => {
   const staffInfo = JSON.parse(localStorage.getItem("staffLoginProfile"));
-  console.log("app.js", staffInfo);
+
 
   useEffect(() => {
     if (staffInfo) {

@@ -31,7 +31,6 @@ const addIcon = <FaPlus color="white" />;
 
 const StaffBookings = () => {
   const getAllReservations = useGetAllReservationsQuery();
-  console.log(getAllReservations);
   const getRoom = useGetRoomQuery();
   const [checkIn, chehckInState] = useCheckInMutation();
 
@@ -46,7 +45,6 @@ const StaffBookings = () => {
     const check = getRoom?.data?.data?.filter(
       (reserve) => reserve.roomTypeId === roomType
     );
-    console.log(check);
     let roomList = check?.map((room) => ({
       value: room.id,
       label: room.name,
@@ -54,7 +52,6 @@ const StaffBookings = () => {
     setRoomList(roomList);
   };
 
-  console.log(roomList);
   const header = [
     "Name",
     "Reference Number",
@@ -104,9 +101,7 @@ const StaffBookings = () => {
       roomIds: lists,
       reservationId: reference,
     };
-    console.log(" redp", requiredData);
     const response = await checkIn(requiredData);
-    console.log(" redp", response);
 
     const error = response?.error;
     const responseData = response?.data;
@@ -121,11 +116,9 @@ const StaffBookings = () => {
 
   const handleClick = (e) => {
     const { value, checked } = e.target;
-    console.log(value, checked);
     if (checked) {
       roomList.forEach((list) => {
         if (value === list.label) {
-          console.log(list);
           setList((prev) => [...prev, list.value]);
         }
       });
@@ -139,7 +132,6 @@ const StaffBookings = () => {
       });
     }
   };
-  console.log("liii", lists);
   return (
     <div>
       <StaffHeader title="Bookings" />

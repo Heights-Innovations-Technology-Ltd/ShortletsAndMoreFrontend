@@ -8,7 +8,6 @@ import RoomDetailsSection from "../../layout/RoomDetailsSection/RoomDetailsSecti
 
 const RoomDetails = () => {
   const { roomID } = useParams();
-  console.log("fetch", roomID);
   return (
     <div>
       {/* <TopBar /> */}

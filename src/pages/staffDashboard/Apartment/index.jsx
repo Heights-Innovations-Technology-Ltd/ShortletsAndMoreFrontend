@@ -98,7 +98,6 @@ const StaffApartment = () => {
   }, [categories]);
 
   let categoryData = category?.map((c) => ({ value: c.id, label: c.Name }));
-  console.log(category);
 
   let allStates = states?.data?.data[0]?.states;
 
@@ -112,7 +111,6 @@ const StaffApartment = () => {
     const file = e.target.files[0];
 
     const response = await convertToLink(file);
-    console.log("response", response);
     setImage(response);
   };
 
@@ -148,7 +146,6 @@ const StaffApartment = () => {
   };
   const handleCity = (value) => {
     var string = Object.values(value)[0];
-    console.log("ds", value);
     setValue("city", string, { shouldValidate: true });
   };
 
@@ -180,10 +177,7 @@ const StaffApartment = () => {
       facilities: checkedItems,
     };
 
-    console.log("requiredData", requiredData);
-
     let createApartmentResponse = await createApartment(requiredData);
-    console.log("ggg", createApartmentResponse);
     const error = createApartmentResponse?.error;
     const responseData = createApartmentResponse?.data;
     if (responseData) {
@@ -197,16 +191,13 @@ const StaffApartment = () => {
   };
 
   const handleEditApartment = async (id) => {
-    console.log("apartment Id", id);
     setAction("edit");
     setOpenModal(true);
     setClickedApartmentId(id);
     const getApartmentDetails = await data?.data?.find(
       (apartment) => apartment.id === id
     );
-    console.log("araobje", getApartmentDetails);
     setClickedApartment(getApartmentDetails);
-    console.log("details", clickedApartment);
 
     if (getApartmentDetails) {
       setValue("name", getApartmentDetails?.name, {
@@ -216,7 +207,6 @@ const StaffApartment = () => {
       setValue("description", getApartmentDetails?.description, {
         shouldValidate: true,
       });
-      console.log("cccc", categoryData);
 
       setValue("city", getApartmentDetails?.city?.name, {
         shouldValidate: true,
@@ -243,7 +233,6 @@ const StaffApartment = () => {
       coverImage: image.url,
       facilities: checkedItems,
     };
-    console.log("details", requiredData);
 
     let editApartmentResponse = await editApartment({
       id: clickedApartmentId,
@@ -305,15 +294,15 @@ const StaffApartment = () => {
       <Dialog open={openModal} fullWidth maxWidth="sm">
         <ModalWrapper>
           <Top>
+            <TextContainer>
+              <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
+                {action === "add" ? "Create Apartment" : "Edit Apartment"}
+              </h1>
+            </TextContainer>
             <CloseWrapper onClick={handleModalClose}>
               <CloseIcon />
             </CloseWrapper>
           </Top>
-          <TextContainer>
-            <h1 className="ml-4 mb-4 font-semibold text-xl text-left">
-              Create an Apartment
-            </h1>
-          </TextContainer>
 
           <FormContainer
             onSubmit={

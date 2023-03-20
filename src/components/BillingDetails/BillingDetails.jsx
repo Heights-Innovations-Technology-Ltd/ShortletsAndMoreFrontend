@@ -87,33 +87,31 @@ const BillingDetails = () => {
   let vat = 2500;
   let paymentPrice = totalPrice + vat;
 
+  const handleCheck = () => {
+    const localProfile = localStorage.getItem("userProfile");
+    const parseData = JSON.parse(localProfile);
+
+    if (localProfile) {
+      setValue("firstName", parseData?.firstName, {
+        shouldValidate: true,
+      });
+
+      setValue("lastName", parseData?.lastName, {
+        shouldValidate: true,
+      });
+      setValue("email", parseData?.email, {
+        shouldValidate: true,
+      });
+      setValue("address", parseData?.address, {
+        shouldValidate: true,
+      });
+      setValue("phone", parseData?.phone, {
+        shouldValidate: true,
+      });
+    }
+  };
+
   useEffect(() => {
-    const handleCheck = () => {
-      const localProfile = localStorage.getItem("userProfile");
-      const parseData = JSON.parse(localProfile);
-
-      if (!localProfile) {
-        toast.error("Kindly Sign In");
-      }
-      if (localProfile) {
-        setValue("firstName", parseData?.firstName, {
-          shouldValidate: true,
-        });
-
-        setValue("lastName", parseData?.lastName, {
-          shouldValidate: true,
-        });
-        setValue("email", parseData?.email, {
-          shouldValidate: true,
-        });
-        setValue("address", parseData?.address, {
-          shouldValidate: true,
-        });
-        setValue("phone", parseData?.phone, {
-          shouldValidate: true,
-        });
-      }
-    };
     handleCheck();
   }, [setValue]);
 
@@ -123,7 +121,7 @@ const BillingDetails = () => {
     const localProfile = localStorage.getItem("userProfile");
     const parseData = JSON.parse(localProfile);
 
-    if (!localProfile) {
+    if (!localProfile && formData === {}) {
       toast.error("Kindly Sign In");
     } else {
       console.log(formData);
@@ -161,8 +159,8 @@ const BillingDetails = () => {
     const localProfile = localStorage.getItem("userProfile");
     const parseData = JSON.parse(localProfile);
 
-    if (!localProfile) {
-      toast.error("Kindly Sign In");
+    if (!localProfile && formData === {}) {
+      toast.error("Please fill in the profile");
     } else {
       console.log(formData);
 
@@ -315,7 +313,7 @@ const BillingDetails = () => {
               className="ml-4 mb-4 font-semibold text-xl pl-2"
               style={{ borderLeft: "2px solid #8BA00D" }}
             >
-              Cart Totals
+              Cart
             </h1>
 
             <div className="p-4 flex flex-row justify-between items-center">

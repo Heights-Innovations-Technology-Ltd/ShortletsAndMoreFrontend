@@ -16,7 +16,6 @@ import PuffLoader from "../../../components/Loader";
 
 const StaffHome = () => {
   const getAllCheckIns = useGetAllCheckInsQuery();
-  console.log(getAllCheckIns);
   const header = ["Room Type", "Chcek In", "Check Out", "Status", "Action"];
   const dataBody = getAllCheckIns?.data?.data[0].slice(0, 5)?.map((data) => [
     data.roomType,
@@ -54,7 +53,12 @@ const StaffHome = () => {
             {getAllCheckIns?.isLoading ? (
               <PuffLoader />
             ) : (
-              <StaffTable header={header} body={dataBody} arrOfObject />
+              <StaffTable
+                header={header}
+                body={dataBody}
+                arrOfObject
+                staffHome
+              />
             )}
           </>
         </LeftContainer>

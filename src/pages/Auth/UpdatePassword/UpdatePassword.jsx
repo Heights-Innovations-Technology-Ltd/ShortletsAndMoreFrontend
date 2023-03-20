@@ -26,25 +26,20 @@ const UpdatePassword = () => {
   const code = localStorage.getItem("updateCode");
   const { state } = useLocation();
   let email = state;
-  console.log("codee", code);
-  console.log("email", email);
   const [updatePassword, { isLoading, isSuccess }] =
     useUpdatePasswordMutation(code);
 
   const submitForm = async (data) => {
-    console.log(data);
     let newData = {
       email: email,
       password: data.password,
     };
     const response = await updatePassword({ code: code, values: newData });
-    console.log("form data", response);
 
     const error = response?.error;
     const responseData = response?.data;
 
     if (responseData) {
-      console.log(responseData?.message);
       toast.success(responseData?.message);
       navigate("/login");
     }
