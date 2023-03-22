@@ -44,7 +44,7 @@ const MultipleDropDown = ({ options, list, handleClick }) => {
       {open && (
         <DropDown>
           <ListItems>
-            {options.map((option, index) => (
+            {options?.map((option, index) => (
               <ListItem key={index}>
                 <>
                   <CheckInputBox
