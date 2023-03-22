@@ -61,6 +61,12 @@ export const staffApi = createApi({
     getRoom: builder.query({
       query: () => "room",
     }),
+
+        //get all enquiries
+    getAllEnquiries: builder.query({
+      query: () => "enquiry/enquiries",
+    }),
+    
     //staff registration
     registerNewStaff: builder.mutation({
       query: (data) => ({
@@ -213,6 +219,8 @@ export const {
   useGetAllStaffsQuery,
   useGetAllReservationsQuery,
   useGetAllBookingsQuery,
+  useGetAllEnquiriesQuery,
+
   useGetRoomQuery,
   useRegisterNewStaffMutation,
   useLoginNewStaffMutation,

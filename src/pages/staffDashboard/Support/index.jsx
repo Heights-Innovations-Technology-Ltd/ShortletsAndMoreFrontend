@@ -2,24 +2,28 @@ import React from "react";
 import StaffHeader from "../../../components/StaffHeader";
 
 import { Status, TableContainer } from "./style";
-
+import PuffLoader from "../../../components/Loader";
 import PrimaryButton from "../../../components/PrimaryButton";
 import { tableDatas } from "../../../utils/config";
 import StaffTable from "../../../components/Table";
+import { useGetAllEnquiriesQuery } from "../../../store/Services/staffService";
 
 const StaffSupport = () => {
+  const getAllEnquiries = useGetAllEnquiriesQuery();
+
+  console.log(getAllEnquiries?.data);
   const header = [
     "Tickets",
     "Email",
     "Topic",
     "Request Status",
-    "Last Updated",
+    // "Last Updated",
     "Action",
   ];
-  const dataBody = tableDatas.map((data) => [
-    data.ticket,
-    data.email,
-    data.topic,
+  const dataBody = getAllEnquiries?.data?.data.map((data) => [
+    data.ticketId,
+    data.customerEmail,
+    data.subject,
     <Status
       color={
         data.status === "Checked In"
@@ -38,7 +42,7 @@ const StaffSupport = () => {
     >
       {data.status}
     </Status>,
-    data.time,
+    // data.time,
     <PrimaryButton title=" View " lightBtn />,
   ]);
 
@@ -46,7 +50,11 @@ const StaffSupport = () => {
     <div>
       <StaffHeader title="Support" />
       <TableContainer>
-        <StaffTable header={header} body={dataBody} />
+        {getAllEnquiries?.isLoading ? (
+          <PuffLoader />
+        ) : (
+          <StaffTable header={header} body={dataBody} arrOfObject />
+        )}
       </TableContainer>
     </div>
   );
