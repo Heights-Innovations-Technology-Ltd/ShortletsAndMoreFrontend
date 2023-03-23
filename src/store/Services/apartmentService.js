@@ -56,6 +56,32 @@ export const apartmentApi = createApi({
       }),
       invalidatesTags: ["Rooms"],
     }),
+
+    //enquiry
+    addEnquiry: builder.mutation({
+      query: (values) => ({
+        url: "/enquiry/enquiries",
+        method: "POST",
+        body: values,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["Enquiry"],
+    }),
+
+    //edit enquiry
+    editEnquiry: builder.mutation({
+      query: (values) => ({
+        url: "/enquiry/enquiries",
+        method: "PUT",
+        body: values,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["Enquiry"],
+    }),
   }),
 });
 
@@ -67,4 +93,6 @@ export const {
   useSortPropertyQuery,
   useCheckForAvailabilityMutation,
   useReserveNowMutation,
+  useAddEnquiryMutation,
+  useEditEnquiryMutation,
 } = apartmentApi;

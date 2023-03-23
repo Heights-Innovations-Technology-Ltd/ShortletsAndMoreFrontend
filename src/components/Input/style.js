@@ -210,6 +210,6 @@ export const Item = styled.p`
   border-radius: 4px;
   align-items: center;
   text-align: center;
-  padding: 5px 5px 0px 5px;
+  padding: 8px 15px 8px 15px;
   background-color: #f3f6e7;
 `;
