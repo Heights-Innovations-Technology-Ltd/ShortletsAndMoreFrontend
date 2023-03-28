@@ -69,6 +69,9 @@ const Navbar = (props) => {
           <NavLink to="/home">
             <NavLinkText>HOME</NavLinkText>
           </NavLink>
+          <NavLink to="/dashboard">
+            <NavLinkText>DASHBOARD</NavLinkText>
+          </NavLink>
           <NavLink to="/property">
             <NavLinkText>PROPERTY</NavLinkText>
           </NavLink>
@@ -129,6 +132,9 @@ const Navbar = (props) => {
           <MobileLinkWrapper>
             <NavLink to="/home">
               <NavLinkText>HOME</NavLinkText>
+            </NavLink>
+            <NavLink to="/dashboard">
+              <NavLinkText>DASHBOARD</NavLinkText>
             </NavLink>
             <NavLink to="/property">
               <NavLinkText>PROPERTY</NavLinkText>

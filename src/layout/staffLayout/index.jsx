@@ -6,20 +6,32 @@ import { useLocation, Outlet } from "react-router-dom";
 import { Body, BodyLeft, BodyRight, Dashboard } from "./style";
 import StaffSidebar from "../../components/Sidebar/StaffSidebar";
 
-const StaffLayout = ({ children }) => {
+const DashboardLayout = ({ isStaff, children }) => {
   return (
     <Dashboard>
-      <Body>
-        <BodyLeft>
-          <StaffSidebar />
-        </BodyLeft>
-        <BodyRight>
-          <Outlet />
-          {children}
-        </BodyRight>
-      </Body>
+      {isStaff ? (
+        <Body>
+          <BodyLeft>
+            <StaffSidebar />
+          </BodyLeft>
+          <BodyRight>
+            <Outlet />
+            {children}
+          </BodyRight>
+        </Body>
+      ) : (
+        <Body>
+          <BodyLeft>
+            <StaffSidebar />
+          </BodyLeft>
+          <BodyRight>
+            <Outlet />
+            {children}
+          </BodyRight>
+        </Body>
+      )}
     </Dashboard>
   );
 };
 
-export default StaffLayout;
+export default DashboardLayout;

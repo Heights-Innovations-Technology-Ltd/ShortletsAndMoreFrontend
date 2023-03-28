@@ -117,6 +117,58 @@ export const StaffSidebarLinks = [
   },
 ];
 
+export const UserSidebarLinks = [
+  {
+    id: 1,
+    title: "Dashboard",
+    icon: AiFillHome,
+    path: "/dashboard/home",
+  },
+  {
+    id: 2,
+    title: "Bookings",
+    icon: HiBanknotes,
+    path: "/dashboard/bookings",
+  },
+  {
+    id: 3,
+    title: "Resrvations",
+    icon: FaCalendarAlt,
+    path: "/dashboard/reservation",
+  },
+  {
+    id: 4,
+    title: "Check-ins",
+    icon: HiBriefcase,
+    path: "/dashboard/check-in",
+  },
+  {
+    id: 6,
+    title: "Services",
+    icon: GiMightySpanner,
+    path: "/dashboard/services",
+  },
+  {
+    id: 7,
+    title: "Support",
+    icon: HiChatAlt,
+    path: "/dashboard/support",
+  },
+  {
+    id: 9,
+    title: "Settings",
+    icon: AiFillSetting,
+    path: "/dashboard/settings",
+  },
+  {
+    id: 11,
+    title: "Log Out",
+    icon: HiOutlineLogout,
+    function: handleLogout,
+    path: "/login",
+  },
+];
+
 export const testingData = [
   {
     category: null,

@@ -19,13 +19,13 @@ import { HiOutlineLogout } from "react-icons/hi";
 // import { store } from "redux/Store";
 // import { setSidebarWidth } from "redux/Slices";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { StaffSidebarLinks } from "../../../utils/config";
+import { StaffSidebarLinks, UserSidebarLinks } from "../../../utils/config";
 
 import { ReactComponent as BrandLogoIcon } from "../../../assets/svg/sidebarLogo.svg";
 import { ReactComponent as BrandBigLogoIcon } from "../../../assets/svg/sidebarBig.svg";
 // import SidebarItem from "./SidebarItem";
 
-const StaffSidebar = () => {
+const StaffSidebar = ({ isStaff }) => {
   const [expanded, setExpaned] = useState(() => window.innerWidth > 1050);
 
   const location = useLocation();
@@ -53,35 +53,67 @@ const StaffSidebar = () => {
           <HiOutlineChevronLeft color="white" size={24} />
         </ListWrapper>
       </Top>
-      <SidebarLinks>
-        {StaffSidebarLinks.map((item, index) => (
-          <Item key={index}>
-            <div>
-              <NavLink
-                to={item.path}
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        color: "#8ba00d",
-                        display: "flex",
-                        alignItems: "center",
-                      }
-                    : {
-                        display: "flex",
-                        alignItems: "center",
-                      }
-                }
-                onClick={item.function}
-              >
-                <>
-                  <item.icon size={20} />
-                  {expanded ? item.title : null}
-                </>
-              </NavLink>
-            </div>
-          </Item>
-        ))}
-      </SidebarLinks>
+      {isStaff ? (
+        <SidebarLinks>
+          {StaffSidebarLinks.map((item, index) => (
+            <Item key={index}>
+              <div>
+                <NavLink
+                  to={item.path}
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#8ba00d",
+                          display: "flex",
+                          alignItems: "center",
+                        }
+                      : {
+                          display: "flex",
+                          alignItems: "center",
+                        }
+                  }
+                  onClick={item.function}
+                >
+                  <>
+                    <item.icon size={20} />
+                    {expanded ? item.title : null}
+                  </>
+                </NavLink>
+              </div>
+            </Item>
+          ))}
+        </SidebarLinks>
+      ) : (
+        <SidebarLinks>
+          {UserSidebarLinks.map((item, index) => (
+            <Item key={index}>
+              <div>
+                <NavLink
+                  to={item.path}
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#8ba00d",
+                          display: "flex",
+                          alignItems: "center",
+                        }
+                      : {
+                          display: "flex",
+                          alignItems: "center",
+                        }
+                  }
+                  onClick={item.function}
+                >
+                  <>
+                    <item.icon size={20} />
+                    {expanded ? item.title : null}
+                  </>
+                </NavLink>
+              </div>
+            </Item>
+          ))}
+        </SidebarLinks>
+      )}
       <Logout>
         <BrandBigLogoIcon />
       </Logout>
