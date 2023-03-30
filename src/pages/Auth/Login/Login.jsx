@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../../store/Action/actions";
 import toast from "react-hot-toast";
 import { useLoginNewUserMutation } from "../../../store/Services/authService";
+import { store } from "../../../store/store";
+import { saveUserInfo } from "../../../store/Slice/authSlice";
 
 const Login = () => {
   // const { loading, userDetails, error, success } = useSelector(
@@ -42,6 +44,7 @@ const Login = () => {
     const responseData = response.data;
 
     if (responseData) {
+      store.dispatch(saveUserInfo(responseData?.data));
       toast.success(responseData?.message);
       localStorage.setItem("userProfile", JSON.stringify(responseData?.data));
       navigate("/home");

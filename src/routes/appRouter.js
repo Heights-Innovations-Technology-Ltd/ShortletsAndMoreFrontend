@@ -39,6 +39,7 @@ import Testing from "../pages/Testing";
 import UserSetting from "../pages/UserDashboard/UserSettings";
 
 const StaffDashboard = lazy(() => import("../pages/staffDashboard/Home"));
+const UserDashboard = lazy(() => import("../pages/UserDashboard/Home"));
 const StaffBooking = lazy(() => import("../pages/staffDashboard/Bookings"));
 const StaffReservation = lazy(() =>
   import("../pages/staffDashboard/Reservation")
@@ -66,12 +67,8 @@ const AppRouter = () => {
             <Route path="home" element={<Home />} />
 
             <Route path="dashboard" element={<DashboardLayout />}>
-              <Route index element={<StaffDashboard />} />
-              <Route path="home" element={<StaffDashboard />} />
-              <Route path="apartments" element={<Outlet />}>
-                <Route index element={<StaffApartment />} />
-                <Route path="rooms" element={<StaffRoom />} />
-              </Route>
+              <Route index element={<UserDashboard />} />
+              <Route path="home" element={<UserDashboard />} />
               <Route path="bookings" element={<StaffBooking />} />
               <Route path="reservation" element={<StaffReservation />} />
               <Route path="check-in" element={<StaffCheckIn />} />

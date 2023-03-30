@@ -34,6 +34,9 @@ const Navbar = (props) => {
   const [showCarts, setShowCarts] = useState(false);
   const [mobile, setMobile] = useState(false);
 
+  const localProfile = localStorage.getItem("userProfile");
+  const parseData = JSON.parse(localProfile);
+
   const navigate = useNavigate();
 
   const handleProfileToggle = () => {
@@ -69,9 +72,11 @@ const Navbar = (props) => {
           <NavLink to="/home">
             <NavLinkText>HOME</NavLinkText>
           </NavLink>
-          <NavLink to="/dashboard">
-            <NavLinkText>DASHBOARD</NavLinkText>
-          </NavLink>
+          {parseData?.isCheckedIn === true && (
+            <NavLink to="/dashboard">
+              <NavLinkText>DASHBOARD</NavLinkText>
+            </NavLink>
+          )}
           <NavLink to="/property">
             <NavLinkText>PROPERTY</NavLinkText>
           </NavLink>

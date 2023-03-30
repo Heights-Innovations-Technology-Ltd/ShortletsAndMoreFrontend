@@ -136,24 +136,14 @@ export const UserSidebarLinks = [
     icon: FaCalendarAlt,
     path: "/dashboard/reservation",
   },
-  {
-    id: 4,
-    title: "Check-ins",
-    icon: HiBriefcase,
-    path: "/dashboard/check-in",
-  },
+
   {
     id: 6,
     title: "Services",
     icon: GiMightySpanner,
     path: "/dashboard/services",
   },
-  {
-    id: 7,
-    title: "Support",
-    icon: HiChatAlt,
-    path: "/dashboard/support",
-  },
+
   {
     id: 9,
     title: "Settings",
