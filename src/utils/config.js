@@ -748,6 +748,11 @@ export const loginSchema = yup.object().shape({
   password: yup.string().required("Password is a required field"),
 });
 
+export const userSettingSchema = yup.object().shape({
+  phone: yup.string(),
+  address: yup.string(),
+});
+
 export const userRegistrationSchema = yup.object().shape({
   firstName: yup.string().required("First name is a required field"),
   lastName: yup.string().required("Last name is a required field"),

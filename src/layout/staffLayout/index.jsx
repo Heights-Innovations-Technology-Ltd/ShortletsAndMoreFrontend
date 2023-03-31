@@ -12,7 +12,7 @@ const DashboardLayout = ({ isStaff, children }) => {
       {isStaff ? (
         <Body>
           <BodyLeft>
-            <StaffSidebar />
+            <StaffSidebar isStaff />
           </BodyLeft>
           <BodyRight>
             <Outlet />

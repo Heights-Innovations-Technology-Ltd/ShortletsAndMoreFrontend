@@ -8,6 +8,7 @@ export const InputContainer = styled.div`
   align-items: center;
   border: 1px solid #e1e1de;
   border-radius: 4px;
+  opacity: ${(props) => props.opacity};
 `;
 export const CheckInputContainer = styled.div`
   width: 100%;

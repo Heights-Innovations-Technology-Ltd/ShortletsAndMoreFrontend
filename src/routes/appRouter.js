@@ -36,6 +36,7 @@ import StaffServices from "../pages/staffDashboard/Services";
 import StaffSettings from "../pages/staffDashboard/Settings";
 import StaffSupports from "../pages/staffDashboard/Support";
 import Testing from "../pages/Testing";
+import UserBookings from "../pages/UserDashboard/Bookings";
 import UserSetting from "../pages/UserDashboard/UserSettings";
 
 const StaffDashboard = lazy(() => import("../pages/staffDashboard/Home"));
@@ -69,7 +70,7 @@ const AppRouter = () => {
             <Route path="dashboard" element={<DashboardLayout />}>
               <Route index element={<UserDashboard />} />
               <Route path="home" element={<UserDashboard />} />
-              <Route path="bookings" element={<StaffBooking />} />
+              <Route path="bookings" element={<UserBookings />} />
               <Route path="reservation" element={<StaffReservation />} />
               <Route path="check-in" element={<StaffCheckIn />} />
               <Route path="support" element={<StaffSupport />} />

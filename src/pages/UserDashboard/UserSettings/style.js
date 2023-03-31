@@ -32,3 +32,11 @@ export const ButtonHolder = styled.div`
   width: 20%;
   margin-top: 50px;
 `;
+export const Top = styled.div`
+  width: 20%;
+  margin-top: 50px;
+`;
+
+export const IconW = styled.div`
+  cursor: pointer;
+`;

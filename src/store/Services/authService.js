@@ -6,6 +6,20 @@ export const authApi = createApi({
     // the base query used by each endpoint to request data.
     // baseUrl: `${process.env.REACT_APP_DEV_BASE_URL}`,
     baseUrl: "http://adminhitl-001-site1.ctempurl.com/api/",
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().UserDataReducer?.userInfo?.accessToken;
+      headers.set("Access-Control-Expose-Headers", "access-token");
+      headers.set("Access-Control-Allow-Origin", "*");
+      headers.set("Access-Control-Allow-Methods", "*");
+      headers.set("Access-Control-Allow-Credentials", true);
+
+      console.log("ddd", token);
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+
+      return headers;
+    },
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
@@ -75,6 +89,19 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+
+    //update profile
+    updateProfile: builder.mutation({
+      query: ({ email, values }) => ({
+        url: `/guest/update-profile/${email}`,
+        method: "POST",
+        body: values,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -85,4 +112,5 @@ export const {
   useSubscriberMutation,
   useResetPasswordMutation,
   useUpdatePasswordMutation,
+  useUpdateProfileMutation,
 } = authApi;
