@@ -117,6 +117,48 @@ export const StaffSidebarLinks = [
   },
 ];
 
+export const UserSidebarLinks = [
+  {
+    id: 1,
+    title: "Dashboard",
+    icon: AiFillHome,
+    path: "/dashboard/home",
+  },
+  {
+    id: 2,
+    title: "Bookings",
+    icon: HiBanknotes,
+    path: "/dashboard/bookings",
+  },
+  {
+    id: 3,
+    title: "Resrvations",
+    icon: FaCalendarAlt,
+    path: "/dashboard/reservation",
+  },
+
+  {
+    id: 6,
+    title: "Services",
+    icon: GiMightySpanner,
+    path: "/dashboard/services",
+  },
+
+  {
+    id: 9,
+    title: "Settings",
+    icon: AiFillSetting,
+    path: "/dashboard/settings",
+  },
+  {
+    id: 11,
+    title: "Log Out",
+    icon: HiOutlineLogout,
+    function: handleLogout,
+    path: "/login",
+  },
+];
+
 export const testingData = [
   {
     category: null,
@@ -704,6 +746,11 @@ export const loginSchema = yup.object().shape({
     .email("Enter a valid email address")
     .required("Email is a required field"),
   password: yup.string().required("Password is a required field"),
+});
+
+export const userSettingSchema = yup.object().shape({
+  phone: yup.string(),
+  address: yup.string(),
 });
 
 export const userRegistrationSchema = yup.object().shape({

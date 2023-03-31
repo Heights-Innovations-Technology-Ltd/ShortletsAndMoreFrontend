@@ -8,6 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import Loader from "../components/pageLoader/loader";
+import DashboardLayout from "../layout/staffLayout";
 import StaffLayout from "../layout/staffLayout";
 import AboutUs from "../pages/About";
 import AddToCart from "../pages/AddToCart/AddToCart";
@@ -35,8 +36,11 @@ import StaffServices from "../pages/staffDashboard/Services";
 import StaffSettings from "../pages/staffDashboard/Settings";
 import StaffSupports from "../pages/staffDashboard/Support";
 import Testing from "../pages/Testing";
+import UserBookings from "../pages/UserDashboard/Bookings";
+import UserSetting from "../pages/UserDashboard/UserSettings";
 
 const StaffDashboard = lazy(() => import("../pages/staffDashboard/Home"));
+const UserDashboard = lazy(() => import("../pages/UserDashboard/Home"));
 const StaffBooking = lazy(() => import("../pages/staffDashboard/Bookings"));
 const StaffReservation = lazy(() =>
   import("../pages/staffDashboard/Reservation")
@@ -62,6 +66,18 @@ const AppRouter = () => {
           <Route path="/" element={<Outlet />}>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
+
+            <Route path="dashboard" element={<DashboardLayout />}>
+              <Route index element={<UserDashboard />} />
+              <Route path="home" element={<UserDashboard />} />
+              <Route path="bookings" element={<UserBookings />} />
+              <Route path="reservation" element={<StaffReservation />} />
+              <Route path="check-in" element={<StaffCheckIn />} />
+              <Route path="support" element={<StaffSupport />} />
+              <Route path="account" element={<StaffAccount />} />
+              <Route path="services" element={<StaffService />} />
+              <Route path="settings" element={<UserSetting />} />
+            </Route>
 
             <Route path="property" element={<Outlet />}>
               <Route index element={<Services />} />
@@ -95,7 +111,7 @@ const AppRouter = () => {
 
           <Route path="staff-login" element={<StaffLogin />} />
           <Route path="staff-register" element={<StaffRegister />} />
-          <Route path="staff" element={<StaffLayout />}>
+          <Route path="staff" element={<DashboardLayout isStaff />}>
             <Route index element={<StaffDashboard />} />
             <Route path="home" element={<StaffDashboard />} />
             <Route path="apartments" element={<Outlet />}>

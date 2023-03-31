@@ -68,6 +68,15 @@ const Profile = ({ handleProfileToggle }) => {
       )}
 
       {localProfile && (
+        <Link to="/home">
+          <ProfileLists>
+            <DeleteI />
+            <Delete>Home</Delete>
+          </ProfileLists>
+        </Link>
+      )}
+
+      {localProfile && (
         <Link to="/login" onClick={handleLogout}>
           <ProfileLists onClick={handleLogout}>
             <DeleteI />

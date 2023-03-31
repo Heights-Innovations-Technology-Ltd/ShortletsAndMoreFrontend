@@ -6,6 +6,20 @@ export const apartmentApi = createApi({
     // the base query used by each endpoint to request data.
     // baseUrl: `${process.env.REACT_APP_DEV_BASE_URL}`,
     baseUrl: "http://adminhitl-001-site1.ctempurl.com/api/",
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().UserDataReducer?.userInfo?.accessToken;
+      headers.set("Access-Control-Expose-Headers", "access-token");
+      headers.set("Access-Control-Allow-Origin", "*");
+      headers.set("Access-Control-Allow-Methods", "*");
+      headers.set("Access-Control-Allow-Credentials", true);
+
+      console.log("ddd", token);
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+
+      return headers;
+    },
   }),
   tagTypes: ["Apartment"],
   endpoints: (builder) => ({
@@ -19,6 +33,10 @@ export const apartmentApi = createApi({
     //get all states
     getAllStates: builder.query({
       query: () => "util/countries",
+    }),
+    //get all paid reservations
+    getAllReservations: builder.query({
+      query: (guestEmail) => `reservation/bookings?guestEmail=${guestEmail}`,
     }),
 
     //get all room types in an apartment
@@ -90,6 +108,7 @@ export const {
   useGetAllApartmentQuery,
   useGetAllRoomTypeQuery,
   useGetAllStatesQuery,
+  useGetAllReservationsQuery,
   useSortPropertyQuery,
   useCheckForAvailabilityMutation,
   useReserveNowMutation,

@@ -11,7 +11,7 @@ export const staffApi = createApi({
       headers.set("Access-Control-Allow-Origin", "*");
       headers.set("Access-Control-Allow-Methods", "*");
       headers.set("Access-Control-Allow-Credentials", true);
-
+      console.log(token);
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -62,11 +62,11 @@ export const staffApi = createApi({
       query: () => "room",
     }),
 
-        //get all enquiries
+    //get all enquiries
     getAllEnquiries: builder.query({
       query: () => "enquiry/enquiries",
     }),
-    
+
     //staff registration
     registerNewStaff: builder.mutation({
       query: (data) => ({

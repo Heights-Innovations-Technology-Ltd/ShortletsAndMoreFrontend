@@ -20,7 +20,7 @@ import StaffProfile from "../Profile/StaffProfile";
 import image from "../../assets/user.png";
 const StaffHeader = ({ title = "Dashboard" }) => {
   const staffInfo = JSON.parse(localStorage.getItem("staffLoginProfile"));
-
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
   const [click, setIsClicked] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const handleClick = () => {
@@ -46,7 +46,8 @@ const StaffHeader = ({ title = "Dashboard" }) => {
             <Image src={image} alt="users" />
           </ImageContainer>
           <Username>
-            {staffInfo?.data.firstName} {staffInfo?.data.lastName}
+            {userProfile ? userProfile.firstName : staffInfo?.data.firstName}{" "}
+            {userProfile ? userProfile.lastName : staffInfo?.data.lastName}
           </Username>
           <DropDown onClick={handleClick}>
             {click ? <HiOutlineChevronUp /> : <HiOutlineChevronDown />}

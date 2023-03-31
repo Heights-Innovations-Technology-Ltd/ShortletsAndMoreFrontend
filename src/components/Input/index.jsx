@@ -19,6 +19,7 @@ const PrimaryInput = ({
   error,
   label,
   check,
+  disabled,
   padding,
 }) => {
   const [show, setShow] = useState(false);
@@ -33,13 +34,14 @@ const PrimaryInput = ({
           transition={{ duration: 0.5 }}
         >
           <Label>{label}</Label>
-          <InputContainer>
+          <InputContainer opacity={disabled ? "0.5" : ""}>
             {register && (
               <Input
                 type={!show ? type || "password" : "text"}
                 name={name}
                 padding={padding}
                 placeholder={placeholder}
+                disabled={disabled}
                 {...register(name)}
               />
             )}

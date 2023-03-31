@@ -48,6 +48,14 @@ const StaffProfile = () => {
       )}
 
       {localProfile && (
+        <Link to="/home">
+          <ProfileLists>
+            <User />
+            <ProfileList>Home</ProfileList>
+          </ProfileLists>
+        </Link>
+      )}
+      {localProfile && (
         <Link to="/login" onClick={handleLogout}>
           <ProfileLists onClick={handleLogout}>
             <DeleteI />
