@@ -36,6 +36,7 @@ import StaffServices from "../pages/staffDashboard/Services";
 import StaffSettings from "../pages/staffDashboard/Settings";
 import StaffSupports from "../pages/staffDashboard/Support";
 import Testing from "../pages/Testing";
+import UserReservation from "../pages/UserDashboard/Reservation";
 import UserBookings from "../pages/UserDashboard/Bookings";
 import UserSetting from "../pages/UserDashboard/UserSettings";
 
@@ -71,10 +72,8 @@ const AppRouter = () => {
               <Route index element={<UserDashboard />} />
               <Route path="home" element={<UserDashboard />} />
               <Route path="bookings" element={<UserBookings />} />
-              <Route path="reservation" element={<StaffReservation />} />
+              <Route path="reservation" element={<UserReservation />} />
               <Route path="check-in" element={<StaffCheckIn />} />
-              <Route path="support" element={<StaffSupport />} />
-              <Route path="account" element={<StaffAccount />} />
               <Route path="services" element={<StaffService />} />
               <Route path="settings" element={<UserSetting />} />
             </Route>

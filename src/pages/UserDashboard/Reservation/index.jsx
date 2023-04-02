@@ -25,7 +25,7 @@ import { useGetAllReservationsQuery } from "../../../store/Services/apartmentSer
 
 const addIcon = <FaPlus color="white" />;
 
-const UserBooking = () => {
+const UserReservation = () => {
   const localProfile = localStorage.getItem("userProfile");
   const parseData = JSON.parse(localProfile);
   let guestEmail = parseData?.email;
@@ -36,12 +36,6 @@ const UserBooking = () => {
   const [roomList, setRoomList] = useState([]);
   const [lists, setList] = useState([]);
 
-  let filteredList = getAllReservation?.data?.data?.filter(
-    (item) => item.status === "booked"
-  );
-
-  console.log(filteredList);
-
   const header = [
     "Name",
     "Reference Number",
@@ -51,7 +45,7 @@ const UserBooking = () => {
     "Status",
     "Action",
   ];
-  const dataBody = filteredList.map((data) => [
+  const dataBody = getAllReservation?.data?.data?.map((data) => [
     data.guest,
     data.referenceNumber,
     data.numberOfRooms,
@@ -84,7 +78,7 @@ const UserBooking = () => {
 
   return (
     <div>
-      <StaffHeader title="Reservation History" />
+      <StaffHeader title="Booking History" />
       <ButtonWrapper>
         <PrimaryButton title="Third Part Booking" leftIcon iconName={addIcon} />
       </ButtonWrapper>
@@ -99,4 +93,4 @@ const UserBooking = () => {
   );
 };
 
-export default UserBooking;
+export default UserReservation;

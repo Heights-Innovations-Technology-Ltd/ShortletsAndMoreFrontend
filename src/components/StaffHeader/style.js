@@ -82,3 +82,8 @@ export const DropDown = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const NameT = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+`;
