@@ -11,7 +11,6 @@ export const staffApi = createApi({
       headers.set("Access-Control-Allow-Origin", "*");
       headers.set("Access-Control-Allow-Methods", "*");
       headers.set("Access-Control-Allow-Credentials", true);
-      console.log(token);
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }

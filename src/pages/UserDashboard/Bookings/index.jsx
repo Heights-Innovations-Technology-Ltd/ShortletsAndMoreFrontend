@@ -51,7 +51,10 @@ const UserBooking = () => {
     "Status",
     "Action",
   ];
-  const dataBody = filteredList.map((data) => [
+
+  let responseData = filteredList || [];
+
+  const dataBody = responseData.map((data) => [
     data.guest,
     data.referenceNumber,
     data.numberOfRooms,

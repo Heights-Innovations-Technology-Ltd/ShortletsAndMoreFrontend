@@ -46,7 +46,7 @@ const StaffHeader = ({ title = "Dashboard" }) => {
             <NameT>
               {userProfile
                 ? userProfile.firstName.slice(0, 1)
-                : staffInfo?.data.firstName.slice(0.1)}
+                : staffInfo.data.firstName.slice(0, 1)}
             </NameT>
           </ImageContainer>
           <Username>

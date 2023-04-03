@@ -45,7 +45,8 @@ const UserReservation = () => {
     "Status",
     "Action",
   ];
-  const dataBody = getAllReservation?.data?.data?.map((data) => [
+  let responseData = getAllReservation?.data?.data || [];
+  const dataBody = responseData.map((data) => [
     data.guest,
     data.referenceNumber,
     data.numberOfRooms,

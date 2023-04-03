@@ -1,19 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const authApi = createApi({
-  reducerPath: "authsApi", // a unique key that defines where the redux store will store the cache.
+  reducerPath: "authApi", // a unique key that defines where the redux store will store the cache.
   baseQuery: fetchBaseQuery({
     // the base query used by each endpoint to request data.
     // baseUrl: `${process.env.REACT_APP_DEV_BASE_URL}`,
     baseUrl: "http://adminhitl-001-site1.ctempurl.com/api/",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().UserDataReducer?.userInfo?.accessToken;
+      const token = getState().UserDataReducer.userInfo?.accessToken;
       headers.set("Access-Control-Expose-Headers", "access-token");
       headers.set("Access-Control-Allow-Origin", "*");
       headers.set("Access-Control-Allow-Methods", "*");
       headers.set("Access-Control-Allow-Credentials", true);
-
-      console.log("ddd", token);
+      console.log("tttt", token);
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
