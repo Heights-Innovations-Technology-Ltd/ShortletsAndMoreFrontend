@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import { useSelector } from "react-redux";
 import AppRouter from "./routes/appRouter";
+import { saveUserInfo } from "./store/Slice/authSlice";
 import { saveStaffInfo } from "./store/Slice/staffSlice";
 import { store } from "./store/store";
 
@@ -13,6 +14,14 @@ const App = () => {
       store.dispatch(saveStaffInfo(staffInfo));
     }
   }, [staffInfo]);
+
+  const userInfo = JSON.parse(localStorage.getItem("userProfile"));
+
+  useEffect(() => {
+    if (userInfo) {
+      store.dispatch(saveUserInfo(userInfo));
+    }
+  }, [userInfo]);
 
   // let elements = useRoutes(Routes);
 

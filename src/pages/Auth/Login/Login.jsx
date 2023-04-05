@@ -41,10 +41,10 @@ const Login = () => {
     const response = await loginNewUser(data);
 
     const error = response?.error;
-    const responseData = response.data;
-
-    if (responseData) {
+    const responseData = response?.data;
+    if (response?.data) {
       store.dispatch(saveUserInfo(responseData?.data));
+      console.log(responseData);
       toast.success(responseData?.message);
       localStorage.setItem("userProfile", JSON.stringify(responseData?.data));
       navigate("/home");

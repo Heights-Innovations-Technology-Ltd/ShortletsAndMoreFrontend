@@ -3,7 +3,7 @@ import {
   BellContainer,
   Container,
   DropDown,
-  Image,
+  NameT,
   ImageContainer,
   Input,
   LeftContainer,
@@ -43,7 +43,11 @@ const StaffHeader = ({ title = "Dashboard" }) => {
         </BellContainer>
         <UserContainer>
           <ImageContainer>
-            <Image src={image} alt="users" />
+            <NameT>
+              {userProfile
+                ? userProfile.firstName.slice(0, 1)
+                : staffInfo.data.firstName.slice(0, 1)}
+            </NameT>
           </ImageContainer>
           <Username>
             {userProfile ? userProfile.firstName : staffInfo?.data.firstName}{" "}
