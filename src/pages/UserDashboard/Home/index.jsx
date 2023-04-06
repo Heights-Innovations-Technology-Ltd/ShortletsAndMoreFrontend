@@ -16,9 +16,16 @@ const UserHome = () => {
   const getAllReservation = useGetAllReservationsQuery(guestEmail);
 
   console.log("ddd", getAllReservation);
-  const header = ["Room Type", "Chcek In", "Check Out", "Status", "Action"];
-  const dataBody = getAllReservation?.data?.data?.slice(0, 5)?.map((data) => [
-    data.roomType,
+  const header = ["Room Type", "Chcek In", "Check Out", "Status"];
+
+  let filteredList = getAllReservation?.data?.data?.filter(
+    (item) => item.status === "checked-in"
+  );
+
+  let responseData = filteredList || [];
+  console.log(responseData)
+  const dataBody = responseData?.slice(0, 5)?.map((data) => [
+    data.roomName,
     data.startDate.slice(0, 10),
     data.endDate.slice(0, 10),
     <Status
@@ -39,7 +46,6 @@ const UserHome = () => {
     >
       {data.status}
     </Status>,
-    <PrimaryButton title="Checkout" />,
   ]);
 
   return (
@@ -56,7 +62,7 @@ const UserHome = () => {
                 header={header}
                 body={dataBody}
                 arrOfObject
-                staffHome
+                userHome
               />
             )}
           </>

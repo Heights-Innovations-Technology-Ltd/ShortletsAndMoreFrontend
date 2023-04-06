@@ -72,11 +72,6 @@ const Navbar = (props) => {
           <NavLink to="/home">
             <NavLinkText>HOME</NavLinkText>
           </NavLink>
-          {parseData?.isCheckedIn === true && (
-            <NavLink to="/dashboard">
-              <NavLinkText>DASHBOARD</NavLinkText>
-            </NavLink>
-          )}
           <NavLink to="/property">
             <NavLinkText>PROPERTY</NavLinkText>
           </NavLink>

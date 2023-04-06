@@ -43,7 +43,6 @@ const UserReservation = () => {
     "Start Date",
     "End Date",
     "Status",
-    "Action",
   ];
   let responseData = getAllReservation?.data?.data || [];
   const dataBody = responseData.map((data) => [
@@ -57,6 +56,8 @@ const UserReservation = () => {
         data.status === "booked"
           ? "#2F8511"
           : data.status === "reserved"
+          ? "#8BA00D"
+          : data.status === "checked-in"
           ? "#FFCA2A"
           : "#C43C20"
       }
@@ -64,13 +65,14 @@ const UserReservation = () => {
         data.status === "booked"
           ? "rgba(47, 133, 17, 0.1)"
           : data.status === "reserved"
+          ? "#f3f6e7"
+          : data.status === "checked-in"
           ? "rgba(255, 233, 168, 0.5)"
           : "rgba(231, 175, 164, 0.3)"
       }
     >
       {data.status}
     </Status>,
-    <PrimaryButton title="Check In" />,
   ]);
 
   const handleModalClose = () => {
@@ -79,7 +81,7 @@ const UserReservation = () => {
 
   return (
     <div>
-      <StaffHeader title="Booking History" />
+      <StaffHeader title="Reservation History" />
       <ButtonWrapper>
         <PrimaryButton title="Third Part Booking" leftIcon iconName={addIcon} />
       </ButtonWrapper>
