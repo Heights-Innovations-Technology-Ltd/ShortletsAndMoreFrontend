@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Profile = ({ handleProfileToggle }) => {
   const localProfile = localStorage.getItem("userProfile");
+  const parseData = JSON.parse(localProfile);
   const profileRef = useRef();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -70,8 +71,17 @@ const Profile = ({ handleProfileToggle }) => {
       {localProfile && (
         <Link to="/home">
           <ProfileLists>
-            <DeleteI />
-            <Delete>Home</Delete>
+            <User />
+            <ProfileList>Home</ProfileList>
+          </ProfileLists>
+        </Link>
+      )}
+
+      {parseData?.isCheckedIn === true && (
+        <Link to="/dashboard">
+          <ProfileLists>
+            <User />
+            <ProfileList>Dashboard</ProfileList>
           </ProfileLists>
         </Link>
       )}

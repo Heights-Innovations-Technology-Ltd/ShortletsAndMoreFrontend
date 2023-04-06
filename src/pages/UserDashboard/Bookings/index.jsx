@@ -54,7 +54,7 @@ const UserBooking = () => {
 
   let responseData = filteredList || [];
 
-  const dataBody = responseData.map((data) => [
+  const dataBody = responseData?.map((data) => [
     data.guest,
     data.referenceNumber,
     data.numberOfRooms,
@@ -87,7 +87,7 @@ const UserBooking = () => {
 
   return (
     <div>
-      <StaffHeader title="Reservation History" />
+      <StaffHeader title="Booking History" />
       <ButtonWrapper>
         <PrimaryButton title="Third Part Booking" leftIcon iconName={addIcon} />
       </ButtonWrapper>

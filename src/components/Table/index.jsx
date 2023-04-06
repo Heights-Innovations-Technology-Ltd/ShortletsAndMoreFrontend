@@ -30,7 +30,7 @@ const sortIcon = (
   </LeftIconContainer>
 );
 
-const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
+const StaffTable = ({ header, body, arrOfObject, staffHome, userHome }) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [count, setCount] = useState(10);
   const [pageCount, setPageCount] = useState(0);
@@ -92,11 +92,19 @@ const StaffTable = ({ header, body, arrOfObject, staffHome }) => {
             <SeeAll>See all</SeeAll>
           </NavLink>
         </TableCardTop>
+      ) : userHome ? (
+        <>
+          <TableCardTop>
+            <TableCardTitle>Recent Check - Ins </TableCardTitle>
+          </TableCardTop>
+        </>
       ) : (
         <SortContainer onClick={handleSort}>
           <TableButton>{sortIcon} Sort</TableButton>
         </SortContainer>
       )}
+
+      {staffHome ? <></> : userHome ? <></> : <></>}
 
       <TableWrapper>
         <TableHeader>
