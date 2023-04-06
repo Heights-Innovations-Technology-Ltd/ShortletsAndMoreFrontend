@@ -23,8 +23,9 @@ const UserHome = () => {
   );
 
   let responseData = filteredList || [];
+  console.log(responseData)
   const dataBody = responseData?.slice(0, 5)?.map((data) => [
-    data.roomType,
+    data.roomName,
     data.startDate.slice(0, 10),
     data.endDate.slice(0, 10),
     <Status
